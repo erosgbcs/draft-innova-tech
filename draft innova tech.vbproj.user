@@ -8,9 +8,6 @@
     <Compile Update="frmLogin.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="GlobalVariables.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="POS.vb">
       <SubType>Form</SubType>
     </Compile>
