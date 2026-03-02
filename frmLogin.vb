@@ -6,7 +6,7 @@
         ' sample account
         If username = "Admin" And password = "12345" Then
             MsgBox("Login Successful!", MsgBoxStyle.Information)
-            frmMain.Show()
+            frmLoading.Show()
             Me.Hide()
         Else
             MsgBox("Invalid username or password", MsgBoxStyle.Critical)
