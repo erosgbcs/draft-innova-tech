@@ -37,9 +37,9 @@ Partial Class frmPOS
         Label1 = New Label()
         Inventory = New TabControl()
         TabPage1 = New TabPage()
-        NumericUpDown1 = New NumericUpDown()
-        lblAvailableProducts = New Label()
         TextBox1 = New TextBox()
+        lblAvailableProducts = New Label()
+        lvMenu = New ListView()
         TabPage2 = New TabPage()
         lblInventoryManagement = New Label()
         TextBox7 = New TextBox()
@@ -51,6 +51,7 @@ Partial Class frmPOS
         TextBox3 = New TextBox()
         TextBox2 = New TextBox()
         TabPage3 = New TabPage()
+        NumericUpDown1 = New NumericUpDown()
         Panel5 = New Panel()
         Panel6 = New Panel()
         Button3 = New Button()
@@ -63,7 +64,6 @@ Partial Class frmPOS
         Label7 = New Label()
         Label6 = New Label()
         lblShoppingCart = New Label()
-        lvMenu = New ListView()
         imgProducts = New ImageList(components)
         pnlHeader.SuspendLayout()
         pnlStats.SuspendLayout()
@@ -73,8 +73,8 @@ Partial Class frmPOS
         Panel1.SuspendLayout()
         Inventory.SuspendLayout()
         TabPage1.SuspendLayout()
-        CType(NumericUpDown1, ComponentModel.ISupportInitialize).BeginInit()
         TabPage2.SuspendLayout()
+        CType(NumericUpDown1, ComponentModel.ISupportInitialize).BeginInit()
         Panel5.SuspendLayout()
         Panel6.SuspendLayout()
         SuspendLayout()
@@ -220,13 +220,14 @@ Partial Class frmPOS
         TabPage1.Text = "Products"
         TabPage1.UseVisualStyleBackColor = True
         ' 
-        ' NumericUpDown1
+        ' TextBox1
         ' 
-        NumericUpDown1.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        NumericUpDown1.Location = New Point(800, 224)
-        NumericUpDown1.Name = "NumericUpDown1"
-        NumericUpDown1.Size = New Size(43, 29)
-        NumericUpDown1.TabIndex = 6
+        TextBox1.BorderStyle = BorderStyle.FixedSingle
+        TextBox1.Location = New Point(8, 61)
+        TextBox1.Name = "TextBox1"
+        TextBox1.PlaceholderText = "Search products by one code or name..."
+        TextBox1.Size = New Size(817, 25)
+        TextBox1.TabIndex = 3
         ' 
         ' lblAvailableProducts
         ' 
@@ -240,14 +241,16 @@ Partial Class frmPOS
         lblAvailableProducts.Text = "Available Products"
         lblAvailableProducts.TextAlign = ContentAlignment.TopRight
         ' 
-        ' TextBox1
+        ' lvMenu
         ' 
-        TextBox1.BorderStyle = BorderStyle.FixedSingle
-        TextBox1.Location = New Point(8, 61)
-        TextBox1.Name = "TextBox1"
-        TextBox1.PlaceholderText = "Search products by one code or name..."
-        TextBox1.Size = New Size(817, 25)
-        TextBox1.TabIndex = 3
+        lvMenu.Dock = DockStyle.Fill
+        lvMenu.Location = New Point(3, 3)
+        lvMenu.Name = "lvMenu"
+        lvMenu.Size = New Size(853, 530)
+        lvMenu.TabIndex = 0
+        lvMenu.TileSize = New Size(180, 80)
+        lvMenu.UseCompatibleStateImageBehavior = False
+        lvMenu.View = View.Tile
         ' 
         ' TabPage2
         ' 
@@ -359,6 +362,14 @@ Partial Class frmPOS
         TabPage3.TabIndex = 2
         TabPage3.Text = "Weekly Reports"
         TabPage3.UseVisualStyleBackColor = True
+        ' 
+        ' NumericUpDown1
+        ' 
+        NumericUpDown1.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        NumericUpDown1.Location = New Point(800, 224)
+        NumericUpDown1.Name = "NumericUpDown1"
+        NumericUpDown1.Size = New Size(43, 29)
+        NumericUpDown1.TabIndex = 6
         ' 
         ' Panel5
         ' 
@@ -488,17 +499,6 @@ Partial Class frmPOS
         lblShoppingCart.TabIndex = 0
         lblShoppingCart.Text = "Shopping Cart"
         ' 
-        ' lvMenu
-        ' 
-        lvMenu.Dock = DockStyle.Fill
-        lvMenu.Location = New Point(3, 3)
-        lvMenu.Name = "lvMenu"
-        lvMenu.Size = New Size(853, 530)
-        lvMenu.TabIndex = 0
-        lvMenu.TileSize = New Size(180, 80)
-        lvMenu.UseCompatibleStateImageBehavior = False
-        lvMenu.View = View.Tile
-        ' 
         ' imgProducts
         ' 
         imgProducts.ColorDepth = ColorDepth.Depth32Bit
@@ -535,9 +535,9 @@ Partial Class frmPOS
         Inventory.ResumeLayout(False)
         TabPage1.ResumeLayout(False)
         TabPage1.PerformLayout()
-        CType(NumericUpDown1, ComponentModel.ISupportInitialize).EndInit()
         TabPage2.ResumeLayout(False)
         TabPage2.PerformLayout()
+        CType(NumericUpDown1, ComponentModel.ISupportInitialize).EndInit()
         Panel5.ResumeLayout(False)
         Panel5.PerformLayout()
         Panel6.ResumeLayout(False)
