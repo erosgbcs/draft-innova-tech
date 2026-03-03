@@ -1,7 +1,7 @@
-﻿Public Class frmLoading
+﻿Public Class FrmLoading
     ' Use Capital 'F' for the naming rule
     Private Sub FrmLoading_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Timer1.Interval = 30 ' Speed of progress
+        Timer1.Interval = 50 ' Speed of progress
         Timer1.Start()
         lblPercent.Text = "0%"
         ProgressBar1.Value = 0
@@ -11,12 +11,12 @@
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         If ProgressBar1.Value < 100 Then
             ProgressBar1.Value += 2
-            lblPercent.Text = ProgressBar1.Value & "%"
+            lblPercent.Text = ProgressBar1.Value & "%........Initializing"
         Else
             Timer1.Stop() ' Good practice to use parentheses
 
             ' Open Login Form
-            frmLogin.Show() ' Use the default instance or your Dim
+            FrmLogin.Show() ' Use the default instance or your Dim
 
             ' Hide the loading screen
             Me.Hide()
@@ -25,7 +25,6 @@
 
 
     Private Sub ProgressBar1_Click(sender As Object, e As EventArgs) Handles ProgressBar1.Click
-
     End Sub
     ' Add this inside your main form's code
     Private Sub Form_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -33,7 +32,12 @@
         Application.Exit()
     End Sub
 
+
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
+
+    Private Sub lblPercent_Click(sender As Object, e As EventArgs) Handles lblPercent.Click
 
     End Sub
 End Class

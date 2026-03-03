@@ -23,7 +23,7 @@ Partial Class frmLoading
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmLoading))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmLoading))
         ProgressBar1 = New ProgressBar()
         lblPercent = New Label()
         Timer1 = New Timer(components)
@@ -34,6 +34,7 @@ Partial Class frmLoading
         ' ProgressBar1
         ' 
         ProgressBar1.Anchor = AnchorStyles.None
+        ProgressBar1.BackColor = SystemColors.Highlight
         ProgressBar1.Location = New Point(6, 36)
         ProgressBar1.Name = "ProgressBar1"
         ProgressBar1.Size = New Size(361, 23)
@@ -43,15 +44,18 @@ Partial Class frmLoading
         ' 
         lblPercent.Anchor = AnchorStyles.None
         lblPercent.AutoSize = True
-        lblPercent.Location = New Point(165, 70)
+        lblPercent.Font = New Font("Arial", 9F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
+        lblPercent.ForeColor = SystemColors.HotTrack
+        lblPercent.Location = New Point(153, 70)
         lblPercent.Name = "lblPercent"
-        lblPercent.Size = New Size(41, 15)
+        lblPercent.Size = New Size(45, 15)
         lblPercent.TabIndex = 1
         lblPercent.Text = "Label1"
         ' 
         ' Timer1
         ' 
         Timer1.Enabled = True
+        Timer1.Interval = 200
         ' 
         ' Panel1
         ' 
@@ -64,7 +68,7 @@ Partial Class frmLoading
         Panel1.Size = New Size(374, 100)
         Panel1.TabIndex = 2
         ' 
-        ' frmLoading
+        ' FrmLoading
         ' 
         AutoScaleMode = AutoScaleMode.None
         BackColor = Color.DarkGray
@@ -73,7 +77,7 @@ Partial Class frmLoading
         ClientSize = New Size(906, 535)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.FixedSingle
-        Name = "frmLoading"
+        Name = "FrmLoading"
         StartPosition = FormStartPosition.CenterScreen
         Text = "frmLoading"
         WindowState = FormWindowState.Maximized
