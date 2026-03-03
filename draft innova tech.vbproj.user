@@ -11,9 +11,6 @@
     <Compile Update="POS.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Product list.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="PsOsS.vb">
       <SubType>Form</SubType>
     </Compile>
