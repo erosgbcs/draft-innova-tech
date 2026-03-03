@@ -36,8 +36,7 @@
 
   <ItemGroup>
     <EmbeddedResource Update="My Project\Resources.resx">
-      <dotnet --version
-      CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>

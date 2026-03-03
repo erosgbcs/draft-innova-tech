@@ -22,8 +22,7 @@ Partial Class frmLogin
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim btnForgotPassword As Button
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmLogin))
+        btnForgotPassword = New Button()
         IbIUsername = New Label()
         IbIPassword = New Label()
         label1 = New Label()
@@ -32,14 +31,13 @@ Partial Class frmLogin
         btnShowHide = New Button()
         Label2 = New Label()
         btnLogin = New Button()
-        btnForgotPassword = New Button()
         SuspendLayout()
         ' 
         ' btnForgotPassword
         ' 
         btnForgotPassword.AccessibleRole = AccessibleRole.Application
         btnForgotPassword.BackColor = Color.Red
-        btnForgotPassword.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnForgotPassword.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnForgotPassword.ForeColor = Color.Transparent
         btnForgotPassword.Location = New Point(304, 252)
         btnForgotPassword.Name = "btnForgotPassword"
@@ -52,7 +50,7 @@ Partial Class frmLogin
         ' 
         IbIUsername.AutoSize = True
         IbIUsername.BackColor = Color.Lavender
-        IbIUsername.Font = New Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        IbIUsername.Font = New Font("Segoe UI", 15.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         IbIUsername.ForeColor = SystemColors.MenuText
         IbIUsername.Location = New Point(22, 151)
         IbIUsername.Name = "IbIUsername"
@@ -64,7 +62,7 @@ Partial Class frmLogin
         ' 
         IbIPassword.AutoSize = True
         IbIPassword.BackColor = Color.Lavender
-        IbIPassword.Font = New Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        IbIPassword.Font = New Font("Segoe UI", 15.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         IbIPassword.Location = New Point(22, 206)
         IbIPassword.Name = "IbIPassword"
         IbIPassword.Size = New Size(101, 28)
@@ -131,7 +129,7 @@ Partial Class frmLogin
         ' btnLogin
         ' 
         btnLogin.BackColor = Color.FromArgb(CByte(0), CByte(192), CByte(0))
-        btnLogin.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnLogin.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnLogin.ForeColor = Color.Black
         btnLogin.Location = New Point(151, 252)
         btnLogin.Name = "btnLogin"
@@ -142,10 +140,9 @@ Partial Class frmLogin
         ' 
         ' frmLogin
         ' 
-        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleDimensions = New SizeF(96.0F, 96.0F)
         AutoScaleMode = AutoScaleMode.Dpi
         AutoSize = True
-        BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
         BackgroundImageLayout = ImageLayout.Stretch
         ClientSize = New Size(532, 307)
         Controls.Add(Label2)
@@ -157,7 +154,7 @@ Partial Class frmLogin
         Controls.Add(label1)
         Controls.Add(IbIPassword)
         Controls.Add(IbIUsername)
-        Font = New Font("Segoe UI", 48F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Font = New Font("Segoe UI", 48.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         MdiChildrenMinimizedAnchorBottom = False
         MinimizeBox = False
         Name = "frmLogin"
@@ -167,15 +164,22 @@ Partial Class frmLogin
         PerformLayout()
     End Sub
 
+    ' Logic definitions for the Designer
     Friend WithEvents IbIUsername As Label
     Friend WithEvents IbIPassword As Label
     Friend WithEvents label1 As Label
     Friend WithEvents txtUsername As TextBox
     Friend WithEvents txtPassword As TextBox
-    Friend WithEvents Button2 As Button
-    Friend WithEvents btnShowPassword As Button
     Friend WithEvents Label2 As Label
-    Friend WithEvents Button1 As Button
     Friend WithEvents btnShowHide As Button
     Friend WithEvents btnLogin As Button
+    Friend WithEvents btnForgotPassword As Button
+
+    Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
+
+    End Sub
 End Class

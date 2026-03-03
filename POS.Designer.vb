@@ -37,12 +37,14 @@ Partial Class frmPOS
         Label1 = New Label()
         Inventory = New TabControl()
         TabPage1 = New TabPage()
+        TextBox7 = New TextBox()
+        lblInventoryManagement = New Label()
         TextBox1 = New TextBox()
+        NumericUpDown1 = New NumericUpDown()
         lblAvailableProducts = New Label()
         lvMenu = New ListView()
         TabPage2 = New TabPage()
-        lblInventoryManagement = New Label()
-        TextBox7 = New TextBox()
+        TabPage3 = New TabPage()
         Button2 = New Button()
         Button1 = New Button()
         TextBox6 = New TextBox()
@@ -50,8 +52,6 @@ Partial Class frmPOS
         TextBox4 = New TextBox()
         TextBox3 = New TextBox()
         TextBox2 = New TextBox()
-        TabPage3 = New TabPage()
-        NumericUpDown1 = New NumericUpDown()
         Panel5 = New Panel()
         Panel6 = New Panel()
         Button3 = New Button()
@@ -101,7 +101,7 @@ Partial Class frmPOS
         ' 
         ' lblTitle
         ' 
-        lblTitle.Font = New Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        lblTitle.Font = New Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblTitle.ForeColor = Color.White
         lblTitle.Location = New Point(11, 7)
         lblTitle.Name = "lblTitle"
@@ -199,7 +199,7 @@ Partial Class frmPOS
         Inventory.Controls.Add(TabPage1)
         Inventory.Controls.Add(TabPage2)
         Inventory.Controls.Add(TabPage3)
-        Inventory.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Inventory.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Inventory.Location = New Point(0, 242)
         Inventory.Name = "Inventory"
         Inventory.SelectedIndex = 0
@@ -222,6 +222,26 @@ Partial Class frmPOS
         TabPage1.Text = "Products"
         TabPage1.UseVisualStyleBackColor = True
         ' 
+        ' TextBox7
+        ' 
+        TextBox7.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        TextBox7.Location = New Point(8, 244)
+        TextBox7.Name = "TextBox7"
+        TextBox7.PlaceholderText = "Product Inventory by code or name.."
+        TextBox7.Size = New Size(837, 27)
+        TextBox7.TabIndex = 3
+        ' 
+        ' lblInventoryManagement
+        ' 
+        lblInventoryManagement.AutoSize = True
+        lblInventoryManagement.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblInventoryManagement.ForeColor = Color.DodgerBlue
+        lblInventoryManagement.Location = New Point(556, 114)
+        lblInventoryManagement.Name = "lblInventoryManagement"
+        lblInventoryManagement.Size = New Size(245, 30)
+        lblInventoryManagement.TabIndex = 3
+        lblInventoryManagement.Text = "Inventory Management"
+        ' 
         ' TextBox1
         ' 
         TextBox1.BorderStyle = BorderStyle.FixedSingle
@@ -231,10 +251,18 @@ Partial Class frmPOS
         TextBox1.Size = New Size(817, 25)
         TextBox1.TabIndex = 3
         ' 
+        ' NumericUpDown1
+        ' 
+        NumericUpDown1.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        NumericUpDown1.Location = New Point(426, 180)
+        NumericUpDown1.Name = "NumericUpDown1"
+        NumericUpDown1.Size = New Size(43, 29)
+        NumericUpDown1.TabIndex = 6
+        ' 
         ' lblAvailableProducts
         ' 
         lblAvailableProducts.AutoSize = True
-        lblAvailableProducts.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        lblAvailableProducts.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblAvailableProducts.ForeColor = SystemColors.MenuHighlight
         lblAvailableProducts.Location = New Point(643, 18)
         lblAvailableProducts.Name = "lblAvailableProducts"
@@ -264,25 +292,15 @@ Partial Class frmPOS
         TabPage2.Text = "Inventory"
         TabPage2.UseVisualStyleBackColor = True
         ' 
-        ' lblInventoryManagement
+        ' TabPage3
         ' 
-        lblInventoryManagement.AutoSize = True
-        lblInventoryManagement.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0)
-        lblInventoryManagement.ForeColor = Color.DodgerBlue
-        lblInventoryManagement.Location = New Point(556, 114)
-        lblInventoryManagement.Name = "lblInventoryManagement"
-        lblInventoryManagement.Size = New Size(245, 30)
-        lblInventoryManagement.TabIndex = 3
-        lblInventoryManagement.Text = "Inventory Management"
-        ' 
-        ' TextBox7
-        ' 
-        TextBox7.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0)
-        TextBox7.Location = New Point(8, 244)
-        TextBox7.Name = "TextBox7"
-        TextBox7.PlaceholderText = "Product Inventory by code or name.."
-        TextBox7.Size = New Size(837, 27)
-        TextBox7.TabIndex = 3
+        TabPage3.Location = New Point(4, 26)
+        TabPage3.Name = "TabPage3"
+        TabPage3.Padding = New Padding(3)
+        TabPage3.Size = New Size(859, 530)
+        TabPage3.TabIndex = 2
+        TabPage3.Text = "Weekly Reports"
+        TabPage3.UseVisualStyleBackColor = True
         ' 
         ' Button2
         ' 
@@ -296,7 +314,7 @@ Partial Class frmPOS
         ' 
         ' Button1
         ' 
-        Button1.BackColor = Color.FromArgb(45, 84, 150)
+        Button1.BackColor = Color.FromArgb(CByte(45), CByte(84), CByte(150))
         Button1.FlatStyle = FlatStyle.Flat
         Button1.ForeColor = Color.White
         Button1.Location = New Point(19, 107)
@@ -346,24 +364,6 @@ Partial Class frmPOS
         TextBox2.Size = New Size(123, 23)
         TextBox2.TabIndex = 3
         ' 
-        ' TabPage3
-        ' 
-        TabPage3.Location = New Point(4, 26)
-        TabPage3.Name = "TabPage3"
-        TabPage3.Padding = New Padding(3)
-        TabPage3.Size = New Size(859, 530)
-        TabPage3.TabIndex = 2
-        TabPage3.Text = "Weekly Reports"
-        TabPage3.UseVisualStyleBackColor = True
-        ' 
-        ' NumericUpDown1
-        ' 
-        NumericUpDown1.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, 0)
-        NumericUpDown1.Location = New Point(426, 180)
-        NumericUpDown1.Name = "NumericUpDown1"
-        NumericUpDown1.Size = New Size(43, 29)
-        NumericUpDown1.TabIndex = 6
-        ' 
         ' Panel5
         ' 
         Panel5.Controls.Add(Button2)
@@ -391,7 +391,7 @@ Partial Class frmPOS
         Panel6.Controls.Add(Label10)
         Panel6.Controls.Add(Label9)
         Panel6.Controls.Add(Label8)
-        Panel6.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Panel6.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Panel6.Location = New Point(35, 173)
         Panel6.Name = "Panel6"
         Panel6.Size = New Size(403, 232)
@@ -411,7 +411,7 @@ Partial Class frmPOS
         ' Label12
         ' 
         Label12.AutoSize = True
-        Label12.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Label12.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label12.Location = New Point(315, 118)
         Label12.Name = "Label12"
         Label12.Size = New Size(53, 17)
@@ -421,7 +421,7 @@ Partial Class frmPOS
         ' Label11
         ' 
         Label11.AutoSize = True
-        Label11.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Label11.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label11.Location = New Point(315, 89)
         Label11.Name = "Label11"
         Label11.Size = New Size(53, 17)
@@ -430,7 +430,7 @@ Partial Class frmPOS
         ' 
         ' TextBox8
         ' 
-        TextBox8.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        TextBox8.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         TextBox8.Location = New Point(111, 37)
         TextBox8.Name = "TextBox8"
         TextBox8.PlaceholderText = "Buyer name"
@@ -440,7 +440,7 @@ Partial Class frmPOS
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Label10.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label10.Location = New Point(15, 118)
         Label10.Name = "Label10"
         Label10.Size = New Size(60, 25)
@@ -450,7 +450,7 @@ Partial Class frmPOS
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Label9.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label9.Location = New Point(11, 81)
         Label9.Name = "Label9"
         Label9.Size = New Size(86, 25)
@@ -460,7 +460,7 @@ Partial Class frmPOS
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Label8.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label8.Location = New Point(15, 37)
         Label8.Name = "Label8"
         Label8.Size = New Size(64, 25)
@@ -470,7 +470,7 @@ Partial Class frmPOS
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Label7.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label7.Location = New Point(146, 135)
         Label7.Name = "Label7"
         Label7.Size = New Size(162, 17)
@@ -480,7 +480,7 @@ Partial Class frmPOS
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Label6.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label6.Location = New Point(171, 118)
         Label6.Name = "Label6"
         Label6.Size = New Size(113, 17)
@@ -491,7 +491,7 @@ Partial Class frmPOS
         ' 
         lblShoppingCart.AutoSize = True
         lblShoppingCart.BackColor = Color.Transparent
-        lblShoppingCart.Font = New Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        lblShoppingCart.Font = New Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         lblShoppingCart.ForeColor = SystemColors.MenuHighlight
         lblShoppingCart.Location = New Point(293, 20)
         lblShoppingCart.Name = "lblShoppingCart"
@@ -507,10 +507,10 @@ Partial Class frmPOS
         ' 
         ' frmPOS
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.WhiteSmoke
-        ClientSize = New Size(1353, 801)
+        ClientSize = New Size(1353, 749)
         Controls.Add(Panel5)
         Controls.Add(Inventory)
         Controls.Add(pnlStats)

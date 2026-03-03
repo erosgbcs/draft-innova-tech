@@ -18,4 +18,8 @@
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
     End Sub
+
+    Private Sub pnlStats_Paint(sender As Object, e As PaintEventArgs) Handles pnlStats.Paint
+
+    End Sub
 End Class
