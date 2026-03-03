@@ -152,6 +152,7 @@ Partial Class frmLogin
         ' 
         ' FrmLogin
         ' 
+        AcceptButton = btnLogin
         AutoScaleDimensions = New SizeF(96.0F, 96.0F)
         AutoScaleMode = AutoScaleMode.Dpi
         AutoSize = True
