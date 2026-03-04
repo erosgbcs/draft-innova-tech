@@ -31,18 +31,19 @@ Partial Class frmPOS
         Label5 = New Label()
         Panel3 = New Panel()
         Label4 = New Label()
+        lblAvailableProducts = New Label()
+        TextBox1 = New TextBox()
         Panel2 = New Panel()
         Label3 = New Label()
         Panel1 = New Panel()
         Label1 = New Label()
         Inventory = New TabControl()
         TabPage1 = New TabPage()
-        TextBox7 = New TextBox()
-        lblInventoryManagement = New Label()
-        TextBox1 = New TextBox()
-        lblAvailableProducts = New Label()
         lvMenu = New ListView()
         TabPage2 = New TabPage()
+        DataGridView1 = New DataGridView()
+        TextBox7 = New TextBox()
+        lblInventoryManagement = New Label()
         TabPage3 = New TabPage()
         Button2 = New Button()
         Button1 = New Button()
@@ -65,7 +66,23 @@ Partial Class frmPOS
         lblShoppingCart = New Label()
         imgProducts = New ImageList(components)
         Panel7 = New Panel()
-        DataGridView1 = New DataGridView()
+        DateTimePicker1 = New DateTimePicker()
+        ComboBox1 = New ComboBox()
+        Label13 = New Label()
+        Label14 = New Label()
+        Label15 = New Label()
+        Label16 = New Label()
+        Label17 = New Label()
+        Label18 = New Label()
+        Label19 = New Label()
+        Label20 = New Label()
+        Label21 = New Label()
+        Label22 = New Label()
+        DataGridView2 = New DataGridView()
+        Button4 = New Button()
+        Button5 = New Button()
+        Button6 = New Button()
+        Label23 = New Label()
         pnlHeader.SuspendLayout()
         pnlStats.SuspendLayout()
         Panel4.SuspendLayout()
@@ -75,9 +92,11 @@ Partial Class frmPOS
         Inventory.SuspendLayout()
         TabPage1.SuspendLayout()
         TabPage2.SuspendLayout()
+        CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
+        TabPage3.SuspendLayout()
         Panel5.SuspendLayout()
         Panel6.SuspendLayout()
-        CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
+        CType(DataGridView2, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' pnlHeader
@@ -160,6 +179,27 @@ Partial Class frmPOS
         Label4.TabIndex = 0
         Label4.Text = "Today’s Sales"
         ' 
+        ' lblAvailableProducts
+        ' 
+        lblAvailableProducts.AutoSize = True
+        lblAvailableProducts.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblAvailableProducts.ForeColor = SystemColors.MenuHighlight
+        lblAvailableProducts.Location = New Point(-89, -10)
+        lblAvailableProducts.Name = "lblAvailableProducts"
+        lblAvailableProducts.Size = New Size(196, 30)
+        lblAvailableProducts.TabIndex = 5
+        lblAvailableProducts.Text = "Available Products"
+        lblAvailableProducts.TextAlign = ContentAlignment.TopRight
+        ' 
+        ' TextBox1
+        ' 
+        TextBox1.BorderStyle = BorderStyle.FixedSingle
+        TextBox1.Location = New Point(101, 40)
+        TextBox1.Name = "TextBox1"
+        TextBox1.PlaceholderText = "Search products by one code or name..."
+        TextBox1.Size = New Size(711, 23)
+        TextBox1.TabIndex = 3
+        ' 
         ' Panel2
         ' 
         Panel2.BorderStyle = BorderStyle.FixedSingle
@@ -219,47 +259,6 @@ Partial Class frmPOS
         TabPage1.Text = "Products"
         TabPage1.UseVisualStyleBackColor = True
         ' 
-        ' TextBox7
-        ' 
-        TextBox7.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        TextBox7.Location = New Point(6, 45)
-        TextBox7.Name = "TextBox7"
-        TextBox7.PlaceholderText = "Product Inventory by code or name.."
-        TextBox7.Size = New Size(690, 27)
-        TextBox7.TabIndex = 3
-        ' 
-        ' lblInventoryManagement
-        ' 
-        lblInventoryManagement.AutoSize = True
-        lblInventoryManagement.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblInventoryManagement.ForeColor = Color.DodgerBlue
-        lblInventoryManagement.Location = New Point(487, 12)
-        lblInventoryManagement.Name = "lblInventoryManagement"
-        lblInventoryManagement.Size = New Size(245, 30)
-        lblInventoryManagement.TabIndex = 3
-        lblInventoryManagement.Text = "Inventory Management"
-        ' 
-        ' TextBox1
-        ' 
-        TextBox1.BorderStyle = BorderStyle.FixedSingle
-        TextBox1.Location = New Point(101, 40)
-        TextBox1.Name = "TextBox1"
-        TextBox1.PlaceholderText = "Search products by one code or name..."
-        TextBox1.Size = New Size(711, 23)
-        TextBox1.TabIndex = 3
-        ' 
-        ' lblAvailableProducts
-        ' 
-        lblAvailableProducts.AutoSize = True
-        lblAvailableProducts.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblAvailableProducts.ForeColor = SystemColors.MenuHighlight
-        lblAvailableProducts.Location = New Point(-89, -10)
-        lblAvailableProducts.Name = "lblAvailableProducts"
-        lblAvailableProducts.Size = New Size(196, 30)
-        lblAvailableProducts.TabIndex = 5
-        lblAvailableProducts.Text = "Available Products"
-        lblAvailableProducts.TextAlign = ContentAlignment.TopRight
-        ' 
         ' lvMenu
         ' 
         lvMenu.Dock = DockStyle.Fill
@@ -284,8 +283,53 @@ Partial Class frmPOS
         TabPage2.Text = "Inventory"
         TabPage2.UseVisualStyleBackColor = True
         ' 
+        ' DataGridView1
+        ' 
+        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridView1.Location = New Point(211, 128)
+        DataGridView1.Name = "DataGridView1"
+        DataGridView1.Size = New Size(240, 150)
+        DataGridView1.TabIndex = 4
+        ' 
+        ' TextBox7
+        ' 
+        TextBox7.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        TextBox7.Location = New Point(6, 45)
+        TextBox7.Name = "TextBox7"
+        TextBox7.PlaceholderText = "Product Inventory by code or name.."
+        TextBox7.Size = New Size(690, 27)
+        TextBox7.TabIndex = 3
+        ' 
+        ' lblInventoryManagement
+        ' 
+        lblInventoryManagement.AutoSize = True
+        lblInventoryManagement.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblInventoryManagement.ForeColor = Color.DodgerBlue
+        lblInventoryManagement.Location = New Point(487, 12)
+        lblInventoryManagement.Name = "lblInventoryManagement"
+        lblInventoryManagement.Size = New Size(245, 30)
+        lblInventoryManagement.TabIndex = 3
+        lblInventoryManagement.Text = "Inventory Management"
+        ' 
         ' TabPage3
         ' 
+        TabPage3.Controls.Add(Label23)
+        TabPage3.Controls.Add(Button6)
+        TabPage3.Controls.Add(Button5)
+        TabPage3.Controls.Add(Button4)
+        TabPage3.Controls.Add(DataGridView2)
+        TabPage3.Controls.Add(Label22)
+        TabPage3.Controls.Add(Label21)
+        TabPage3.Controls.Add(Label20)
+        TabPage3.Controls.Add(Label19)
+        TabPage3.Controls.Add(Label18)
+        TabPage3.Controls.Add(Label17)
+        TabPage3.Controls.Add(Label16)
+        TabPage3.Controls.Add(Label15)
+        TabPage3.Controls.Add(Label14)
+        TabPage3.Controls.Add(Label13)
+        TabPage3.Controls.Add(ComboBox1)
+        TabPage3.Controls.Add(DateTimePicker1)
         TabPage3.Location = New Point(4, 26)
         TabPage3.Name = "TabPage3"
         TabPage3.Padding = New Padding(3)
@@ -505,13 +549,161 @@ Partial Class frmPOS
         Panel7.Size = New Size(118, 749)
         Panel7.TabIndex = 4
         ' 
-        ' DataGridView1
+        ' DateTimePicker1
         ' 
-        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Location = New Point(211, 128)
-        DataGridView1.Name = "DataGridView1"
-        DataGridView1.Size = New Size(240, 150)
-        DataGridView1.TabIndex = 4
+        DateTimePicker1.Location = New Point(333, 43)
+        DateTimePicker1.Name = "DateTimePicker1"
+        DateTimePicker1.Size = New Size(200, 25)
+        DateTimePicker1.TabIndex = 0
+        ' 
+        ' ComboBox1
+        ' 
+        ComboBox1.FormattingEnabled = True
+        ComboBox1.Location = New Point(548, 47)
+        ComboBox1.Name = "ComboBox1"
+        ComboBox1.Size = New Size(121, 25)
+        ComboBox1.TabIndex = 1
+        ComboBox1.Text = "All Categories"
+        ' 
+        ' Label13
+        ' 
+        Label13.AutoSize = True
+        Label13.Location = New Point(333, 226)
+        Label13.Name = "Label13"
+        Label13.Size = New Size(53, 17)
+        Label13.TabIndex = 2
+        Label13.Text = "Label13"
+        ' 
+        ' Label14
+        ' 
+        Label14.AutoSize = True
+        Label14.Location = New Point(343, 252)
+        Label14.Name = "Label14"
+        Label14.Size = New Size(53, 17)
+        Label14.TabIndex = 3
+        Label14.Text = "Label14"
+        ' 
+        ' Label15
+        ' 
+        Label15.AutoSize = True
+        Label15.Location = New Point(351, 260)
+        Label15.Name = "Label15"
+        Label15.Size = New Size(53, 17)
+        Label15.TabIndex = 4
+        Label15.Text = "Label15"
+        ' 
+        ' Label16
+        ' 
+        Label16.AutoSize = True
+        Label16.Location = New Point(359, 268)
+        Label16.Name = "Label16"
+        Label16.Size = New Size(53, 17)
+        Label16.TabIndex = 5
+        Label16.Text = "Label16"
+        ' 
+        ' Label17
+        ' 
+        Label17.AutoSize = True
+        Label17.Location = New Point(367, 276)
+        Label17.Name = "Label17"
+        Label17.Size = New Size(53, 17)
+        Label17.TabIndex = 6
+        Label17.Text = "Label17"
+        ' 
+        ' Label18
+        ' 
+        Label18.AutoSize = True
+        Label18.Location = New Point(375, 284)
+        Label18.Name = "Label18"
+        Label18.Size = New Size(53, 17)
+        Label18.TabIndex = 7
+        Label18.Text = "Label18"
+        ' 
+        ' Label19
+        ' 
+        Label19.AutoSize = True
+        Label19.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label19.ForeColor = Color.Navy
+        Label19.Location = New Point(232, 27)
+        Label19.Name = "Label19"
+        Label19.Size = New Size(61, 25)
+        Label19.TabIndex = 8
+        Label19.Text = "Week"
+        ' 
+        ' Label20
+        ' 
+        Label20.AutoSize = True
+        Label20.Location = New Point(147, 149)
+        Label20.Name = "Label20"
+        Label20.Size = New Size(53, 17)
+        Label20.TabIndex = 9
+        Label20.Text = "Label20"
+        ' 
+        ' Label21
+        ' 
+        Label21.AutoSize = True
+        Label21.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label21.ForeColor = Color.DarkBlue
+        Label21.Location = New Point(558, 8)
+        Label21.Name = "Label21"
+        Label21.Size = New Size(99, 25)
+        Label21.TabIndex = 10
+        Label21.Text = "Category:"
+        ' 
+        ' Label22
+        ' 
+        Label22.AutoSize = True
+        Label22.Location = New Point(407, 316)
+        Label22.Name = "Label22"
+        Label22.Size = New Size(53, 17)
+        Label22.TabIndex = 11
+        Label22.Text = "Label22"
+        ' 
+        ' DataGridView2
+        ' 
+        DataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridView2.Location = New Point(25, 197)
+        DataGridView2.Name = "DataGridView2"
+        DataGridView2.Size = New Size(240, 150)
+        DataGridView2.TabIndex = 12
+        ' 
+        ' Button4
+        ' 
+        Button4.Location = New Point(635, 135)
+        Button4.Name = "Button4"
+        Button4.Size = New Size(75, 22)
+        Button4.TabIndex = 13
+        Button4.Text = "Button4"
+        Button4.UseVisualStyleBackColor = True
+        ' 
+        ' Button5
+        ' 
+        Button5.Location = New Point(332, 249)
+        Button5.Name = "Button5"
+        Button5.Size = New Size(75, 23)
+        Button5.TabIndex = 14
+        Button5.Text = "Button5"
+        Button5.UseVisualStyleBackColor = True
+        ' 
+        ' Button6
+        ' 
+        Button6.Location = New Point(63, 67)
+        Button6.Name = "Button6"
+        Button6.Size = New Size(75, 23)
+        Button6.TabIndex = 15
+        Button6.Text = "Button6"
+        Button6.UseVisualStyleBackColor = True
+        ' 
+        ' Label23
+        ' 
+        Label23.AutoSize = True
+        Label23.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label23.ForeColor = Color.Navy
+        Label23.Location = New Point(232, 52)
+        Label23.Name = "Label23"
+        Label23.Size = New Size(90, 25)
+        Label23.TabIndex = 16
+        Label23.Text = "Starting:"
         ' 
         ' frmPOS
         ' 
@@ -545,11 +737,14 @@ Partial Class frmPOS
         TabPage1.ResumeLayout(False)
         TabPage2.ResumeLayout(False)
         TabPage2.PerformLayout()
+        CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
+        TabPage3.ResumeLayout(False)
+        TabPage3.PerformLayout()
         Panel5.ResumeLayout(False)
         Panel5.PerformLayout()
         Panel6.ResumeLayout(False)
         Panel6.PerformLayout()
-        CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
+        CType(DataGridView2, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -596,4 +791,21 @@ Partial Class frmPOS
     Friend WithEvents imgProducts As ImageList
     Friend WithEvents Panel7 As Panel
     Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents Label13 As Label
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents Button6 As Button
+    Friend WithEvents Button5 As Button
+    Friend WithEvents Button4 As Button
+    Friend WithEvents DataGridView2 As DataGridView
+    Friend WithEvents Label22 As Label
+    Friend WithEvents Label21 As Label
+    Friend WithEvents Label20 As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents Label18 As Label
+    Friend WithEvents Label17 As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label14 As Label
+    Friend WithEvents Label23 As Label
 End Class
