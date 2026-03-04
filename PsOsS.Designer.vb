@@ -207,7 +207,7 @@ Partial Class frmDashboard
         ' 
         picReport.Cursor = Cursors.Hand
         picReport.Image = CType(resources.GetObject("picReport.Image"), Image)
-        picReport.Location = New Point(595, 250)
+        picReport.Location = New Point(602, 262)
         picReport.Name = "picReport"
         picReport.Size = New Size(231, 200)
         picReport.SizeMode = PictureBoxSizeMode.Zoom
