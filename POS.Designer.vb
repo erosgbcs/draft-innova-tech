@@ -93,7 +93,7 @@ Partial Class frmPOS
         ' 
         Label2.AutoSize = True
         Label2.ForeColor = Color.White
-        Label2.Location = New Point(11, 72)
+        Label2.Location = New Point(357, 79)
         Label2.Name = "Label2"
         Label2.Size = New Size(295, 15)
         Label2.TabIndex = 1
@@ -103,7 +103,7 @@ Partial Class frmPOS
         ' 
         lblTitle.Font = New Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblTitle.ForeColor = Color.White
-        lblTitle.Location = New Point(11, 7)
+        lblTitle.Location = New Point(357, 9)
         lblTitle.Name = "lblTitle"
         lblTitle.Size = New Size(643, 54)
         lblTitle.TabIndex = 0
@@ -245,7 +245,7 @@ Partial Class frmPOS
         ' TextBox1
         ' 
         TextBox1.BorderStyle = BorderStyle.FixedSingle
-        TextBox1.Location = New Point(8, 51)
+        TextBox1.Location = New Point(-4, 51)
         TextBox1.Name = "TextBox1"
         TextBox1.PlaceholderText = "Search products by one code or name..."
         TextBox1.Size = New Size(817, 25)
@@ -326,7 +326,7 @@ Partial Class frmPOS
         ' 
         ' TextBox6
         ' 
-        TextBox6.Location = New Point(-16, -18)
+        TextBox6.Location = New Point(111, 75)
         TextBox6.Name = "TextBox6"
         TextBox6.PlaceholderText = "Price"
         TextBox6.Size = New Size(128, 33)
