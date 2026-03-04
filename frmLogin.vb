@@ -53,4 +53,7 @@ Public Class FrmLogin ' Changed to Uppercase F
         Application.Exit()
     End Sub
 
+    Private Sub IbIUsername_Click(sender As Object, e As EventArgs) Handles IbIUsername.Click
+
+    End Sub
 End Class

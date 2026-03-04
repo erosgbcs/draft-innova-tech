@@ -35,7 +35,7 @@ Partial Class frmLoading
         ' 
         ProgressBar1.Anchor = AnchorStyles.None
         ProgressBar1.BackColor = SystemColors.Highlight
-        ProgressBar1.Location = New Point(6, 36)
+        ProgressBar1.Location = New Point(3, 41)
         ProgressBar1.Name = "ProgressBar1"
         ProgressBar1.Size = New Size(361, 23)
         ProgressBar1.TabIndex = 0
@@ -46,7 +46,7 @@ Partial Class frmLoading
         lblPercent.AutoSize = True
         lblPercent.Font = New Font("Arial", 9F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
         lblPercent.ForeColor = SystemColors.HotTrack
-        lblPercent.Location = New Point(153, 70)
+        lblPercent.Location = New Point(154, 79)
         lblPercent.Name = "lblPercent"
         lblPercent.Size = New Size(45, 15)
         lblPercent.TabIndex = 1
@@ -63,7 +63,7 @@ Partial Class frmLoading
         Panel1.BackColor = Color.Transparent
         Panel1.Controls.Add(lblPercent)
         Panel1.Controls.Add(ProgressBar1)
-        Panel1.Location = New Point(281, 309)
+        Panel1.Location = New Point(281, 314)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(374, 100)
         Panel1.TabIndex = 2

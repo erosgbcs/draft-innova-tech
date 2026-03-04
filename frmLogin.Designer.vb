@@ -22,14 +22,13 @@ Partial Class frmLogin
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmLogin))
         btnForgotPassword = New Button()
         IbIUsername = New Label()
         IbIPassword = New Label()
-        label1 = New Label()
         txtUsername = New TextBox()
         txtPassword = New TextBox()
         btnShowHide = New Button()
-        Label2 = New Label()
         btnLogin = New Button()
         SuspendLayout()
         ' 
@@ -41,7 +40,7 @@ Partial Class frmLogin
         btnForgotPassword.FlatStyle = FlatStyle.Flat
         btnForgotPassword.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnForgotPassword.ForeColor = Color.White
-        btnForgotPassword.Location = New Point(304, 252)
+        btnForgotPassword.Location = New Point(669, 622)
         btnForgotPassword.Name = "btnForgotPassword"
         btnForgotPassword.Size = New Size(118, 31)
         btnForgotPassword.TabIndex = 6
@@ -55,7 +54,7 @@ Partial Class frmLogin
         IbIUsername.BackColor = Color.Transparent
         IbIUsername.Font = New Font("Segoe UI", 15.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         IbIUsername.ForeColor = Color.White
-        IbIUsername.Location = New Point(22, 151)
+        IbIUsername.Location = New Point(410, 515)
         IbIUsername.Name = "IbIUsername"
         IbIUsername.Size = New Size(106, 28)
         IbIUsername.TabIndex = 0
@@ -68,24 +67,11 @@ Partial Class frmLogin
         IbIPassword.BackColor = Color.Transparent
         IbIPassword.Font = New Font("Segoe UI", 15.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         IbIPassword.ForeColor = Color.White
-        IbIPassword.Location = New Point(22, 206)
+        IbIPassword.Location = New Point(410, 570)
         IbIPassword.Name = "IbIPassword"
         IbIPassword.Size = New Size(101, 28)
         IbIPassword.TabIndex = 1
         IbIPassword.Text = "Password"
-        ' 
-        ' label1
-        ' 
-        label1.Anchor = AnchorStyles.None
-        label1.AutoSize = True
-        label1.BackColor = Color.Transparent
-        label1.Font = New Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        label1.ForeColor = Color.White
-        label1.Location = New Point(22, 30)
-        label1.Name = "label1"
-        label1.Size = New Size(473, 37)
-        label1.TabIndex = 2
-        label1.Text = " Point of Sale and Inventory System"
         ' 
         ' txtUsername
         ' 
@@ -93,7 +79,7 @@ Partial Class frmLogin
         txtUsername.BackColor = SystemColors.GradientInactiveCaption
         txtUsername.BorderStyle = BorderStyle.FixedSingle
         txtUsername.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtUsername.Location = New Point(139, 152)
+        txtUsername.Location = New Point(526, 565)
         txtUsername.Name = "txtUsername"
         txtUsername.Size = New Size(296, 33)
         txtUsername.TabIndex = 3
@@ -104,7 +90,7 @@ Partial Class frmLogin
         txtPassword.BackColor = SystemColors.GradientInactiveCaption
         txtPassword.BorderStyle = BorderStyle.FixedSingle
         txtPassword.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtPassword.Location = New Point(139, 199)
+        txtPassword.Location = New Point(526, 510)
         txtPassword.Name = "txtPassword"
         txtPassword.PasswordChar = "*"c
         txtPassword.Size = New Size(296, 33)
@@ -117,25 +103,12 @@ Partial Class frmLogin
         btnShowHide.FlatStyle = FlatStyle.Flat
         btnShowHide.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnShowHide.ForeColor = Color.Gray
-        btnShowHide.Location = New Point(381, 202)
+        btnShowHide.Location = New Point(772, 567)
         btnShowHide.Name = "btnShowHide"
         btnShowHide.Size = New Size(41, 26)
         btnShowHide.TabIndex = 7
         btnShowHide.Text = "👁"
         btnShowHide.UseVisualStyleBackColor = False
-        ' 
-        ' Label2
-        ' 
-        Label2.Anchor = AnchorStyles.None
-        Label2.AutoSize = True
-        Label2.BackColor = Color.Transparent
-        Label2.Font = New Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label2.ForeColor = Color.White
-        Label2.Location = New Point(109, 67)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(294, 37)
-        Label2.TabIndex = 8
-        Label2.Text = "for Hardware Trading"
         ' 
         ' btnLogin
         ' 
@@ -143,7 +116,7 @@ Partial Class frmLogin
         btnLogin.FlatStyle = FlatStyle.Flat
         btnLogin.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnLogin.ForeColor = Color.White
-        btnLogin.Location = New Point(151, 252)
+        btnLogin.Location = New Point(526, 620)
         btnLogin.Name = "btnLogin"
         btnLogin.Size = New Size(126, 31)
         btnLogin.TabIndex = 5
@@ -156,16 +129,15 @@ Partial Class frmLogin
         AutoScaleDimensions = New SizeF(96.0F, 96.0F)
         AutoScaleMode = AutoScaleMode.Dpi
         AutoSize = True
-        BackColor = Color.DodgerBlue
-        BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(532, 307)
-        Controls.Add(Label2)
+        BackColor = Color.White
+        BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
+        BackgroundImageLayout = ImageLayout.Zoom
+        ClientSize = New Size(1370, 749)
         Controls.Add(btnShowHide)
         Controls.Add(btnForgotPassword)
         Controls.Add(btnLogin)
         Controls.Add(txtPassword)
         Controls.Add(txtUsername)
-        Controls.Add(label1)
         Controls.Add(IbIPassword)
         Controls.Add(IbIUsername)
         Font = New Font("Segoe UI", 48.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -174,6 +146,7 @@ Partial Class frmLogin
         Name = "FrmLogin"
         StartPosition = FormStartPosition.CenterScreen
         Text = "frmLogin"
+        WindowState = FormWindowState.Maximized
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -181,10 +154,8 @@ Partial Class frmLogin
     ' Logic definitions for the Designer
     Friend WithEvents IbIUsername As Label
     Friend WithEvents IbIPassword As Label
-    Friend WithEvents label1 As Label
     Friend WithEvents txtUsername As TextBox
     Friend WithEvents txtPassword As TextBox
-    Friend WithEvents Label2 As Label
     Friend WithEvents btnShowHide As Button
     Friend WithEvents btnLogin As Button
     Friend WithEvents btnForgotPassword As Button
@@ -193,7 +164,7 @@ Partial Class frmLogin
 
     End Sub
 
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
+    Private Sub Label2_Click(sender As Object, e As EventArgs)
 
     End Sub
 End Class
