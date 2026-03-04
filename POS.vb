@@ -27,7 +27,7 @@
 
     End Sub
 
-    Private Sub lvMenu_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvMenu.SelectedIndexChanged
+    Private Sub lvMenu_SelectedIndexChanged(sender As Object, e As EventArgs)
 
     End Sub
 
