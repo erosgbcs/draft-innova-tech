@@ -38,9 +38,9 @@ Partial Class frmLogin
         btnForgotPassword.Anchor = AnchorStyles.None
         btnForgotPassword.BackColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
         btnForgotPassword.FlatStyle = FlatStyle.Flat
-        btnForgotPassword.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnForgotPassword.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnForgotPassword.ForeColor = Color.White
-        btnForgotPassword.Location = New Point(669, 622)
+        btnForgotPassword.Location = New Point(939, 840)
         btnForgotPassword.Name = "btnForgotPassword"
         btnForgotPassword.Size = New Size(118, 31)
         btnForgotPassword.TabIndex = 6
@@ -52,9 +52,9 @@ Partial Class frmLogin
         IbIUsername.Anchor = AnchorStyles.None
         IbIUsername.AutoSize = True
         IbIUsername.BackColor = Color.Transparent
-        IbIUsername.Font = New Font("Segoe UI", 15.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        IbIUsername.Font = New Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         IbIUsername.ForeColor = Color.White
-        IbIUsername.Location = New Point(410, 515)
+        IbIUsername.Location = New Point(639, 738)
         IbIUsername.Name = "IbIUsername"
         IbIUsername.Size = New Size(106, 28)
         IbIUsername.TabIndex = 0
@@ -65,9 +65,9 @@ Partial Class frmLogin
         IbIPassword.Anchor = AnchorStyles.None
         IbIPassword.AutoSize = True
         IbIPassword.BackColor = Color.Transparent
-        IbIPassword.Font = New Font("Segoe UI", 15.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        IbIPassword.Font = New Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         IbIPassword.ForeColor = Color.White
-        IbIPassword.Location = New Point(410, 570)
+        IbIPassword.Location = New Point(639, 780)
         IbIPassword.Name = "IbIPassword"
         IbIPassword.Size = New Size(101, 28)
         IbIPassword.TabIndex = 1
@@ -79,7 +79,7 @@ Partial Class frmLogin
         txtUsername.BackColor = SystemColors.GradientInactiveCaption
         txtUsername.BorderStyle = BorderStyle.FixedSingle
         txtUsername.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtUsername.Location = New Point(526, 565)
+        txtUsername.Location = New Point(761, 733)
         txtUsername.Name = "txtUsername"
         txtUsername.Size = New Size(296, 33)
         txtUsername.TabIndex = 3
@@ -90,7 +90,7 @@ Partial Class frmLogin
         txtPassword.BackColor = SystemColors.GradientInactiveCaption
         txtPassword.BorderStyle = BorderStyle.FixedSingle
         txtPassword.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtPassword.Location = New Point(526, 510)
+        txtPassword.Location = New Point(761, 777)
         txtPassword.Name = "txtPassword"
         txtPassword.PasswordChar = "*"c
         txtPassword.Size = New Size(296, 33)
@@ -99,11 +99,12 @@ Partial Class frmLogin
         ' btnShowHide
         ' 
         btnShowHide.AccessibleRole = AccessibleRole.MenuBar
+        btnShowHide.Anchor = AnchorStyles.None
         btnShowHide.BackColor = SystemColors.GradientInactiveCaption
         btnShowHide.FlatStyle = FlatStyle.Flat
         btnShowHide.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnShowHide.ForeColor = Color.Gray
-        btnShowHide.Location = New Point(772, 567)
+        btnShowHide.Location = New Point(990, 780)
         btnShowHide.Name = "btnShowHide"
         btnShowHide.Size = New Size(41, 26)
         btnShowHide.TabIndex = 7
@@ -112,11 +113,12 @@ Partial Class frmLogin
         ' 
         ' btnLogin
         ' 
+        btnLogin.Anchor = AnchorStyles.None
         btnLogin.BackColor = Color.FromArgb(CByte(128), CByte(255), CByte(128))
         btnLogin.FlatStyle = FlatStyle.Flat
-        btnLogin.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnLogin.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnLogin.ForeColor = Color.White
-        btnLogin.Location = New Point(526, 620)
+        btnLogin.Location = New Point(744, 840)
         btnLogin.Name = "btnLogin"
         btnLogin.Size = New Size(126, 31)
         btnLogin.TabIndex = 5
@@ -126,13 +128,13 @@ Partial Class frmLogin
         ' FrmLogin
         ' 
         AcceptButton = btnLogin
-        AutoScaleDimensions = New SizeF(96.0F, 96.0F)
+        AutoScaleDimensions = New SizeF(96F, 96F)
         AutoScaleMode = AutoScaleMode.Dpi
         AutoSize = True
         BackColor = Color.White
         BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
-        BackgroundImageLayout = ImageLayout.Zoom
-        ClientSize = New Size(1370, 749)
+        BackgroundImageLayout = ImageLayout.None
+        ClientSize = New Size(1911, 1061)
         Controls.Add(btnShowHide)
         Controls.Add(btnForgotPassword)
         Controls.Add(btnLogin)
@@ -140,7 +142,7 @@ Partial Class frmLogin
         Controls.Add(txtUsername)
         Controls.Add(IbIPassword)
         Controls.Add(IbIUsername)
-        Font = New Font("Segoe UI", 48.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Font = New Font("Segoe UI", 48F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         MdiChildrenMinimizedAnchorBottom = False
         MinimizeBox = False
         Name = "FrmLogin"
