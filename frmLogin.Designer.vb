@@ -40,7 +40,7 @@ Partial Class frmLogin
         btnForgotPassword.FlatStyle = FlatStyle.Flat
         btnForgotPassword.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnForgotPassword.ForeColor = Color.White
-        btnForgotPassword.Location = New Point(939, 840)
+        btnForgotPassword.Location = New Point(420, 620)
         btnForgotPassword.Name = "btnForgotPassword"
         btnForgotPassword.Size = New Size(118, 31)
         btnForgotPassword.TabIndex = 6
@@ -54,7 +54,7 @@ Partial Class frmLogin
         IbIUsername.BackColor = Color.Transparent
         IbIUsername.Font = New Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         IbIUsername.ForeColor = Color.White
-        IbIUsername.Location = New Point(639, 738)
+        IbIUsername.Location = New Point(120, 518)
         IbIUsername.Name = "IbIUsername"
         IbIUsername.Size = New Size(106, 28)
         IbIUsername.TabIndex = 0
@@ -67,7 +67,7 @@ Partial Class frmLogin
         IbIPassword.BackColor = Color.Transparent
         IbIPassword.Font = New Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         IbIPassword.ForeColor = Color.White
-        IbIPassword.Location = New Point(639, 780)
+        IbIPassword.Location = New Point(120, 560)
         IbIPassword.Name = "IbIPassword"
         IbIPassword.Size = New Size(101, 28)
         IbIPassword.TabIndex = 1
@@ -79,7 +79,7 @@ Partial Class frmLogin
         txtUsername.BackColor = SystemColors.GradientInactiveCaption
         txtUsername.BorderStyle = BorderStyle.FixedSingle
         txtUsername.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtUsername.Location = New Point(761, 733)
+        txtUsername.Location = New Point(242, 513)
         txtUsername.Name = "txtUsername"
         txtUsername.Size = New Size(296, 33)
         txtUsername.TabIndex = 3
@@ -90,7 +90,7 @@ Partial Class frmLogin
         txtPassword.BackColor = SystemColors.GradientInactiveCaption
         txtPassword.BorderStyle = BorderStyle.FixedSingle
         txtPassword.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtPassword.Location = New Point(761, 777)
+        txtPassword.Location = New Point(242, 557)
         txtPassword.Name = "txtPassword"
         txtPassword.PasswordChar = "*"c
         txtPassword.Size = New Size(296, 33)
@@ -104,7 +104,7 @@ Partial Class frmLogin
         btnShowHide.FlatStyle = FlatStyle.Flat
         btnShowHide.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnShowHide.ForeColor = Color.Gray
-        btnShowHide.Location = New Point(990, 780)
+        btnShowHide.Location = New Point(471, 560)
         btnShowHide.Name = "btnShowHide"
         btnShowHide.Size = New Size(41, 26)
         btnShowHide.TabIndex = 7
@@ -118,7 +118,7 @@ Partial Class frmLogin
         btnLogin.FlatStyle = FlatStyle.Flat
         btnLogin.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnLogin.ForeColor = Color.White
-        btnLogin.Location = New Point(744, 840)
+        btnLogin.Location = New Point(225, 620)
         btnLogin.Name = "btnLogin"
         btnLogin.Size = New Size(126, 31)
         btnLogin.TabIndex = 5
@@ -133,8 +133,8 @@ Partial Class frmLogin
         AutoSize = True
         BackColor = Color.White
         BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
-        BackgroundImageLayout = ImageLayout.None
-        ClientSize = New Size(1911, 1061)
+        BackgroundImageLayout = ImageLayout.Stretch
+        ClientSize = New Size(868, 693)
         Controls.Add(btnShowHide)
         Controls.Add(btnForgotPassword)
         Controls.Add(btnLogin)
