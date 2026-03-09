@@ -24,6 +24,7 @@ Partial Class frmPOS
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
         pnlHeader = New Panel()
+        Label24 = New Label()
         Label2 = New Label()
         lblTitle = New Label()
         pnlStats = New Panel()
@@ -84,7 +85,6 @@ Partial Class frmPOS
         imgProducts = New ImageList(components)
         Panel7 = New Panel()
         Button18 = New Button()
-        Label24 = New Label()
         pnlHeader.SuspendLayout()
         pnlStats.SuspendLayout()
         Panel4.SuspendLayout()
@@ -113,6 +113,17 @@ Partial Class frmPOS
         pnlHeader.Name = "pnlHeader"
         pnlHeader.Size = New Size(1763, 111)
         pnlHeader.TabIndex = 0
+        ' 
+        ' Label24
+        ' 
+        Label24.AutoSize = True
+        Label24.Font = New Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label24.ForeColor = Color.White
+        Label24.Location = New Point(4, 16)
+        Label24.Name = "Label24"
+        Label24.Size = New Size(211, 50)
+        Label24.TabIndex = 9
+        Label24.Text = "Dashboard"
         ' 
         ' Label2
         ' 
@@ -709,7 +720,7 @@ Partial Class frmPOS
         Panel7.Dock = DockStyle.Left
         Panel7.Location = New Point(0, 0)
         Panel7.Name = "Panel7"
-        Panel7.Size = New Size(143, 1041)
+        Panel7.Size = New Size(143, 1061)
         Panel7.TabIndex = 4
         ' 
         ' Button18
@@ -722,23 +733,12 @@ Partial Class frmPOS
         Button18.Text = "Logout"
         Button18.UseVisualStyleBackColor = False
         ' 
-        ' Label24
-        ' 
-        Label24.AutoSize = True
-        Label24.Font = New Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label24.ForeColor = Color.White
-        Label24.Location = New Point(4, 16)
-        Label24.Name = "Label24"
-        Label24.Size = New Size(211, 50)
-        Label24.TabIndex = 9
-        Label24.Text = "Dashboard"
-        ' 
         ' frmPOS
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.WhiteSmoke
-        ClientSize = New Size(1904, 1041)
+        ClientSize = New Size(1924, 1061)
         Controls.Add(Panel7)
         Controls.Add(Panel5)
         Controls.Add(pnlHeader)
