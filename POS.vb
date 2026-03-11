@@ -11,9 +11,12 @@ Public Class frmPOS
     ' Global variable para sa tracking
     Private currentWeekStartDate As DateTime
 
-    ' Stock warning threshold (you can adjust this value)
+    ' Stock warning threshold
     Private Const STOCK_WARNING_THRESHOLD As Integer = 10
     Private Const STOCK_CRITICAL_THRESHOLD As Integer = 5
+
+    ' For search functionality
+    Private allProductsDataTable As DataTable ' Store all products for filtering
 
     ' --- FORM LOAD ---
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -38,39 +41,163 @@ Public Class frmPOS
 
         ' Check for low stock items on form load
         CheckLowStockItems()
+
+        ' Configure search textbox
+        ConfigureSearchBox()
+    End Sub
+
+    ' --- CONFIGURE SEARCH TEXTBOX ---
+    Private Sub ConfigureSearchBox()
+        With txtSearch
+            .Text = "Search products..." ' Placeholder text
+            .ForeColor = Color.Gray
+
+            ' Add event handlers
+            AddHandler .Enter, AddressOf txtSearch_Enter
+            AddHandler .Leave, AddressOf txtSearch_Leave
+            AddHandler .TextChanged, AddressOf txtSearch_TextChanged
+        End With
+    End Sub
+
+    ' --- SEARCH TEXTBOX ENTER EVENT (remove placeholder) ---
+    Private Sub txtSearch_Enter(sender As Object, e As EventArgs)
+        If txtSearch.Text = "Search products..." Then
+            txtSearch.Text = ""
+            txtSearch.ForeColor = Color.Black
+        End If
+    End Sub
+
+    ' --- SEARCH TEXTBOX LEAVE EVENT (add placeholder if empty) ---
+    Private Sub txtSearch_Leave(sender As Object, e As EventArgs)
+        If String.IsNullOrWhiteSpace(txtSearch.Text) Then
+            txtSearch.Text = "Search products..."
+            txtSearch.ForeColor = Color.Gray
+            ' Show all products when search is empty
+            FilterProducts("")
+        End If
+    End Sub
+
+    ' --- SEARCH TEXTBOX TEXT CHANGED EVENT ---
+    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs)
+        ' Don't filter if it's the placeholder text
+        If txtSearch.Text = "Search products..." Then
+            Return
+        End If
+
+        ' Filter products based on search text
+        FilterProducts(txtSearch.Text.Trim())
+    End Sub
+
+    ' --- FILTER PRODUCTS BASED ON SEARCH ---
+    Private Sub FilterProducts(searchText As String)
+        If allProductsDataTable Is Nothing Then
+            Return
+        End If
+
+        Try
+            If String.IsNullOrWhiteSpace(searchText) Then
+                ' Show all products
+                dgvProducts.DataSource = allProductsDataTable
+            Else
+                ' Create a filtered view
+                Dim filteredRows As New DataTable()
+                filteredRows = allProductsDataTable.Clone() ' Copy structure
+
+                ' Convert search text to lowercase for case-insensitive search
+                Dim lowerSearchText As String = searchText.ToLower()
+
+                ' Filter rows
+                For Each row As DataRow In allProductsDataTable.Rows
+                    Dim productCode As String = row("ProductCode").ToString().ToLower()
+                    Dim productName As String = row("ProductName").ToString().ToLower()
+                    Dim category As String = If(row("Category") Is DBNull.Value, "", row("Category").ToString().ToLower())
+
+                    ' Check if search text matches any field
+                    If productCode.Contains(lowerSearchText) OrElse
+                       productName.Contains(lowerSearchText) OrElse
+                       category.Contains(lowerSearchText) Then
+                        filteredRows.ImportRow(row)
+                    End If
+                Next
+
+                ' Bind filtered data
+                dgvProducts.DataSource = filteredRows
+            End If
+
+            ' Reapply column formatting
+            ApplyColumnFormatting()
+
+            ' Update search result count (optional)
+            UpdateSearchResultCount()
+
+        Catch ex As Exception
+            ' Silent fail for search
+            Console.WriteLine("Search error: " & ex.Message)
+        End Try
+    End Sub
+
+    ' --- UPDATE SEARCH RESULT COUNT (optional) ---
+    Private Sub UpdateSearchResultCount()
+        ' Check if you have a label named lblSearchResults
+        If HasControl("lblSearchResults") Then
+            Dim rowCount As Integer = dgvProducts.Rows.Count
+            If txtSearch.Text <> "Search products..." AndAlso Not String.IsNullOrWhiteSpace(txtSearch.Text) Then
+                CType(Controls("lblSearchResults"), Label).Text = $"Found {rowCount} product(s)"
+                CType(Controls("lblSearchResults"), Label).Visible = True
+            Else
+                CType(Controls("lblSearchResults"), Label).Visible = False
+            End If
+        End If
+    End Sub
+
+    ' --- APPLY COLUMN FORMATTING AFTER FILTER ---
+    Private Sub ApplyColumnFormatting()
+        If dgvProducts.Columns.Count > 0 Then
+            ' Reapply column headers if needed
+            If dgvProducts.Columns.Contains("ProductCode") Then
+                dgvProducts.Columns("ProductCode").HeaderText = "Product Code"
+                dgvProducts.Columns("ProductCode").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            End If
+
+            If dgvProducts.Columns.Contains("ProductName") Then
+                dgvProducts.Columns("ProductName").HeaderText = "Product Name"
+            End If
+
+            If dgvProducts.Columns.Contains("Category") Then
+                dgvProducts.Columns("Category").HeaderText = "Category"
+                dgvProducts.Columns("Category").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            End If
+
+            If dgvProducts.Columns.Contains("Price") Then
+                dgvProducts.Columns("Price").HeaderText = "Price"
+                dgvProducts.Columns("Price").DefaultCellStyle.Format = "C2"
+                dgvProducts.Columns("Price").DefaultCellStyle.FormatProvider = New Globalization.CultureInfo("en-PH")
+                dgvProducts.Columns("Price").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            End If
+
+            If dgvProducts.Columns.Contains("Stock") Then
+                dgvProducts.Columns("Stock").HeaderText = "Stock"
+                dgvProducts.Columns("Stock").DefaultCellStyle.Format = "N0"
+                dgvProducts.Columns("Stock").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            End If
+        End If
     End Sub
 
     ' --- CONFIGURE DATAGRIDVIEW ---
     Private Sub ConfigureDataGridView()
         With dgvProducts
-            ' Make grid read-only - CANNOT EDIT DIRECTLY
+            ' Make grid read-only
             .ReadOnly = True
-
-            ' Prevent adding new rows
             .AllowUserToAddRows = False
-
-            ' Prevent deleting rows
             .AllowUserToDeleteRows = False
-
-            ' Allow full row selection
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-
-            ' Allow only single selection
             .MultiSelect = False
-
-            ' Hide row headers (optional)
             .RowHeadersVisible = False
-
-            ' Set background color
             .BackgroundColor = Color.White
-
-            ' Set border style
             .BorderStyle = BorderStyle.Fixed3D
-
-            ' Enable sorting
             .AllowUserToOrderColumns = True
 
-            ' Make columns read-only individually (extra safety)
+            ' Make columns read-only
             For Each col As DataGridViewColumn In .Columns
                 col.ReadOnly = True
             Next
@@ -91,37 +218,32 @@ Public Class frmPOS
 
                 ' Color code based on stock level
                 If stock <= 0 Then
-                    ' Out of stock - Red background, White text, Bold
                     e.CellStyle.BackColor = Color.Red
                     e.CellStyle.ForeColor = Color.White
                     e.CellStyle.Font = New Font(dgvProducts.Font, FontStyle.Bold)
                     e.CellStyle.SelectionBackColor = Color.DarkRed
                 ElseIf stock <= STOCK_CRITICAL_THRESHOLD Then
-                    ' Critical stock - Dark Orange background
-                    e.CellStyle.BackColor = Color.FromArgb(255, 128, 0) ' Dark Orange
+                    e.CellStyle.BackColor = Color.FromArgb(255, 128, 0)
                     e.CellStyle.ForeColor = Color.White
                     e.CellStyle.Font = New Font(dgvProducts.Font, FontStyle.Bold)
                     e.CellStyle.SelectionBackColor = Color.FromArgb(204, 102, 0)
                 ElseIf stock <= STOCK_WARNING_THRESHOLD Then
-                    ' Low stock - Yellow background
                     e.CellStyle.BackColor = Color.Yellow
                     e.CellStyle.ForeColor = Color.Black
                     e.CellStyle.Font = New Font(dgvProducts.Font, FontStyle.Bold)
                     e.CellStyle.SelectionBackColor = Color.Gold
                 End If
 
-                ' Add tooltip for stock information
+                ' Add tooltip
                 dgvProducts.Rows(e.RowIndex).Cells("Stock").ToolTipText = GetStockTooltip(stock)
             End If
         End If
 
-        ' Also highlight the entire row for out of stock items
+        ' Highlight entire row for out of stock
         If e.RowIndex >= 0 AndAlso dgvProducts.Columns(e.ColumnIndex).Name <> "Stock" Then
             Dim stockValue As Object = dgvProducts.Rows(e.RowIndex).Cells("Stock").Value
             If stockValue IsNot Nothing AndAlso stockValue IsNot DBNull.Value Then
                 Dim stock As Integer = Convert.ToInt32(stockValue)
-
-                ' For out of stock items, give the whole row a light red tint
                 If stock <= 0 Then
                     e.CellStyle.BackColor = Color.MistyRose
                 End If
@@ -139,7 +261,6 @@ Public Class frmPOS
             Using connection As New SQLiteConnection(connectionString)
                 connection.Open()
 
-                ' Query for products with low stock
                 Dim query As String = "SELECT ProductCode, ProductName, Stock FROM Products WHERE Stock <= @threshold ORDER BY Stock"
                 Using command As New SQLiteCommand(query, connection)
                     command.Parameters.AddWithValue("@threshold", STOCK_WARNING_THRESHOLD)
@@ -164,7 +285,6 @@ Public Class frmPOS
                 End Using
             End Using
 
-            ' Show warning messages
             ShowStockWarnings(lowStockProducts, criticalStockProducts, outOfStockProducts)
 
         Catch ex As Exception
@@ -178,7 +298,6 @@ Public Class frmPOS
         Dim warningMessage As String = ""
         Dim hasWarnings As Boolean = False
 
-        ' Out of stock items
         If outOfStock.Count > 0 Then
             hasWarnings = True
             warningMessage &= "❌ OUT OF STOCK ITEMS:" & vbCrLf
@@ -189,7 +308,6 @@ Public Class frmPOS
             warningMessage &= vbCrLf
         End If
 
-        ' Critical stock items
         If criticalStock.Count > 0 Then
             hasWarnings = True
             warningMessage &= "⚠️ CRITICAL STOCK (5 or less):" & vbCrLf
@@ -200,7 +318,6 @@ Public Class frmPOS
             warningMessage &= vbCrLf
         End If
 
-        ' Low stock items
         If lowStock.Count > 0 Then
             hasWarnings = True
             warningMessage &= "⚠️ LOW STOCK ITEMS (10 or less):" & vbCrLf
@@ -211,7 +328,6 @@ Public Class frmPOS
             warningMessage &= vbCrLf
         End If
 
-        ' Show warning if there are low stock items
         If hasWarnings Then
             warningMessage &= vbCrLf & "Please restock these items soon!"
             MessageBox.Show(warningMessage, "STOCK WARNING",
@@ -219,14 +335,11 @@ Public Class frmPOS
                           MessageBoxIcon.Warning)
         End If
 
-        ' Update status label if you have one (optional)
         UpdateStockStatusLabel(lowStock.Count, criticalStock.Count, outOfStock.Count)
     End Sub
 
-    ' --- UPDATE STOCK STATUS LABEL (if you have a label for stock status) ---
+    ' --- UPDATE STOCK STATUS LABEL ---
     Private Sub UpdateStockStatusLabel(lowCount As Integer, criticalCount As Integer, outCount As Integer)
-        ' Check if you have a label named lblStockStatus
-        ' If not, you can add one to your form or comment this out
         If HasControl("lblStockStatus") Then
             Dim totalWarnings As Integer = lowCount + criticalCount + outCount
             If totalWarnings > 0 Then
@@ -270,7 +383,6 @@ Public Class frmPOS
 
     ' --- DATETIMEPICKER LOGIC ---
     Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
-        ' Kapag namili ang user ng kahit anong araw, i-snap natin sa Sunday ng linggong iyon
         Dim selectedDate As DateTime = DateTimePicker1.Value
         Dim diff As Integer = selectedDate.DayOfWeek
         currentWeekStartDate = selectedDate.AddDays(-diff)
@@ -282,8 +394,13 @@ Public Class frmPOS
     ' --- REFRESH BUTTON ---
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         LoadData()
-        LoadProducts() ' Refresh products grid too
-        CheckLowStockItems() ' Check stock levels after refresh
+        LoadProducts()
+        CheckLowStockItems()
+
+        ' Clear search
+        txtSearch.Text = "Search products..."
+        txtSearch.ForeColor = Color.Gray
+
         MessageBox.Show("Report Refreshed!", "System", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
@@ -300,13 +417,11 @@ Public Class frmPOS
 
     ' --- HELPER METHODS ---
     Private Sub UpdateWeekLabel()
-        ' I-update ang label
         Dim endOfWeek = currentWeekStartDate.AddDays(6)
         Label13.Text = currentWeekStartDate.ToString("MMM dd") & " - " & endOfWeek.ToString("MMM dd, yyyy")
     End Sub
 
     Private Sub LoadData()
-        ' Dito papasok ang logic para i-filter ang Data sa Revenue Summary at Sales Performance
         Console.WriteLine("Fetching sales from " & currentWeekStartDate.ToShortDateString())
     End Sub
 
@@ -319,12 +434,10 @@ Public Class frmPOS
         If sfd.ShowDialog() = DialogResult.OK Then
             Try
                 Dim sb As New StringBuilder()
-                ' Headers
                 Dim headers = From col As DataGridViewColumn In dgvProducts.Columns.Cast(Of DataGridViewColumn)()
                               Select col.HeaderText
                 sb.AppendLine(String.Join(",", headers))
 
-                ' Rows
                 For Each row As DataGridViewRow In dgvProducts.Rows
                     If Not row.IsNewRow Then
                         Dim cells = From cell As DataGridViewCell In row.Cells.Cast(Of DataGridViewCell)()
@@ -349,7 +462,6 @@ Public Class frmPOS
             Using connection As New SQLiteConnection(connectionString)
                 connection.Open()
 
-                ' Create table if not exists - Using ProductCode as PRIMARY KEY (as requested)
                 Dim createTableQuery As String = "
                 CREATE TABLE IF NOT EXISTS Products (
                     ProductCode TEXT PRIMARY KEY,
@@ -383,7 +495,6 @@ Public Class frmPOS
             Return
         End If
 
-        ' Validate Price
         Dim price As Decimal
         If Not Decimal.TryParse(txtPrice.Text, price) Then
             MessageBox.Show("Please enter a valid Price", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -391,7 +502,6 @@ Public Class frmPOS
             Return
         End If
 
-        ' Validate Stock
         Dim stock As Integer
         If Not Integer.TryParse(txtStock.Text, stock) Then
             MessageBox.Show("Please enter a valid Stock number", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -399,7 +509,6 @@ Public Class frmPOS
             Return
         End If
 
-        ' Add to database
         AddProduct(txtProductCode.Text.Trim(), txtProductName.Text.Trim(),
                   txtCategory.Text.Trim(), price, stock)
     End Sub
@@ -426,14 +535,13 @@ Public Class frmPOS
 
             MessageBox.Show("Product added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            ' Clear input fields
             ClearInputFields()
-
-            ' Refresh the DataGridView
             LoadProducts()
-
-            ' Check for low stock items after adding
             CheckLowStockItems()
+
+            ' Clear search
+            txtSearch.Text = "Search products..."
+            txtSearch.ForeColor = Color.Gray
 
         Catch ex As SQLiteException When ex.Message.Contains("UNIQUE") Or ex.Message.Contains("PRIMARY KEY")
             MessageBox.Show("Product Code already exists. Please use a different code.", "Duplicate Error",
@@ -449,42 +557,17 @@ Public Class frmPOS
             Using connection As New SQLiteConnection(connectionString)
                 connection.Open()
 
-                ' Removed Id from SELECT since ProductCode is now PRIMARY KEY
                 Dim selectQuery As String = "SELECT ProductCode, ProductName, Category, Price, Stock FROM Products ORDER BY ProductCode"
                 Dim dataAdapter As New SQLiteDataAdapter(selectQuery, connection)
-                Dim dataTable As New DataTable()
+                allProductsDataTable = New DataTable()
 
-                dataAdapter.Fill(dataTable)
+                dataAdapter.Fill(allProductsDataTable)
 
-                ' Bind to DataGridView
-                dgvProducts.DataSource = dataTable
+                ' Store in global variable and bind
+                dgvProducts.DataSource = allProductsDataTable
 
-                ' Configure column headers and formatting
-                If dgvProducts.Columns.Count > 0 Then
-                    dgvProducts.Columns("ProductCode").HeaderText = "Product Code"
-                    dgvProducts.Columns("ProductName").HeaderText = "Product Name"
-                    dgvProducts.Columns("Category").HeaderText = "Category"
-                    dgvProducts.Columns("Price").HeaderText = "Price"
-                    dgvProducts.Columns("Stock").HeaderText = "Stock"
-
-                    ' Philippine Peso formatting for Price column
-                    dgvProducts.Columns("Price").DefaultCellStyle.Format = "C2"
-                    dgvProducts.Columns("Price").DefaultCellStyle.FormatProvider = New Globalization.CultureInfo("en-PH")
-                    dgvProducts.Columns("Price").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-                    ' Format Stock with commas
-                    dgvProducts.Columns("Stock").DefaultCellStyle.Format = "N0"
-                    dgvProducts.Columns("Stock").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-                    ' Center align other columns for better look
-                    dgvProducts.Columns("ProductCode").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-                    dgvProducts.Columns("Category").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-
-                    ' Make all columns read-only (extra safety)
-                    For Each col As DataGridViewColumn In dgvProducts.Columns
-                        col.ReadOnly = True
-                    Next
-                End If
+                ' Apply formatting
+                ApplyColumnFormatting()
 
                 ' Auto-size columns
                 dgvProducts.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
@@ -507,18 +590,15 @@ Public Class frmPOS
         txtProductCode.Focus()
     End Sub
 
-    ' Double-click on DataGridView row to load data into textboxes for editing
+    ' Double-click on DataGridView row to load data into textboxes
     Private Sub dgvProducts_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellDoubleClick
-        ' Check if valid row (not header, not out of bounds)
         If e.RowIndex >= 0 AndAlso e.RowIndex < dgvProducts.Rows.Count Then
             Dim row As DataGridViewRow = dgvProducts.Rows(e.RowIndex)
 
-            ' Load data into textboxes for editing
             txtProductCode.Text = row.Cells("ProductCode").Value.ToString()
             txtProductName.Text = row.Cells("ProductName").Value.ToString()
             txtCategory.Text = If(row.Cells("Category").Value Is DBNull.Value, "", row.Cells("Category").Value.ToString())
 
-            ' Handle price formatting when loading to textbox
             Dim priceValue As Object = row.Cells("Price").Value
             If priceValue IsNot Nothing AndAlso priceValue IsNot DBNull.Value Then
                 txtPrice.Text = Convert.ToDecimal(priceValue).ToString("0.00")
@@ -528,14 +608,10 @@ Public Class frmPOS
 
             txtStock.Text = row.Cells("Stock").Value.ToString()
 
-            ' Optional: Highlight the selected row
             dgvProducts.ClearSelection()
             row.Selected = True
-
-            ' Optional: Set focus to first textbox for editing
             txtProductCode.Focus()
 
-            ' Show stock warning for this product if low
             Dim stock As Integer = Convert.ToInt32(row.Cells("Stock").Value)
             If stock <= STOCK_WARNING_THRESHOLD Then
                 MessageBox.Show(GetStockTooltip(stock), "Stock Alert",
@@ -544,18 +620,8 @@ Public Class frmPOS
         End If
     End Sub
 
-    ' Optional: Single click selection (but still requires double-click to edit)
-    Private Sub dgvProducts_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellClick
-        ' Just for selection, no editing
-        If e.RowIndex >= 0 Then
-            ' You could show a message or just let selection happen
-            ' This doesn't load to textboxes - only double-click does that
-        End If
-    End Sub
-
-    ' Prevent any cell from entering edit mode
+    ' Prevent cell editing
     Private Sub dgvProducts_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles dgvProducts.CellBeginEdit
-        ' Cancel any attempt to edit
         e.Cancel = True
         MessageBox.Show("Please double-click the row to edit in the text boxes.", "Edit via Textboxes",
                        MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -569,7 +635,6 @@ Public Class frmPOS
             Return
         End If
 
-        ' Validate other fields (similar to Add)
         If String.IsNullOrWhiteSpace(txtProductName.Text) Then
             MessageBox.Show("Please enter Product Name", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             txtProductName.Focus()
@@ -590,7 +655,6 @@ Public Class frmPOS
             Return
         End If
 
-        ' Check if stock is low and warn before update
         If stock <= STOCK_WARNING_THRESHOLD Then
             Dim warnResult As DialogResult = MessageBox.Show(
                 $"Warning: You're setting stock to {stock} which is below the warning threshold.{vbCrLf}{vbCrLf}Do you want to continue?",
@@ -603,7 +667,6 @@ Public Class frmPOS
             End If
         End If
 
-        ' Update product
         UpdateProduct(txtProductCode.Text.Trim(), txtProductName.Text.Trim(),
                      txtCategory.Text.Trim(), price, stock)
     End Sub
@@ -630,7 +693,11 @@ Public Class frmPOS
                         MessageBox.Show("Product updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         ClearInputFields()
                         LoadProducts()
-                        CheckLowStockItems() ' Check stock levels after update
+                        CheckLowStockItems()
+
+                        ' Clear search
+                        txtSearch.Text = "Search products..."
+                        txtSearch.ForeColor = Color.Gray
                     Else
                         MessageBox.Show("Product not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
@@ -677,7 +744,11 @@ Public Class frmPOS
                         MessageBox.Show("Product deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         ClearInputFields()
                         LoadProducts()
-                        CheckLowStockItems() ' Check stock levels after delete
+                        CheckLowStockItems()
+
+                        ' Clear search
+                        txtSearch.Text = "Search products..."
+                        txtSearch.ForeColor = Color.Gray
                     Else
                         MessageBox.Show("Product not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If

@@ -143,7 +143,7 @@ Partial Class frmLogin
         Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges1
         Guna2CustomGradientPanel1.FillColor = Color.DarkBlue
         Guna2CustomGradientPanel1.FillColor2 = Color.DarkBlue
-        Guna2CustomGradientPanel1.Location = New Point(569, 231)
+        Guna2CustomGradientPanel1.Location = New Point(552, 230)
         Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
         Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         Guna2CustomGradientPanel1.Size = New Size(349, 391)
@@ -155,7 +155,7 @@ Partial Class frmLogin
         AutoScaleDimensions = New SizeF(96F, 96F)
         AutoScaleMode = AutoScaleMode.Dpi
         AutoSize = True
-        BackColor = Color.Gray
+        BackColor = Color.IndianRed
         BackgroundImageLayout = ImageLayout.Stretch
         ClientSize = New Size(1264, 681)
         Controls.Add(Guna2CustomGradientPanel1)

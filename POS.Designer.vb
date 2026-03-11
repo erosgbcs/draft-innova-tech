@@ -43,7 +43,7 @@ Partial Class frmPOS
         btnDelete = New Button()
         btnUpdate = New Button()
         Button2 = New Button()
-        TextBox7 = New TextBox()
+        txtSearch = New TextBox()
         txtStock = New TextBox()
         txtCategory = New TextBox()
         txtProductName = New TextBox()
@@ -304,7 +304,7 @@ Partial Class frmPOS
         tabInventory.Controls.Add(btnDelete)
         tabInventory.Controls.Add(btnUpdate)
         tabInventory.Controls.Add(Button2)
-        tabInventory.Controls.Add(TextBox7)
+        tabInventory.Controls.Add(txtSearch)
         tabInventory.Controls.Add(txtStock)
         tabInventory.Controls.Add(txtCategory)
         tabInventory.Controls.Add(txtProductName)
@@ -356,14 +356,14 @@ Partial Class frmPOS
         Button2.Text = "Export CSV"
         Button2.UseVisualStyleBackColor = False
         ' 
-        ' TextBox7
+        ' txtSearch
         ' 
-        TextBox7.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        TextBox7.Location = New Point(6, 49)
-        TextBox7.Name = "TextBox7"
-        TextBox7.PlaceholderText = "Product Inventory by code or name.."
-        TextBox7.Size = New Size(1125, 27)
-        TextBox7.TabIndex = 3
+        txtSearch.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtSearch.Location = New Point(6, 49)
+        txtSearch.Name = "txtSearch"
+        txtSearch.PlaceholderText = "Product Inventory by code or name.."
+        txtSearch.Size = New Size(1125, 27)
+        txtSearch.TabIndex = 3
         ' 
         ' txtStock
         ' 
@@ -1023,7 +1023,7 @@ Partial Class frmPOS
     Friend WithEvents txtStock As TextBox
     Friend WithEvents txtCategory As TextBox
     Friend WithEvents lblInventoryManagement As Label
-    Friend WithEvents TextBox7 As TextBox
+    Friend WithEvents txtSearch As TextBox
     Friend WithEvents Button2 As Button
     Friend WithEvents pnlShoppingCart As Panel
     Friend WithEvents lblShoppingCart As Label

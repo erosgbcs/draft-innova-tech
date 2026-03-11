@@ -7,7 +7,7 @@ Public Class DatabaseHelper
 
     Public Sub New()
         ' Database will be created in the application folder
-        Dim databasePath As String = IO.Path.Combine(Application.StartupPath, "POSSystem.db")
+        Dim databasePath As String = IO.Path.Combine(Application.StartupPath, "Accounts.db")
         connectionString = $"Data Source={databasePath};Version=3;"
     End Sub
 
