@@ -8,7 +8,7 @@ Public Class frmPOS
         ' Logic for Label2
     End Sub
 
-    Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles TabPage2.Click
+    Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles tabInventory.Click
         ' Logic for TabPage2
     End Sub
 
@@ -44,5 +44,15 @@ Public Class frmPOS
 
     Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
 
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+
+        lblTime.Text = DateTime.Now.ToString("MMMM dd, yyyy  hh:mm:ss tt")
+
+    End Sub
+
+    Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Timer1.Start()
     End Sub
 End Class

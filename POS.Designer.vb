@@ -22,23 +22,23 @@ Partial Class frmPOS
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        components = New ComponentModel.Container()
         pnlHeader = New Panel()
         Label24 = New Label()
         Label2 = New Label()
         lblTitle = New Label()
-        Panel4 = New Panel()
+        pnlWeeklyRevenue = New Panel()
         Label5 = New Label()
-        Panel3 = New Panel()
+        pnlTodaysSales = New Panel()
         Label4 = New Label()
-        Panel2 = New Panel()
+        pnlItemsStock = New Panel()
         Label3 = New Label()
         lblAvailableProducts = New Label()
         TextBox1 = New TextBox()
         Inventory = New TabControl()
-        TabPage1 = New TabPage()
+        tabProducts = New TabPage()
         FlowLayoutPanel1 = New FlowLayoutPanel()
-        lblSearchBar = New Label()
-        TabPage2 = New TabPage()
+        tabInventory = New TabPage()
         Button2 = New Button()
         TextBox7 = New TextBox()
         TextBox5 = New TextBox()
@@ -49,7 +49,7 @@ Partial Class frmPOS
         TextBox2 = New TextBox()
         Button1 = New Button()
         DataGridView1 = New DataGridView()
-        TabPage3 = New TabPage()
+        tabWeeklyReports = New TabPage()
         DataGridView2 = New DataGridView()
         colDay = New DataGridViewTextBoxColumn()
         colDate = New DataGridViewTextBoxColumn()
@@ -64,20 +64,33 @@ Partial Class frmPOS
         Label15 = New Label()
         Label1 = New Label()
         Button7 = New Button()
-        Label23 = New Label()
-        Button6 = New Button()
+        lblWeekStarting = New Label()
+        btnRefresh = New Button()
         Button5 = New Button()
-        Label21 = New Label()
-        Label20 = New Label()
+        lblCategory = New Label()
+        lblWeeklyReport = New Label()
         Label13 = New Label()
         ComboBox1 = New ComboBox()
         DateTimePicker1 = New DateTimePicker()
-        Panel5 = New Panel()
+        tabSalesHistory = New TabPage()
+        Panel1 = New Panel()
+        Label22 = New Label()
+        Label26 = New Label()
+        Label19 = New Label()
+        Label18 = New Label()
+        lblSalesHistory = New Label()
+        txtSearchHistory = New TextBox()
+        DataGridView3 = New DataGridView()
+        SalesDate = New DataGridViewTextBoxColumn()
+        SalesTime = New DataGridViewTextBoxColumn()
+        SalesBuyer = New DataGridViewTextBoxColumn()
+        SalesTotal = New DataGridViewTextBoxColumn()
+        pnlShoppingCart = New Panel()
         Panel6 = New Panel()
-        Button3 = New Button()
-        Label12 = New Label()
-        Label11 = New Label()
-        TextBox8 = New TextBox()
+        btnCheckout = New Button()
+        lblTotal = New Label()
+        lblSubtotal = New Label()
+        txtBuyer = New TextBox()
         Label10 = New Label()
         Label9 = New Label()
         Label8 = New Label()
@@ -85,46 +98,36 @@ Partial Class frmPOS
         Label6 = New Label()
         lblShoppingCart = New Label()
         Panel7 = New Panel()
+        lblTime = New Label()
         Button18 = New Button()
-        Panel8 = New Panel()
+        pnlTotalProducts = New Panel()
         Label25 = New Label()
-        TabPage4 = New TabPage()
-        DataGridView3 = New DataGridView()
-        TextBox9 = New TextBox()
-        Label17 = New Label()
-        SalesDate = New DataGridViewTextBoxColumn()
-        SalesTime = New DataGridViewTextBoxColumn()
-        SalesBuyer = New DataGridViewTextBoxColumn()
-        SalesTotal = New DataGridViewTextBoxColumn()
-        Panel1 = New Panel()
-        Label18 = New Label()
-        Label19 = New Label()
-        Label26 = New Label()
-        Label22 = New Label()
+        Timer1 = New Timer(components)
         pnlHeader.SuspendLayout()
-        Panel4.SuspendLayout()
-        Panel3.SuspendLayout()
-        Panel2.SuspendLayout()
+        pnlWeeklyRevenue.SuspendLayout()
+        pnlTodaysSales.SuspendLayout()
+        pnlItemsStock.SuspendLayout()
         Inventory.SuspendLayout()
-        TabPage1.SuspendLayout()
-        TabPage2.SuspendLayout()
+        tabProducts.SuspendLayout()
+        tabInventory.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
-        TabPage3.SuspendLayout()
+        tabWeeklyReports.SuspendLayout()
         CType(DataGridView2, ComponentModel.ISupportInitialize).BeginInit()
         Panel10.SuspendLayout()
         Panel9.SuspendLayout()
-        Panel5.SuspendLayout()
+        tabSalesHistory.SuspendLayout()
+        Panel1.SuspendLayout()
+        CType(DataGridView3, ComponentModel.ISupportInitialize).BeginInit()
+        pnlShoppingCart.SuspendLayout()
         Panel6.SuspendLayout()
         Panel7.SuspendLayout()
-        Panel8.SuspendLayout()
-        TabPage4.SuspendLayout()
-        CType(DataGridView3, ComponentModel.ISupportInitialize).BeginInit()
-        Panel1.SuspendLayout()
+        pnlTotalProducts.SuspendLayout()
         SuspendLayout()
         ' 
         ' pnlHeader
         ' 
         pnlHeader.BackColor = Color.Navy
+        pnlHeader.Controls.Add(lblTime)
         pnlHeader.Controls.Add(Label24)
         pnlHeader.Controls.Add(Label2)
         pnlHeader.Controls.Add(lblTitle)
@@ -149,7 +152,7 @@ Partial Class frmPOS
         Label2.AutoSize = True
         Label2.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label2.ForeColor = Color.White
-        Label2.Location = New Point(486, 73)
+        Label2.Location = New Point(257, 69)
         Label2.Name = "Label2"
         Label2.Size = New Size(472, 25)
         Label2.TabIndex = 1
@@ -166,58 +169,63 @@ Partial Class frmPOS
         lblTitle.Text = "POS - Inventory Management System"
         lblTitle.TextAlign = ContentAlignment.MiddleCenter
         ' 
-        ' Panel4
+        ' pnlWeeklyRevenue
         ' 
-        Panel4.BorderStyle = BorderStyle.FixedSingle
-        Panel4.Controls.Add(Label5)
-        Panel4.Location = New Point(1489, 130)
-        Panel4.Name = "Panel4"
-        Panel4.Size = New Size(263, 116)
-        Panel4.TabIndex = 3
+        pnlWeeklyRevenue.BackColor = Color.White
+        pnlWeeklyRevenue.BorderStyle = BorderStyle.FixedSingle
+        pnlWeeklyRevenue.Controls.Add(Label5)
+        pnlWeeklyRevenue.Location = New Point(1489, 130)
+        pnlWeeklyRevenue.Name = "pnlWeeklyRevenue"
+        pnlWeeklyRevenue.Size = New Size(263, 116)
+        pnlWeeklyRevenue.TabIndex = 3
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(57, 51)
+        Label5.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label5.Location = New Point(64, 79)
         Label5.Name = "Label5"
-        Label5.Size = New Size(93, 15)
+        Label5.Size = New Size(137, 21)
         Label5.TabIndex = 0
         Label5.Text = "Weekly Revenue"
         ' 
-        ' Panel3
+        ' pnlTodaysSales
         ' 
-        Panel3.BackColor = Color.LightSteelBlue
-        Panel3.BorderStyle = BorderStyle.FixedSingle
-        Panel3.Controls.Add(Label4)
-        Panel3.Location = New Point(1047, 130)
-        Panel3.Name = "Panel3"
-        Panel3.Size = New Size(259, 116)
-        Panel3.TabIndex = 2
+        pnlTodaysSales.BackColor = Color.White
+        pnlTodaysSales.BorderStyle = BorderStyle.FixedSingle
+        pnlTodaysSales.Controls.Add(Label4)
+        pnlTodaysSales.Location = New Point(1047, 130)
+        pnlTodaysSales.Name = "pnlTodaysSales"
+        pnlTodaysSales.Size = New Size(259, 116)
+        pnlTodaysSales.TabIndex = 2
         ' 
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(68, 47)
+        Label4.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label4.Location = New Point(78, 79)
         Label4.Name = "Label4"
-        Label4.Size = New Size(75, 15)
+        Label4.Size = New Size(111, 21)
         Label4.TabIndex = 0
         Label4.Text = "Today’s Sales"
         ' 
-        ' Panel2
+        ' pnlItemsStock
         ' 
-        Panel2.BorderStyle = BorderStyle.FixedSingle
-        Panel2.Controls.Add(Label3)
-        Panel2.Location = New Point(595, 130)
-        Panel2.Name = "Panel2"
-        Panel2.Size = New Size(240, 116)
-        Panel2.TabIndex = 1
+        pnlItemsStock.BackColor = Color.White
+        pnlItemsStock.BorderStyle = BorderStyle.FixedSingle
+        pnlItemsStock.Controls.Add(Label3)
+        pnlItemsStock.Location = New Point(595, 130)
+        pnlItemsStock.Name = "pnlItemsStock"
+        pnlItemsStock.Size = New Size(240, 116)
+        pnlItemsStock.TabIndex = 1
         ' 
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(54, 51)
+        Label3.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label3.Location = New Point(67, 79)
         Label3.Name = "Label3"
-        Label3.Size = New Size(81, 15)
+        Label3.Size = New Size(117, 21)
         Label3.TabIndex = 0
         Label3.Text = "Items in Stock"
         ' 
@@ -225,7 +233,7 @@ Partial Class frmPOS
         ' 
         lblAvailableProducts.AutoSize = True
         lblAvailableProducts.Font = New Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblAvailableProducts.ForeColor = Color.MediumBlue
+        lblAvailableProducts.ForeColor = Color.Navy
         lblAvailableProducts.Location = New Point(874, 3)
         lblAvailableProducts.Name = "lblAvailableProducts"
         lblAvailableProducts.Size = New Size(257, 37)
@@ -236,101 +244,91 @@ Partial Class frmPOS
         ' TextBox1
         ' 
         TextBox1.BorderStyle = BorderStyle.FixedSingle
-        TextBox1.Location = New Point(606, 43)
+        TextBox1.Location = New Point(6, 54)
         TextBox1.Name = "TextBox1"
         TextBox1.PlaceholderText = "Search products by one code or name..."
-        TextBox1.Size = New Size(525, 25)
+        TextBox1.Size = New Size(1125, 25)
         TextBox1.TabIndex = 3
         ' 
         ' Inventory
         ' 
-        Inventory.Controls.Add(TabPage1)
-        Inventory.Controls.Add(TabPage2)
-        Inventory.Controls.Add(TabPage3)
-        Inventory.Controls.Add(TabPage4)
+        Inventory.Controls.Add(tabProducts)
+        Inventory.Controls.Add(tabInventory)
+        Inventory.Controls.Add(tabWeeklyReports)
+        Inventory.Controls.Add(tabSalesHistory)
         Inventory.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Inventory.Location = New Point(141, 271)
+        Inventory.Location = New Point(148, 267)
         Inventory.Name = "Inventory"
         Inventory.SelectedIndex = 0
-        Inventory.Size = New Size(1155, 790)
+        Inventory.Size = New Size(1148, 794)
         Inventory.TabIndex = 2
         Inventory.Tag = "."
         ' 
-        ' TabPage1
+        ' tabProducts
         ' 
-        TabPage1.BackColor = Color.WhiteSmoke
-        TabPage1.Controls.Add(TextBox1)
-        TabPage1.Controls.Add(FlowLayoutPanel1)
-        TabPage1.Controls.Add(lblSearchBar)
-        TabPage1.Controls.Add(lblAvailableProducts)
-        TabPage1.Location = New Point(4, 26)
-        TabPage1.Name = "TabPage1"
-        TabPage1.Padding = New Padding(3)
-        TabPage1.Size = New Size(1147, 760)
-        TabPage1.TabIndex = 0
-        TabPage1.Text = "Products"
+        tabProducts.BackColor = Color.White
+        tabProducts.Controls.Add(TextBox1)
+        tabProducts.Controls.Add(FlowLayoutPanel1)
+        tabProducts.Controls.Add(lblAvailableProducts)
+        tabProducts.Location = New Point(4, 26)
+        tabProducts.Name = "tabProducts"
+        tabProducts.Padding = New Padding(3)
+        tabProducts.Size = New Size(1140, 764)
+        tabProducts.TabIndex = 0
+        tabProducts.Text = "Products"
         ' 
         ' FlowLayoutPanel1
         ' 
-        FlowLayoutPanel1.BackColor = Color.White
+        FlowLayoutPanel1.BackColor = Color.Silver
         FlowLayoutPanel1.BackgroundImageLayout = ImageLayout.Zoom
         FlowLayoutPanel1.Location = New Point(6, 85)
         FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         FlowLayoutPanel1.Size = New Size(1125, 667)
         FlowLayoutPanel1.TabIndex = 7
         ' 
-        ' lblSearchBar
+        ' tabInventory
         ' 
-        lblSearchBar.AutoSize = True
-        lblSearchBar.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblSearchBar.Location = New Point(480, 44)
-        lblSearchBar.Name = "lblSearchBar"
-        lblSearchBar.Size = New Size(106, 25)
-        lblSearchBar.TabIndex = 6
-        lblSearchBar.Text = "Search Bar"
-        ' 
-        ' TabPage2
-        ' 
-        TabPage2.Controls.Add(Button2)
-        TabPage2.Controls.Add(TextBox7)
-        TabPage2.Controls.Add(TextBox5)
-        TabPage2.Controls.Add(TextBox4)
-        TabPage2.Controls.Add(TextBox3)
-        TabPage2.Controls.Add(TextBox6)
-        TabPage2.Controls.Add(lblInventoryManagement)
-        TabPage2.Controls.Add(TextBox2)
-        TabPage2.Controls.Add(Button1)
-        TabPage2.Controls.Add(DataGridView1)
-        TabPage2.Location = New Point(4, 26)
-        TabPage2.Name = "TabPage2"
-        TabPage2.Padding = New Padding(3)
-        TabPage2.Size = New Size(1147, 760)
-        TabPage2.TabIndex = 1
-        TabPage2.Text = "Inventory"
-        TabPage2.UseVisualStyleBackColor = True
+        tabInventory.Controls.Add(Button2)
+        tabInventory.Controls.Add(TextBox7)
+        tabInventory.Controls.Add(TextBox5)
+        tabInventory.Controls.Add(TextBox4)
+        tabInventory.Controls.Add(TextBox3)
+        tabInventory.Controls.Add(TextBox6)
+        tabInventory.Controls.Add(lblInventoryManagement)
+        tabInventory.Controls.Add(TextBox2)
+        tabInventory.Controls.Add(Button1)
+        tabInventory.Controls.Add(DataGridView1)
+        tabInventory.Location = New Point(4, 26)
+        tabInventory.Name = "tabInventory"
+        tabInventory.Padding = New Padding(3)
+        tabInventory.Size = New Size(1140, 764)
+        tabInventory.TabIndex = 1
+        tabInventory.Text = "Inventory"
+        tabInventory.UseVisualStyleBackColor = True
         ' 
         ' Button2
         ' 
+        Button2.BackColor = Color.Lime
         Button2.FlatStyle = FlatStyle.Flat
-        Button2.Location = New Point(6, 6)
+        Button2.Location = New Point(6, 713)
         Button2.Name = "Button2"
         Button2.Size = New Size(104, 39)
         Button2.TabIndex = 3
         Button2.Text = "Export CSV"
-        Button2.UseVisualStyleBackColor = True
+        Button2.UseVisualStyleBackColor = False
         ' 
         ' TextBox7
         ' 
         TextBox7.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        TextBox7.Location = New Point(586, 49)
+        TextBox7.Location = New Point(6, 49)
         TextBox7.Name = "TextBox7"
         TextBox7.PlaceholderText = "Product Inventory by code or name.."
-        TextBox7.Size = New Size(545, 27)
+        TextBox7.Size = New Size(1125, 27)
         TextBox7.TabIndex = 3
         ' 
         ' TextBox5
         ' 
-        TextBox5.Location = New Point(826, 673)
+        TextBox5.Location = New Point(743, 673)
         TextBox5.Name = "TextBox5"
         TextBox5.PlaceholderText = "Stock"
         TextBox5.Size = New Size(153, 25)
@@ -338,7 +336,7 @@ Partial Class frmPOS
         ' 
         ' TextBox4
         ' 
-        TextBox4.Location = New Point(476, 673)
+        TextBox4.Location = New Point(372, 673)
         TextBox4.Name = "TextBox4"
         TextBox4.PlaceholderText = "Category"
         TextBox4.Size = New Size(153, 25)
@@ -346,7 +344,7 @@ Partial Class frmPOS
         ' 
         ' TextBox3
         ' 
-        TextBox3.Location = New Point(299, 673)
+        TextBox3.Location = New Point(186, 673)
         TextBox3.Name = "TextBox3"
         TextBox3.PlaceholderText = "Product name"
         TextBox3.Size = New Size(153, 25)
@@ -354,7 +352,7 @@ Partial Class frmPOS
         ' 
         ' TextBox6
         ' 
-        TextBox6.Location = New Point(658, 673)
+        TextBox6.Location = New Point(554, 673)
         TextBox6.Name = "TextBox6"
         TextBox6.PlaceholderText = "Price"
         TextBox6.Size = New Size(153, 25)
@@ -363,17 +361,17 @@ Partial Class frmPOS
         ' lblInventoryManagement
         ' 
         lblInventoryManagement.AutoSize = True
-        lblInventoryManagement.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblInventoryManagement.ForeColor = Color.DodgerBlue
-        lblInventoryManagement.Location = New Point(886, 6)
+        lblInventoryManagement.Font = New Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblInventoryManagement.ForeColor = Color.Navy
+        lblInventoryManagement.Location = New Point(857, 6)
         lblInventoryManagement.Name = "lblInventoryManagement"
-        lblInventoryManagement.Size = New Size(245, 30)
+        lblInventoryManagement.Size = New Size(284, 32)
         lblInventoryManagement.TabIndex = 3
         lblInventoryManagement.Text = "Inventory Management"
         ' 
         ' TextBox2
         ' 
-        TextBox2.Location = New Point(97, 673)
+        TextBox2.Location = New Point(6, 673)
         TextBox2.Name = "TextBox2"
         TextBox2.PlaceholderText = "Product code"
         TextBox2.Size = New Size(153, 25)
@@ -384,9 +382,9 @@ Partial Class frmPOS
         Button1.BackColor = Color.FromArgb(CByte(45), CByte(84), CByte(150))
         Button1.FlatStyle = FlatStyle.Flat
         Button1.ForeColor = Color.White
-        Button1.Location = New Point(1015, 673)
+        Button1.Location = New Point(930, 668)
         Button1.Name = "Button1"
-        Button1.Size = New Size(116, 35)
+        Button1.Size = New Size(116, 44)
         Button1.TabIndex = 3
         Button1.Text = "Add Product"
         Button1.UseVisualStyleBackColor = False
@@ -399,27 +397,27 @@ Partial Class frmPOS
         DataGridView1.Size = New Size(1125, 570)
         DataGridView1.TabIndex = 4
         ' 
-        ' TabPage3
+        ' tabWeeklyReports
         ' 
-        TabPage3.BackColor = Color.WhiteSmoke
-        TabPage3.Controls.Add(DataGridView2)
-        TabPage3.Controls.Add(Panel10)
-        TabPage3.Controls.Add(Panel9)
-        TabPage3.Controls.Add(Button7)
-        TabPage3.Controls.Add(Label23)
-        TabPage3.Controls.Add(Button6)
-        TabPage3.Controls.Add(Button5)
-        TabPage3.Controls.Add(Label21)
-        TabPage3.Controls.Add(Label20)
-        TabPage3.Controls.Add(Label13)
-        TabPage3.Controls.Add(ComboBox1)
-        TabPage3.Controls.Add(DateTimePicker1)
-        TabPage3.Location = New Point(4, 26)
-        TabPage3.Name = "TabPage3"
-        TabPage3.Padding = New Padding(3)
-        TabPage3.Size = New Size(1147, 760)
-        TabPage3.TabIndex = 2
-        TabPage3.Text = "Weekly Reports"
+        tabWeeklyReports.BackColor = Color.White
+        tabWeeklyReports.Controls.Add(DataGridView2)
+        tabWeeklyReports.Controls.Add(Panel10)
+        tabWeeklyReports.Controls.Add(Panel9)
+        tabWeeklyReports.Controls.Add(Button7)
+        tabWeeklyReports.Controls.Add(lblWeekStarting)
+        tabWeeklyReports.Controls.Add(btnRefresh)
+        tabWeeklyReports.Controls.Add(Button5)
+        tabWeeklyReports.Controls.Add(lblCategory)
+        tabWeeklyReports.Controls.Add(lblWeeklyReport)
+        tabWeeklyReports.Controls.Add(Label13)
+        tabWeeklyReports.Controls.Add(ComboBox1)
+        tabWeeklyReports.Controls.Add(DateTimePicker1)
+        tabWeeklyReports.Location = New Point(4, 26)
+        tabWeeklyReports.Name = "tabWeeklyReports"
+        tabWeeklyReports.Padding = New Padding(3)
+        tabWeeklyReports.Size = New Size(1140, 764)
+        tabWeeklyReports.TabIndex = 2
+        tabWeeklyReports.Text = "Weekly Reports"
         ' 
         ' DataGridView2
         ' 
@@ -465,7 +463,7 @@ Partial Class frmPOS
         Panel10.BackColor = Color.White
         Panel10.Controls.Add(Label16)
         Panel10.Controls.Add(Label14)
-        Panel10.Location = New Point(604, 100)
+        Panel10.Location = New Point(608, 122)
         Panel10.Name = "Panel10"
         Panel10.Size = New Size(516, 194)
         Panel10.TabIndex = 19
@@ -485,7 +483,7 @@ Partial Class frmPOS
         ' 
         Label14.AutoSize = True
         Label14.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label14.ForeColor = Color.DodgerBlue
+        Label14.ForeColor = Color.Navy
         Label14.Location = New Point(26, 13)
         Label14.Name = "Label14"
         Label14.Size = New Size(164, 20)
@@ -497,7 +495,7 @@ Partial Class frmPOS
         Panel9.BackColor = Color.White
         Panel9.Controls.Add(Label15)
         Panel9.Controls.Add(Label1)
-        Panel9.Location = New Point(24, 98)
+        Panel9.Location = New Point(24, 122)
         Panel9.Name = "Panel9"
         Panel9.Size = New Size(472, 194)
         Panel9.TabIndex = 18
@@ -517,7 +515,7 @@ Partial Class frmPOS
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.ForeColor = Color.DodgerBlue
+        Label1.ForeColor = Color.Navy
         Label1.Location = New Point(12, 13)
         Label1.Name = "Label1"
         Label1.Size = New Size(159, 20)
@@ -535,27 +533,27 @@ Partial Class frmPOS
         Button7.Text = "Next Week >"
         Button7.UseVisualStyleBackColor = False
         ' 
-        ' Label23
+        ' lblWeekStarting
         ' 
-        Label23.AutoSize = True
-        Label23.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label23.ForeColor = Color.Navy
-        Label23.Location = New Point(475, 16)
-        Label23.Name = "Label23"
-        Label23.Size = New Size(144, 25)
-        Label23.TabIndex = 16
-        Label23.Text = "Week Starting:"
+        lblWeekStarting.AutoSize = True
+        lblWeekStarting.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblWeekStarting.ForeColor = Color.Navy
+        lblWeekStarting.Location = New Point(475, 16)
+        lblWeekStarting.Name = "lblWeekStarting"
+        lblWeekStarting.Size = New Size(144, 25)
+        lblWeekStarting.TabIndex = 16
+        lblWeekStarting.Text = "Week Starting:"
         ' 
-        ' Button6
+        ' btnRefresh
         ' 
-        Button6.BackColor = Color.Navy
-        Button6.ForeColor = Color.White
-        Button6.Location = New Point(1003, 50)
-        Button6.Name = "Button6"
-        Button6.Size = New Size(117, 39)
-        Button6.TabIndex = 15
-        Button6.Text = "🔄  Refresh"
-        Button6.UseVisualStyleBackColor = False
+        btnRefresh.BackColor = Color.Navy
+        btnRefresh.ForeColor = Color.White
+        btnRefresh.Location = New Point(1003, 50)
+        btnRefresh.Name = "btnRefresh"
+        btnRefresh.Size = New Size(117, 39)
+        btnRefresh.TabIndex = 15
+        btnRefresh.Text = "🔄  Refresh"
+        btnRefresh.UseVisualStyleBackColor = False
         ' 
         ' Button5
         ' 
@@ -568,28 +566,28 @@ Partial Class frmPOS
         Button5.Text = "<  Previous Week"
         Button5.UseVisualStyleBackColor = False
         ' 
-        ' Label21
+        ' lblCategory
         ' 
-        Label21.AutoSize = True
-        Label21.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label21.ForeColor = Color.DarkBlue
-        Label21.Location = New Point(879, 13)
-        Label21.Name = "Label21"
-        Label21.Size = New Size(99, 25)
-        Label21.TabIndex = 10
-        Label21.Text = "Category:"
+        lblCategory.AutoSize = True
+        lblCategory.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblCategory.ForeColor = Color.DarkBlue
+        lblCategory.Location = New Point(879, 13)
+        lblCategory.Name = "lblCategory"
+        lblCategory.Size = New Size(99, 25)
+        lblCategory.TabIndex = 10
+        lblCategory.Text = "Category:"
         ' 
-        ' Label20
+        ' lblWeeklyReport
         ' 
-        Label20.AutoSize = True
-        Label20.BackColor = Color.Transparent
-        Label20.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label20.ForeColor = Color.Navy
-        Label20.Location = New Point(22, 16)
-        Label20.Name = "Label20"
-        Label20.Size = New Size(192, 25)
-        Label20.TabIndex = 9
-        Label20.Text = "Weekly Sales Report"
+        lblWeeklyReport.AutoSize = True
+        lblWeeklyReport.BackColor = Color.Transparent
+        lblWeeklyReport.Font = New Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblWeeklyReport.ForeColor = Color.Navy
+        lblWeeklyReport.Location = New Point(24, 6)
+        lblWeeklyReport.Name = "lblWeeklyReport"
+        lblWeeklyReport.Size = New Size(245, 32)
+        lblWeeklyReport.TabIndex = 9
+        lblWeeklyReport.Text = "Weekly Sales Report"
         ' 
         ' Label13
         ' 
@@ -616,73 +614,189 @@ Partial Class frmPOS
         DateTimePicker1.Size = New Size(200, 25)
         DateTimePicker1.TabIndex = 0
         ' 
-        ' Panel5
+        ' tabSalesHistory
         ' 
-        Panel5.BackColor = Color.Silver
-        Panel5.Controls.Add(Panel6)
-        Panel5.Controls.Add(Label7)
-        Panel5.Controls.Add(Label6)
-        Panel5.Controls.Add(lblShoppingCart)
-        Panel5.Location = New Point(1328, 271)
-        Panel5.Name = "Panel5"
-        Panel5.Size = New Size(556, 513)
-        Panel5.TabIndex = 3
+        tabSalesHistory.BackColor = Color.White
+        tabSalesHistory.Controls.Add(Panel1)
+        tabSalesHistory.Controls.Add(lblSalesHistory)
+        tabSalesHistory.Controls.Add(txtSearchHistory)
+        tabSalesHistory.Controls.Add(DataGridView3)
+        tabSalesHistory.Location = New Point(4, 26)
+        tabSalesHistory.Name = "tabSalesHistory"
+        tabSalesHistory.Padding = New Padding(3)
+        tabSalesHistory.Size = New Size(1140, 764)
+        tabSalesHistory.TabIndex = 3
+        tabSalesHistory.Text = "Sales History"
+        ' 
+        ' Panel1
+        ' 
+        Panel1.Controls.Add(Label22)
+        Panel1.Controls.Add(Label26)
+        Panel1.Controls.Add(Label19)
+        Panel1.Controls.Add(Label18)
+        Panel1.Location = New Point(19, 588)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(1108, 155)
+        Panel1.TabIndex = 3
+        ' 
+        ' Label22
+        ' 
+        Label22.AutoSize = True
+        Label22.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label22.Location = New Point(894, 80)
+        Label22.Name = "Label22"
+        Label22.Size = New Size(153, 21)
+        Label22.TabIndex = 4
+        Label22.Text = "Recommendations"
+        ' 
+        ' Label26
+        ' 
+        Label26.AutoSize = True
+        Label26.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label26.Location = New Point(431, 80)
+        Label26.Name = "Label26"
+        Label26.Size = New Size(166, 21)
+        Label26.TabIndex = 3
+        Label26.Text = "Top Selling Products"
+        ' 
+        ' Label19
+        ' 
+        Label19.AutoSize = True
+        Label19.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label19.Location = New Point(21, 80)
+        Label19.Name = "Label19"
+        Label19.Size = New Size(182, 21)
+        Label19.TabIndex = 1
+        Label19.Text = "Low Stock Items (< 10)"
+        ' 
+        ' Label18
+        ' 
+        Label18.AutoSize = True
+        Label18.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label18.ForeColor = Color.Navy
+        Label18.Location = New Point(21, 22)
+        Label18.Name = "Label18"
+        Label18.Size = New Size(174, 25)
+        Label18.TabIndex = 0
+        Label18.Text = "Inventory Insights"
+        ' 
+        ' lblSalesHistory
+        ' 
+        lblSalesHistory.AutoSize = True
+        lblSalesHistory.Font = New Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblSalesHistory.ForeColor = Color.Navy
+        lblSalesHistory.Location = New Point(19, 12)
+        lblSalesHistory.Name = "lblSalesHistory"
+        lblSalesHistory.Size = New Size(215, 45)
+        lblSalesHistory.TabIndex = 2
+        lblSalesHistory.Text = "Sales History"
+        ' 
+        ' txtSearchHistory
+        ' 
+        txtSearchHistory.Location = New Point(767, 41)
+        txtSearchHistory.Name = "txtSearchHistory"
+        txtSearchHistory.PlaceholderText = "Search History Sales..."
+        txtSearchHistory.Size = New Size(360, 25)
+        txtSearchHistory.TabIndex = 1
+        ' 
+        ' DataGridView3
+        ' 
+        DataGridView3.BackgroundColor = Color.Silver
+        DataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridView3.Columns.AddRange(New DataGridViewColumn() {SalesDate, SalesTime, SalesBuyer, SalesTotal})
+        DataGridView3.Location = New Point(19, 72)
+        DataGridView3.Name = "DataGridView3"
+        DataGridView3.Size = New Size(1108, 483)
+        DataGridView3.TabIndex = 0
+        ' 
+        ' SalesDate
+        ' 
+        SalesDate.HeaderText = "Date"
+        SalesDate.Name = "SalesDate"
+        ' 
+        ' SalesTime
+        ' 
+        SalesTime.HeaderText = "Time"
+        SalesTime.Name = "SalesTime"
+        ' 
+        ' SalesBuyer
+        ' 
+        SalesBuyer.HeaderText = "Buyer"
+        SalesBuyer.Name = "SalesBuyer"
+        ' 
+        ' SalesTotal
+        ' 
+        SalesTotal.HeaderText = "Total"
+        SalesTotal.Name = "SalesTotal"
+        ' 
+        ' pnlShoppingCart
+        ' 
+        pnlShoppingCart.BackColor = Color.Silver
+        pnlShoppingCart.Controls.Add(Panel6)
+        pnlShoppingCart.Controls.Add(Label7)
+        pnlShoppingCart.Controls.Add(Label6)
+        pnlShoppingCart.Controls.Add(lblShoppingCart)
+        pnlShoppingCart.Location = New Point(1307, 296)
+        pnlShoppingCart.Name = "pnlShoppingCart"
+        pnlShoppingCart.Size = New Size(562, 487)
+        pnlShoppingCart.TabIndex = 3
         ' 
         ' Panel6
         ' 
         Panel6.BackColor = Color.White
-        Panel6.Controls.Add(Button3)
-        Panel6.Controls.Add(Label12)
-        Panel6.Controls.Add(Label11)
-        Panel6.Controls.Add(TextBox8)
+        Panel6.Controls.Add(btnCheckout)
+        Panel6.Controls.Add(lblTotal)
+        Panel6.Controls.Add(lblSubtotal)
+        Panel6.Controls.Add(txtBuyer)
         Panel6.Controls.Add(Label10)
         Panel6.Controls.Add(Label9)
         Panel6.Controls.Add(Label8)
         Panel6.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Panel6.Location = New Point(35, 173)
+        Panel6.Location = New Point(38, 164)
         Panel6.Name = "Panel6"
-        Panel6.Size = New Size(403, 232)
+        Panel6.Size = New Size(480, 249)
         Panel6.TabIndex = 3
         ' 
-        ' Button3
+        ' btnCheckout
         ' 
-        Button3.BackColor = Color.Green
-        Button3.ForeColor = Color.White
-        Button3.Location = New Point(47, 163)
-        Button3.Name = "Button3"
-        Button3.Size = New Size(329, 53)
-        Button3.TabIndex = 6
-        Button3.Text = "Checkout"
-        Button3.UseVisualStyleBackColor = False
+        btnCheckout.BackColor = Color.Green
+        btnCheckout.ForeColor = Color.White
+        btnCheckout.Location = New Point(104, 159)
+        btnCheckout.Name = "btnCheckout"
+        btnCheckout.Size = New Size(329, 53)
+        btnCheckout.TabIndex = 6
+        btnCheckout.Text = "Checkout"
+        btnCheckout.UseVisualStyleBackColor = False
         ' 
-        ' Label12
+        ' lblTotal
         ' 
-        Label12.AutoSize = True
-        Label12.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label12.Location = New Point(315, 118)
-        Label12.Name = "Label12"
-        Label12.Size = New Size(53, 17)
-        Label12.TabIndex = 5
-        Label12.Text = "Label12"
+        lblTotal.AutoSize = True
+        lblTotal.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTotal.ForeColor = Color.Navy
+        lblTotal.Location = New Point(322, 118)
+        lblTotal.Name = "lblTotal"
+        lblTotal.Size = New Size(34, 25)
+        lblTotal.TabIndex = 5
+        lblTotal.Text = "₱  "
         ' 
-        ' Label11
+        ' lblSubtotal
         ' 
-        Label11.AutoSize = True
-        Label11.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label11.Location = New Point(315, 89)
-        Label11.Name = "Label11"
-        Label11.Size = New Size(53, 17)
-        Label11.TabIndex = 4
-        Label11.Text = "Label11"
+        lblSubtotal.AutoSize = True
+        lblSubtotal.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lblSubtotal.Location = New Point(322, 87)
+        lblSubtotal.Name = "lblSubtotal"
+        lblSubtotal.Size = New Size(26, 20)
+        lblSubtotal.TabIndex = 4
+        lblSubtotal.Text = "₱  "
         ' 
-        ' TextBox8
+        ' txtBuyer
         ' 
-        TextBox8.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        TextBox8.Location = New Point(111, 37)
-        TextBox8.Name = "TextBox8"
-        TextBox8.PlaceholderText = "Buyer name"
-        TextBox8.Size = New Size(251, 27)
-        TextBox8.TabIndex = 3
+        txtBuyer.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtBuyer.Location = New Point(182, 35)
+        txtBuyer.Name = "txtBuyer"
+        txtBuyer.PlaceholderText = "Buyer name"
+        txtBuyer.Size = New Size(251, 27)
+        txtBuyer.TabIndex = 3
         ' 
         ' Label10
         ' 
@@ -717,20 +831,20 @@ Partial Class frmPOS
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label7.Location = New Point(146, 126)
+        Label7.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label7.Location = New Point(169, 114)
         Label7.Name = "Label7"
-        Label7.Size = New Size(162, 17)
+        Label7.Size = New Size(191, 21)
         Label7.TabIndex = 2
         Label7.Text = "Add products from the list"
         ' 
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label6.Location = New Point(167, 98)
+        Label6.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label6.Location = New Point(193, 94)
         Label6.Name = "Label6"
-        Label6.Size = New Size(113, 17)
+        Label6.Size = New Size(127, 20)
         Label6.TabIndex = 1
         Label6.Text = "Your cart is empty"
         ' 
@@ -738,11 +852,11 @@ Partial Class frmPOS
         ' 
         lblShoppingCart.AutoSize = True
         lblShoppingCart.BackColor = Color.Transparent
-        lblShoppingCart.Font = New Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblShoppingCart.ForeColor = Color.DodgerBlue
-        lblShoppingCart.Location = New Point(367, 18)
+        lblShoppingCart.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblShoppingCart.ForeColor = Color.Navy
+        lblShoppingCart.Location = New Point(403, 15)
         lblShoppingCart.Name = "lblShoppingCart"
-        lblShoppingCart.Size = New Size(145, 30)
+        lblShoppingCart.Size = New Size(156, 30)
         lblShoppingCart.TabIndex = 0
         lblShoppingCart.Text = "Shopping Cart"
         ' 
@@ -756,6 +870,17 @@ Partial Class frmPOS
         Panel7.Size = New Size(143, 1061)
         Panel7.TabIndex = 4
         ' 
+        ' lblTime
+        ' 
+        lblTime.AutoSize = True
+        lblTime.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTime.ForeColor = Color.White
+        lblTime.Location = New Point(1506, 6)
+        lblTime.Name = "lblTime"
+        lblTime.Size = New Size(72, 21)
+        lblTime.TabIndex = 6
+        lblTime.Text = "00:00:00"
+        ' 
         ' Button18
         ' 
         Button18.BackColor = SystemColors.Info
@@ -766,152 +891,42 @@ Partial Class frmPOS
         Button18.Text = "Logout"
         Button18.UseVisualStyleBackColor = False
         ' 
-        ' Panel8
+        ' pnlTotalProducts
         ' 
-        Panel8.BackColor = Color.Silver
-        Panel8.Controls.Add(Label25)
-        Panel8.Location = New Point(202, 120)
-        Panel8.Name = "Panel8"
-        Panel8.Size = New Size(230, 116)
-        Panel8.TabIndex = 5
+        pnlTotalProducts.BackColor = Color.White
+        pnlTotalProducts.Controls.Add(Label25)
+        pnlTotalProducts.Location = New Point(185, 130)
+        pnlTotalProducts.Name = "pnlTotalProducts"
+        pnlTotalProducts.Size = New Size(230, 116)
+        pnlTotalProducts.TabIndex = 5
         ' 
         ' Label25
         ' 
         Label25.AutoSize = True
-        Label25.Location = New Point(59, 74)
+        Label25.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label25.Location = New Point(50, 81)
         Label25.Name = "Label25"
-        Label25.Size = New Size(82, 15)
+        Label25.Size = New Size(110, 20)
         Label25.TabIndex = 0
         Label25.Text = "Total Products"
         ' 
-        ' TabPage4
+        ' Timer1
         ' 
-        TabPage4.Controls.Add(Panel1)
-        TabPage4.Controls.Add(Label17)
-        TabPage4.Controls.Add(TextBox9)
-        TabPage4.Controls.Add(DataGridView3)
-        TabPage4.Location = New Point(4, 26)
-        TabPage4.Name = "TabPage4"
-        TabPage4.Padding = New Padding(3)
-        TabPage4.Size = New Size(1147, 760)
-        TabPage4.TabIndex = 3
-        TabPage4.Text = "Sales History"
-        TabPage4.UseVisualStyleBackColor = True
-        ' 
-        ' DataGridView3
-        ' 
-        DataGridView3.BackgroundColor = Color.White
-        DataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView3.Columns.AddRange(New DataGridViewColumn() {SalesDate, SalesTime, SalesBuyer, SalesTotal})
-        DataGridView3.Location = New Point(19, 72)
-        DataGridView3.Name = "DataGridView3"
-        DataGridView3.Size = New Size(1108, 483)
-        DataGridView3.TabIndex = 0
-        ' 
-        ' TextBox9
-        ' 
-        TextBox9.Location = New Point(767, 41)
-        TextBox9.Name = "TextBox9"
-        TextBox9.PlaceholderText = "Search History Sales..."
-        TextBox9.Size = New Size(360, 25)
-        TextBox9.TabIndex = 1
-        ' 
-        ' Label17
-        ' 
-        Label17.AutoSize = True
-        Label17.Font = New Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label17.ForeColor = Color.Navy
-        Label17.Location = New Point(19, 12)
-        Label17.Name = "Label17"
-        Label17.Size = New Size(215, 45)
-        Label17.TabIndex = 2
-        Label17.Text = "Sales History"
-        ' 
-        ' SalesDate
-        ' 
-        SalesDate.HeaderText = "Date"
-        SalesDate.Name = "SalesDate"
-        ' 
-        ' SalesTime
-        ' 
-        SalesTime.HeaderText = "Time"
-        SalesTime.Name = "SalesTime"
-        ' 
-        ' SalesBuyer
-        ' 
-        SalesBuyer.HeaderText = "Buyer"
-        SalesBuyer.Name = "SalesBuyer"
-        ' 
-        ' SalesTotal
-        ' 
-        SalesTotal.HeaderText = "Total"
-        SalesTotal.Name = "SalesTotal"
-        ' 
-        ' Panel1
-        ' 
-        Panel1.Controls.Add(Label22)
-        Panel1.Controls.Add(Label26)
-        Panel1.Controls.Add(Label19)
-        Panel1.Controls.Add(Label18)
-        Panel1.Location = New Point(19, 588)
-        Panel1.Name = "Panel1"
-        Panel1.Size = New Size(1108, 155)
-        Panel1.TabIndex = 3
-        ' 
-        ' Label18
-        ' 
-        Label18.AutoSize = True
-        Label18.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label18.ForeColor = Color.Navy
-        Label18.Location = New Point(21, 22)
-        Label18.Name = "Label18"
-        Label18.Size = New Size(174, 25)
-        Label18.TabIndex = 0
-        Label18.Text = "Inventory Insights"
-        ' 
-        ' Label19
-        ' 
-        Label19.AutoSize = True
-        Label19.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label19.Location = New Point(21, 80)
-        Label19.Name = "Label19"
-        Label19.Size = New Size(182, 21)
-        Label19.TabIndex = 1
-        Label19.Text = "Low Stock Items (< 10)"
-        ' 
-        ' Label26
-        ' 
-        Label26.AutoSize = True
-        Label26.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label26.Location = New Point(431, 80)
-        Label26.Name = "Label26"
-        Label26.Size = New Size(166, 21)
-        Label26.TabIndex = 3
-        Label26.Text = "Top Selling Products"
-        ' 
-        ' Label22
-        ' 
-        Label22.AutoSize = True
-        Label22.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label22.Location = New Point(894, 80)
-        Label22.Name = "Label22"
-        Label22.Size = New Size(153, 21)
-        Label22.TabIndex = 4
-        Label22.Text = "Recommendations"
+        Timer1.Interval = 1000
         ' 
         ' frmPOS
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = Color.WhiteSmoke
+        BackColor = Color.Gainsboro
         ClientSize = New Size(1881, 1061)
-        Controls.Add(Panel8)
+        Controls.Add(pnlTotalProducts)
         Controls.Add(pnlHeader)
-        Controls.Add(Panel3)
-        Controls.Add(Panel4)
+        Controls.Add(pnlTodaysSales)
+        Controls.Add(pnlWeeklyRevenue)
         Controls.Add(Panel7)
-        Controls.Add(Panel2)
-        Controls.Add(Panel5)
+        Controls.Add(pnlItemsStock)
+        Controls.Add(pnlShoppingCart)
         Controls.Add(Inventory)
         KeyPreview = True
         MaximizeBox = False
@@ -921,54 +936,54 @@ Partial Class frmPOS
         WindowState = FormWindowState.Maximized
         pnlHeader.ResumeLayout(False)
         pnlHeader.PerformLayout()
-        Panel4.ResumeLayout(False)
-        Panel4.PerformLayout()
-        Panel3.ResumeLayout(False)
-        Panel3.PerformLayout()
-        Panel2.ResumeLayout(False)
-        Panel2.PerformLayout()
+        pnlWeeklyRevenue.ResumeLayout(False)
+        pnlWeeklyRevenue.PerformLayout()
+        pnlTodaysSales.ResumeLayout(False)
+        pnlTodaysSales.PerformLayout()
+        pnlItemsStock.ResumeLayout(False)
+        pnlItemsStock.PerformLayout()
         Inventory.ResumeLayout(False)
-        TabPage1.ResumeLayout(False)
-        TabPage1.PerformLayout()
-        TabPage2.ResumeLayout(False)
-        TabPage2.PerformLayout()
+        tabProducts.ResumeLayout(False)
+        tabProducts.PerformLayout()
+        tabInventory.ResumeLayout(False)
+        tabInventory.PerformLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
-        TabPage3.ResumeLayout(False)
-        TabPage3.PerformLayout()
+        tabWeeklyReports.ResumeLayout(False)
+        tabWeeklyReports.PerformLayout()
         CType(DataGridView2, ComponentModel.ISupportInitialize).EndInit()
         Panel10.ResumeLayout(False)
         Panel10.PerformLayout()
         Panel9.ResumeLayout(False)
         Panel9.PerformLayout()
-        Panel5.ResumeLayout(False)
-        Panel5.PerformLayout()
+        tabSalesHistory.ResumeLayout(False)
+        tabSalesHistory.PerformLayout()
+        Panel1.ResumeLayout(False)
+        Panel1.PerformLayout()
+        CType(DataGridView3, ComponentModel.ISupportInitialize).EndInit()
+        pnlShoppingCart.ResumeLayout(False)
+        pnlShoppingCart.PerformLayout()
         Panel6.ResumeLayout(False)
         Panel6.PerformLayout()
         Panel7.ResumeLayout(False)
-        Panel8.ResumeLayout(False)
-        Panel8.PerformLayout()
-        TabPage4.ResumeLayout(False)
-        TabPage4.PerformLayout()
-        CType(DataGridView3, ComponentModel.ISupportInitialize).EndInit()
-        Panel1.ResumeLayout(False)
-        Panel1.PerformLayout()
+        pnlTotalProducts.ResumeLayout(False)
+        pnlTotalProducts.PerformLayout()
         ResumeLayout(False)
     End Sub
 
     Friend WithEvents pnlHeader As Panel
     Friend WithEvents lblTitle As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Panel4 As Panel
+    Friend WithEvents pnlWeeklyRevenue As Panel
     Friend WithEvents Label5 As Label
-    Friend WithEvents Panel3 As Panel
+    Friend WithEvents pnlTodaysSales As Panel
     Friend WithEvents Label4 As Label
-    Friend WithEvents Panel2 As Panel
+    Friend WithEvents pnlItemsStock As Panel
     Friend WithEvents Label3 As Label
     Friend WithEvents Inventory As TabControl
-    Friend WithEvents TabPage1 As TabPage
-    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents tabProducts As TabPage
+    Friend WithEvents tabInventory As TabPage
     Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents TabPage3 As TabPage
+    Friend WithEvents tabWeeklyReports As TabPage
     Friend WithEvents lblAvailableProducts As Label
     Friend WithEvents TextBox3 As TextBox
     Friend WithEvents TextBox2 As TextBox
@@ -979,32 +994,31 @@ Partial Class frmPOS
     Friend WithEvents lblInventoryManagement As Label
     Friend WithEvents TextBox7 As TextBox
     Friend WithEvents Button2 As Button
-    Friend WithEvents Panel5 As Panel
+    Friend WithEvents pnlShoppingCart As Panel
     Friend WithEvents lblShoppingCart As Label
     Friend WithEvents Panel6 As Panel
-    Friend WithEvents Label11 As Label
-    Friend WithEvents TextBox8 As TextBox
+    Friend WithEvents lblSubtotal As Label
+    Friend WithEvents txtBuyer As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Label12 As Label
+    Friend WithEvents btnCheckout As Button
+    Friend WithEvents lblTotal As Label
     Friend WithEvents Panel7 As Panel
     Friend WithEvents Label13 As Label
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents DateTimePicker1 As DateTimePicker
-    Friend WithEvents Button6 As Button
+    Friend WithEvents btnRefresh As Button
     Friend WithEvents Button5 As Button
-    Friend WithEvents Label21 As Label
-    Friend WithEvents Label20 As Label
-    Friend WithEvents Label23 As Label
+    Friend WithEvents lblCategory As Label
+    Friend WithEvents lblWeeklyReport As Label
+    Friend WithEvents lblWeekStarting As Label
     Friend WithEvents Button18 As Button
     Friend WithEvents Label24 As Label
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents lblSearchBar As Label
-    Friend WithEvents Panel8 As Panel
+    Friend WithEvents pnlTotalProducts As Panel
     Friend WithEvents Label25 As Label
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents Panel10 As Panel
@@ -1021,9 +1035,9 @@ Partial Class frmPOS
     Friend WithEvents colItemsSold As DataGridViewTextBoxColumn
     Friend WithEvents colRevenue As DataGridViewTextBoxColumn
     Friend WithEvents colAvgTransaction As DataGridViewTextBoxColumn
-    Friend WithEvents TabPage4 As TabPage
-    Friend WithEvents Label17 As Label
-    Friend WithEvents TextBox9 As TextBox
+    Friend WithEvents tabSalesHistory As TabPage
+    Friend WithEvents lblSalesHistory As Label
+    Friend WithEvents txtSearchHistory As TextBox
     Friend WithEvents DataGridView3 As DataGridView
     Friend WithEvents SalesDate As DataGridViewTextBoxColumn
     Friend WithEvents SalesTime As DataGridViewTextBoxColumn
@@ -1034,4 +1048,6 @@ Partial Class frmPOS
     Friend WithEvents Label26 As Label
     Friend WithEvents Label19 As Label
     Friend WithEvents Label18 As Label
+    Friend WithEvents lblTime As Label
+    Friend WithEvents Timer1 As Timer
 End Class
