@@ -64,10 +64,10 @@ Partial Class frmPOS
         Panel9 = New Panel()
         Label15 = New Label()
         Label1 = New Label()
-        Button7 = New Button()
+        btnNextWeek = New Button()
         lblWeekStarting = New Label()
         btnRefresh = New Button()
-        Button5 = New Button()
+        btnPreviousWeek = New Button()
         lblCategory = New Label()
         lblWeeklyReport = New Label()
         Label13 = New Label()
@@ -414,10 +414,10 @@ Partial Class frmPOS
         tabWeeklyReports.Controls.Add(DataGridView2)
         tabWeeklyReports.Controls.Add(Panel10)
         tabWeeklyReports.Controls.Add(Panel9)
-        tabWeeklyReports.Controls.Add(Button7)
+        tabWeeklyReports.Controls.Add(btnNextWeek)
         tabWeeklyReports.Controls.Add(lblWeekStarting)
         tabWeeklyReports.Controls.Add(btnRefresh)
-        tabWeeklyReports.Controls.Add(Button5)
+        tabWeeklyReports.Controls.Add(btnPreviousWeek)
         tabWeeklyReports.Controls.Add(lblCategory)
         tabWeeklyReports.Controls.Add(lblWeeklyReport)
         tabWeeklyReports.Controls.Add(Label13)
@@ -533,16 +533,16 @@ Partial Class frmPOS
         Label1.TabIndex = 0
         Label1.Text = "₱  Revenue Summary"
         ' 
-        ' Button7
+        ' btnNextWeek
         ' 
-        Button7.BackColor = Color.White
-        Button7.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Button7.Location = New Point(325, 57)
-        Button7.Name = "Button7"
-        Button7.Size = New Size(117, 29)
-        Button7.TabIndex = 17
-        Button7.Text = "Next Week >"
-        Button7.UseVisualStyleBackColor = False
+        btnNextWeek.BackColor = Color.White
+        btnNextWeek.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnNextWeek.Location = New Point(390, 57)
+        btnNextWeek.Name = "btnNextWeek"
+        btnNextWeek.Size = New Size(117, 29)
+        btnNextWeek.TabIndex = 17
+        btnNextWeek.Text = "Next Week >"
+        btnNextWeek.UseVisualStyleBackColor = False
         ' 
         ' lblWeekStarting
         ' 
@@ -566,16 +566,16 @@ Partial Class frmPOS
         btnRefresh.Text = "🔄  Refresh"
         btnRefresh.UseVisualStyleBackColor = False
         ' 
-        ' Button5
+        ' btnPreviousWeek
         ' 
-        Button5.BackColor = Color.White
-        Button5.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Button5.Location = New Point(24, 57)
-        Button5.Name = "Button5"
-        Button5.Size = New Size(158, 29)
-        Button5.TabIndex = 14
-        Button5.Text = "<  Previous Week"
-        Button5.UseVisualStyleBackColor = False
+        btnPreviousWeek.BackColor = Color.White
+        btnPreviousWeek.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnPreviousWeek.Location = New Point(24, 57)
+        btnPreviousWeek.Name = "btnPreviousWeek"
+        btnPreviousWeek.Size = New Size(158, 29)
+        btnPreviousWeek.TabIndex = 14
+        btnPreviousWeek.Text = "<  Previous Week"
+        btnPreviousWeek.UseVisualStyleBackColor = False
         ' 
         ' lblCategory
         ' 
@@ -603,11 +603,12 @@ Partial Class frmPOS
         ' Label13
         ' 
         Label13.AutoSize = True
-        Label13.Location = New Point(217, 64)
+        Label13.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label13.Location = New Point(224, 64)
         Label13.Name = "Label13"
-        Label13.Size = New Size(53, 17)
+        Label13.Size = New Size(119, 17)
         Label13.TabIndex = 2
-        Label13.Text = "Label13"
+        Label13.Text = "UpdateWeekLabel"
         ' 
         ' ComboBox1
         ' 
@@ -622,7 +623,7 @@ Partial Class frmPOS
         ' 
         DateTimePicker1.Location = New Point(636, 16)
         DateTimePicker1.Name = "DateTimePicker1"
-        DateTimePicker1.Size = New Size(200, 25)
+        DateTimePicker1.Size = New Size(220, 25)
         DateTimePicker1.TabIndex = 0
         ' 
         ' tabSalesHistory
@@ -1011,7 +1012,7 @@ Partial Class frmPOS
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents btnRefresh As Button
-    Friend WithEvents Button5 As Button
+    Friend WithEvents btnPreviousWeek As Button
     Friend WithEvents lblCategory As Label
     Friend WithEvents lblWeeklyReport As Label
     Friend WithEvents lblWeekStarting As Label
@@ -1023,7 +1024,7 @@ Partial Class frmPOS
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents Panel10 As Panel
     Friend WithEvents Panel9 As Panel
-    Friend WithEvents Button7 As Button
+    Friend WithEvents btnNextWeek As Button
     Friend WithEvents Label16 As Label
     Friend WithEvents Label14 As Label
     Friend WithEvents Label15 As Label

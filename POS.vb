@@ -1,64 +1,106 @@
 ﻿Imports System.Drawing
 Imports System.Text
-Imports System.IO  ' <--- THIS WAS MISSING!
+Imports System.IO
+Imports System.Linq
 
 Public Class frmPOS
 
-    ' --- YOUR EXISTING POS EVENTS ---
+    ' Global variable para sa tracking
+    Private currentWeekStartDate As DateTime
 
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-        ' Logic for Label2
+    ' --- FORM LOAD ---
+    Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Timer1.Start()
+
+        ' 1. Automatic: I-set ang picker sa Sunday ng kasalukuyang linggo
+        Dim today As DateTime = DateTime.Today
+        Dim diff As Integer = today.DayOfWeek
+        currentWeekStartDate = today.AddDays(-diff)
+
+        ' I-update ang UI controls
+        DateTimePicker1.Value = currentWeekStartDate
+        UpdateWeekLabel()
+        LoadData()
     End Sub
 
-    ' ... (Keeping your other events as they are) ...
-
+    ' --- TIMER LOGIC ---
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         lblTime.Text = DateTime.Now.ToString("MMMM dd, yyyy  hh:mm:ss tt")
     End Sub
 
-    Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Timer1.Start()
+    ' --- DATETIMEPICKER LOGIC ---
+    ' Kapag binago mo ang date sa picker, mag-uupdate dapat ang report
+    Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
+        ' Kapag namili ang user ng kahit anong araw, i-snap natin sa Sunday ng linggong iyon
+        Dim selectedDate As DateTime = DateTimePicker1.Value
+        Dim diff As Integer = selectedDate.DayOfWeek
+        currentWeekStartDate = selectedDate.AddDays(-diff)
+
+        UpdateWeekLabel()
+        LoadData()
     End Sub
 
-    ' --- FIXED EXPORT BUTTON ---
+    ' --- REFRESH BUTTON ---
+    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
+        LoadData()
+        MessageBox.Show("Report Refreshed!", "System", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    ' --- NAVIGATION BUTTONS ---
+
+    Private Sub btnPreviousWeek_Click(sender As Object, e As EventArgs) Handles btnPreviousWeek.Click
+        currentWeekStartDate = currentWeekStartDate.AddDays(-7)
+        DateTimePicker1.Value = currentWeekStartDate ' Ito ang magti-trigger ng ValueChanged
+    End Sub
+
+    Private Sub btnNextWeek_Click(sender As Object, e As EventArgs) Handles btnNextWeek.Click
+        currentWeekStartDate = currentWeekStartDate.AddDays(7)
+        DateTimePicker1.Value = currentWeekStartDate ' Ito ang magti-trigger ng ValueChanged
+    End Sub
+
+    ' --- HELPER METHODS ---
+
+    Private Sub UpdateWeekLabel()
+        ' I-update ang label (halimbawa: Label13 o yung text na "UpdateWeekLabel" sa screenshot)
+        Dim endOfWeek = currentWeekStartDate.AddDays(6)
+        Label13.Text = currentWeekStartDate.ToString("MMM dd") & " - " & endOfWeek.ToString("MMM dd, yyyy")
+    End Sub
+
+    Private Sub LoadData()
+        ' Dito papasok ang logic para i-filter ang Data sa Revenue Summary at Sales Performance
+        ' Gamitin ang currentWeekStartDate para sa SQL query
+        Console.WriteLine("Fetching sales from " & currentWeekStartDate.ToShortDateString())
+    End Sub
+
+    ' --- EXPORT CSV BUTTON (mula sa naunang usapan) ---
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        ' 1. Setup the Save File Dialog
         Dim sfd As New SaveFileDialog()
         sfd.Filter = "CSV files (*.csv)|*.csv"
-        sfd.Title = "Save Inventory Export"
-        sfd.FileName = "Inventory_Data.csv"
+        sfd.FileName = "Weekly_Sales_" & currentWeekStartDate.ToString("yyyyMMdd") & ".csv"
 
         If sfd.ShowDialog() = DialogResult.OK Then
             Try
-                ' 2. Reference your DataGridView
-                ' IMPORTANT: Ensure your grid is actually named DataGridView1
-                Dim grid As DataGridView = DataGridView1
                 Dim sb As New StringBuilder()
-
-                ' 3. Create Column Headers
-                Dim headers = From col As DataGridViewColumn In grid.Columns.Cast(Of DataGridViewColumn)()
+                ' Headers
+                Dim headers = From col As DataGridViewColumn In DataGridView1.Columns.Cast(Of DataGridViewColumn)()
                               Select col.HeaderText
                 sb.AppendLine(String.Join(",", headers))
 
-                ' 4. Loop through Rows
-                For Each row As DataGridViewRow In grid.Rows
+                ' Rows
+                For Each row As DataGridViewRow In DataGridView1.Rows
                     If Not row.IsNewRow Then
-                        ' Clean data by replacing any existing commas with a space 
                         Dim cells = From cell As DataGridViewCell In row.Cells.Cast(Of DataGridViewCell)()
                                     Select If(cell.Value IsNot Nothing, cell.Value.ToString().Replace(",", " "), "")
-
                         sb.AppendLine(String.Join(",", cells))
                     End If
                 Next
 
-                ' 5. Save the file (Using System.IO.File to be 100% safe)
-                System.IO.File.WriteAllText(sfd.FileName, sb.ToString(), Encoding.UTF8)
-
-                MessageBox.Show("Export Successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+                File.WriteAllText(sfd.FileName, sb.ToString(), Encoding.UTF8)
+                MessageBox.Show("Export Successful!")
             Catch ex As Exception
-                MessageBox.Show("Error: " & ex.Message, "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error: " & ex.Message)
             End Try
         End If
     End Sub
+
 End Class
