@@ -34,22 +34,8 @@ Public Class DatabaseHelper
                     cmd.ExecuteNonQuery()
                 End Using
 
-                ' If no users exist, create a default admin account
-                Dim countQuery As String = "SELECT COUNT(*) FROM Users"
-                Using countCmd As New SQLiteCommand(countQuery, conn)
-                    Dim userCount As Integer = Convert.ToInt32(countCmd.ExecuteScalar())
-                    If userCount = 0 Then
-                        Dim defaultPassword As String = "admin123" ' you may change this or prompt the user
-                        Dim insertQuery As String = "INSERT INTO Users (Username, PasswordHash, FullName, Role) VALUES (@Username, @PasswordHash, @FullName, @Role)"
-                        Using insertCmd As New SQLiteCommand(insertQuery, conn)
-                            insertCmd.Parameters.AddWithValue("@Username", "admin")
-                            insertCmd.Parameters.AddWithValue("@PasswordHash", HashPassword(defaultPassword))
-                            insertCmd.Parameters.AddWithValue("@FullName", "Administrator")
-                            insertCmd.Parameters.AddWithValue("@Role", "Admin")
-                            insertCmd.ExecuteNonQuery()
-                        End Using
-                    End If
-                End Using
+                ' REMOVED: The check and creation of default Admin credentials.
+                ' You will now need to create your first user manually or through a setup form.
 
             End Using
         Catch ex As Exception
