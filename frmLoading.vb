@@ -24,7 +24,7 @@
     End Sub
 
 
-    Private Sub ProgressBar1_Click(sender As Object, e As EventArgs) Handles ProgressBar1.Click
+    Private Sub ProgressBar1_Click(sender As Object, e As EventArgs)
     End Sub
     ' Add this inside your main form's code
     Private Sub Form_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing

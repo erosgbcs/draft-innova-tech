@@ -23,22 +23,15 @@ Partial Class frmLoading
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
+        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmLoading))
-        ProgressBar1 = New ProgressBar()
         lblPercent = New Label()
         Timer1 = New Timer(components)
         Panel1 = New Panel()
+        Progressbar1 = New Guna.UI2.WinForms.Guna2ProgressBar()
         Panel1.SuspendLayout()
         SuspendLayout()
-        ' 
-        ' ProgressBar1
-        ' 
-        ProgressBar1.Anchor = AnchorStyles.None
-        ProgressBar1.BackColor = SystemColors.Highlight
-        ProgressBar1.Location = New Point(3, 41)
-        ProgressBar1.Name = "ProgressBar1"
-        ProgressBar1.Size = New Size(361, 23)
-        ProgressBar1.TabIndex = 0
         ' 
         ' lblPercent
         ' 
@@ -61,12 +54,26 @@ Partial Class frmLoading
         ' 
         Panel1.Anchor = AnchorStyles.None
         Panel1.BackColor = Color.Transparent
+        Panel1.Controls.Add(Progressbar1)
         Panel1.Controls.Add(lblPercent)
-        Panel1.Controls.Add(ProgressBar1)
-        Panel1.Location = New Point(281, 314)
+        Panel1.Location = New Point(273, 347)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(374, 100)
         Panel1.TabIndex = 2
+        ' 
+        ' Progressbar1
+        ' 
+        Progressbar1.BorderRadius = 15
+        Progressbar1.CustomizableEdges = CustomizableEdges1
+        Progressbar1.Location = New Point(3, 35)
+        Progressbar1.Name = "Progressbar1"
+        Progressbar1.ProgressColor = Color.DarkBlue
+        Progressbar1.ProgressColor2 = Color.ForestGreen
+        Progressbar1.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        Progressbar1.Size = New Size(371, 30)
+        Progressbar1.TabIndex = 3
+        Progressbar1.Text = "Guna2ProgressBar1"
+        Progressbar1.TextRenderingHint = Drawing.Text.TextRenderingHint.SystemDefault
         ' 
         ' FrmLoading
         ' 
@@ -86,8 +93,8 @@ Partial Class frmLoading
         ResumeLayout(False)
     End Sub
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents lblPercent As Label
     Friend WithEvents Timer1 As Timer
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents Progressbar1 As Guna.UI2.WinForms.Guna2ProgressBar
 End Class
