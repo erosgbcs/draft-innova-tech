@@ -1,4 +1,6 @@
 ﻿Imports System.Drawing
+Imports System.Text
+Imports System.IO  ' <--- THIS WAS MISSING!
 
 Public Class frmPOS
 
@@ -8,51 +10,55 @@ Public Class frmPOS
         ' Logic for Label2
     End Sub
 
-    Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles tabInventory.Click
-        ' Logic for TabPage2
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        ' Logic for Button1
-    End Sub
-
-    Private Sub pnlStats_Paint(sender As Object, e As PaintEventArgs)
-        ' Logic for pnlStats
-    End Sub
-
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
-        ' Logic for TextBox1
-    End Sub
-
-    Private Sub TextBox7_TextChanged(sender As Object, e As EventArgs) Handles TextBox7.TextChanged
-        ' Logic for TextBox7
-    End Sub
-
-    Private Sub Label17_Click(sender As Object, e As EventArgs)
-        ' Logic for Label17
-    End Sub
-
-    ' Note: If you need these, you can add code inside them
-    Private Sub flpProducts_Paint(sender As Object, e As PaintEventArgs)
-    End Sub
-
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
-    End Sub
-
-    Private Sub lvMenu_SelectedIndexChanged(sender As Object, e As EventArgs)
-    End Sub
-
-    Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
-
-    End Sub
+    ' ... (Keeping your other events as they are) ...
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-
         lblTime.Text = DateTime.Now.ToString("MMMM dd, yyyy  hh:mm:ss tt")
-
     End Sub
 
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Timer1.Start()
+    End Sub
+
+    ' --- FIXED EXPORT BUTTON ---
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        ' 1. Setup the Save File Dialog
+        Dim sfd As New SaveFileDialog()
+        sfd.Filter = "CSV files (*.csv)|*.csv"
+        sfd.Title = "Save Inventory Export"
+        sfd.FileName = "Inventory_Data.csv"
+
+        If sfd.ShowDialog() = DialogResult.OK Then
+            Try
+                ' 2. Reference your DataGridView
+                ' IMPORTANT: Ensure your grid is actually named DataGridView1
+                Dim grid As DataGridView = DataGridView1
+                Dim sb As New StringBuilder()
+
+                ' 3. Create Column Headers
+                Dim headers = From col As DataGridViewColumn In grid.Columns.Cast(Of DataGridViewColumn)()
+                              Select col.HeaderText
+                sb.AppendLine(String.Join(",", headers))
+
+                ' 4. Loop through Rows
+                For Each row As DataGridViewRow In grid.Rows
+                    If Not row.IsNewRow Then
+                        ' Clean data by replacing any existing commas with a space 
+                        Dim cells = From cell As DataGridViewCell In row.Cells.Cast(Of DataGridViewCell)()
+                                    Select If(cell.Value IsNot Nothing, cell.Value.ToString().Replace(",", " "), "")
+
+                        sb.AppendLine(String.Join(",", cells))
+                    End If
+                Next
+
+                ' 5. Save the file (Using System.IO.File to be 100% safe)
+                System.IO.File.WriteAllText(sfd.FileName, sb.ToString(), Encoding.UTF8)
+
+                MessageBox.Show("Export Successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            Catch ex As Exception
+                MessageBox.Show("Error: " & ex.Message, "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
     End Sub
 End Class

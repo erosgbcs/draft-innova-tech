@@ -24,6 +24,7 @@ Partial Class frmPOS
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
         pnlHeader = New Panel()
+        lblTime = New Label()
         Label24 = New Label()
         Label2 = New Label()
         lblTitle = New Label()
@@ -98,7 +99,6 @@ Partial Class frmPOS
         Label6 = New Label()
         lblShoppingCart = New Label()
         Panel7 = New Panel()
-        lblTime = New Label()
         Button18 = New Button()
         pnlTotalProducts = New Panel()
         Label25 = New Label()
@@ -133,8 +133,19 @@ Partial Class frmPOS
         pnlHeader.Controls.Add(lblTitle)
         pnlHeader.Location = New Point(145, 3)
         pnlHeader.Name = "pnlHeader"
-        pnlHeader.Size = New Size(1739, 111)
+        pnlHeader.Size = New Size(1779, 105)
         pnlHeader.TabIndex = 0
+        ' 
+        ' lblTime
+        ' 
+        lblTime.AutoSize = True
+        lblTime.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTime.ForeColor = Color.White
+        lblTime.Location = New Point(1549, 6)
+        lblTime.Name = "lblTime"
+        lblTime.Size = New Size(72, 21)
+        lblTime.TabIndex = 6
+        lblTime.Text = "00:00:00"
         ' 
         ' Label24
         ' 
@@ -736,7 +747,7 @@ Partial Class frmPOS
         pnlShoppingCart.Controls.Add(Label7)
         pnlShoppingCart.Controls.Add(Label6)
         pnlShoppingCart.Controls.Add(lblShoppingCart)
-        pnlShoppingCart.Location = New Point(1307, 296)
+        pnlShoppingCart.Location = New Point(1334, 296)
         pnlShoppingCart.Name = "pnlShoppingCart"
         pnlShoppingCart.Size = New Size(562, 487)
         pnlShoppingCart.TabIndex = 3
@@ -870,17 +881,6 @@ Partial Class frmPOS
         Panel7.Size = New Size(143, 1061)
         Panel7.TabIndex = 4
         ' 
-        ' lblTime
-        ' 
-        lblTime.AutoSize = True
-        lblTime.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblTime.ForeColor = Color.White
-        lblTime.Location = New Point(1506, 6)
-        lblTime.Name = "lblTime"
-        lblTime.Size = New Size(72, 21)
-        lblTime.TabIndex = 6
-        lblTime.Text = "00:00:00"
-        ' 
         ' Button18
         ' 
         Button18.BackColor = SystemColors.Info
@@ -919,7 +919,7 @@ Partial Class frmPOS
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Gainsboro
-        ClientSize = New Size(1881, 1061)
+        ClientSize = New Size(1924, 1061)
         Controls.Add(pnlTotalProducts)
         Controls.Add(pnlHeader)
         Controls.Add(pnlTodaysSales)
