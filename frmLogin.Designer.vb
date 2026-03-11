@@ -92,7 +92,7 @@ Partial Class frmLogin
         btnShowHide.FlatStyle = FlatStyle.Flat
         btnShowHide.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnShowHide.ForeColor = Color.Black
-        btnShowHide.Location = New Point(282, 80)
+        btnShowHide.Location = New Point(282, 143)
         btnShowHide.Name = "btnShowHide"
         btnShowHide.Size = New Size(44, 33)
         btnShowHide.TabIndex = 7
@@ -133,17 +133,17 @@ Partial Class frmLogin
         Guna2CustomGradientPanel1.BackColor = Color.Transparent
         Guna2CustomGradientPanel1.BorderColor = Color.Black
         Guna2CustomGradientPanel1.BorderRadius = 18
-        Guna2CustomGradientPanel1.Controls.Add(txtPassword)
         Guna2CustomGradientPanel1.Controls.Add(btnShowHide)
         Guna2CustomGradientPanel1.Controls.Add(txtUsername)
         Guna2CustomGradientPanel1.Controls.Add(btnLogin)
         Guna2CustomGradientPanel1.Controls.Add(IbIUsername)
         Guna2CustomGradientPanel1.Controls.Add(btnForgotPassword)
         Guna2CustomGradientPanel1.Controls.Add(IbIPassword)
+        Guna2CustomGradientPanel1.Controls.Add(txtPassword)
         Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges1
         Guna2CustomGradientPanel1.FillColor = Color.DarkBlue
         Guna2CustomGradientPanel1.FillColor2 = Color.DarkBlue
-        Guna2CustomGradientPanel1.Location = New Point(409, 232)
+        Guna2CustomGradientPanel1.Location = New Point(569, 231)
         Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
         Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         Guna2CustomGradientPanel1.Size = New Size(349, 391)
