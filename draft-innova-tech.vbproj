@@ -15,10 +15,10 @@
 
 	<ItemGroup>
 		<Import Include="Microsoft.VisualBasic" />
-		<Import Include="Microsoft.VisualBasic.CompilerServices" />
 		<Import Include="System" />
 		<Import Include="System.Collections" />
 		<Import Include="System.Collections.Generic" />
+		<Import Include="System.ComponentModel.Design" />
 		<Import Include="System.Data" />
 		<Import Include="System.Drawing" />
 		<Import Include="System.Diagnostics" />
