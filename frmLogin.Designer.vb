@@ -36,7 +36,7 @@ Partial Class frmLogin
         ' 
         btnForgotPassword.AccessibleRole = AccessibleRole.Application
         btnForgotPassword.Anchor = AnchorStyles.None
-        btnForgotPassword.BackColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
+        btnForgotPassword.BackColor = Color.Maroon
         btnForgotPassword.FlatStyle = FlatStyle.Flat
         btnForgotPassword.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnForgotPassword.ForeColor = Color.White
@@ -114,11 +114,11 @@ Partial Class frmLogin
         ' btnLogin
         ' 
         btnLogin.Anchor = AnchorStyles.None
-        btnLogin.BackColor = Color.FromArgb(CByte(128), CByte(255), CByte(128))
+        btnLogin.BackColor = Color.Green
         btnLogin.FlatStyle = FlatStyle.Flat
         btnLogin.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnLogin.ForeColor = Color.White
-        btnLogin.Location = New Point(225, 620)
+        btnLogin.Location = New Point(242, 620)
         btnLogin.Name = "btnLogin"
         btnLogin.Size = New Size(126, 31)
         btnLogin.TabIndex = 5
