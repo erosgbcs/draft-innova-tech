@@ -40,16 +40,18 @@ Partial Class frmPOS
         tabProducts = New TabPage()
         FlowLayoutPanel1 = New FlowLayoutPanel()
         tabInventory = New TabPage()
+        btnDelete = New Button()
+        btnUpdate = New Button()
         Button2 = New Button()
         TextBox7 = New TextBox()
-        TextBox5 = New TextBox()
+        txtStock = New TextBox()
         txtCategory = New TextBox()
         txtProductName = New TextBox()
         txtPrice = New TextBox()
         lblInventoryManagement = New Label()
         txtProductCode = New TextBox()
-        Button1 = New Button()
-        dv = New DataGridView()
+        btnAdd = New Button()
+        dgvProducts = New DataGridView()
         tabWeeklyReports = New TabPage()
         DataGridView2 = New DataGridView()
         colDay = New DataGridViewTextBoxColumn()
@@ -110,7 +112,7 @@ Partial Class frmPOS
         Inventory.SuspendLayout()
         tabProducts.SuspendLayout()
         tabInventory.SuspendLayout()
-        CType(dv, ComponentModel.ISupportInitialize).BeginInit()
+        CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         tabWeeklyReports.SuspendLayout()
         CType(DataGridView2, ComponentModel.ISupportInitialize).BeginInit()
         Panel10.SuspendLayout()
@@ -299,16 +301,18 @@ Partial Class frmPOS
         ' 
         ' tabInventory
         ' 
+        tabInventory.Controls.Add(btnDelete)
+        tabInventory.Controls.Add(btnUpdate)
         tabInventory.Controls.Add(Button2)
         tabInventory.Controls.Add(TextBox7)
-        tabInventory.Controls.Add(TextBox5)
+        tabInventory.Controls.Add(txtStock)
         tabInventory.Controls.Add(txtCategory)
         tabInventory.Controls.Add(txtProductName)
         tabInventory.Controls.Add(txtPrice)
         tabInventory.Controls.Add(lblInventoryManagement)
         tabInventory.Controls.Add(txtProductCode)
-        tabInventory.Controls.Add(Button1)
-        tabInventory.Controls.Add(dv)
+        tabInventory.Controls.Add(btnAdd)
+        tabInventory.Controls.Add(dgvProducts)
         tabInventory.Location = New Point(4, 26)
         tabInventory.Name = "tabInventory"
         tabInventory.Padding = New Padding(3)
@@ -316,6 +320,30 @@ Partial Class frmPOS
         tabInventory.TabIndex = 1
         tabInventory.Text = "Inventory"
         tabInventory.UseVisualStyleBackColor = True
+        ' 
+        ' btnDelete
+        ' 
+        btnDelete.BackColor = Color.Green
+        btnDelete.FlatStyle = FlatStyle.Flat
+        btnDelete.ForeColor = Color.White
+        btnDelete.Location = New Point(789, 718)
+        btnDelete.Name = "btnDelete"
+        btnDelete.Size = New Size(116, 44)
+        btnDelete.TabIndex = 6
+        btnDelete.Text = "Delete Product"
+        btnDelete.UseVisualStyleBackColor = False
+        ' 
+        ' btnUpdate
+        ' 
+        btnUpdate.BackColor = Color.Green
+        btnUpdate.FlatStyle = FlatStyle.Flat
+        btnUpdate.ForeColor = Color.White
+        btnUpdate.Location = New Point(930, 718)
+        btnUpdate.Name = "btnUpdate"
+        btnUpdate.Size = New Size(116, 44)
+        btnUpdate.TabIndex = 5
+        btnUpdate.Text = "Update Product"
+        btnUpdate.UseVisualStyleBackColor = False
         ' 
         ' Button2
         ' 
@@ -337,13 +365,13 @@ Partial Class frmPOS
         TextBox7.Size = New Size(1125, 27)
         TextBox7.TabIndex = 3
         ' 
-        ' TextBox5
+        ' txtStock
         ' 
-        TextBox5.Location = New Point(743, 673)
-        TextBox5.Name = "TextBox5"
-        TextBox5.PlaceholderText = "Stock"
-        TextBox5.Size = New Size(153, 25)
-        TextBox5.TabIndex = 3
+        txtStock.Location = New Point(743, 673)
+        txtStock.Name = "txtStock"
+        txtStock.PlaceholderText = "Stock"
+        txtStock.Size = New Size(153, 25)
+        txtStock.TabIndex = 3
         ' 
         ' txtCategory
         ' 
@@ -388,25 +416,26 @@ Partial Class frmPOS
         txtProductCode.Size = New Size(153, 25)
         txtProductCode.TabIndex = 3
         ' 
-        ' Button1
+        ' btnAdd
         ' 
-        Button1.BackColor = Color.FromArgb(CByte(45), CByte(84), CByte(150))
-        Button1.FlatStyle = FlatStyle.Flat
-        Button1.ForeColor = Color.White
-        Button1.Location = New Point(930, 668)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(116, 44)
-        Button1.TabIndex = 3
-        Button1.Text = "Add Product"
-        Button1.UseVisualStyleBackColor = False
+        btnAdd.BackColor = Color.FromArgb(CByte(45), CByte(84), CByte(150))
+        btnAdd.FlatStyle = FlatStyle.Flat
+        btnAdd.ForeColor = Color.White
+        btnAdd.Location = New Point(930, 668)
+        btnAdd.Name = "btnAdd"
+        btnAdd.Size = New Size(116, 44)
+        btnAdd.TabIndex = 3
+        btnAdd.Text = "Add Product"
+        btnAdd.UseVisualStyleBackColor = False
         ' 
-        ' dv
+        ' dgvProducts
         ' 
-        dv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dv.Location = New Point(6, 82)
-        dv.Name = "dv"
-        dv.Size = New Size(1125, 570)
-        dv.TabIndex = 4
+        dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvProducts.Location = New Point(5, 82)
+        dgvProducts.Name = "dgvProducts"
+        dgvProducts.Size = New Size(1125, 570)
+        dgvProducts.TabIndex = 4
         ' 
         ' tabWeeklyReports
         ' 
@@ -949,7 +978,7 @@ Partial Class frmPOS
         tabProducts.PerformLayout()
         tabInventory.ResumeLayout(False)
         tabInventory.PerformLayout()
-        CType(dv, ComponentModel.ISupportInitialize).EndInit()
+        CType(dgvProducts, ComponentModel.ISupportInitialize).EndInit()
         tabWeeklyReports.ResumeLayout(False)
         tabWeeklyReports.PerformLayout()
         CType(DataGridView2, ComponentModel.ISupportInitialize).EndInit()
@@ -989,9 +1018,9 @@ Partial Class frmPOS
     Friend WithEvents lblAvailableProducts As Label
     Friend WithEvents txtProductName As TextBox
     Friend WithEvents txtProductCode As TextBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnAdd As Button
     Friend WithEvents txtPrice As TextBox
-    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents txtStock As TextBox
     Friend WithEvents txtCategory As TextBox
     Friend WithEvents lblInventoryManagement As Label
     Friend WithEvents TextBox7 As TextBox
@@ -1019,7 +1048,7 @@ Partial Class frmPOS
     Friend WithEvents lblWeekStarting As Label
     Friend WithEvents Button18 As Button
     Friend WithEvents Label24 As Label
-    Friend WithEvents dv As DataGridView
+    Friend WithEvents dgvProducts As DataGridView
     Friend WithEvents pnlTotalProducts As Panel
     Friend WithEvents Label25 As Label
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
@@ -1052,4 +1081,6 @@ Partial Class frmPOS
     Friend WithEvents Label18 As Label
     Friend WithEvents lblTime As Label
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents btnUpdate As Button
+    Friend WithEvents btnDelete As Button
 End Class
