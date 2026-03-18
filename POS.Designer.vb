@@ -91,6 +91,8 @@ Partial Class frmPOS
         SalesTotal = New DataGridViewTextBoxColumn()
         pnlShoppingCart = New Panel()
         Panel6 = New Panel()
+        btnAddtoCart = New Button()
+        btnRemoveFromCart = New Button()
         btnClearCart = New Button()
         btnCheckout = New Button()
         lblTotal = New Label()
@@ -108,15 +110,12 @@ Partial Class frmPOS
         pnlTotalProducts = New Panel()
         Label25 = New Label()
         Timer1 = New Timer(components)
-        btnRemoveFromCart = New Button()
-        dgvCart = New DataGridView()
         pnlHeader.SuspendLayout()
         pnlWeeklyRevenue.SuspendLayout()
         pnlTodaysSales.SuspendLayout()
         pnlItemsStock.SuspendLayout()
         Inventory.SuspendLayout()
         tabProducts.SuspendLayout()
-        FlowLayoutPanel1.SuspendLayout()
         tabInventory.SuspendLayout()
         CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         tabWeeklyReports.SuspendLayout()
@@ -131,7 +130,6 @@ Partial Class frmPOS
         Panel7.SuspendLayout()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         pnlTotalProducts.SuspendLayout()
-        CType(dgvCart, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' pnlHeader
@@ -302,7 +300,6 @@ Partial Class frmPOS
         ' 
         FlowLayoutPanel1.BackColor = Color.Silver
         FlowLayoutPanel1.BackgroundImageLayout = ImageLayout.Zoom
-        FlowLayoutPanel1.Controls.Add(dgvCart)
         FlowLayoutPanel1.Location = New Point(6, 85)
         FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         FlowLayoutPanel1.Size = New Size(1125, 667)
@@ -794,6 +791,7 @@ Partial Class frmPOS
         ' Panel6
         ' 
         Panel6.BackColor = Color.White
+        Panel6.Controls.Add(btnAddtoCart)
         Panel6.Controls.Add(btnRemoveFromCart)
         Panel6.Controls.Add(btnClearCart)
         Panel6.Controls.Add(btnCheckout)
@@ -808,6 +806,28 @@ Partial Class frmPOS
         Panel6.Name = "Panel6"
         Panel6.Size = New Size(480, 491)
         Panel6.TabIndex = 3
+        ' 
+        ' btnAddtoCart
+        ' 
+        btnAddtoCart.BackColor = Color.Green
+        btnAddtoCart.ForeColor = Color.White
+        btnAddtoCart.Location = New Point(247, 412)
+        btnAddtoCart.Name = "btnAddtoCart"
+        btnAddtoCart.Size = New Size(205, 53)
+        btnAddtoCart.TabIndex = 9
+        btnAddtoCart.Text = "remove "
+        btnAddtoCart.UseVisualStyleBackColor = False
+        ' 
+        ' btnRemoveFromCart
+        ' 
+        btnRemoveFromCart.BackColor = Color.Green
+        btnRemoveFromCart.ForeColor = Color.White
+        btnRemoveFromCart.Location = New Point(15, 412)
+        btnRemoveFromCart.Name = "btnRemoveFromCart"
+        btnRemoveFromCart.Size = New Size(205, 53)
+        btnRemoveFromCart.TabIndex = 8
+        btnRemoveFromCart.Text = "remove "
+        btnRemoveFromCart.UseVisualStyleBackColor = False
         ' 
         ' btnClearCart
         ' 
@@ -937,7 +957,7 @@ Partial Class frmPOS
         ' PictureBox3
         ' 
         PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), Image)
-        PictureBox3.Location = New Point(12, 3)
+        PictureBox3.Location = New Point(12, 12)
         PictureBox3.Name = "PictureBox3"
         PictureBox3.Size = New Size(127, 105)
         PictureBox3.SizeMode = PictureBoxSizeMode.Zoom
@@ -977,32 +997,13 @@ Partial Class frmPOS
         ' 
         Timer1.Interval = 1000
         ' 
-        ' btnRemoveFromCart
-        ' 
-        btnRemoveFromCart.BackColor = Color.Green
-        btnRemoveFromCart.ForeColor = Color.White
-        btnRemoveFromCart.Location = New Point(143, 423)
-        btnRemoveFromCart.Name = "btnRemoveFromCart"
-        btnRemoveFromCart.Size = New Size(205, 53)
-        btnRemoveFromCart.TabIndex = 8
-        btnRemoveFromCart.Text = "remove "
-        btnRemoveFromCart.UseVisualStyleBackColor = False
-        ' 
-        ' dgvCart
-        ' 
-        dgvCart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvCart.Location = New Point(3, 3)
-        dgvCart.Name = "dgvCart"
-        dgvCart.Size = New Size(240, 150)
-        dgvCart.TabIndex = 0
-        ' 
         ' frmPOS
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         AutoScroll = True
         BackColor = Color.Gainsboro
-        ClientSize = New Size(1370, 749)
+        ClientSize = New Size(1870, 804)
         Controls.Add(pnlTotalProducts)
         Controls.Add(pnlHeader)
         Controls.Add(pnlTodaysSales)
@@ -1028,7 +1029,6 @@ Partial Class frmPOS
         Inventory.ResumeLayout(False)
         tabProducts.ResumeLayout(False)
         tabProducts.PerformLayout()
-        FlowLayoutPanel1.ResumeLayout(False)
         tabInventory.ResumeLayout(False)
         tabInventory.PerformLayout()
         CType(dgvProducts, ComponentModel.ISupportInitialize).EndInit()
@@ -1052,7 +1052,6 @@ Partial Class frmPOS
         CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
         pnlTotalProducts.ResumeLayout(False)
         pnlTotalProducts.PerformLayout()
-        CType(dgvCart, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -1141,5 +1140,5 @@ Partial Class frmPOS
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents btnClearCart As Button
     Friend WithEvents btnRemoveFromCart As Button
-    Friend WithEvents dgvCart As DataGridView
+    Friend WithEvents btnAddtoCart As Button
 End Class

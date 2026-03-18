@@ -1,49 +1,46 @@
 ﻿Public Class FrmRegister
     Private dbHelper As DatabaseHelper
 
-    ' Properties to pass data back to the calling form
+    ' Public properties to share data back with the Login form
     Public Property RegisteredUsername As String
-    Public Property RegisteredFullName As String
-    Public Property RegisteredRole As String
 
     Public Sub New(dbHelper As DatabaseHelper)
         InitializeComponent()
         Me.dbHelper = dbHelper
 
-        ' Setup Role ComboBox
+        ' Setup Role Options
+        cboRole.Items.Clear()
         cboRole.Items.AddRange(New String() {"Admin", "Staff"})
         cboRole.SelectedIndex = 1 ' Default to Staff
 
-        ' Manually hook up events to fix the "WithEvents" error
+        ' Link Buttons
         AddHandler btnRegister.Click, AddressOf btnRegister_Click
         AddHandler btnCancel.Click, AddressOf btnCancel_Click
     End Sub
 
     Private Sub btnRegister_Click(sender As Object, e As EventArgs)
-        Try
-            ' 1. Validation
-            If String.IsNullOrWhiteSpace(txtUsername.Text) OrElse
-               String.IsNullOrWhiteSpace(txtPassword.Text) OrElse
-               String.IsNullOrWhiteSpace(txtFullName.Text) Then
-                MessageBox.Show("Please fill in all fields.", "Validation Error")
-                Return
-            End If
+        ' 1. Validation
+        If String.IsNullOrWhiteSpace(txtUsername.Text) OrElse
+           String.IsNullOrWhiteSpace(txtPassword.Text) OrElse
+           String.IsNullOrWhiteSpace(txtFullName.Text) Then
+            MessageBox.Show("Please fill in all fields.", "Input Required")
+            Return
+        End If
 
-            ' 2. Save to Database (Example Logic)
-            ' dbHelper.SaveUser(txtUsername.Text, txtPassword.Text, txtFullName.Text, cboRole.SelectedItem.ToString())
+        ' 2. Attempt to save to database
+        Dim success As Boolean = dbHelper.RegisterUser(
+            txtUsername.Text.Trim(),
+            txtPassword.Text,
+            txtFullName.Text.Trim(),
+            cboRole.SelectedItem.ToString()
+        )
 
-            ' 3. Store properties for the Login form to use
-            RegisteredUsername = txtUsername.Text
-            RegisteredFullName = txtFullName.Text
-            RegisteredRole = cboRole.SelectedItem.ToString()
-
-            MessageBox.Show("Registration Successful!", "Success")
+        ' 3. If successful, close and return OK
+        If success Then
+            Me.RegisteredUsername = txtUsername.Text
             Me.DialogResult = DialogResult.OK
             Me.Close()
-
-        Catch ex As Exception
-            MessageBox.Show("Error: " & ex.Message)
-        End Try
+        End If
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs)

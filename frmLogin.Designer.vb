@@ -53,7 +53,7 @@ Partial Class frmLogin
         btnShowHide.FlatStyle = FlatStyle.Flat
         btnShowHide.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnShowHide.ForeColor = Color.Black
-        btnShowHide.Location = New Point(269, 137)
+        btnShowHide.Location = New Point(270, 137)
         btnShowHide.Name = "btnShowHide"
         btnShowHide.Size = New Size(32, 31)
         btnShowHide.TabIndex = 7
@@ -74,10 +74,10 @@ Partial Class frmLogin
         Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges11
         Guna2CustomGradientPanel1.FillColor = Color.DarkBlue
         Guna2CustomGradientPanel1.FillColor2 = Color.DarkBlue
-        Guna2CustomGradientPanel1.Location = New Point(527, 229)
+        Guna2CustomGradientPanel1.Location = New Point(748, 321)
         Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
         Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges12
-        Guna2CustomGradientPanel1.Size = New Size(349, 391)
+        Guna2CustomGradientPanel1.Size = New Size(350, 391)
         Guna2CustomGradientPanel1.TabIndex = 8
         ' 
         ' btnRegister
@@ -88,7 +88,7 @@ Partial Class frmLogin
         btnRegister.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnRegister.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnRegister.FillColor = Color.Transparent
-        btnRegister.Font = New Font("Segoe UI", 9F)
+        btnRegister.Font = New Font("Segoe UI", 9.0F)
         btnRegister.ForeColor = Color.Black
         btnRegister.Location = New Point(88, 174)
         btnRegister.Name = "btnRegister"
@@ -105,7 +105,7 @@ Partial Class frmLogin
         btnForgotPassword.DisabledState.CustomBorderColor = Color.DarkGray
         btnForgotPassword.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnForgotPassword.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnForgotPassword.Font = New Font("Segoe UI", 9F)
+        btnForgotPassword.Font = New Font("Segoe UI", 9.0F)
         btnForgotPassword.ForeColor = Color.White
         btnForgotPassword.Location = New Point(194, 230)
         btnForgotPassword.Name = "btnForgotPassword"
@@ -122,7 +122,7 @@ Partial Class frmLogin
         btnLogin.DisabledState.CustomBorderColor = Color.DarkGray
         btnLogin.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnLogin.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnLogin.Font = New Font("Segoe UI", 9F)
+        btnLogin.Font = New Font("Segoe UI", 9.0F)
         btnLogin.ForeColor = Color.White
         btnLogin.Location = New Point(21, 230)
         btnLogin.Name = "btnLogin"
@@ -141,7 +141,7 @@ Partial Class frmLogin
         txtUsername.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         txtUsername.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         txtUsername.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        txtUsername.Font = New Font("Segoe UI", 9F)
+        txtUsername.Font = New Font("Segoe UI", 9.0F)
         txtUsername.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         txtUsername.Location = New Point(30, 77)
         txtUsername.Name = "txtUsername"
@@ -161,7 +161,7 @@ Partial Class frmLogin
         txtPassword.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         txtPassword.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         txtPassword.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        txtPassword.Font = New Font("Segoe UI", 9F)
+        txtPassword.Font = New Font("Segoe UI", 9.0F)
         txtPassword.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         txtPassword.Location = New Point(30, 132)
         txtPassword.Name = "txtPassword"
@@ -173,13 +173,13 @@ Partial Class frmLogin
         ' 
         ' FrmLogin
         ' 
-        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleDimensions = New SizeF(96.0F, 96.0F)
         AutoScaleMode = AutoScaleMode.Dpi
         AutoSize = True
         BackColor = Color.IndianRed
         BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(1264, 681)
+        ClientSize = New Size(1499, 893)
         Controls.Add(Guna2CustomGradientPanel1)
         Font = New Font("Segoe UI", 48F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         MdiChildrenMinimizedAnchorBottom = False

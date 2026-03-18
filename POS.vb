@@ -55,297 +55,7 @@ Public Class frmPOS
 
         ' Initialize totals
         UpdateCartTotals()
-
-        ' Setup FlowLayoutPanel
-        SetupFlowLayoutPanel()
     End Sub
-
-    ' --- SETUP FLOWLAYOUTPANEL ---
-    Private Sub SetupFlowLayoutPanel()
-        With FlowLayoutPanel1
-            .FlowDirection = FlowDirection.TopDown
-            .WrapContents = False
-            .AutoScroll = True
-            .Padding = New Padding(10)
-            .BackColor = Color.FromArgb(240, 240, 240)
-            .BorderStyle = BorderStyle.FixedSingle
-
-            ' Clear existing controls if any
-            .Controls.Clear()
-
-            ' Add POS controls to FlowLayoutPanel
-            AddPOSControlsToPanel()
-        End With
-    End Sub
-
-    ' --- ADD POS CONTROLS TO FLOWLAYOUTPANEL ---
-    Private Sub AddPOSControlsToPanel()
-        ' Create and add POS Title Label
-        Dim lblPOTitle As New Label()
-        With lblPOTitle
-            .Text = "POINT OF SALE"
-            .Font = New Font("Segoe UI", 14, FontStyle.Bold)
-            .ForeColor = Color.FromArgb(0, 102, 204)
-            .AutoSize = True
-            .Margin = New Padding(5)
-            .TextAlign = ContentAlignment.MiddleCenter
-            .Width = FlowLayoutPanel1.Width - 30
-        End With
-        FlowLayoutPanel1.Controls.Add(lblPOTitle)
-
-        ' Add separator
-        FlowLayoutPanel1.Controls.Add(CreateSeparator())
-
-        ' Create Buyer Information Group
-        Dim buyerGroup As New GroupBox()
-        With buyerGroup
-            .Text = "BUYER INFORMATION"
-            .Font = New Font("Segoe UI", 10, FontStyle.Bold)
-            .Width = FlowLayoutPanel1.Width - 30
-            .Height = 80
-            .Margin = New Padding(5)
-        End With
-
-        ' Add Buyer Name Label and TextBox
-        Dim lblBuyer As New Label()
-        With lblBuyer
-            .Text = "Buyer Name:"
-            .Location = New Point(10, 25)
-            .AutoSize = True
-            .Font = New Font("Segoe UI", 10)
-        End With
-        buyerGroup.Controls.Add(lblBuyer)
-
-        txtBuyerName = New TextBox()
-        With txtBuyerName
-            .Name = "txtBuyerName"
-            .Location = New Point(100, 22)
-            .Width = 200
-            .Font = New Font("Segoe UI", 10)
-            .Margin = New Padding(5)
-        End With
-        AddHandler txtBuyerName.TextChanged, AddressOf txtBuyerName_TextChanged
-        buyerGroup.Controls.Add(txtBuyerName)
-
-        FlowLayoutPanel1.Controls.Add(buyerGroup)
-
-        ' Create Cart Group
-        Dim cartGroup As New GroupBox()
-        With cartGroup
-            .Text = "SHOPPING CART"
-            .Font = New Font("Segoe UI", 10, FontStyle.Bold)
-            .Width = FlowLayoutPanel1.Width - 30
-            .Height = 250
-            .Margin = New Padding(5)
-        End With
-
-        ' Add Cart DataGridView
-        dgvCart = New DataGridView()
-        With dgvCart
-            .Name = "dgvCart"
-            .Location = New Point(10, 25)
-            .Width = cartGroup.Width - 25
-            .Height = 180
-            .Font = New Font("Segoe UI", 9)
-            .BackgroundColor = Color.White
-            .BorderStyle = BorderStyle.Fixed3D
-            .RowHeadersVisible = False
-            .AllowUserToAddRows = False
-            .AllowUserToDeleteRows = True
-            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            .MultiSelect = False
-            .ReadOnly = False
-        End With
-        cartGroup.Controls.Add(dgvCart)
-        FlowLayoutPanel1.Controls.Add(cartGroup)
-
-        ' Create Totals Panel
-        Dim totalsPanel As New Panel()
-        With totalsPanel
-            .Width = FlowLayoutPanel1.Width - 30
-            .Height = 80
-            .Margin = New Padding(5)
-            .BackColor = Color.FromArgb(220, 230, 240)
-            .BorderStyle = BorderStyle.FixedSingle
-        End With
-
-        ' Add Subtotal Label
-        Dim lblSubtotalText As New Label()
-        With lblSubtotalText
-            .Text = "SUBTOTAL:"
-            .Location = New Point(10, 15)
-            .Font = New Font("Segoe UI", 10, FontStyle.Bold)
-            .AutoSize = True
-        End With
-        totalsPanel.Controls.Add(lblSubtotalText)
-
-        lblSubtotal = New Label()
-        With lblSubtotal
-            .Name = "lblSubtotal"
-            .Text = "₱0.00"
-            .Location = New Point(100, 15)
-            .Font = New Font("Segoe UI", 10, FontStyle.Bold)
-            .ForeColor = Color.FromArgb(0, 102, 204)
-            .AutoSize = True
-        End With
-        totalsPanel.Controls.Add(lblSubtotal)
-
-        ' Add Total Label
-        Dim lblTotalText As New Label()
-        With lblTotalText
-            .Text = "TOTAL:"
-            .Location = New Point(10, 45)
-            .Font = New Font("Segoe UI", 12, FontStyle.Bold)
-            .AutoSize = True
-        End With
-        totalsPanel.Controls.Add(lblTotalText)
-
-        lblTotal = New Label()
-        With lblTotal
-            .Name = "lblTotal"
-            .Text = "₱0.00"
-            .Location = New Point(100, 45)
-            .Font = New Font("Segoe UI", 14, FontStyle.Bold)
-            .ForeColor = Color.Green
-            .AutoSize = True
-        End With
-        totalsPanel.Controls.Add(lblTotal)
-
-        FlowLayoutPanel1.Controls.Add(totalsPanel)
-
-        ' Create Button Panel
-        Dim buttonPanel As New FlowLayoutPanel()
-        With buttonPanel
-            .FlowDirection = FlowDirection.LeftToRight
-            .WrapContents = True
-            .Width = FlowLayoutPanel1.Width - 30
-            .Height = 100
-            .Margin = New Padding(5)
-            .Padding = New Padding(5)
-        End With
-
-        ' Add POS Buttons
-        Dim buttonStyles As New List(Of Tuple(Of String, String, Color))()
-        buttonStyles.Add(New Tuple(Of String, String, Color)("btnAddToCart", "ADD TO CART", Color.FromArgb(0, 102, 204)))
-        buttonStyles.Add(New Tuple(Of String, String, Color)("btnRemoveFromCart", "REMOVE", Color.FromArgb(255, 102, 0)))
-        buttonStyles.Add(New Tuple(Of String, String, Color)("btnClearCart", "CLEAR CART", Color.FromArgb(108, 117, 125)))
-        buttonStyles.Add(New Tuple(Of String, String, Color)("btnCheckout", "CHECKOUT", Color.FromArgb(40, 167, 69)))
-
-        For Each btnStyle In buttonStyles
-            Dim btn As New Button()
-            With btn
-                .Name = btnStyle.Item1
-                .Text = btnStyle.Item2
-                .Width = 120
-                .Height = 40
-                .Margin = New Padding(5)
-                .Font = New Font("Segoe UI", 9, FontStyle.Bold)
-                .BackColor = btnStyle.Item3
-                .ForeColor = Color.White
-                .FlatStyle = FlatStyle.Flat
-                .FlatAppearance.BorderSize = 0
-                .Cursor = Cursors.Hand
-
-                ' Add hover effect
-                AddHandler .MouseEnter, Sub(s, e)
-                                            .BackColor = ControlPaint.Light(btnStyle.Item3)
-                                        End Sub
-                AddHandler .MouseLeave, Sub(s, e)
-                                            .BackColor = btnStyle.Item3
-                                        End Sub
-            End With
-
-            ' Add click handlers
-            Select Case btnStyle.Item1
-                Case "btnAddToCart"
-                    AddHandler btn.Click, AddressOf btnAddToCart_Click
-                Case "btnRemoveFromCart"
-                    AddHandler btn.Click, AddressOf btnRemoveFromCart_Click
-                Case "btnClearCart"
-                    AddHandler btn.Click, AddressOf btnClearCart_Click
-                Case "btnCheckout"
-                    AddHandler btn.Click, AddressOf btnCheckout_Click
-                    btn.Enabled = False
-            End Select
-
-            buttonPanel.Controls.Add(btn)
-        Next
-
-        FlowLayoutPanel1.Controls.Add(buttonPanel)
-
-        ' Add separator
-        FlowLayoutPanel1.Controls.Add(CreateSeparator())
-
-        ' Create Product Search Group
-        Dim searchGroup As New GroupBox()
-        With searchGroup
-            .Text = "PRODUCT SEARCH"
-            .Font = New Font("Segoe UI", 10, FontStyle.Bold)
-            .Width = FlowLayoutPanel1.Width - 30
-            .Height = 70
-            .Margin = New Padding(5)
-        End With
-
-        ' Add Search TextBox
-        txtSearch = New TextBox()
-        With txtSearch
-            .Name = "txtSearch"
-            .Location = New Point(10, 25)
-            .Width = searchGroup.Width - 25
-            .Font = New Font("Segoe UI", 10)
-            .Margin = New Padding(5)
-        End With
-        searchGroup.Controls.Add(txtSearch)
-        FlowLayoutPanel1.Controls.Add(searchGroup)
-
-        ' Configure search after adding
-        ConfigureSearchBox()
-
-        ' Create Products Group
-        Dim productsGroup As New GroupBox()
-        With productsGroup
-            .Text = "PRODUCTS LIST"
-            .Font = New Font("Segoe UI", 10, FontStyle.Bold)
-            .Width = FlowLayoutPanel1.Width - 30
-            .Height = 300
-            .Margin = New Padding(5)
-        End With
-
-        ' Add Products DataGridView
-        dgvProducts = New DataGridView()
-        With dgvProducts
-            .Name = "dgvProducts"
-            .Location = New Point(10, 25)
-            .Width = productsGroup.Width - 25
-            .Height = 250
-            .Font = New Font("Segoe UI", 9)
-            .BackgroundColor = Color.White
-            .BorderStyle = BorderStyle.Fixed3D
-            .RowHeadersVisible = False
-            .AllowUserToAddRows = False
-            .AllowUserToDeleteRows = False
-            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            .MultiSelect = False
-            .ReadOnly = True
-        End With
-        productsGroup.Controls.Add(dgvProducts)
-        FlowLayoutPanel1.Controls.Add(productsGroup)
-
-        ' Configure DataGridViews after adding
-        ConfigureCartGridView()
-    End Sub
-
-    ' --- CREATE SEPARATOR ---
-    Private Function CreateSeparator() As Panel
-        Dim separator As New Panel()
-        With separator
-            .Height = 2
-            .Width = FlowLayoutPanel1.Width - 30
-            .BackColor = Color.FromArgb(200, 200, 200)
-            .Margin = New Padding(5)
-        End With
-        Return separator
-    End Function
 
     ' --- INITIALIZE SHOPPING CART ---
     Private Sub InitializeCart()
@@ -492,32 +202,13 @@ Public Class frmPOS
         End If
 
         ' Enable/disable checkout button based on cart items
-        Dim checkoutBtn As Button = FindButton("btnCheckout")
-        If checkoutBtn IsNot Nothing Then
-            checkoutBtn.Enabled = (cartDataTable IsNot Nothing AndAlso
-                                   cartDataTable.Rows.Count > 0) AndAlso
-                                   Not String.IsNullOrWhiteSpace(txtBuyerName?.Text)
-        End If
+        btnCheckout.Enabled = (cartDataTable IsNot Nothing AndAlso
+                               cartDataTable.Rows.Count > 0) AndAlso
+                               Not String.IsNullOrWhiteSpace(txtBuyerName?.Text)
     End Sub
 
-    ' --- FIND BUTTON IN FLOWLAYOUTPANEL ---
-    Private Function FindButton(buttonName As String) As Button
-        For Each ctrl As Control In FlowLayoutPanel1.Controls
-            If TypeOf ctrl Is FlowLayoutPanel Then
-                For Each subCtrl As Control In DirectCast(ctrl, FlowLayoutPanel).Controls
-                    If subCtrl.Name = buttonName AndAlso TypeOf subCtrl Is Button Then
-                        Return DirectCast(subCtrl, Button)
-                    End If
-                Next
-            ElseIf ctrl.Name = buttonName AndAlso TypeOf ctrl Is Button Then
-                Return DirectCast(ctrl, Button)
-            End If
-        Next
-        Return Nothing
-    End Function
-
     ' --- ADD TO CART BUTTON ---
-    Private Sub btnAddToCart_Click(sender As Object, e As EventArgs)
+    Private Sub btnAddToCart_Click(sender As Object, e As EventArgs) Handles btnAddToCart.Click
         If dgvProducts.SelectedRows.Count = 0 Then
             MessageBox.Show("Please select a product to add to cart.", "No Product Selected",
                           MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -570,7 +261,7 @@ Public Class frmPOS
     End Function
 
     ' --- CHECKOUT BUTTON ---
-    Private Sub btnCheckout_Click(sender As Object, e As EventArgs)
+    Private Sub btnCheckout_Click(sender As Object, e As EventArgs) Handles btnCheckout.Click
         ' Validate buyer name
         If String.IsNullOrWhiteSpace(txtBuyerName.Text) Then
             MessageBox.Show("Please enter buyer name.", "Validation Error",
@@ -699,7 +390,7 @@ Public Class frmPOS
     End Sub
 
     ' --- CLEAR CART BUTTON ---
-    Private Sub btnClearCart_Click(sender As Object, e As EventArgs)
+    Private Sub btnClearCart_Click(sender As Object, e As EventArgs) Handles btnClearCart.Click
         If cartDataTable IsNot Nothing AndAlso cartDataTable.Rows.Count > 0 Then
             If MessageBox.Show("Clear all items from cart?", "Confirm Clear",
                              MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
@@ -709,18 +400,15 @@ Public Class frmPOS
     End Sub
 
     ' --- BUYER NAME TEXT CHANGED ---
-    Private Sub txtBuyerName_TextChanged(sender As Object, e As EventArgs)
+    Private Sub txtBuyerName_TextChanged(sender As Object, e As EventArgs) Handles txtBuyerName.TextChanged
         ' Enable/disable checkout button based on buyer name and cart items
-        Dim checkoutBtn As Button = FindButton("btnCheckout")
-        If checkoutBtn IsNot Nothing Then
-            checkoutBtn.Enabled = (cartDataTable IsNot Nothing AndAlso
-                                   cartDataTable.Rows.Count > 0) AndAlso
-                                   Not String.IsNullOrWhiteSpace(txtBuyerName.Text)
-        End If
+        btnCheckout.Enabled = (cartDataTable IsNot Nothing AndAlso
+                               cartDataTable.Rows.Count > 0) AndAlso
+                               Not String.IsNullOrWhiteSpace(txtBuyerName.Text)
     End Sub
 
     ' --- REMOVE FROM CART BUTTON ---
-    Private Sub btnRemoveFromCart_Click(sender As Object, e As EventArgs)
+    Private Sub btnRemoveFromCart_Click(sender As Object, e As EventArgs) Handles btnRemoveFromCart.Click
         If dgvCart.SelectedRows.Count > 0 Then
             Dim selectedRow As DataGridViewRow = dgvCart.SelectedRows(0)
             If Not selectedRow.IsNewRow Then
@@ -768,7 +456,7 @@ Public Class frmPOS
     End Sub
 
     ' --- SEARCH TEXTBOX TEXT CHANGED EVENT ---
-    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs)
+    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         ' Don't filter if it's the placeholder text
         If txtSearch.Text = "Search products..." Then
             Return
@@ -1457,10 +1145,6 @@ Public Class frmPOS
     End Function
 
     Private Sub dgvProducts_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellContentClick
-
-    End Sub
-
-    Private Sub FlowLayoutPanel1_Paint(sender As Object, e As PaintEventArgs) Handles FlowLayoutPanel1.Paint
 
     End Sub
 End Class

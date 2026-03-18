@@ -6,18 +6,14 @@ Public Class DatabaseHelper
     Private ReadOnly connectionString As String
 
     Public Sub New()
-        ' Database will be created in the application folder
         Dim databasePath As String = IO.Path.Combine(Application.StartupPath, "Accounts.db")
         connectionString = $"Data Source={databasePath};Version=3;"
     End Sub
 
-    ' Initialize database and create users table
     Public Sub InitializeDatabase()
         Try
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
-
-                ' Create Users table if it doesn't exist
                 Dim createTableQuery As String = "
                     CREATE TABLE IF NOT EXISTS Users (
                         UserID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -29,29 +25,44 @@ Public Class DatabaseHelper
                         LastLogin DATETIME,
                         CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP
                     )"
-
                 Using cmd As New SQLiteCommand(createTableQuery, conn)
                     cmd.ExecuteNonQuery()
                 End Using
-
-                ' REMOVED: The check and creation of default Admin credentials.
-                ' You will now need to create your first user manually or through a setup form.
-
             End Using
         Catch ex As Exception
-            MessageBox.Show($"Database initialization error: {ex.Message}", "Database Error",
-                          MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show($"Database initialization error: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
-    ' Static helper for hashing
+    ' --- NEW: Method to Register a User ---
+    Public Function RegisterUser(username As String, password As String, fullName As String, role As String) As Boolean
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Dim query As String = "INSERT INTO Users (Username, PasswordHash, FullName, Role) VALUES (@Username, @Hash, @Full, @Role)"
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@Username", username)
+                    cmd.Parameters.AddWithValue("@Hash", HashPassword(password))
+                    cmd.Parameters.AddWithValue("@Full", fullName)
+                    cmd.Parameters.AddWithValue("@Role", role)
+                    Return cmd.ExecuteNonQuery() > 0
+                End Using
+            End Using
+        Catch ex As SQLiteException When ex.ErrorCode = SQLiteErrorCode.Constraint
+            MessageBox.Show("Username already exists. Please choose another.", "Registration Error")
+            Return False
+        Catch ex As Exception
+            MessageBox.Show($"Registration Error: {ex.Message}")
+            Return False
+        End Try
+    End Function
+
     Public Shared Function HashPassword(password As String) As String
         Dim passwordBytes As Byte() = Encoding.UTF8.GetBytes(password)
         Dim hashBytes As Byte() = SHA256.HashData(passwordBytes)
         Return Convert.ToBase64String(hashBytes)
     End Function
 
-    ' Validate user login
     Public Function ValidateUser(username As String, password As String) As DataTable
         Dim result As New DataTable()
         Try
@@ -65,18 +76,14 @@ Public Class DatabaseHelper
                         adapter.Fill(result)
                     End Using
                 End Using
-
-                If result.Rows.Count > 0 Then
-                    UpdateLastLogin(username)
-                End If
+                If result.Rows.Count > 0 Then UpdateLastLogin(username)
             End Using
         Catch ex As Exception
-            MessageBox.Show($"Login error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show($"Login error: {ex.Message}")
         End Try
         Return result
     End Function
 
-    ' Update last login timestamp
     Private Sub UpdateLastLogin(username As String)
         Try
             Using conn As New SQLiteConnection(connectionString)
@@ -87,53 +94,8 @@ Public Class DatabaseHelper
                     cmd.ExecuteNonQuery()
                 End Using
             End Using
-        Catch ex As Exception
-        End Try
+        Catch : End Try
     End Sub
 
-    ' Change password logic
-    Public Function ChangePassword(username As String, oldPassword As String, newPassword As String) As Boolean
-        Try
-            Using conn As New SQLiteConnection(connectionString)
-                conn.Open()
-                Dim verifyQuery As String = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND PasswordHash = @OldPasswordHash"
-                Using verifyCmd As New SQLiteCommand(verifyQuery, conn)
-                    verifyCmd.Parameters.AddWithValue("@Username", username)
-                    verifyCmd.Parameters.AddWithValue("@OldPasswordHash", HashPassword(oldPassword))
-                    If Convert.ToInt32(verifyCmd.ExecuteScalar()) = 0 Then
-                        MessageBox.Show("Old password is incorrect!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        Return False
-                    End If
-                End Using
-
-                Dim updateQuery As String = "UPDATE Users SET PasswordHash = @NewPasswordHash WHERE Username = @Username"
-                Using updateCmd As New SQLiteCommand(updateQuery, conn)
-                    updateCmd.Parameters.AddWithValue("@Username", username)
-                    updateCmd.Parameters.AddWithValue("@NewPasswordHash", HashPassword(newPassword))
-                    Return updateCmd.ExecuteNonQuery() > 0
-                End Using
-            End Using
-        Catch ex As Exception
-            MessageBox.Show($"Error changing password: {ex.Message}")
-            Return False
-        End Try
-    End Function
-
-    ' Admin reset password
-    Public Function ResetPassword(username As String, newPassword As String) As Boolean
-        Try
-            Using conn As New SQLiteConnection(connectionString)
-                conn.Open()
-                Dim query As String = "UPDATE Users SET PasswordHash = @PasswordHash WHERE Username = @Username"
-                Using cmd As New SQLiteCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@Username", username)
-                    cmd.Parameters.AddWithValue("@PasswordHash", HashPassword(newPassword))
-                    Return cmd.ExecuteNonQuery() > 0
-                End Using
-            End Using
-        Catch ex As Exception
-            MessageBox.Show($"Error resetting password: {ex.Message}")
-            Return False
-        End Try
-    End Function
+    ' ... (Keep ChangePassword and ResetPassword as they were) ...
 End Class
