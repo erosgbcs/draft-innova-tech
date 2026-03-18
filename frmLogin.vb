@@ -119,7 +119,7 @@ Public Class FrmLogin
         End If
     End Sub
 
-    Private Sub IbIPassword_Click(sender As Object, e As EventArgs) Handles IbIPassword.Click
+    Private Sub IbIPassword_Click(sender As Object, e As EventArgs)
 
     End Sub
 

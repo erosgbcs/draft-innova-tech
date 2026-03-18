@@ -22,67 +22,21 @@ Partial Class frmLogin
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        IbIUsername = New Label()
-        txtPassword = New TextBox()
-        IbIPassword = New Label()
-        txtUsername = New TextBox()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmLogin))
         btnShowHide = New Button()
         btnForgotPassword = New Button()
         btnLogin = New Button()
         Guna2CustomGradientPanel1 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
+        txtUsername = New Guna.UI2.WinForms.Guna2TextBox()
+        txtPassword = New Guna.UI2.WinForms.Guna2TextBox()
         Guna2CustomGradientPanel1.SuspendLayout()
         SuspendLayout()
-        ' 
-        ' IbIUsername
-        ' 
-        IbIUsername.Anchor = AnchorStyles.None
-        IbIUsername.AutoSize = True
-        IbIUsername.BackColor = Color.Transparent
-        IbIUsername.Font = New Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        IbIUsername.ForeColor = Color.White
-        IbIUsername.Location = New Point(7, 85)
-        IbIUsername.Name = "IbIUsername"
-        IbIUsername.Size = New Size(106, 28)
-        IbIUsername.TabIndex = 0
-        IbIUsername.Text = "Username"
-        ' 
-        ' txtPassword
-        ' 
-        txtPassword.Anchor = AnchorStyles.None
-        txtPassword.BackColor = SystemColors.GradientInactiveCaption
-        txtPassword.BorderStyle = BorderStyle.FixedSingle
-        txtPassword.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtPassword.Location = New Point(119, 143)
-        txtPassword.Name = "txtPassword"
-        txtPassword.PasswordChar = "*"c
-        txtPassword.Size = New Size(207, 33)
-        txtPassword.TabIndex = 4
-        ' 
-        ' IbIPassword
-        ' 
-        IbIPassword.Anchor = AnchorStyles.None
-        IbIPassword.AutoSize = True
-        IbIPassword.BackColor = Color.Transparent
-        IbIPassword.Font = New Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        IbIPassword.ForeColor = Color.White
-        IbIPassword.Location = New Point(7, 148)
-        IbIPassword.Name = "IbIPassword"
-        IbIPassword.Size = New Size(101, 28)
-        IbIPassword.TabIndex = 1
-        IbIPassword.Text = "Password"
-        ' 
-        ' txtUsername
-        ' 
-        txtUsername.Anchor = AnchorStyles.None
-        txtUsername.BackColor = SystemColors.GradientInactiveCaption
-        txtUsername.BorderStyle = BorderStyle.FixedSingle
-        txtUsername.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtUsername.Location = New Point(119, 80)
-        txtUsername.Name = "txtUsername"
-        txtUsername.Size = New Size(207, 33)
-        txtUsername.TabIndex = 3
         ' 
         ' btnShowHide
         ' 
@@ -133,21 +87,57 @@ Partial Class frmLogin
         Guna2CustomGradientPanel1.BackColor = Color.Transparent
         Guna2CustomGradientPanel1.BorderColor = Color.Black
         Guna2CustomGradientPanel1.BorderRadius = 18
-        Guna2CustomGradientPanel1.Controls.Add(btnShowHide)
-        Guna2CustomGradientPanel1.Controls.Add(txtUsername)
-        Guna2CustomGradientPanel1.Controls.Add(btnLogin)
-        Guna2CustomGradientPanel1.Controls.Add(IbIUsername)
-        Guna2CustomGradientPanel1.Controls.Add(btnForgotPassword)
-        Guna2CustomGradientPanel1.Controls.Add(IbIPassword)
         Guna2CustomGradientPanel1.Controls.Add(txtPassword)
-        Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges1
+        Guna2CustomGradientPanel1.Controls.Add(txtUsername)
+        Guna2CustomGradientPanel1.Controls.Add(btnShowHide)
+        Guna2CustomGradientPanel1.Controls.Add(btnLogin)
+        Guna2CustomGradientPanel1.Controls.Add(btnForgotPassword)
+        Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges5
         Guna2CustomGradientPanel1.FillColor = Color.DarkBlue
         Guna2CustomGradientPanel1.FillColor2 = Color.DarkBlue
-        Guna2CustomGradientPanel1.Location = New Point(552, 230)
+        Guna2CustomGradientPanel1.Location = New Point(527, 229)
         Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
-        Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges6
         Guna2CustomGradientPanel1.Size = New Size(349, 391)
         Guna2CustomGradientPanel1.TabIndex = 8
+        ' 
+        ' txtUsername
+        ' 
+        txtUsername.CustomizableEdges = CustomizableEdges3
+        txtUsername.DefaultText = ""
+        txtUsername.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
+        txtUsername.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
+        txtUsername.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
+        txtUsername.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
+        txtUsername.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        txtUsername.Font = New Font("Segoe UI", 9F)
+        txtUsername.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        txtUsername.Location = New Point(129, 48)
+        txtUsername.Name = "txtUsername"
+        txtUsername.PlaceholderText = ""
+        txtUsername.SelectedText = ""
+        txtUsername.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        txtUsername.Size = New Size(200, 36)
+        txtUsername.TabIndex = 8
+        ' 
+        ' txtPassword
+        ' 
+        txtPassword.CustomizableEdges = CustomizableEdges1
+        txtPassword.DefaultText = ""
+        txtPassword.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
+        txtPassword.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
+        txtPassword.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
+        txtPassword.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
+        txtPassword.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        txtPassword.Font = New Font("Segoe UI", 9F)
+        txtPassword.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        txtPassword.Location = New Point(52, 102)
+        txtPassword.Name = "txtPassword"
+        txtPassword.PlaceholderText = ""
+        txtPassword.SelectedText = ""
+        txtPassword.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        txtPassword.Size = New Size(200, 36)
+        txtPassword.TabIndex = 9
         ' 
         ' FrmLogin
         ' 
@@ -156,6 +146,7 @@ Partial Class frmLogin
         AutoScaleMode = AutoScaleMode.Dpi
         AutoSize = True
         BackColor = Color.IndianRed
+        BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
         BackgroundImageLayout = ImageLayout.Stretch
         ClientSize = New Size(1264, 681)
         Controls.Add(Guna2CustomGradientPanel1)
@@ -167,7 +158,6 @@ Partial Class frmLogin
         Text = "frmLogin"
         WindowState = FormWindowState.Maximized
         Guna2CustomGradientPanel1.ResumeLayout(False)
-        Guna2CustomGradientPanel1.PerformLayout()
         ResumeLayout(False)
     End Sub
 
@@ -178,13 +168,10 @@ Partial Class frmLogin
     Private Sub Label2_Click(sender As Object, e As EventArgs)
 
     End Sub
-
-    Friend WithEvents IbIUsername As Label
-    Friend WithEvents txtPassword As TextBox
-    Friend WithEvents IbIPassword As Label
-    Friend WithEvents txtUsername As TextBox
     Friend WithEvents btnShowHide As Button
     Friend WithEvents btnForgotPassword As Button
     Friend WithEvents btnLogin As Button
     Friend WithEvents Guna2CustomGradientPanel1 As Guna.UI2.WinForms.Guna2CustomGradientPanel
+    Friend WithEvents txtUsername As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents txtPassword As Guna.UI2.WinForms.Guna2TextBox
 End Class
