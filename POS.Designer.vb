@@ -91,10 +91,11 @@ Partial Class frmPOS
         SalesTotal = New DataGridViewTextBoxColumn()
         pnlShoppingCart = New Panel()
         Panel6 = New Panel()
+        btnClearCart = New Button()
         btnCheckout = New Button()
         lblTotal = New Label()
         lblSubtotal = New Label()
-        txtBuyer = New TextBox()
+        txtBuyerName = New TextBox()
         Label10 = New Label()
         Label9 = New Label()
         Label8 = New Label()
@@ -102,17 +103,20 @@ Partial Class frmPOS
         Label6 = New Label()
         lblShoppingCart = New Label()
         Panel7 = New Panel()
+        PictureBox3 = New PictureBox()
         Button18 = New Button()
         pnlTotalProducts = New Panel()
         Label25 = New Label()
         Timer1 = New Timer(components)
-        PictureBox3 = New PictureBox()
+        btnRemoveFromCart = New Button()
+        dgvCart = New DataGridView()
         pnlHeader.SuspendLayout()
         pnlWeeklyRevenue.SuspendLayout()
         pnlTodaysSales.SuspendLayout()
         pnlItemsStock.SuspendLayout()
         Inventory.SuspendLayout()
         tabProducts.SuspendLayout()
+        FlowLayoutPanel1.SuspendLayout()
         tabInventory.SuspendLayout()
         CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         tabWeeklyReports.SuspendLayout()
@@ -125,8 +129,9 @@ Partial Class frmPOS
         pnlShoppingCart.SuspendLayout()
         Panel6.SuspendLayout()
         Panel7.SuspendLayout()
-        pnlTotalProducts.SuspendLayout()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
+        pnlTotalProducts.SuspendLayout()
+        CType(dgvCart, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' pnlHeader
@@ -297,6 +302,7 @@ Partial Class frmPOS
         ' 
         FlowLayoutPanel1.BackColor = Color.Silver
         FlowLayoutPanel1.BackgroundImageLayout = ImageLayout.Zoom
+        FlowLayoutPanel1.Controls.Add(dgvCart)
         FlowLayoutPanel1.Location = New Point(6, 85)
         FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         FlowLayoutPanel1.Size = New Size(1125, 667)
@@ -782,32 +788,45 @@ Partial Class frmPOS
         pnlShoppingCart.Controls.Add(lblShoppingCart)
         pnlShoppingCart.Location = New Point(1334, 296)
         pnlShoppingCart.Name = "pnlShoppingCart"
-        pnlShoppingCart.Size = New Size(562, 487)
+        pnlShoppingCart.Size = New Size(562, 697)
         pnlShoppingCart.TabIndex = 3
         ' 
         ' Panel6
         ' 
         Panel6.BackColor = Color.White
+        Panel6.Controls.Add(btnRemoveFromCart)
+        Panel6.Controls.Add(btnClearCart)
         Panel6.Controls.Add(btnCheckout)
         Panel6.Controls.Add(lblTotal)
         Panel6.Controls.Add(lblSubtotal)
-        Panel6.Controls.Add(txtBuyer)
+        Panel6.Controls.Add(txtBuyerName)
         Panel6.Controls.Add(Label10)
         Panel6.Controls.Add(Label9)
         Panel6.Controls.Add(Label8)
         Panel6.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Panel6.Location = New Point(38, 164)
         Panel6.Name = "Panel6"
-        Panel6.Size = New Size(480, 249)
+        Panel6.Size = New Size(480, 491)
         Panel6.TabIndex = 3
+        ' 
+        ' btnClearCart
+        ' 
+        btnClearCart.BackColor = Color.Green
+        btnClearCart.ForeColor = Color.White
+        btnClearCart.Location = New Point(15, 353)
+        btnClearCart.Name = "btnClearCart"
+        btnClearCart.Size = New Size(205, 53)
+        btnClearCart.TabIndex = 7
+        btnClearCart.Text = "Clear Cart"
+        btnClearCart.UseVisualStyleBackColor = False
         ' 
         ' btnCheckout
         ' 
         btnCheckout.BackColor = Color.Green
         btnCheckout.ForeColor = Color.White
-        btnCheckout.Location = New Point(104, 159)
+        btnCheckout.Location = New Point(247, 353)
         btnCheckout.Name = "btnCheckout"
-        btnCheckout.Size = New Size(329, 53)
+        btnCheckout.Size = New Size(230, 53)
         btnCheckout.TabIndex = 6
         btnCheckout.Text = "Checkout"
         btnCheckout.UseVisualStyleBackColor = False
@@ -833,14 +852,14 @@ Partial Class frmPOS
         lblSubtotal.TabIndex = 4
         lblSubtotal.Text = "₱  "
         ' 
-        ' txtBuyer
+        ' txtBuyerName
         ' 
-        txtBuyer.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtBuyer.Location = New Point(182, 35)
-        txtBuyer.Name = "txtBuyer"
-        txtBuyer.PlaceholderText = "Buyer name"
-        txtBuyer.Size = New Size(251, 27)
-        txtBuyer.TabIndex = 3
+        txtBuyerName.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtBuyerName.Location = New Point(182, 35)
+        txtBuyerName.Name = "txtBuyerName"
+        txtBuyerName.PlaceholderText = "Buyer name"
+        txtBuyerName.Size = New Size(251, 27)
+        txtBuyerName.TabIndex = 3
         ' 
         ' Label10
         ' 
@@ -915,6 +934,16 @@ Partial Class frmPOS
         Panel7.Size = New Size(143, 1061)
         Panel7.TabIndex = 4
         ' 
+        ' PictureBox3
+        ' 
+        PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), Image)
+        PictureBox3.Location = New Point(12, 3)
+        PictureBox3.Name = "PictureBox3"
+        PictureBox3.Size = New Size(127, 105)
+        PictureBox3.SizeMode = PictureBoxSizeMode.Zoom
+        PictureBox3.TabIndex = 9
+        PictureBox3.TabStop = False
+        ' 
         ' Button18
         ' 
         Button18.BackColor = SystemColors.Info
@@ -948,15 +977,24 @@ Partial Class frmPOS
         ' 
         Timer1.Interval = 1000
         ' 
-        ' PictureBox3
+        ' btnRemoveFromCart
         ' 
-        PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), Image)
-        PictureBox3.Location = New Point(12, 3)
-        PictureBox3.Name = "PictureBox3"
-        PictureBox3.Size = New Size(127, 105)
-        PictureBox3.SizeMode = PictureBoxSizeMode.Zoom
-        PictureBox3.TabIndex = 9
-        PictureBox3.TabStop = False
+        btnRemoveFromCart.BackColor = Color.Green
+        btnRemoveFromCart.ForeColor = Color.White
+        btnRemoveFromCart.Location = New Point(143, 423)
+        btnRemoveFromCart.Name = "btnRemoveFromCart"
+        btnRemoveFromCart.Size = New Size(205, 53)
+        btnRemoveFromCart.TabIndex = 8
+        btnRemoveFromCart.Text = "remove "
+        btnRemoveFromCart.UseVisualStyleBackColor = False
+        ' 
+        ' dgvCart
+        ' 
+        dgvCart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvCart.Location = New Point(3, 3)
+        dgvCart.Name = "dgvCart"
+        dgvCart.Size = New Size(240, 150)
+        dgvCart.TabIndex = 0
         ' 
         ' frmPOS
         ' 
@@ -990,6 +1028,7 @@ Partial Class frmPOS
         Inventory.ResumeLayout(False)
         tabProducts.ResumeLayout(False)
         tabProducts.PerformLayout()
+        FlowLayoutPanel1.ResumeLayout(False)
         tabInventory.ResumeLayout(False)
         tabInventory.PerformLayout()
         CType(dgvProducts, ComponentModel.ISupportInitialize).EndInit()
@@ -1010,9 +1049,10 @@ Partial Class frmPOS
         Panel6.ResumeLayout(False)
         Panel6.PerformLayout()
         Panel7.ResumeLayout(False)
+        CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
         pnlTotalProducts.ResumeLayout(False)
         pnlTotalProducts.PerformLayout()
-        CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
+        CType(dgvCart, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -1044,7 +1084,7 @@ Partial Class frmPOS
     Friend WithEvents lblShoppingCart As Label
     Friend WithEvents Panel6 As Panel
     Friend WithEvents lblSubtotal As Label
-    Friend WithEvents txtBuyer As TextBox
+    Friend WithEvents txtBuyerName As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Label8 As Label
@@ -1099,4 +1139,7 @@ Partial Class frmPOS
     Friend WithEvents btnUpdate As Button
     Friend WithEvents btnDelete As Button
     Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents btnClearCart As Button
+    Friend WithEvents btnRemoveFromCart As Button
+    Friend WithEvents dgvCart As DataGridView
 End Class

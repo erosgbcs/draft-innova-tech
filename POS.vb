@@ -55,7 +55,297 @@ Public Class frmPOS
 
         ' Initialize totals
         UpdateCartTotals()
+
+        ' Setup FlowLayoutPanel
+        SetupFlowLayoutPanel()
     End Sub
+
+    ' --- SETUP FLOWLAYOUTPANEL ---
+    Private Sub SetupFlowLayoutPanel()
+        With FlowLayoutPanel1
+            .FlowDirection = FlowDirection.TopDown
+            .WrapContents = False
+            .AutoScroll = True
+            .Padding = New Padding(10)
+            .BackColor = Color.FromArgb(240, 240, 240)
+            .BorderStyle = BorderStyle.FixedSingle
+
+            ' Clear existing controls if any
+            .Controls.Clear()
+
+            ' Add POS controls to FlowLayoutPanel
+            AddPOSControlsToPanel()
+        End With
+    End Sub
+
+    ' --- ADD POS CONTROLS TO FLOWLAYOUTPANEL ---
+    Private Sub AddPOSControlsToPanel()
+        ' Create and add POS Title Label
+        Dim lblPOTitle As New Label()
+        With lblPOTitle
+            .Text = "POINT OF SALE"
+            .Font = New Font("Segoe UI", 14, FontStyle.Bold)
+            .ForeColor = Color.FromArgb(0, 102, 204)
+            .AutoSize = True
+            .Margin = New Padding(5)
+            .TextAlign = ContentAlignment.MiddleCenter
+            .Width = FlowLayoutPanel1.Width - 30
+        End With
+        FlowLayoutPanel1.Controls.Add(lblPOTitle)
+
+        ' Add separator
+        FlowLayoutPanel1.Controls.Add(CreateSeparator())
+
+        ' Create Buyer Information Group
+        Dim buyerGroup As New GroupBox()
+        With buyerGroup
+            .Text = "BUYER INFORMATION"
+            .Font = New Font("Segoe UI", 10, FontStyle.Bold)
+            .Width = FlowLayoutPanel1.Width - 30
+            .Height = 80
+            .Margin = New Padding(5)
+        End With
+
+        ' Add Buyer Name Label and TextBox
+        Dim lblBuyer As New Label()
+        With lblBuyer
+            .Text = "Buyer Name:"
+            .Location = New Point(10, 25)
+            .AutoSize = True
+            .Font = New Font("Segoe UI", 10)
+        End With
+        buyerGroup.Controls.Add(lblBuyer)
+
+        txtBuyerName = New TextBox()
+        With txtBuyerName
+            .Name = "txtBuyerName"
+            .Location = New Point(100, 22)
+            .Width = 200
+            .Font = New Font("Segoe UI", 10)
+            .Margin = New Padding(5)
+        End With
+        AddHandler txtBuyerName.TextChanged, AddressOf txtBuyerName_TextChanged
+        buyerGroup.Controls.Add(txtBuyerName)
+
+        FlowLayoutPanel1.Controls.Add(buyerGroup)
+
+        ' Create Cart Group
+        Dim cartGroup As New GroupBox()
+        With cartGroup
+            .Text = "SHOPPING CART"
+            .Font = New Font("Segoe UI", 10, FontStyle.Bold)
+            .Width = FlowLayoutPanel1.Width - 30
+            .Height = 250
+            .Margin = New Padding(5)
+        End With
+
+        ' Add Cart DataGridView
+        dgvCart = New DataGridView()
+        With dgvCart
+            .Name = "dgvCart"
+            .Location = New Point(10, 25)
+            .Width = cartGroup.Width - 25
+            .Height = 180
+            .Font = New Font("Segoe UI", 9)
+            .BackgroundColor = Color.White
+            .BorderStyle = BorderStyle.Fixed3D
+            .RowHeadersVisible = False
+            .AllowUserToAddRows = False
+            .AllowUserToDeleteRows = True
+            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            .MultiSelect = False
+            .ReadOnly = False
+        End With
+        cartGroup.Controls.Add(dgvCart)
+        FlowLayoutPanel1.Controls.Add(cartGroup)
+
+        ' Create Totals Panel
+        Dim totalsPanel As New Panel()
+        With totalsPanel
+            .Width = FlowLayoutPanel1.Width - 30
+            .Height = 80
+            .Margin = New Padding(5)
+            .BackColor = Color.FromArgb(220, 230, 240)
+            .BorderStyle = BorderStyle.FixedSingle
+        End With
+
+        ' Add Subtotal Label
+        Dim lblSubtotalText As New Label()
+        With lblSubtotalText
+            .Text = "SUBTOTAL:"
+            .Location = New Point(10, 15)
+            .Font = New Font("Segoe UI", 10, FontStyle.Bold)
+            .AutoSize = True
+        End With
+        totalsPanel.Controls.Add(lblSubtotalText)
+
+        lblSubtotal = New Label()
+        With lblSubtotal
+            .Name = "lblSubtotal"
+            .Text = "₱0.00"
+            .Location = New Point(100, 15)
+            .Font = New Font("Segoe UI", 10, FontStyle.Bold)
+            .ForeColor = Color.FromArgb(0, 102, 204)
+            .AutoSize = True
+        End With
+        totalsPanel.Controls.Add(lblSubtotal)
+
+        ' Add Total Label
+        Dim lblTotalText As New Label()
+        With lblTotalText
+            .Text = "TOTAL:"
+            .Location = New Point(10, 45)
+            .Font = New Font("Segoe UI", 12, FontStyle.Bold)
+            .AutoSize = True
+        End With
+        totalsPanel.Controls.Add(lblTotalText)
+
+        lblTotal = New Label()
+        With lblTotal
+            .Name = "lblTotal"
+            .Text = "₱0.00"
+            .Location = New Point(100, 45)
+            .Font = New Font("Segoe UI", 14, FontStyle.Bold)
+            .ForeColor = Color.Green
+            .AutoSize = True
+        End With
+        totalsPanel.Controls.Add(lblTotal)
+
+        FlowLayoutPanel1.Controls.Add(totalsPanel)
+
+        ' Create Button Panel
+        Dim buttonPanel As New FlowLayoutPanel()
+        With buttonPanel
+            .FlowDirection = FlowDirection.LeftToRight
+            .WrapContents = True
+            .Width = FlowLayoutPanel1.Width - 30
+            .Height = 100
+            .Margin = New Padding(5)
+            .Padding = New Padding(5)
+        End With
+
+        ' Add POS Buttons
+        Dim buttonStyles As New List(Of Tuple(Of String, String, Color))()
+        buttonStyles.Add(New Tuple(Of String, String, Color)("btnAddToCart", "ADD TO CART", Color.FromArgb(0, 102, 204)))
+        buttonStyles.Add(New Tuple(Of String, String, Color)("btnRemoveFromCart", "REMOVE", Color.FromArgb(255, 102, 0)))
+        buttonStyles.Add(New Tuple(Of String, String, Color)("btnClearCart", "CLEAR CART", Color.FromArgb(108, 117, 125)))
+        buttonStyles.Add(New Tuple(Of String, String, Color)("btnCheckout", "CHECKOUT", Color.FromArgb(40, 167, 69)))
+
+        For Each btnStyle In buttonStyles
+            Dim btn As New Button()
+            With btn
+                .Name = btnStyle.Item1
+                .Text = btnStyle.Item2
+                .Width = 120
+                .Height = 40
+                .Margin = New Padding(5)
+                .Font = New Font("Segoe UI", 9, FontStyle.Bold)
+                .BackColor = btnStyle.Item3
+                .ForeColor = Color.White
+                .FlatStyle = FlatStyle.Flat
+                .FlatAppearance.BorderSize = 0
+                .Cursor = Cursors.Hand
+
+                ' Add hover effect
+                AddHandler .MouseEnter, Sub(s, e)
+                                            .BackColor = ControlPaint.Light(btnStyle.Item3)
+                                        End Sub
+                AddHandler .MouseLeave, Sub(s, e)
+                                            .BackColor = btnStyle.Item3
+                                        End Sub
+            End With
+
+            ' Add click handlers
+            Select Case btnStyle.Item1
+                Case "btnAddToCart"
+                    AddHandler btn.Click, AddressOf btnAddToCart_Click
+                Case "btnRemoveFromCart"
+                    AddHandler btn.Click, AddressOf btnRemoveFromCart_Click
+                Case "btnClearCart"
+                    AddHandler btn.Click, AddressOf btnClearCart_Click
+                Case "btnCheckout"
+                    AddHandler btn.Click, AddressOf btnCheckout_Click
+                    btn.Enabled = False
+            End Select
+
+            buttonPanel.Controls.Add(btn)
+        Next
+
+        FlowLayoutPanel1.Controls.Add(buttonPanel)
+
+        ' Add separator
+        FlowLayoutPanel1.Controls.Add(CreateSeparator())
+
+        ' Create Product Search Group
+        Dim searchGroup As New GroupBox()
+        With searchGroup
+            .Text = "PRODUCT SEARCH"
+            .Font = New Font("Segoe UI", 10, FontStyle.Bold)
+            .Width = FlowLayoutPanel1.Width - 30
+            .Height = 70
+            .Margin = New Padding(5)
+        End With
+
+        ' Add Search TextBox
+        txtSearch = New TextBox()
+        With txtSearch
+            .Name = "txtSearch"
+            .Location = New Point(10, 25)
+            .Width = searchGroup.Width - 25
+            .Font = New Font("Segoe UI", 10)
+            .Margin = New Padding(5)
+        End With
+        searchGroup.Controls.Add(txtSearch)
+        FlowLayoutPanel1.Controls.Add(searchGroup)
+
+        ' Configure search after adding
+        ConfigureSearchBox()
+
+        ' Create Products Group
+        Dim productsGroup As New GroupBox()
+        With productsGroup
+            .Text = "PRODUCTS LIST"
+            .Font = New Font("Segoe UI", 10, FontStyle.Bold)
+            .Width = FlowLayoutPanel1.Width - 30
+            .Height = 300
+            .Margin = New Padding(5)
+        End With
+
+        ' Add Products DataGridView
+        dgvProducts = New DataGridView()
+        With dgvProducts
+            .Name = "dgvProducts"
+            .Location = New Point(10, 25)
+            .Width = productsGroup.Width - 25
+            .Height = 250
+            .Font = New Font("Segoe UI", 9)
+            .BackgroundColor = Color.White
+            .BorderStyle = BorderStyle.Fixed3D
+            .RowHeadersVisible = False
+            .AllowUserToAddRows = False
+            .AllowUserToDeleteRows = False
+            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            .MultiSelect = False
+            .ReadOnly = True
+        End With
+        productsGroup.Controls.Add(dgvProducts)
+        FlowLayoutPanel1.Controls.Add(productsGroup)
+
+        ' Configure DataGridViews after adding
+        ConfigureCartGridView()
+    End Sub
+
+    ' --- CREATE SEPARATOR ---
+    Private Function CreateSeparator() As Panel
+        Dim separator As New Panel()
+        With separator
+            .Height = 2
+            .Width = FlowLayoutPanel1.Width - 30
+            .BackColor = Color.FromArgb(200, 200, 200)
+            .Margin = New Padding(5)
+        End With
+        Return separator
+    End Function
 
     ' --- INITIALIZE SHOPPING CART ---
     Private Sub InitializeCart()
@@ -67,11 +357,15 @@ Public Class frmPOS
         cartDataTable.Columns.Add("Subtotal", Type.GetType("System.Decimal"))
 
         ' Bind to cart DataGridView
-        dgvCart.DataSource = cartDataTable
+        If dgvCart IsNot Nothing Then
+            dgvCart.DataSource = cartDataTable
+        End If
     End Sub
 
     ' --- CONFIGURE CART DATAGRIDVIEW ---
     Private Sub ConfigureCartGridView()
+        If dgvCart Is Nothing Then Return
+
         With dgvCart
             .ReadOnly = False ' Allow quantity editing
             .AllowUserToAddRows = False
@@ -180,23 +474,50 @@ Public Class frmPOS
     Private Sub UpdateCartTotals()
         Dim subtotal As Decimal = 0
 
-        For Each row As DataRowView In cartDataTable.DefaultView
-            subtotal += Convert.ToDecimal(row("Subtotal"))
-        Next
+        If cartDataTable IsNot Nothing Then
+            For Each row As DataRowView In cartDataTable.DefaultView
+                subtotal += Convert.ToDecimal(row("Subtotal"))
+            Next
+        End If
 
         cartTotal = subtotal
 
         ' Update labels
-        lblSubtotal.Text = subtotal.ToString("C2", New Globalization.CultureInfo("en-PH"))
-        lblTotal.Text = subtotal.ToString("C2", New Globalization.CultureInfo("en-PH"))
+        If lblSubtotal IsNot Nothing Then
+            lblSubtotal.Text = subtotal.ToString("C2", New Globalization.CultureInfo("en-PH"))
+        End If
+
+        If lblTotal IsNot Nothing Then
+            lblTotal.Text = subtotal.ToString("C2", New Globalization.CultureInfo("en-PH"))
+        End If
 
         ' Enable/disable checkout button based on cart items
-        btnCheckout.Enabled = (cartDataTable.Rows.Count > 0) AndAlso
-                              Not String.IsNullOrWhiteSpace(txtBuyer.Text)
+        Dim checkoutBtn As Button = FindButton("btnCheckout")
+        If checkoutBtn IsNot Nothing Then
+            checkoutBtn.Enabled = (cartDataTable IsNot Nothing AndAlso
+                                   cartDataTable.Rows.Count > 0) AndAlso
+                                   Not String.IsNullOrWhiteSpace(txtBuyerName?.Text)
+        End If
     End Sub
 
+    ' --- FIND BUTTON IN FLOWLAYOUTPANEL ---
+    Private Function FindButton(buttonName As String) As Button
+        For Each ctrl As Control In FlowLayoutPanel1.Controls
+            If TypeOf ctrl Is FlowLayoutPanel Then
+                For Each subCtrl As Control In DirectCast(ctrl, FlowLayoutPanel).Controls
+                    If subCtrl.Name = buttonName AndAlso TypeOf subCtrl Is Button Then
+                        Return DirectCast(subCtrl, Button)
+                    End If
+                Next
+            ElseIf ctrl.Name = buttonName AndAlso TypeOf ctrl Is Button Then
+                Return DirectCast(ctrl, Button)
+            End If
+        Next
+        Return Nothing
+    End Function
+
     ' --- ADD TO CART BUTTON ---
-    Private Sub btnAddToCart_Click(sender As Object, e As EventArgs) Handles btnAddToCart.Click
+    Private Sub btnAddToCart_Click(sender As Object, e As EventArgs)
         If dgvProducts.SelectedRows.Count = 0 Then
             MessageBox.Show("Please select a product to add to cart.", "No Product Selected",
                           MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -238,6 +559,8 @@ Public Class frmPOS
 
     ' --- FIND PRODUCT IN CART ---
     Private Function FindProductInCart(productCode As String) As DataRowView
+        If cartDataTable Is Nothing Then Return Nothing
+
         For Each row As DataRowView In cartDataTable.DefaultView
             If row("ProductCode").ToString() = productCode Then
                 Return row
@@ -247,12 +570,12 @@ Public Class frmPOS
     End Function
 
     ' --- CHECKOUT BUTTON ---
-    Private Sub btnCheckout_Click(sender As Object, e As EventArgs) Handles btnCheckout.Click
+    Private Sub btnCheckout_Click(sender As Object, e As EventArgs)
         ' Validate buyer name
-        If String.IsNullOrWhiteSpace(txtBuyer.Text) Then
+        If String.IsNullOrWhiteSpace(txtBuyerName.Text) Then
             MessageBox.Show("Please enter buyer name.", "Validation Error",
                           MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtBuyer.Focus()
+            txtBuyerName.Focus()
             Return
         End If
 
@@ -264,7 +587,7 @@ Public Class frmPOS
         End If
 
         ' Show confirmation dialog
-        Dim confirmMessage As String = $"Buyer: {txtBuyer.Text.Trim()}{vbCrLf}" &
+        Dim confirmMessage As String = $"Buyer: {txtBuyerName.Text.Trim()}{vbCrLf}" &
                                       $"Total Amount: {lblTotal.Text}{vbCrLf}{vbCrLf}" &
                                       $"Proceed with checkout?"
 
@@ -369,13 +692,15 @@ Public Class frmPOS
 
     ' --- CLEAR CART ---
     Private Sub ClearCart()
-        cartDataTable.Clear()
+        If cartDataTable IsNot Nothing Then
+            cartDataTable.Clear()
+        End If
         UpdateCartTotals()
     End Sub
 
     ' --- CLEAR CART BUTTON ---
-    Private Sub btnClearCart_Click(sender As Object, e As EventArgs) Handles btnClearCart.Click
-        If cartDataTable.Rows.Count > 0 Then
+    Private Sub btnClearCart_Click(sender As Object, e As EventArgs)
+        If cartDataTable IsNot Nothing AndAlso cartDataTable.Rows.Count > 0 Then
             If MessageBox.Show("Clear all items from cart?", "Confirm Clear",
                              MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                 ClearCart()
@@ -384,14 +709,18 @@ Public Class frmPOS
     End Sub
 
     ' --- BUYER NAME TEXT CHANGED ---
-    Private Sub txtBuyerName_TextChanged(sender As Object, e As EventArgs) Handles txtBuyerName.TextChanged
+    Private Sub txtBuyerName_TextChanged(sender As Object, e As EventArgs)
         ' Enable/disable checkout button based on buyer name and cart items
-        btnCheckout.Enabled = (cartDataTable.Rows.Count > 0) AndAlso
-                              Not String.IsNullOrWhiteSpace(txtBuyerName.Text)
+        Dim checkoutBtn As Button = FindButton("btnCheckout")
+        If checkoutBtn IsNot Nothing Then
+            checkoutBtn.Enabled = (cartDataTable IsNot Nothing AndAlso
+                                   cartDataTable.Rows.Count > 0) AndAlso
+                                   Not String.IsNullOrWhiteSpace(txtBuyerName.Text)
+        End If
     End Sub
 
     ' --- REMOVE FROM CART BUTTON ---
-    Private Sub btnRemoveFromCart_Click(sender As Object, e As EventArgs) Handles btnRemoveFromCart.Click
+    Private Sub btnRemoveFromCart_Click(sender As Object, e As EventArgs)
         If dgvCart.SelectedRows.Count > 0 Then
             Dim selectedRow As DataGridViewRow = dgvCart.SelectedRows(0)
             If Not selectedRow.IsNewRow Then
@@ -407,6 +736,8 @@ Public Class frmPOS
 
     ' --- CONFIGURE SEARCH TEXTBOX ---
     Private Sub ConfigureSearchBox()
+        If txtSearch Is Nothing Then Return
+
         With txtSearch
             .Text = "Search products..." ' Placeholder text
             .ForeColor = Color.Gray
@@ -486,64 +817,49 @@ Public Class frmPOS
             ' Reapply column formatting
             ApplyColumnFormatting()
 
-            ' Update search result count (optional)
-            UpdateSearchResultCount()
-
         Catch ex As Exception
             ' Silent fail for search
             Console.WriteLine("Search error: " & ex.Message)
         End Try
     End Sub
 
-    ' --- UPDATE SEARCH RESULT COUNT (optional) ---
-    Private Sub UpdateSearchResultCount()
-        ' Check if you have a label named lblSearchResults
-        If HasControl("lblSearchResults") Then
-            Dim rowCount As Integer = dgvProducts.Rows.Count
-            If txtSearch.Text <> "Search products..." AndAlso Not String.IsNullOrWhiteSpace(txtSearch.Text) Then
-                CType(Controls("lblSearchResults"), Label).Text = $"Found {rowCount} product(s)"
-                CType(Controls("lblSearchResults"), Label).Visible = True
-            Else
-                CType(Controls("lblSearchResults"), Label).Visible = False
-            End If
-        End If
-    End Sub
-
     ' --- APPLY COLUMN FORMATTING AFTER FILTER ---
     Private Sub ApplyColumnFormatting()
-        If dgvProducts.Columns.Count > 0 Then
-            ' Reapply column headers if needed
-            If dgvProducts.Columns.Contains("ProductCode") Then
-                dgvProducts.Columns("ProductCode").HeaderText = "Product Code"
-                dgvProducts.Columns("ProductCode").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-            End If
+        If dgvProducts Is Nothing OrElse dgvProducts.Columns.Count = 0 Then Return
 
-            If dgvProducts.Columns.Contains("ProductName") Then
-                dgvProducts.Columns("ProductName").HeaderText = "Product Name"
-            End If
+        ' Reapply column headers if needed
+        If dgvProducts.Columns.Contains("ProductCode") Then
+            dgvProducts.Columns("ProductCode").HeaderText = "Product Code"
+            dgvProducts.Columns("ProductCode").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        End If
 
-            If dgvProducts.Columns.Contains("Category") Then
-                dgvProducts.Columns("Category").HeaderText = "Category"
-                dgvProducts.Columns("Category").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-            End If
+        If dgvProducts.Columns.Contains("ProductName") Then
+            dgvProducts.Columns("ProductName").HeaderText = "Product Name"
+        End If
 
-            If dgvProducts.Columns.Contains("Price") Then
-                dgvProducts.Columns("Price").HeaderText = "Price"
-                dgvProducts.Columns("Price").DefaultCellStyle.Format = "C2"
-                dgvProducts.Columns("Price").DefaultCellStyle.FormatProvider = New Globalization.CultureInfo("en-PH")
-                dgvProducts.Columns("Price").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            End If
+        If dgvProducts.Columns.Contains("Category") Then
+            dgvProducts.Columns("Category").HeaderText = "Category"
+            dgvProducts.Columns("Category").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        End If
 
-            If dgvProducts.Columns.Contains("Stock") Then
-                dgvProducts.Columns("Stock").HeaderText = "Stock"
-                dgvProducts.Columns("Stock").DefaultCellStyle.Format = "N0"
-                dgvProducts.Columns("Stock").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            End If
+        If dgvProducts.Columns.Contains("Price") Then
+            dgvProducts.Columns("Price").HeaderText = "Price"
+            dgvProducts.Columns("Price").DefaultCellStyle.Format = "C2"
+            dgvProducts.Columns("Price").DefaultCellStyle.FormatProvider = New Globalization.CultureInfo("en-PH")
+            dgvProducts.Columns("Price").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        End If
+
+        If dgvProducts.Columns.Contains("Stock") Then
+            dgvProducts.Columns("Stock").HeaderText = "Stock"
+            dgvProducts.Columns("Stock").DefaultCellStyle.Format = "N0"
+            dgvProducts.Columns("Stock").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         End If
     End Sub
 
     ' --- CONFIGURE DATAGRIDVIEW ---
     Private Sub ConfigureDataGridView()
+        If dgvProducts Is Nothing Then Return
+
         With dgvProducts
             ' Make grid read-only
             .ReadOnly = True
@@ -563,6 +879,7 @@ Public Class frmPOS
 
             ' Enable cell formatting for stock warnings
             AddHandler .CellFormatting, AddressOf dgvProducts_CellFormatting
+            AddHandler .CellDoubleClick, AddressOf dgvProducts_CellDoubleClick
         End With
     End Sub
 
@@ -699,28 +1016,9 @@ Public Class frmPOS
 
     ' --- UPDATE STOCK STATUS LABEL ---
     Private Sub UpdateStockStatusLabel(lowCount As Integer, criticalCount As Integer, outCount As Integer)
-        If HasControl("lblStockStatus") Then
-            Dim totalWarnings As Integer = lowCount + criticalCount + outCount
-            If totalWarnings > 0 Then
-                CType(Controls("lblStockStatus"), Label).Text = $"⚠️ Stock Alerts: {outCount} Out, {criticalCount} Critical, {lowCount} Low"
-                CType(Controls("lblStockStatus"), Label).ForeColor = Color.Red
-                CType(Controls("lblStockStatus"), Label).Font = New Font(CType(Controls("lblStockStatus"), Label).Font, FontStyle.Bold)
-            Else
-                CType(Controls("lblStockStatus"), Label).Text = "✅ All stock levels are good"
-                CType(Controls("lblStockStatus"), Label).ForeColor = Color.Green
-            End If
-        End If
+        ' You can add a label for stock status if needed
+        Console.WriteLine($"Stock Status - Out: {outCount}, Critical: {criticalCount}, Low: {lowCount}")
     End Sub
-
-    ' --- HELPER METHOD TO CHECK IF CONTROL EXISTS ---
-    Private Function HasControl(controlName As String) As Boolean
-        For Each ctrl As Control In Me.Controls
-            If ctrl.Name = controlName Then
-                Return True
-            End If
-        Next
-        Return False
-    End Function
 
     ' --- GET STOCK TOOLTIP ---
     Private Function GetStockTooltip(stock As Integer) As String
@@ -737,7 +1035,10 @@ Public Class frmPOS
 
     ' --- TIMER LOGIC ---
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        lblTime.Text = DateTime.Now.ToString("MMMM dd, yyyy  hh:mm:ss tt")
+        ' Update time label if it exists
+        If HasControl("lblTime") Then
+            CType(Controls("lblTime"), Label).Text = DateTime.Now.ToString("MMMM dd, yyyy  hh:mm:ss tt")
+        End If
     End Sub
 
     ' --- DATETIMEPICKER LOGIC ---
@@ -757,8 +1058,10 @@ Public Class frmPOS
         CheckLowStockItems()
 
         ' Clear search
-        txtSearch.Text = "Search products..."
-        txtSearch.ForeColor = Color.Gray
+        If txtSearch IsNot Nothing Then
+            txtSearch.Text = "Search products..."
+            txtSearch.ForeColor = Color.Gray
+        End If
 
         MessageBox.Show("Report Refreshed!", "System", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
@@ -776,8 +1079,10 @@ Public Class frmPOS
 
     ' --- HELPER METHODS ---
     Private Sub UpdateWeekLabel()
-        Dim endOfWeek = currentWeekStartDate.AddDays(6)
-        Label13.Text = currentWeekStartDate.ToString("MMM dd") & " - " & endOfWeek.ToString("MMM dd, yyyy")
+        If HasControl("Label13") Then
+            Dim endOfWeek = currentWeekStartDate.AddDays(6)
+            CType(Controls("Label13"), Label).Text = currentWeekStartDate.ToString("MMM dd") & " - " & endOfWeek.ToString("MMM dd, yyyy")
+        End If
     End Sub
 
     Private Sub LoadData()
@@ -899,8 +1204,10 @@ Public Class frmPOS
             CheckLowStockItems()
 
             ' Clear search
-            txtSearch.Text = "Search products..."
-            txtSearch.ForeColor = Color.Gray
+            If txtSearch IsNot Nothing Then
+                txtSearch.Text = "Search products..."
+                txtSearch.ForeColor = Color.Gray
+            End If
 
         Catch ex As SQLiteException When ex.Message.Contains("UNIQUE") Or ex.Message.Contains("PRIMARY KEY")
             MessageBox.Show("Product Code already exists. Please use a different code.", "Duplicate Error",
@@ -923,16 +1230,18 @@ Public Class frmPOS
                 dataAdapter.Fill(allProductsDataTable)
 
                 ' Store in global variable and bind
-                dgvProducts.DataSource = allProductsDataTable
+                If dgvProducts IsNot Nothing Then
+                    dgvProducts.DataSource = allProductsDataTable
 
-                ' Apply formatting
-                ApplyColumnFormatting()
+                    ' Apply formatting
+                    ApplyColumnFormatting()
 
-                ' Auto-size columns
-                dgvProducts.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
+                    ' Auto-size columns
+                    dgvProducts.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
 
-                ' Re-apply grid configuration
-                ConfigureDataGridView()
+                    ' Re-apply grid configuration
+                    ConfigureDataGridView()
+                End If
             End Using
         Catch ex As Exception
             MessageBox.Show("Error loading products: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -941,35 +1250,50 @@ Public Class frmPOS
 
     ' Clear input fields
     Private Sub ClearInputFields()
-        txtProductCode.Clear()
-        txtProductName.Clear()
-        txtCategory.Clear()
-        txtPrice.Clear()
-        txtStock.Clear()
-        txtProductCode.Focus()
+        If txtProductCode IsNot Nothing Then txtProductCode.Clear()
+        If txtProductName IsNot Nothing Then txtProductName.Clear()
+        If txtCategory IsNot Nothing Then txtCategory.Clear()
+        If txtPrice IsNot Nothing Then txtPrice.Clear()
+        If txtStock IsNot Nothing Then txtStock.Clear()
+        If txtProductCode IsNot Nothing Then txtProductCode.Focus()
     End Sub
 
     ' Double-click on DataGridView row to load data into textboxes
-    Private Sub dgvProducts_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellDoubleClick
+    Private Sub dgvProducts_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs)
         If e.RowIndex >= 0 AndAlso e.RowIndex < dgvProducts.Rows.Count Then
             Dim row As DataGridViewRow = dgvProducts.Rows(e.RowIndex)
 
-            txtProductCode.Text = row.Cells("ProductCode").Value.ToString()
-            txtProductName.Text = row.Cells("ProductName").Value.ToString()
-            txtCategory.Text = If(row.Cells("Category").Value Is DBNull.Value, "", row.Cells("Category").Value.ToString())
+            If txtProductCode IsNot Nothing Then
+                txtProductCode.Text = row.Cells("ProductCode").Value.ToString()
+            End If
+
+            If txtProductName IsNot Nothing Then
+                txtProductName.Text = row.Cells("ProductName").Value.ToString()
+            End If
+
+            If txtCategory IsNot Nothing Then
+                txtCategory.Text = If(row.Cells("Category").Value Is DBNull.Value, "", row.Cells("Category").Value.ToString())
+            End If
 
             Dim priceValue As Object = row.Cells("Price").Value
             If priceValue IsNot Nothing AndAlso priceValue IsNot DBNull.Value Then
-                txtPrice.Text = Convert.ToDecimal(priceValue).ToString("0.00")
+                If txtPrice IsNot Nothing Then
+                    txtPrice.Text = Convert.ToDecimal(priceValue).ToString("0.00")
+                End If
             Else
-                txtPrice.Clear()
+                If txtPrice IsNot Nothing Then txtPrice.Clear()
             End If
 
-            txtStock.Text = row.Cells("Stock").Value.ToString()
+            If txtStock IsNot Nothing Then
+                txtStock.Text = row.Cells("Stock").Value.ToString()
+            End If
 
             dgvProducts.ClearSelection()
             row.Selected = True
-            txtProductCode.Focus()
+
+            If txtProductCode IsNot Nothing Then
+                txtProductCode.Focus()
+            End If
 
             Dim stock As Integer = Convert.ToInt32(row.Cells("Stock").Value)
             If stock <= STOCK_WARNING_THRESHOLD Then
@@ -988,7 +1312,7 @@ Public Class frmPOS
 
     ' Update button
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
-        If String.IsNullOrWhiteSpace(txtProductCode.Text) Then
+        If txtProductCode Is Nothing OrElse String.IsNullOrWhiteSpace(txtProductCode.Text) Then
             MessageBox.Show("Please select a product to update or enter Product Code", "Validation Error",
                           MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
@@ -1055,8 +1379,10 @@ Public Class frmPOS
                         CheckLowStockItems()
 
                         ' Clear search
-                        txtSearch.Text = "Search products..."
-                        txtSearch.ForeColor = Color.Gray
+                        If txtSearch IsNot Nothing Then
+                            txtSearch.Text = "Search products..."
+                            txtSearch.ForeColor = Color.Gray
+                        End If
                     Else
                         MessageBox.Show("Product not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
@@ -1069,7 +1395,7 @@ Public Class frmPOS
 
     ' Delete button
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
-        If String.IsNullOrWhiteSpace(txtProductCode.Text) AndAlso dgvProducts.SelectedRows.Count = 0 Then
+        If (txtProductCode Is Nothing OrElse String.IsNullOrWhiteSpace(txtProductCode.Text)) AndAlso dgvProducts.SelectedRows.Count = 0 Then
             MessageBox.Show("Please select a product to delete or enter Product Code", "Information",
                           MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
@@ -1106,8 +1432,10 @@ Public Class frmPOS
                         CheckLowStockItems()
 
                         ' Clear search
-                        txtSearch.Text = "Search products..."
-                        txtSearch.ForeColor = Color.Gray
+                        If txtSearch IsNot Nothing Then
+                            txtSearch.Text = "Search products..."
+                            txtSearch.ForeColor = Color.Gray
+                        End If
                     Else
                         MessageBox.Show("Product not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
@@ -1117,6 +1445,16 @@ Public Class frmPOS
             MessageBox.Show("Error deleting product: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    ' Helper method to check if control exists
+    Private Function HasControl(controlName As String) As Boolean
+        For Each ctrl As Control In Me.Controls
+            If ctrl.Name = controlName Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
 
     Private Sub dgvProducts_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellContentClick
 
