@@ -8,10 +8,6 @@ Public Class FrmLogin
     Private Sub FrmLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtPassword.PasswordChar = "*"c
 
-        ' Fix button style
-        btnLogin.FlatStyle = FlatStyle.Flat
-        btnLogin.FlatAppearance.BorderSize = 0
-
         ' Initialize database
         dbHelper = New DatabaseHelper()
         dbHelper.InitializeDatabase()
@@ -100,6 +96,22 @@ Public Class FrmLogin
         End Using
     End Sub
 
+    ' New Register button click event
+    Private Sub BtnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
+        ' Show registration form
+        Using registerForm As New FrmRegister(dbHelper)
+            ' Show the registration form as a dialog
+            If registerForm.ShowDialog() = DialogResult.OK Then
+                ' If registration was successful, you can optionally
+                ' auto-fill the username
+                txtUsername.Text = registerForm.RegisteredUsername
+                MessageBox.Show("Registration successful! Please login with your new account.",
+                              "Registration Complete", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                txtUsername.Focus()
+            End If
+        End Using
+    End Sub
+
     Private Sub FrmLogin_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         Application.Exit()
     End Sub
@@ -126,6 +138,11 @@ Public Class FrmLogin
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs)
 
     End Sub
+
+    Private Sub Guna2CustomGradientPanel1_Paint(sender As Object, e As PaintEventArgs) Handles Guna2CustomGradientPanel1.Paint
+
+    End Sub
+
     <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
     Partial Class frmLogin
         Inherits System.Windows.Forms.Form
@@ -159,6 +176,7 @@ Public Class FrmLogin
             btnShowHide = New Button()
             btnForgotPassword = New Button()
             btnLogin = New Button()
+            btnRegister = New Button() ' New register button
             Guna2CustomGradientPanel1 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
             Guna2CustomGradientPanel1.SuspendLayout()
             SuspendLayout()
@@ -235,9 +253,9 @@ Public Class FrmLogin
             btnForgotPassword.FlatStyle = FlatStyle.Flat
             btnForgotPassword.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
             btnForgotPassword.ForeColor = Color.White
-            btnForgotPassword.Location = New Point(223, 204)
+            btnForgotPassword.Location = New Point(30, 258) ' Moved down to make room for register button
             btnForgotPassword.Name = "btnForgotPassword"
-            btnForgotPassword.Size = New Size(118, 31)
+            btnForgotPassword.Size = New Size(126, 31)
             btnForgotPassword.TabIndex = 6
             btnForgotPassword.Text = "Forgot Password?"
             btnForgotPassword.UseVisualStyleBackColor = False
@@ -251,16 +269,31 @@ Public Class FrmLogin
             btnLogin.ForeColor = Color.White
             btnLogin.Location = New Point(30, 204)
             btnLogin.Name = "btnLogin"
-            btnLogin.Size = New Size(126, 31)
+            btnLogin.Size = New Size(126, 38)
             btnLogin.TabIndex = 5
             btnLogin.Text = "Login"
             btnLogin.UseVisualStyleBackColor = False
+            ' 
+            ' btnRegister
+            ' 
+            btnRegister.Anchor = AnchorStyles.None
+            btnRegister.BackColor = Color.FromArgb(0, 102, 204) ' Blue color
+            btnRegister.FlatStyle = FlatStyle.Flat
+            btnRegister.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+            btnRegister.ForeColor = Color.White
+            btnRegister.Location = New Point(200, 204)
+            btnRegister.Name = "btnRegister"
+            btnRegister.Size = New Size(126, 38)
+            btnRegister.TabIndex = 8
+            btnRegister.Text = "Register"
+            btnRegister.UseVisualStyleBackColor = False
             ' 
             ' Guna2CustomGradientPanel1
             ' 
             Guna2CustomGradientPanel1.BackColor = Color.Transparent
             Guna2CustomGradientPanel1.BorderColor = Color.Black
             Guna2CustomGradientPanel1.BorderRadius = 18
+            Guna2CustomGradientPanel1.Controls.Add(btnRegister) ' Add register button
             Guna2CustomGradientPanel1.Controls.Add(txtPassword)
             Guna2CustomGradientPanel1.Controls.Add(btnShowHide)
             Guna2CustomGradientPanel1.Controls.Add(txtUsername)
@@ -314,6 +347,7 @@ Public Class FrmLogin
         Friend WithEvents btnShowHide As Button
         Friend WithEvents btnForgotPassword As Button
         Friend WithEvents btnLogin As Button
+        Friend WithEvents btnRegister As Button ' New register button
         Friend WithEvents Guna2CustomGradientPanel1 As Guna.UI2.WinForms.Guna2CustomGradientPanel
         ' Add this inside your FrmLogin class
         Private Sub FrmLogin_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -322,5 +356,4 @@ Public Class FrmLogin
             Application.Exit()
         End Sub
     End Class
-
 End Class

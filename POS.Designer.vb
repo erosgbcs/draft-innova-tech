@@ -23,6 +23,7 @@ Partial Class frmPOS
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPOS))
         pnlHeader = New Panel()
         lblTime = New Label()
         Label24 = New Label()
@@ -105,6 +106,7 @@ Partial Class frmPOS
         pnlTotalProducts = New Panel()
         Label25 = New Label()
         Timer1 = New Timer(components)
+        PictureBox3 = New PictureBox()
         pnlHeader.SuspendLayout()
         pnlWeeklyRevenue.SuspendLayout()
         pnlTodaysSales.SuspendLayout()
@@ -124,6 +126,7 @@ Partial Class frmPOS
         Panel6.SuspendLayout()
         Panel7.SuspendLayout()
         pnlTotalProducts.SuspendLayout()
+        CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' pnlHeader
@@ -904,6 +907,7 @@ Partial Class frmPOS
         ' Panel7
         ' 
         Panel7.BackColor = Color.LightSteelBlue
+        Panel7.Controls.Add(PictureBox3)
         Panel7.Controls.Add(Button18)
         Panel7.Dock = DockStyle.Left
         Panel7.Location = New Point(0, 0)
@@ -943,6 +947,16 @@ Partial Class frmPOS
         ' Timer1
         ' 
         Timer1.Interval = 1000
+        ' 
+        ' PictureBox3
+        ' 
+        PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), Image)
+        PictureBox3.Location = New Point(12, 3)
+        PictureBox3.Name = "PictureBox3"
+        PictureBox3.Size = New Size(127, 105)
+        PictureBox3.SizeMode = PictureBoxSizeMode.Zoom
+        PictureBox3.TabIndex = 9
+        PictureBox3.TabStop = False
         ' 
         ' frmPOS
         ' 
@@ -998,6 +1012,7 @@ Partial Class frmPOS
         Panel7.ResumeLayout(False)
         pnlTotalProducts.ResumeLayout(False)
         pnlTotalProducts.PerformLayout()
+        CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -1083,4 +1098,5 @@ Partial Class frmPOS
     Friend WithEvents Timer1 As Timer
     Friend WithEvents btnUpdate As Button
     Friend WithEvents btnDelete As Button
+    Friend WithEvents PictureBox3 As PictureBox
 End Class

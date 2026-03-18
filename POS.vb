@@ -18,6 +18,10 @@ Public Class frmPOS
     ' For search functionality
     Private allProductsDataTable As DataTable ' Store all products for filtering
 
+    ' Shopping cart DataTable
+    Private cartDataTable As DataTable
+    Private cartTotal As Decimal = 0
+
     ' --- FORM LOAD ---
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Timer1.Start()
@@ -36,14 +40,369 @@ Public Class frmPOS
         ' Load existing data
         LoadProducts()
 
+        ' Initialize shopping cart
+        InitializeCart()
+
         ' Configure DataGridView to be read-only
         ConfigureDataGridView()
+        ConfigureCartGridView()
 
         ' Check for low stock items on form load
         CheckLowStockItems()
 
         ' Configure search textbox
         ConfigureSearchBox()
+
+        ' Initialize totals
+        UpdateCartTotals()
+    End Sub
+
+    ' --- INITIALIZE SHOPPING CART ---
+    Private Sub InitializeCart()
+        cartDataTable = New DataTable()
+        cartDataTable.Columns.Add("ProductCode", Type.GetType("System.String"))
+        cartDataTable.Columns.Add("ProductName", Type.GetType("System.String"))
+        cartDataTable.Columns.Add("Price", Type.GetType("System.Decimal"))
+        cartDataTable.Columns.Add("Quantity", Type.GetType("System.Int32"))
+        cartDataTable.Columns.Add("Subtotal", Type.GetType("System.Decimal"))
+
+        ' Bind to cart DataGridView
+        dgvCart.DataSource = cartDataTable
+    End Sub
+
+    ' --- CONFIGURE CART DATAGRIDVIEW ---
+    Private Sub ConfigureCartGridView()
+        With dgvCart
+            .ReadOnly = False ' Allow quantity editing
+            .AllowUserToAddRows = False
+            .AllowUserToDeleteRows = True
+            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            .MultiSelect = False
+            .RowHeadersVisible = False
+            .BackgroundColor = Color.White
+            .BorderStyle = BorderStyle.Fixed3D
+
+            ' Configure columns
+            If .Columns.Count > 0 Then
+                .Columns("ProductCode").HeaderText = "Code"
+                .Columns("ProductCode").ReadOnly = True
+                .Columns("ProductCode").Width = 80
+
+                .Columns("ProductName").HeaderText = "Product Name"
+                .Columns("ProductName").ReadOnly = True
+                .Columns("ProductName").Width = 200
+
+                .Columns("Price").HeaderText = "Price"
+                .Columns("Price").ReadOnly = True
+                .Columns("Price").DefaultCellStyle.Format = "C2"
+                .Columns("Price").DefaultCellStyle.FormatProvider = New Globalization.CultureInfo("en-PH")
+                .Columns("Price").Width = 80
+
+                .Columns("Quantity").HeaderText = "Qty"
+                .Columns("Quantity").Width = 60
+
+                .Columns("Subtotal").HeaderText = "Subtotal"
+                .Columns("Subtotal").ReadOnly = True
+                .Columns("Subtotal").DefaultCellStyle.Format = "C2"
+                .Columns("Subtotal").DefaultCellStyle.FormatProvider = New Globalization.CultureInfo("en-PH")
+                .Columns("Subtotal").Width = 100
+            End If
+
+            ' Handle cell value changes for quantity updates
+            AddHandler .CellValueChanged, AddressOf dgvCart_CellValueChanged
+            AddHandler .UserDeletedRow, AddressOf dgvCart_UserDeletedRow
+        End With
+    End Sub
+
+    ' --- CART CELL VALUE CHANGED ---
+    Private Sub dgvCart_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs)
+        If e.RowIndex >= 0 AndAlso e.ColumnIndex = dgvCart.Columns("Quantity").Index Then
+            UpdateCartItemSubtotal(e.RowIndex)
+            UpdateCartTotals()
+        End If
+    End Sub
+
+    ' --- CART ROW DELETED ---
+    Private Sub dgvCart_UserDeletedRow(sender As Object, e As DataGridViewRowEventArgs)
+        UpdateCartTotals()
+    End Sub
+
+    ' --- UPDATE CART ITEM SUBTOTAL ---
+    Private Sub UpdateCartItemSubtotal(rowIndex As Integer)
+        Try
+            Dim row As DataRowView = DirectCast(dgvCart.Rows(rowIndex).DataBoundItem, DataRowView)
+            Dim price As Decimal = Convert.ToDecimal(row("Price"))
+            Dim quantity As Integer = Convert.ToInt32(row("Quantity"))
+
+            ' Validate quantity
+            If quantity <= 0 Then
+                quantity = 1
+                row("Quantity") = 1
+            End If
+
+            ' Check stock availability
+            Dim availableStock As Integer = GetProductStock(row("ProductCode").ToString())
+            If quantity > availableStock Then
+                MessageBox.Show($"Only {availableStock} item(s) available in stock!", "Stock Limit",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                quantity = availableStock
+                row("Quantity") = availableStock
+            End If
+
+            row("Subtotal") = price * quantity
+        Catch ex As Exception
+            ' Handle error silently
+        End Try
+    End Sub
+
+    ' --- GET PRODUCT STOCK ---
+    Private Function GetProductStock(productCode As String) As Integer
+        Try
+            Using connection As New SQLiteConnection(connectionString)
+                connection.Open()
+                Dim query As String = "SELECT Stock FROM Products WHERE ProductCode = @code"
+                Using command As New SQLiteCommand(query, connection)
+                    command.Parameters.AddWithValue("@code", productCode)
+                    Dim result = command.ExecuteScalar()
+                    If result IsNot Nothing AndAlso result IsNot DBNull.Value Then
+                        Return Convert.ToInt32(result)
+                    End If
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error checking stock: " & ex.Message, "Error",
+                          MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+        Return 0
+    End Function
+
+    ' --- UPDATE CART TOTALS ---
+    Private Sub UpdateCartTotals()
+        Dim subtotal As Decimal = 0
+
+        For Each row As DataRowView In cartDataTable.DefaultView
+            subtotal += Convert.ToDecimal(row("Subtotal"))
+        Next
+
+        cartTotal = subtotal
+
+        ' Update labels
+        lblSubtotal.Text = subtotal.ToString("C2", New Globalization.CultureInfo("en-PH"))
+        lblTotal.Text = subtotal.ToString("C2", New Globalization.CultureInfo("en-PH"))
+
+        ' Enable/disable checkout button based on cart items
+        btnCheckout.Enabled = (cartDataTable.Rows.Count > 0) AndAlso
+                              Not String.IsNullOrWhiteSpace(txtBuyer.Text)
+    End Sub
+
+    ' --- ADD TO CART BUTTON ---
+    Private Sub btnAddToCart_Click(sender As Object, e As EventArgs) Handles btnAddToCart.Click
+        If dgvProducts.SelectedRows.Count = 0 Then
+            MessageBox.Show("Please select a product to add to cart.", "No Product Selected",
+                          MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
+        Dim selectedRow As DataGridViewRow = dgvProducts.SelectedRows(0)
+        Dim productCode As String = selectedRow.Cells("ProductCode").Value.ToString()
+        Dim productName As String = selectedRow.Cells("ProductName").Value.ToString()
+        Dim price As Decimal = Convert.ToDecimal(selectedRow.Cells("Price").Value)
+        Dim availableStock As Integer = Convert.ToInt32(selectedRow.Cells("Stock").Value)
+
+        ' Check if product already in cart
+        Dim existingRow As DataRowView = FindProductInCart(productCode)
+
+        If existingRow IsNot Nothing Then
+            ' Update quantity
+            Dim newQuantity As Integer = Convert.ToInt32(existingRow("Quantity")) + 1
+            If newQuantity <= availableStock Then
+                existingRow("Quantity") = newQuantity
+                existingRow("Subtotal") = price * newQuantity
+            Else
+                MessageBox.Show($"Cannot add more. Only {availableStock} available in stock!",
+                              "Stock Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        Else
+            ' Add new row
+            Dim newRow As DataRowView = cartDataTable.DefaultView.AddNew()
+            newRow("ProductCode") = productCode
+            newRow("ProductName") = productName
+            newRow("Price") = price
+            newRow("Quantity") = 1
+            newRow("Subtotal") = price
+            newRow.EndEdit()
+        End If
+
+        UpdateCartTotals()
+    End Sub
+
+    ' --- FIND PRODUCT IN CART ---
+    Private Function FindProductInCart(productCode As String) As DataRowView
+        For Each row As DataRowView In cartDataTable.DefaultView
+            If row("ProductCode").ToString() = productCode Then
+                Return row
+            End If
+        Next
+        Return Nothing
+    End Function
+
+    ' --- CHECKOUT BUTTON ---
+    Private Sub btnCheckout_Click(sender As Object, e As EventArgs) Handles btnCheckout.Click
+        ' Validate buyer name
+        If String.IsNullOrWhiteSpace(txtBuyer.Text) Then
+            MessageBox.Show("Please enter buyer name.", "Validation Error",
+                          MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtBuyer.Focus()
+            Return
+        End If
+
+        ' Validate cart has items
+        If cartDataTable.Rows.Count = 0 Then
+            MessageBox.Show("Cart is empty. Please add items to checkout.", "Empty Cart",
+                          MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        ' Show confirmation dialog
+        Dim confirmMessage As String = $"Buyer: {txtBuyer.Text.Trim()}{vbCrLf}" &
+                                      $"Total Amount: {lblTotal.Text}{vbCrLf}{vbCrLf}" &
+                                      $"Proceed with checkout?"
+
+        If MessageBox.Show(confirmMessage, "Confirm Checkout",
+                          MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+
+            ProcessCheckout()
+        End If
+    End Sub
+
+    ' --- PROCESS CHECKOUT ---
+    Private Sub ProcessCheckout()
+        Try
+            Using connection As New SQLiteConnection(connectionString)
+                connection.Open()
+                Using transaction As SQLiteTransaction = connection.BeginTransaction()
+                    Try
+                        ' Update stock for each item in cart
+                        For Each row As DataRowView In cartDataTable.DefaultView
+                            Dim productCode As String = row("ProductCode").ToString()
+                            Dim quantity As Integer = Convert.ToInt32(row("Quantity"))
+
+                            ' Update stock in database
+                            Dim updateQuery As String = "UPDATE Products SET Stock = Stock - @qty WHERE ProductCode = @code AND Stock >= @qty"
+                            Using command As New SQLiteCommand(updateQuery, connection, transaction)
+                                command.Parameters.AddWithValue("@qty", quantity)
+                                command.Parameters.AddWithValue("@code", productCode)
+
+                                Dim rowsAffected As Integer = command.ExecuteNonQuery()
+                                If rowsAffected = 0 Then
+                                    Throw New Exception($"Insufficient stock for product: {productCode}")
+                                End If
+                            End Using
+                        Next
+
+                        ' Here you would typically save the transaction record
+                        ' SaveTransaction(txtBuyerName.Text, cartTotal, cartDataTable)
+
+                        transaction.Commit()
+
+                        ' Show receipt/summary
+                        ShowReceipt()
+
+                        ' Clear cart and buyer name
+                        ClearCart()
+                        txtBuyerName.Clear()
+
+                        ' Refresh product list to show updated stock
+                        LoadProducts()
+
+                        MessageBox.Show("Checkout completed successfully!", "Success",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Catch ex As Exception
+                        transaction.Rollback()
+                        Throw ex
+                    End Try
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error processing checkout: " & ex.Message, "Error",
+                          MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ' --- SHOW RECEIPT ---
+    Private Sub ShowReceipt()
+        Dim receipt As New StringBuilder()
+        receipt.AppendLine("=" & StrDup(40, "=") & "=")
+        receipt.AppendLine("           SALES RECEIPT")
+        receipt.AppendLine("=" & StrDup(40, "=") & "=")
+        receipt.AppendLine($"Date: {DateTime.Now:MMMM dd, yyyy}")
+        receipt.AppendLine($"Time: {DateTime.Now:hh:mm:ss tt}")
+        receipt.AppendLine($"Buyer: {txtBuyerName.Text.Trim()}")
+        receipt.AppendLine("-" & StrDup(40, "-"))
+        receipt.AppendLine("Qty  Description           Amount")
+        receipt.AppendLine("-" & StrDup(40, "-"))
+
+        For Each row As DataRowView In cartDataTable.DefaultView
+            Dim qty As Integer = Convert.ToInt32(row("Quantity"))
+            Dim name As String = row("ProductName").ToString()
+            Dim subtotal As Decimal = Convert.ToDecimal(row("Subtotal"))
+
+            ' Truncate name if too long
+            If name.Length > 20 Then
+                name = name.Substring(0, 17) + "..."
+            End If
+
+            receipt.AppendLine($"{qty,-4} {name,-20} {subtotal,10:C2}")
+        Next
+
+        receipt.AppendLine("-" & StrDup(40, "-"))
+        receipt.AppendLine($"{"SUBTOTAL:",-25} {cartTotal,15:C2}")
+        receipt.AppendLine($"{"TOTAL:",-25} {cartTotal,15:C2}")
+        receipt.AppendLine("=" & StrDup(40, "=") & "=")
+        receipt.AppendLine("      THANK YOU FOR SHOPPING!")
+        receipt.AppendLine("=" & StrDup(40, "=") & "=")
+
+        MessageBox.Show(receipt.ToString(), "Sales Receipt",
+                       MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    ' --- CLEAR CART ---
+    Private Sub ClearCart()
+        cartDataTable.Clear()
+        UpdateCartTotals()
+    End Sub
+
+    ' --- CLEAR CART BUTTON ---
+    Private Sub btnClearCart_Click(sender As Object, e As EventArgs) Handles btnClearCart.Click
+        If cartDataTable.Rows.Count > 0 Then
+            If MessageBox.Show("Clear all items from cart?", "Confirm Clear",
+                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                ClearCart()
+            End If
+        End If
+    End Sub
+
+    ' --- BUYER NAME TEXT CHANGED ---
+    Private Sub txtBuyerName_TextChanged(sender As Object, e As EventArgs) Handles txtBuyerName.TextChanged
+        ' Enable/disable checkout button based on buyer name and cart items
+        btnCheckout.Enabled = (cartDataTable.Rows.Count > 0) AndAlso
+                              Not String.IsNullOrWhiteSpace(txtBuyerName.Text)
+    End Sub
+
+    ' --- REMOVE FROM CART BUTTON ---
+    Private Sub btnRemoveFromCart_Click(sender As Object, e As EventArgs) Handles btnRemoveFromCart.Click
+        If dgvCart.SelectedRows.Count > 0 Then
+            Dim selectedRow As DataGridViewRow = dgvCart.SelectedRows(0)
+            If Not selectedRow.IsNewRow Then
+                Dim rowView As DataRowView = DirectCast(selectedRow.DataBoundItem, DataRowView)
+                rowView.Delete()
+                UpdateCartTotals()
+            End If
+        Else
+            MessageBox.Show("Please select an item to remove from cart.", "No Item Selected",
+                          MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
     End Sub
 
     ' --- CONFIGURE SEARCH TEXTBOX ---
@@ -760,6 +1119,10 @@ Public Class frmPOS
     End Sub
 
     Private Sub dgvProducts_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellContentClick
+
+    End Sub
+
+    Private Sub FlowLayoutPanel1_Paint(sender As Object, e As PaintEventArgs) Handles FlowLayoutPanel1.Paint
 
     End Sub
 End Class
