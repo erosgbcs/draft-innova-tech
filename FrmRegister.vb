@@ -1,41 +1,53 @@
 ﻿Public Class FrmRegister
     Private dbHelper As DatabaseHelper
 
-    ' Add this property
+    ' Properties to pass data back to the calling form
     Public Property RegisteredUsername As String
+    Public Property RegisteredFullName As String
+    Public Property RegisteredRole As String
 
-    ' Add this constructor
     Public Sub New(dbHelper As DatabaseHelper)
-        ' This call is required by the designer
         InitializeComponent()
-
-        ' Store the database helper
         Me.dbHelper = dbHelper
+
+        ' Setup Role ComboBox
+        cboRole.Items.AddRange(New String() {"Admin", "Staff"})
+        cboRole.SelectedIndex = 1 ' Default to Staff
+
+        ' Manually hook up events to fix the "WithEvents" error
+        AddHandler btnRegister.Click, AddressOf btnRegister_Click
+        AddHandler btnCancel.Click, AddressOf btnCancel_Click
     End Sub
 
-    ' Example method showing proper exception handling
-    Private Sub btnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
+    Private Sub btnRegister_Click(sender As Object, e As EventArgs)
         Try
-            ' Your registration logic here
-            ' After successful registration, store the username
-            RegisteredUsername = txtUsername.Text
+            ' 1. Validation
+            If String.IsNullOrWhiteSpace(txtUsername.Text) OrElse
+               String.IsNullOrWhiteSpace(txtPassword.Text) OrElse
+               String.IsNullOrWhiteSpace(txtFullName.Text) Then
+                MessageBox.Show("Please fill in all fields.", "Validation Error")
+                Return
+            End If
 
-            ' Close the form with OK result
+            ' 2. Save to Database (Example Logic)
+            ' dbHelper.SaveUser(txtUsername.Text, txtPassword.Text, txtFullName.Text, cboRole.SelectedItem.ToString())
+
+            ' 3. Store properties for the Login form to use
+            RegisteredUsername = txtUsername.Text
+            RegisteredFullName = txtFullName.Text
+            RegisteredRole = cboRole.SelectedItem.ToString()
+
+            MessageBox.Show("Registration Successful!", "Success")
             Me.DialogResult = DialogResult.OK
             Me.Close()
 
         Catch ex As Exception
-            ' Show error to user
-            MessageBox.Show("Registration failed: " & ex.Message, "Error",
-                          MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-            ' Log the error (optional)
-            ' Logger.Log(ex)
-
-            ' If you need to rethrow, use Throw (not Throw ex)
-            ' Throw  ' This preserves stack trace
+            MessageBox.Show("Error: " & ex.Message)
         End Try
     End Sub
 
-    ' Rest of your form code...
+    Private Sub btnCancel_Click(sender As Object, e As EventArgs)
+        Me.DialogResult = DialogResult.Cancel
+        Me.Close()
+    End Sub
 End Class
