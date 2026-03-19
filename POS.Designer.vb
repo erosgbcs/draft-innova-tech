@@ -23,7 +23,7 @@ Partial Class frmPOS
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPOS))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPOS))
         pnlHeader = New Panel()
         lblTime = New Label()
         Label24 = New Label()
@@ -39,7 +39,7 @@ Partial Class frmPOS
         TextBox1 = New TextBox()
         Inventory = New TabControl()
         tabProducts = New TabPage()
-        FlowLayoutPanel1 = New FlowLayoutPanel()
+        flpProduct1 = New FlowLayoutPanel()
         tabInventory = New TabPage()
         btnDelete = New Button()
         btnUpdate = New Button()
@@ -91,10 +91,10 @@ Partial Class frmPOS
         SalesTotal = New DataGridViewTextBoxColumn()
         pnlShoppingCart = New Panel()
         Panel6 = New Panel()
+        lblProductName = New Label()
         btnClearCart = New Button()
         lblTotal = New Label()
         lblSubtotal = New Label()
-        txtBuyerName = New TextBox()
         Label10 = New Label()
         Label9 = New Label()
         Label8 = New Label()
@@ -107,6 +107,7 @@ Partial Class frmPOS
         pnlTotalProducts = New Panel()
         Label25 = New Label()
         Timer1 = New Timer(components)
+        txtBuyerName = New TextBox()
         pnlHeader.SuspendLayout()
         pnlWeeklyRevenue.SuspendLayout()
         pnlTodaysSales.SuspendLayout()
@@ -284,7 +285,7 @@ Partial Class frmPOS
         ' 
         tabProducts.BackColor = Color.White
         tabProducts.Controls.Add(TextBox1)
-        tabProducts.Controls.Add(FlowLayoutPanel1)
+        tabProducts.Controls.Add(flpProduct1)
         tabProducts.Controls.Add(lblAvailableProducts)
         tabProducts.Location = New Point(4, 26)
         tabProducts.Name = "tabProducts"
@@ -293,14 +294,14 @@ Partial Class frmPOS
         tabProducts.TabIndex = 0
         tabProducts.Text = "Products"
         ' 
-        ' FlowLayoutPanel1
+        ' flpProduct1
         ' 
-        FlowLayoutPanel1.BackColor = Color.Silver
-        FlowLayoutPanel1.BackgroundImageLayout = ImageLayout.Zoom
-        FlowLayoutPanel1.Location = New Point(6, 85)
-        FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        FlowLayoutPanel1.Size = New Size(1125, 667)
-        FlowLayoutPanel1.TabIndex = 7
+        flpProduct1.BackColor = Color.Silver
+        flpProduct1.BackgroundImageLayout = ImageLayout.Zoom
+        flpProduct1.Location = New Point(6, 85)
+        flpProduct1.Name = "flpProduct1"
+        flpProduct1.Size = New Size(1125, 667)
+        flpProduct1.TabIndex = 7
         ' 
         ' tabInventory
         ' 
@@ -435,7 +436,7 @@ Partial Class frmPOS
         ' 
         dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvProducts.Location = New Point(5, 82)
+        dgvProducts.Location = New Point(9, 82)
         dgvProducts.Name = "dgvProducts"
         dgvProducts.Size = New Size(1125, 570)
         dgvProducts.TabIndex = 4
@@ -788,10 +789,11 @@ Partial Class frmPOS
         ' Panel6
         ' 
         Panel6.BackColor = Color.White
+        Panel6.Controls.Add(txtBuyerName)
+        Panel6.Controls.Add(lblProductName)
         Panel6.Controls.Add(btnClearCart)
         Panel6.Controls.Add(lblTotal)
         Panel6.Controls.Add(lblSubtotal)
-        Panel6.Controls.Add(txtBuyerName)
         Panel6.Controls.Add(Label10)
         Panel6.Controls.Add(Label9)
         Panel6.Controls.Add(Label8)
@@ -800,6 +802,15 @@ Partial Class frmPOS
         Panel6.Name = "Panel6"
         Panel6.Size = New Size(480, 491)
         Panel6.TabIndex = 3
+        ' 
+        ' lblProductName
+        ' 
+        lblProductName.AutoSize = True
+        lblProductName.Location = New Point(15, 83)
+        lblProductName.Name = "lblProductName"
+        lblProductName.Size = New Size(141, 25)
+        lblProductName.TabIndex = 8
+        lblProductName.Text = "Product Name"
         ' 
         ' btnClearCart
         ' 
@@ -817,7 +828,7 @@ Partial Class frmPOS
         lblTotal.AutoSize = True
         lblTotal.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblTotal.ForeColor = Color.Navy
-        lblTotal.Location = New Point(322, 118)
+        lblTotal.Location = New Point(322, 179)
         lblTotal.Name = "lblTotal"
         lblTotal.Size = New Size(34, 25)
         lblTotal.TabIndex = 5
@@ -827,26 +838,17 @@ Partial Class frmPOS
         ' 
         lblSubtotal.AutoSize = True
         lblSubtotal.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblSubtotal.Location = New Point(322, 87)
+        lblSubtotal.Location = New Point(322, 140)
         lblSubtotal.Name = "lblSubtotal"
         lblSubtotal.Size = New Size(26, 20)
         lblSubtotal.TabIndex = 4
         lblSubtotal.Text = "₱  "
         ' 
-        ' txtBuyerName
-        ' 
-        txtBuyerName.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtBuyerName.Location = New Point(182, 35)
-        txtBuyerName.Name = "txtBuyerName"
-        txtBuyerName.PlaceholderText = "Buyer name"
-        txtBuyerName.Size = New Size(251, 27)
-        txtBuyerName.TabIndex = 3
-        ' 
         ' Label10
         ' 
         Label10.AutoSize = True
         Label10.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label10.Location = New Point(15, 118)
+        Label10.Location = New Point(15, 179)
         Label10.Name = "Label10"
         Label10.Size = New Size(60, 25)
         Label10.TabIndex = 2
@@ -855,20 +857,20 @@ Partial Class frmPOS
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label9.Location = New Point(11, 81)
+        Label9.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.Location = New Point(15, 140)
         Label9.Name = "Label9"
-        Label9.Size = New Size(86, 25)
+        Label9.Size = New Size(93, 25)
         Label9.TabIndex = 1
         Label9.Text = "Subtotal:"
         ' 
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label8.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label8.Location = New Point(15, 37)
         Label8.Name = "Label8"
-        Label8.Size = New Size(64, 25)
+        Label8.Size = New Size(70, 25)
         Label8.TabIndex = 0
         Label8.Text = "Buyer:"
         ' 
@@ -958,7 +960,14 @@ Partial Class frmPOS
         ' 
         Timer1.Interval = 1000
         ' 
-        ' frmPOS
+        ' txtBuyerName
+        ' 
+        txtBuyerName.Location = New Point(152, 29)
+        txtBuyerName.Name = "txtBuyerName"
+        txtBuyerName.Size = New Size(268, 33)
+        txtBuyerName.TabIndex = 9
+        ' 
+        ' FrmPOS
         ' 
         AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
@@ -975,7 +984,7 @@ Partial Class frmPOS
         Controls.Add(Inventory)
         KeyPreview = True
         MaximizeBox = False
-        Name = "frmPOS"
+        Name = "FrmPOS"
         StartPosition = FormStartPosition.CenterScreen
         Text = "S"
         WindowState = FormWindowState.Maximized
@@ -1044,7 +1053,6 @@ Partial Class frmPOS
     Friend WithEvents lblShoppingCart As Label
     Friend WithEvents Panel6 As Panel
     Friend WithEvents lblSubtotal As Label
-    Friend WithEvents txtBuyerName As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Label8 As Label
@@ -1065,7 +1073,7 @@ Partial Class frmPOS
     Friend WithEvents dgvProducts As DataGridView
     Friend WithEvents pnlTotalProducts As Panel
     Friend WithEvents Label25 As Label
-    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
+    Friend WithEvents flpProduct1 As FlowLayoutPanel
     Friend WithEvents Panel10 As Panel
     Friend WithEvents Panel9 As Panel
     Friend WithEvents btnNextWeek As Button
@@ -1099,8 +1107,7 @@ Partial Class frmPOS
     Friend WithEvents btnDelete As Button
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents btnClearCart As Button
+    Friend WithEvents lblProductName As Label
+    Friend WithEvents txtBuyerName As TextBox
 
-    Private Sub dgvProducts_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellContentClick
-
-    End Sub
 End Class
