@@ -43,7 +43,7 @@ Partial Class frmPOS
         tabInventory = New TabPage()
         btnDelete = New Button()
         btnUpdate = New Button()
-        Button2 = New Button()
+        BtnExportcsv = New Button()
         txtSearch = New TextBox()
         txtStock = New TextBox()
         txtCategory = New TextBox()
@@ -91,10 +91,7 @@ Partial Class frmPOS
         SalesTotal = New DataGridViewTextBoxColumn()
         pnlShoppingCart = New Panel()
         Panel6 = New Panel()
-        btnAddtoCart = New Button()
-        btnRemoveFromCart = New Button()
         btnClearCart = New Button()
-        btnCheckout = New Button()
         lblTotal = New Label()
         lblSubtotal = New Label()
         txtBuyerName = New TextBox()
@@ -147,11 +144,11 @@ Partial Class frmPOS
         ' lblTime
         ' 
         lblTime.AutoSize = True
-        lblTime.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTime.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblTime.ForeColor = Color.White
-        lblTime.Location = New Point(1549, 6)
+        lblTime.Location = New Point(1379, 75)
         lblTime.Name = "lblTime"
-        lblTime.Size = New Size(72, 21)
+        lblTime.Size = New Size(97, 30)
         lblTime.TabIndex = 6
         lblTime.Text = "00:00:00"
         ' 
@@ -179,7 +176,7 @@ Partial Class frmPOS
         ' 
         ' lblTitle
         ' 
-        lblTitle.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTitle.Font = New Font("Segoe UI", 36.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblTitle.ForeColor = Color.White
         lblTitle.Location = New Point(160, 15)
         lblTitle.Name = "lblTitle"
@@ -201,7 +198,7 @@ Partial Class frmPOS
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label5.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label5.Location = New Point(64, 79)
         Label5.Name = "Label5"
         Label5.Size = New Size(137, 21)
@@ -221,7 +218,7 @@ Partial Class frmPOS
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label4.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label4.Location = New Point(78, 79)
         Label4.Name = "Label4"
         Label4.Size = New Size(111, 21)
@@ -241,7 +238,7 @@ Partial Class frmPOS
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label3.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label3.Location = New Point(67, 79)
         Label3.Name = "Label3"
         Label3.Size = New Size(117, 21)
@@ -309,7 +306,7 @@ Partial Class frmPOS
         ' 
         tabInventory.Controls.Add(btnDelete)
         tabInventory.Controls.Add(btnUpdate)
-        tabInventory.Controls.Add(Button2)
+        tabInventory.Controls.Add(BtnExportcsv)
         tabInventory.Controls.Add(txtSearch)
         tabInventory.Controls.Add(txtStock)
         tabInventory.Controls.Add(txtCategory)
@@ -351,16 +348,16 @@ Partial Class frmPOS
         btnUpdate.Text = "Update Product"
         btnUpdate.UseVisualStyleBackColor = False
         ' 
-        ' Button2
+        ' BtnExportcsv
         ' 
-        Button2.BackColor = Color.Lime
-        Button2.FlatStyle = FlatStyle.Flat
-        Button2.Location = New Point(6, 713)
-        Button2.Name = "Button2"
-        Button2.Size = New Size(104, 39)
-        Button2.TabIndex = 3
-        Button2.Text = "Export CSV"
-        Button2.UseVisualStyleBackColor = False
+        BtnExportcsv.BackColor = Color.Lime
+        BtnExportcsv.FlatStyle = FlatStyle.Flat
+        BtnExportcsv.Location = New Point(6, 713)
+        BtnExportcsv.Name = "BtnExportcsv"
+        BtnExportcsv.Size = New Size(104, 39)
+        BtnExportcsv.TabIndex = 3
+        BtnExportcsv.Text = "Export CSV"
+        BtnExportcsv.UseVisualStyleBackColor = False
         ' 
         ' txtSearch
         ' 
@@ -406,7 +403,7 @@ Partial Class frmPOS
         ' lblInventoryManagement
         ' 
         lblInventoryManagement.AutoSize = True
-        lblInventoryManagement.Font = New Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblInventoryManagement.Font = New Font("Segoe UI", 18.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblInventoryManagement.ForeColor = Color.Navy
         lblInventoryManagement.Location = New Point(857, 6)
         lblInventoryManagement.Name = "lblInventoryManagement"
@@ -517,7 +514,7 @@ Partial Class frmPOS
         ' Label16
         ' 
         Label16.AutoSize = True
-        Label16.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label16.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label16.ForeColor = Color.DodgerBlue
         Label16.Location = New Point(26, 50)
         Label16.Name = "Label16"
@@ -549,7 +546,7 @@ Partial Class frmPOS
         ' Label15
         ' 
         Label15.AutoSize = True
-        Label15.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label15.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label15.ForeColor = Color.DodgerBlue
         Label15.Location = New Point(12, 50)
         Label15.Name = "Label15"
@@ -571,7 +568,7 @@ Partial Class frmPOS
         ' btnNextWeek
         ' 
         btnNextWeek.BackColor = Color.White
-        btnNextWeek.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnNextWeek.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnNextWeek.Location = New Point(390, 57)
         btnNextWeek.Name = "btnNextWeek"
         btnNextWeek.Size = New Size(117, 29)
@@ -604,7 +601,7 @@ Partial Class frmPOS
         ' btnPreviousWeek
         ' 
         btnPreviousWeek.BackColor = Color.White
-        btnPreviousWeek.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnPreviousWeek.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnPreviousWeek.Location = New Point(24, 57)
         btnPreviousWeek.Name = "btnPreviousWeek"
         btnPreviousWeek.Size = New Size(158, 29)
@@ -627,7 +624,7 @@ Partial Class frmPOS
         ' 
         lblWeeklyReport.AutoSize = True
         lblWeeklyReport.BackColor = Color.Transparent
-        lblWeeklyReport.Font = New Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblWeeklyReport.Font = New Font("Segoe UI", 18.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblWeeklyReport.ForeColor = Color.Navy
         lblWeeklyReport.Location = New Point(24, 6)
         lblWeeklyReport.Name = "lblWeeklyReport"
@@ -689,7 +686,7 @@ Partial Class frmPOS
         ' Label22
         ' 
         Label22.AutoSize = True
-        Label22.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label22.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label22.Location = New Point(894, 80)
         Label22.Name = "Label22"
         Label22.Size = New Size(153, 21)
@@ -699,7 +696,7 @@ Partial Class frmPOS
         ' Label26
         ' 
         Label26.AutoSize = True
-        Label26.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label26.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label26.Location = New Point(431, 80)
         Label26.Name = "Label26"
         Label26.Size = New Size(166, 21)
@@ -709,7 +706,7 @@ Partial Class frmPOS
         ' Label19
         ' 
         Label19.AutoSize = True
-        Label19.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label19.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label19.Location = New Point(21, 80)
         Label19.Name = "Label19"
         Label19.Size = New Size(182, 21)
@@ -730,7 +727,7 @@ Partial Class frmPOS
         ' lblSalesHistory
         ' 
         lblSalesHistory.AutoSize = True
-        lblSalesHistory.Font = New Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblSalesHistory.Font = New Font("Segoe UI", 24.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblSalesHistory.ForeColor = Color.Navy
         lblSalesHistory.Location = New Point(19, 12)
         lblSalesHistory.Name = "lblSalesHistory"
@@ -791,10 +788,7 @@ Partial Class frmPOS
         ' Panel6
         ' 
         Panel6.BackColor = Color.White
-        Panel6.Controls.Add(btnAddtoCart)
-        Panel6.Controls.Add(btnRemoveFromCart)
         Panel6.Controls.Add(btnClearCart)
-        Panel6.Controls.Add(btnCheckout)
         Panel6.Controls.Add(lblTotal)
         Panel6.Controls.Add(lblSubtotal)
         Panel6.Controls.Add(txtBuyerName)
@@ -807,49 +801,16 @@ Partial Class frmPOS
         Panel6.Size = New Size(480, 491)
         Panel6.TabIndex = 3
         ' 
-        ' btnAddtoCart
-        ' 
-        btnAddtoCart.BackColor = Color.Green
-        btnAddtoCart.ForeColor = Color.White
-        btnAddtoCart.Location = New Point(247, 412)
-        btnAddtoCart.Name = "btnAddtoCart"
-        btnAddtoCart.Size = New Size(205, 53)
-        btnAddtoCart.TabIndex = 9
-        btnAddtoCart.Text = "remove "
-        btnAddtoCart.UseVisualStyleBackColor = False
-        ' 
-        ' btnRemoveFromCart
-        ' 
-        btnRemoveFromCart.BackColor = Color.Green
-        btnRemoveFromCart.ForeColor = Color.White
-        btnRemoveFromCart.Location = New Point(15, 412)
-        btnRemoveFromCart.Name = "btnRemoveFromCart"
-        btnRemoveFromCart.Size = New Size(205, 53)
-        btnRemoveFromCart.TabIndex = 8
-        btnRemoveFromCart.Text = "remove "
-        btnRemoveFromCart.UseVisualStyleBackColor = False
-        ' 
         ' btnClearCart
         ' 
         btnClearCart.BackColor = Color.Green
         btnClearCart.ForeColor = Color.White
-        btnClearCart.Location = New Point(15, 353)
+        btnClearCart.Location = New Point(182, 371)
         btnClearCart.Name = "btnClearCart"
         btnClearCart.Size = New Size(205, 53)
         btnClearCart.TabIndex = 7
         btnClearCart.Text = "Clear Cart"
         btnClearCart.UseVisualStyleBackColor = False
-        ' 
-        ' btnCheckout
-        ' 
-        btnCheckout.BackColor = Color.Green
-        btnCheckout.ForeColor = Color.White
-        btnCheckout.Location = New Point(247, 353)
-        btnCheckout.Name = "btnCheckout"
-        btnCheckout.Size = New Size(230, 53)
-        btnCheckout.TabIndex = 6
-        btnCheckout.Text = "Checkout"
-        btnCheckout.UseVisualStyleBackColor = False
         ' 
         ' lblTotal
         ' 
@@ -914,7 +875,7 @@ Partial Class frmPOS
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label7.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label7.Location = New Point(169, 114)
         Label7.Name = "Label7"
         Label7.Size = New Size(191, 21)
@@ -999,7 +960,7 @@ Partial Class frmPOS
         ' 
         ' frmPOS
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
         AutoScroll = True
         BackColor = Color.Gainsboro
@@ -1078,7 +1039,7 @@ Partial Class frmPOS
     Friend WithEvents txtCategory As TextBox
     Friend WithEvents lblInventoryManagement As Label
     Friend WithEvents txtSearch As TextBox
-    Friend WithEvents Button2 As Button
+    Friend WithEvents BtnExportcsv As Button
     Friend WithEvents pnlShoppingCart As Panel
     Friend WithEvents lblShoppingCart As Label
     Friend WithEvents Panel6 As Panel
@@ -1089,7 +1050,6 @@ Partial Class frmPOS
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents btnCheckout As Button
     Friend WithEvents lblTotal As Label
     Friend WithEvents Panel7 As Panel
     Friend WithEvents Label13 As Label
@@ -1139,6 +1099,8 @@ Partial Class frmPOS
     Friend WithEvents btnDelete As Button
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents btnClearCart As Button
-    Friend WithEvents btnRemoveFromCart As Button
-    Friend WithEvents btnAddtoCart As Button
+
+    Private Sub dgvProducts_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellContentClick
+
+    End Sub
 End Class
