@@ -10,7 +10,7 @@
 
         ' Setup Role Options
         cboRole.Items.Clear()
-        cboRole.Items.AddRange(New String() {"Admin", "Staff"})
+        cboRole.Items.AddRange(New String() {"Staff"})
         cboRole.SelectedIndex = 1 ' Default to Staff
 
         ' Link Buttons
@@ -46,5 +46,9 @@
     Private Sub btnCancel_Click(sender As Object, e As EventArgs)
         Me.DialogResult = DialogResult.Cancel
         Me.Close()
+    End Sub
+
+    Private Sub btnCancel_Click_1(sender As Object, e As EventArgs) Handles btnCancel.Click
+
     End Sub
 End Class

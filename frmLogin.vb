@@ -79,16 +79,6 @@ Public Class FrmLogin
         btnLogin.Text = "Login"
     End Sub
 
-    Private Sub BtnShowHide_Click(sender As Object, e As EventArgs)
-        If txtPassword.PasswordChar = "*"c Then
-            txtPassword.PasswordChar = ControlChars.NullChar
-            btnShowHide.Text = "🔒" ' Lock emoji when visible
-        Else
-            txtPassword.PasswordChar = "*"c
-            btnShowHide.Text = "👁" ' Eye emoji when hidden
-        End If
-    End Sub
-
     Private Sub BtnForgotPassword_Click(sender As Object, e As EventArgs) Handles btnForgotPassword.Click
         ' Show forgot password dialog
         Using forgotForm As New FrmForgotPassword(dbHelper)
@@ -356,4 +346,21 @@ Public Class FrmLogin
             Application.Exit()
         End Sub
     End Class
+
+    Private Sub BtnShowHide_Click(sender As Object, e As EventArgs) Handles BtnShowHide.Click
+        ' Check if the password is currently hidden (using '*' as the mask)
+        If txtPassword.PasswordChar = "*"c Then
+            ' If it's currently hidden, show the text
+            txtPassword.PasswordChar = Convert.ToChar(0)
+            BtnShowHide.Text = "🔒"
+
+            ' 2. The alternative case
+        Else
+            ' If it's already visible, hide it again
+            txtPassword.PasswordChar = "*"c
+            BtnShowHide.Text = "👁"
+
+            ' 3. The Required Closing Statement
+        End If
+    End Sub
 End Class
