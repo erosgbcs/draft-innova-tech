@@ -5,25 +5,28 @@
     Public Property RegisteredUsername As String
 
     Public Sub New(dbHelper As DatabaseHelper)
+        ' This call is required by the designer.
         InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
         Me.dbHelper = dbHelper
 
         ' Setup Role Options
         cboRole.Items.Clear()
-        cboRole.Items.AddRange(New String() {"Staff"})
-        cboRole.SelectedIndex = 1 ' Default to Staff
+        cboRole.Items.Add("Staff")
 
-        ' Link Buttons
-        AddHandler btnRegister.Click, AddressOf btnRegister_Click
-        AddHandler btnCancel.Click, AddressOf btnCancel_Click
+        If cboRole.Items.Count > 0 Then
+            cboRole.SelectedIndex = 0 ' Set default to the first item
+        End If
     End Sub
 
-    Private Sub btnRegister_Click(sender As Object, e As EventArgs)
+    ' Handles the Register button logic
+    Private Sub btnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
         ' 1. Validation
         If String.IsNullOrWhiteSpace(txtUsername.Text) OrElse
            String.IsNullOrWhiteSpace(txtPassword.Text) OrElse
            String.IsNullOrWhiteSpace(txtFullName.Text) Then
-            MessageBox.Show("Please fill in all fields.", "Input Required")
+            MessageBox.Show("Please fill in all fields.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
@@ -43,12 +46,10 @@
         End If
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs)
+    ' Handles the Cancel button logic
+    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.DialogResult = DialogResult.Cancel
         Me.Close()
     End Sub
 
-    Private Sub btnCancel_Click_1(sender As Object, e As EventArgs) Handles btnCancel.Click
-
-    End Sub
 End Class
