@@ -92,7 +92,7 @@ Public Class FrmLogin
     Private Sub BtnForgotPassword_Click(sender As Object, e As EventArgs) Handles btnForgotPassword.Click
         ' Show forgot password dialog
         Using forgotForm As New FrmForgotPassword(dbHelper)
-            forgotForm.ShowDialog()
+            forgotForm.ShowDialog
         End Using
     End Sub
 
