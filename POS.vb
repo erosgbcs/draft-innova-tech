@@ -56,15 +56,5 @@
         ' Dummy placeholder:
         Console.WriteLine("Products refreshed at " & DateTime.Now.ToString())
     End Sub
-
-    ' OPTIONAL: START TIMER BUTTON
-    Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
-        Timer1.Start()
-    End Sub
-
-    ' OPTIONAL: STOP TIMER BUTTON
-    Private Sub btnStop_Click(sender As Object, e As EventArgs) Handles btnStop.Click
-        Timer1.Stop()
-    End Sub
-
 End Class
+

@@ -79,7 +79,7 @@ Public Class FrmLogin
         btnLogin.Text = "Login"
     End Sub
 
-    Private Sub BtnShowHide_Click(sender As Object, e As EventArgs) Handles btnShowHide.Click
+    Private Sub BtnShowHide_Click(sender As Object, e As EventArgs)
         If txtPassword.PasswordChar = "*"c Then
             txtPassword.PasswordChar = ControlChars.NullChar
             btnShowHide.Text = "🔒" ' Lock emoji when visible
