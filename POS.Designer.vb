@@ -91,6 +91,7 @@ Partial Class frmPOS
         SalesTotal = New DataGridViewTextBoxColumn()
         pnlShoppingCart = New Panel()
         Panel6 = New Panel()
+        lblProdcutCheckout = New Label()
         txtBuyerName = New TextBox()
         lblProductName = New Label()
         btnClearCart = New Button()
@@ -789,6 +790,7 @@ Partial Class frmPOS
         ' Panel6
         ' 
         Panel6.BackColor = Color.White
+        Panel6.Controls.Add(lblProdcutCheckout)
         Panel6.Controls.Add(txtBuyerName)
         Panel6.Controls.Add(lblProductName)
         Panel6.Controls.Add(btnClearCart)
@@ -802,6 +804,14 @@ Partial Class frmPOS
         Panel6.Name = "Panel6"
         Panel6.Size = New Size(480, 491)
         Panel6.TabIndex = 3
+        ' 
+        ' lblProdcutCheckout
+        ' 
+        lblProdcutCheckout.AutoSize = True
+        lblProdcutCheckout.Location = New Point(275, 83)
+        lblProdcutCheckout.Name = "lblProdcutCheckout"
+        lblProdcutCheckout.Size = New Size(0, 25)
+        lblProdcutCheckout.TabIndex = 10
         ' 
         ' txtBuyerName
         ' 
@@ -827,7 +837,7 @@ Partial Class frmPOS
         btnClearCart.Name = "btnClearCart"
         btnClearCart.Size = New Size(205, 53)
         btnClearCart.TabIndex = 7
-        btnClearCart.Text = "Clear Cart"
+        btnClearCart.Text = "Check Out"
         btnClearCart.UseVisualStyleBackColor = False
         ' 
         ' lblTotal
@@ -973,7 +983,7 @@ Partial Class frmPOS
         AutoScaleMode = AutoScaleMode.Font
         AutoScroll = True
         BackColor = Color.Gainsboro
-        ClientSize = New Size(1370, 749)
+        ClientSize = New Size(1879, 1061)
         Controls.Add(pnlTotalProducts)
         Controls.Add(pnlHeader)
         Controls.Add(pnlTodaysSales)
@@ -1109,5 +1119,6 @@ Partial Class frmPOS
     Friend WithEvents lblProductName As Label
     Friend WithEvents txtBuyerName As TextBox
     Friend WithEvents flpProduct1 As FlowLayoutPanel
+    Friend WithEvents lblProdcutCheckout As Label
 
 End Class
