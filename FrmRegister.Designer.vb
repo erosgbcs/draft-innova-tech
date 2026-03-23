@@ -25,7 +25,6 @@
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmRegister))
         cboRole = New ComboBox()
         btnRegister = New Button()
-        btnCancel = New Button()
         lblUser = New Label()
         lblPass = New Label()
         lblFull = New Label()
@@ -45,30 +44,19 @@
         cboRole.DropDownStyle = ComboBoxStyle.DropDownList
         cboRole.Location = New Point(64, 259)
         cboRole.Name = "cboRole"
-        cboRole.Size = New Size(100, 23)
+        cboRole.Size = New Size(272, 23)
         cboRole.TabIndex = 7
         ' 
         ' btnRegister
         ' 
         btnRegister.BackColor = Color.FromArgb(CByte(128), CByte(128), CByte(255))
         btnRegister.FlatStyle = FlatStyle.Flat
-        btnRegister.Location = New Point(55, 295)
+        btnRegister.Location = New Point(63, 305)
         btnRegister.Name = "btnRegister"
-        btnRegister.Size = New Size(101, 24)
+        btnRegister.Size = New Size(273, 24)
         btnRegister.TabIndex = 8
         btnRegister.Text = "Register"
         btnRegister.UseVisualStyleBackColor = False
-        ' 
-        ' btnCancel
-        ' 
-        btnCancel.BackColor = Color.LightCoral
-        btnCancel.FlatStyle = FlatStyle.Flat
-        btnCancel.Location = New Point(225, 296)
-        btnCancel.Name = "btnCancel"
-        btnCancel.Size = New Size(99, 24)
-        btnCancel.TabIndex = 9
-        btnCancel.Text = "Cancel"
-        btnCancel.UseVisualStyleBackColor = False
         ' 
         ' lblUser
         ' 
@@ -203,7 +191,7 @@
         BackColor = Color.WhiteSmoke
         BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(379, 340)
+        ClientSize = New Size(379, 353)
         Controls.Add(Label4)
         Controls.Add(Label3)
         Controls.Add(Label2)
@@ -213,7 +201,6 @@
         Controls.Add(txtUsername)
         Controls.Add(cboRole)
         Controls.Add(btnRegister)
-        Controls.Add(btnCancel)
         Name = "FrmRegister"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Create New Account"
@@ -225,7 +212,6 @@
     ' FIXED DECLARATIONS: Only one of each, and the correct types.
     Friend WithEvents cboRole As System.Windows.Forms.ComboBox
     Friend WithEvents btnRegister As System.Windows.Forms.Button
-    Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents lblUser As System.Windows.Forms.Label
     Friend WithEvents lblPass As System.Windows.Forms.Label
     Friend WithEvents lblFull As System.Windows.Forms.Label

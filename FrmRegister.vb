@@ -47,9 +47,9 @@
     End Sub
 
     ' Handles the Cancel button logic
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-        Me.DialogResult = DialogResult.Cancel
-        Me.Close()
+    Private Sub btnCancel_Click(sender As Object, e As EventArgs)
+        DialogResult = DialogResult.Cancel
+        Close()
     End Sub
 
 End Class
