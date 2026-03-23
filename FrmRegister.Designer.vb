@@ -33,13 +33,17 @@
         txtUsername = New Guna.UI2.WinForms.Guna2TextBox()
         txtPassword = New Guna.UI2.WinForms.Guna2TextBox()
         txtFullName = New Guna.UI2.WinForms.Guna2TextBox()
+        Label1 = New Label()
+        Label2 = New Label()
+        Label3 = New Label()
+        Label4 = New Label()
         SuspendLayout()
         ' 
         ' cboRole
         ' 
         cboRole.BackColor = Color.White
         cboRole.DropDownStyle = ComboBoxStyle.DropDownList
-        cboRole.Location = New Point(142, 197)
+        cboRole.Location = New Point(64, 259)
         cboRole.Name = "cboRole"
         cboRole.Size = New Size(100, 23)
         cboRole.TabIndex = 7
@@ -48,7 +52,7 @@
         ' 
         btnRegister.BackColor = Color.FromArgb(CByte(128), CByte(128), CByte(255))
         btnRegister.FlatStyle = FlatStyle.Flat
-        btnRegister.Location = New Point(55, 241)
+        btnRegister.Location = New Point(55, 295)
         btnRegister.Name = "btnRegister"
         btnRegister.Size = New Size(101, 24)
         btnRegister.TabIndex = 8
@@ -59,7 +63,7 @@
         ' 
         btnCancel.BackColor = Color.LightCoral
         btnCancel.FlatStyle = FlatStyle.Flat
-        btnCancel.Location = New Point(224, 241)
+        btnCancel.Location = New Point(225, 296)
         btnCancel.Name = "btnCancel"
         btnCancel.Size = New Size(99, 24)
         btnCancel.TabIndex = 9
@@ -102,7 +106,7 @@
         txtUsername.CustomizableEdges = CustomizableEdges1
         txtUsername.DefaultText = ""
         txtUsername.Font = New Font("Segoe UI", 9F)
-        txtUsername.Location = New Point(55, 84)
+        txtUsername.Location = New Point(55, 119)
         txtUsername.Name = "txtUsername"
         txtUsername.PlaceholderText = "Enter New Username"
         txtUsername.SelectedText = ""
@@ -119,7 +123,7 @@
         txtPassword.CustomizableEdges = CustomizableEdges3
         txtPassword.DefaultText = ""
         txtPassword.Font = New Font("Segoe UI", 9F)
-        txtPassword.Location = New Point(55, 140)
+        txtPassword.Location = New Point(55, 190)
         txtPassword.Name = "txtPassword"
         txtPassword.PasswordChar = "*"c
         txtPassword.PlaceholderText = "Enter New Password"
@@ -137,7 +141,7 @@
         txtFullName.CustomizableEdges = CustomizableEdges5
         txtFullName.DefaultText = ""
         txtFullName.Font = New Font("Segoe UI", 9F)
-        txtFullName.Location = New Point(55, 29)
+        txtFullName.Location = New Point(55, 47)
         txtFullName.Name = "txtFullName"
         txtFullName.PlaceholderText = "Enter your fullname"
         txtFullName.SelectedText = ""
@@ -146,12 +150,64 @@
         txtFullName.TabIndex = 12
         txtFullName.TextAlign = HorizontalAlignment.Center
         ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.BackColor = Color.Transparent
+        Label1.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.ForeColor = Color.White
+        Label1.Location = New Point(63, 24)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(89, 20)
+        Label1.TabIndex = 13
+        Label1.Text = "Full Name"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.BackColor = Color.Transparent
+        Label2.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.ForeColor = Color.White
+        Label2.Location = New Point(63, 94)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(91, 20)
+        Label2.TabIndex = 14
+        Label2.Text = "Username"
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.BackColor = Color.Transparent
+        Label3.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label3.ForeColor = Color.White
+        Label3.Location = New Point(67, 167)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(86, 20)
+        Label3.TabIndex = 15
+        Label3.Text = "Password"
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.BackColor = Color.Transparent
+        Label4.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label4.ForeColor = Color.White
+        Label4.Location = New Point(67, 235)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(46, 20)
+        Label4.TabIndex = 16
+        Label4.Text = "Role"
+        ' 
         ' FrmRegister
         ' 
         BackColor = Color.WhiteSmoke
         BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(383, 343)
+        ClientSize = New Size(379, 340)
+        Controls.Add(Label4)
+        Controls.Add(Label3)
+        Controls.Add(Label2)
+        Controls.Add(Label1)
         Controls.Add(txtFullName)
         Controls.Add(txtPassword)
         Controls.Add(txtUsername)
@@ -162,6 +218,7 @@
         StartPosition = FormStartPosition.CenterScreen
         Text = "Create New Account"
         ResumeLayout(False)
+        PerformLayout()
 
     End Sub
 
@@ -176,5 +233,9 @@
     Friend WithEvents txtUsername As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents txtPassword As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents txtFullName As Guna.UI2.WinForms.Guna2TextBox ' Only this one remains!
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
 
 End Class
