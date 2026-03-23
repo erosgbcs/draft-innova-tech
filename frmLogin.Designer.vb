@@ -59,7 +59,7 @@ Partial Class frmLogin
         Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges11
         Guna2CustomGradientPanel1.FillColor = Color.Lavender
         Guna2CustomGradientPanel1.FillColor2 = Color.LavenderBlush
-        Guna2CustomGradientPanel1.Location = New Point(748, 321)
+        Guna2CustomGradientPanel1.Location = New Point(781, 321)
         Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
         Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges12
         Guna2CustomGradientPanel1.Size = New Size(350, 470)

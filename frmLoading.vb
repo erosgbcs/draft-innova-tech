@@ -1,7 +1,7 @@
 ﻿Public Class FrmLoading
     ' Use Capital 'F' for the naming rule
     Private Sub FrmLoading_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Timer1.Interval = 1000 ' Speed of progress
+        Timer1.Interval = 10 ' Speed of progress
         Timer1.Start()
         lblPercent.Text = "0%"
         ProgressBar1.Value = 0
