@@ -23,7 +23,7 @@ Partial Class frmPOS
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPOS))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPOS))
         pnlHeader = New Panel()
         lblTime = New Label()
         Label24 = New Label()
@@ -91,6 +91,7 @@ Partial Class frmPOS
         SalesTotal = New DataGridViewTextBoxColumn()
         pnlShoppingCart = New Panel()
         Panel6 = New Panel()
+        txtBuyerName = New TextBox()
         lblProductName = New Label()
         btnClearCart = New Button()
         lblTotal = New Label()
@@ -107,7 +108,6 @@ Partial Class frmPOS
         pnlTotalProducts = New Panel()
         Label25 = New Label()
         Timer1 = New Timer(components)
-        txtBuyerName = New TextBox()
         pnlHeader.SuspendLayout()
         pnlWeeklyRevenue.SuspendLayout()
         pnlTodaysSales.SuspendLayout()
@@ -177,7 +177,7 @@ Partial Class frmPOS
         ' 
         ' lblTitle
         ' 
-        lblTitle.Font = New Font("Segoe UI", 36.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTitle.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblTitle.ForeColor = Color.White
         lblTitle.Location = New Point(160, 15)
         lblTitle.Name = "lblTitle"
@@ -199,7 +199,7 @@ Partial Class frmPOS
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label5.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label5.Location = New Point(64, 79)
         Label5.Name = "Label5"
         Label5.Size = New Size(137, 21)
@@ -219,7 +219,7 @@ Partial Class frmPOS
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label4.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label4.Location = New Point(78, 79)
         Label4.Name = "Label4"
         Label4.Size = New Size(111, 21)
@@ -239,7 +239,7 @@ Partial Class frmPOS
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label3.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label3.Location = New Point(67, 79)
         Label3.Name = "Label3"
         Label3.Size = New Size(117, 21)
@@ -404,7 +404,7 @@ Partial Class frmPOS
         ' lblInventoryManagement
         ' 
         lblInventoryManagement.AutoSize = True
-        lblInventoryManagement.Font = New Font("Segoe UI", 18.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblInventoryManagement.Font = New Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblInventoryManagement.ForeColor = Color.Navy
         lblInventoryManagement.Location = New Point(857, 6)
         lblInventoryManagement.Name = "lblInventoryManagement"
@@ -436,7 +436,7 @@ Partial Class frmPOS
         ' 
         dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvProducts.Location = New Point(9, 82)
+        dgvProducts.Location = New Point(19, 92)
         dgvProducts.Name = "dgvProducts"
         dgvProducts.Size = New Size(1125, 570)
         dgvProducts.TabIndex = 4
@@ -515,7 +515,7 @@ Partial Class frmPOS
         ' Label16
         ' 
         Label16.AutoSize = True
-        Label16.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label16.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label16.ForeColor = Color.DodgerBlue
         Label16.Location = New Point(26, 50)
         Label16.Name = "Label16"
@@ -547,7 +547,7 @@ Partial Class frmPOS
         ' Label15
         ' 
         Label15.AutoSize = True
-        Label15.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label15.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label15.ForeColor = Color.DodgerBlue
         Label15.Location = New Point(12, 50)
         Label15.Name = "Label15"
@@ -569,7 +569,7 @@ Partial Class frmPOS
         ' btnNextWeek
         ' 
         btnNextWeek.BackColor = Color.White
-        btnNextWeek.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnNextWeek.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnNextWeek.Location = New Point(390, 57)
         btnNextWeek.Name = "btnNextWeek"
         btnNextWeek.Size = New Size(117, 29)
@@ -602,7 +602,7 @@ Partial Class frmPOS
         ' btnPreviousWeek
         ' 
         btnPreviousWeek.BackColor = Color.White
-        btnPreviousWeek.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnPreviousWeek.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnPreviousWeek.Location = New Point(24, 57)
         btnPreviousWeek.Name = "btnPreviousWeek"
         btnPreviousWeek.Size = New Size(158, 29)
@@ -625,7 +625,7 @@ Partial Class frmPOS
         ' 
         lblWeeklyReport.AutoSize = True
         lblWeeklyReport.BackColor = Color.Transparent
-        lblWeeklyReport.Font = New Font("Segoe UI", 18.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblWeeklyReport.Font = New Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblWeeklyReport.ForeColor = Color.Navy
         lblWeeklyReport.Location = New Point(24, 6)
         lblWeeklyReport.Name = "lblWeeklyReport"
@@ -687,7 +687,7 @@ Partial Class frmPOS
         ' Label22
         ' 
         Label22.AutoSize = True
-        Label22.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label22.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label22.Location = New Point(894, 80)
         Label22.Name = "Label22"
         Label22.Size = New Size(153, 21)
@@ -697,7 +697,7 @@ Partial Class frmPOS
         ' Label26
         ' 
         Label26.AutoSize = True
-        Label26.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label26.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label26.Location = New Point(431, 80)
         Label26.Name = "Label26"
         Label26.Size = New Size(166, 21)
@@ -707,7 +707,7 @@ Partial Class frmPOS
         ' Label19
         ' 
         Label19.AutoSize = True
-        Label19.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label19.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label19.Location = New Point(21, 80)
         Label19.Name = "Label19"
         Label19.Size = New Size(182, 21)
@@ -728,7 +728,7 @@ Partial Class frmPOS
         ' lblSalesHistory
         ' 
         lblSalesHistory.AutoSize = True
-        lblSalesHistory.Font = New Font("Segoe UI", 24.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblSalesHistory.Font = New Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblSalesHistory.ForeColor = Color.Navy
         lblSalesHistory.Location = New Point(19, 12)
         lblSalesHistory.Name = "lblSalesHistory"
@@ -802,6 +802,13 @@ Partial Class frmPOS
         Panel6.Name = "Panel6"
         Panel6.Size = New Size(480, 491)
         Panel6.TabIndex = 3
+        ' 
+        ' txtBuyerName
+        ' 
+        txtBuyerName.Location = New Point(152, 29)
+        txtBuyerName.Name = "txtBuyerName"
+        txtBuyerName.Size = New Size(268, 33)
+        txtBuyerName.TabIndex = 9
         ' 
         ' lblProductName
         ' 
@@ -877,7 +884,7 @@ Partial Class frmPOS
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label7.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label7.Location = New Point(169, 114)
         Label7.Name = "Label7"
         Label7.Size = New Size(191, 21)
@@ -960,20 +967,13 @@ Partial Class frmPOS
         ' 
         Timer1.Interval = 1000
         ' 
-        ' txtBuyerName
+        ' frmPOS
         ' 
-        txtBuyerName.Location = New Point(152, 29)
-        txtBuyerName.Name = "txtBuyerName"
-        txtBuyerName.Size = New Size(268, 33)
-        txtBuyerName.TabIndex = 9
-        ' 
-        ' FrmPOS
-        ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         AutoScroll = True
         BackColor = Color.Gainsboro
-        ClientSize = New Size(1870, 804)
+        ClientSize = New Size(1370, 749)
         Controls.Add(pnlTotalProducts)
         Controls.Add(pnlHeader)
         Controls.Add(pnlTodaysSales)
@@ -984,7 +984,7 @@ Partial Class frmPOS
         Controls.Add(Inventory)
         KeyPreview = True
         MaximizeBox = False
-        Name = "FrmPOS"
+        Name = "frmPOS"
         StartPosition = FormStartPosition.CenterScreen
         Text = "S"
         WindowState = FormWindowState.Maximized
@@ -1073,7 +1073,6 @@ Partial Class frmPOS
     Friend WithEvents dgvProducts As DataGridView
     Friend WithEvents pnlTotalProducts As Panel
     Friend WithEvents Label25 As Label
-    Friend WithEvents flpProduct1 As FlowLayoutPanel
     Friend WithEvents Panel10 As Panel
     Friend WithEvents Panel9 As Panel
     Friend WithEvents btnNextWeek As Button
@@ -1109,5 +1108,6 @@ Partial Class frmPOS
     Friend WithEvents btnClearCart As Button
     Friend WithEvents lblProductName As Label
     Friend WithEvents txtBuyerName As TextBox
+    Friend WithEvents flpProduct1 As FlowLayoutPanel
 
 End Class

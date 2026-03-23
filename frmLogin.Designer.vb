@@ -185,7 +185,7 @@ Partial Class frmLogin
         BackColor = Color.IndianRed
         BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(1499, 893)
+        ClientSize = New Size(1370, 749)
         Controls.Add(Guna2CustomGradientPanel1)
         Font = New Font("Segoe UI", 48F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         MdiChildrenMinimizedAnchorBottom = False
