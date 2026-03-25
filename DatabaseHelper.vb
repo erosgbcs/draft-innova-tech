@@ -15,7 +15,7 @@ Public Class DatabaseHelper
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
 
-                ' Users table
+                ' --- Users table ---
                 Dim createUsers As String = "
                     CREATE TABLE IF NOT EXISTS Users (
                         UserID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -31,7 +31,7 @@ Public Class DatabaseHelper
                     cmd.ExecuteNonQuery()
                 End Using
 
-                ' Products table
+                ' --- Products table ---
                 Dim createProducts As String = "
                     CREATE TABLE IF NOT EXISTS Products (
                         ProductID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -73,12 +73,6 @@ Public Class DatabaseHelper
         End Try
     End Function
 
-    Public Shared Function HashPassword(password As String) As String
-        Dim passwordBytes As Byte() = Encoding.UTF8.GetBytes(password)
-        Dim hashBytes As Byte() = SHA256.HashData(passwordBytes)
-        Return Convert.ToBase64String(hashBytes)
-    End Function
-
     Public Function ValidateUser(username As String, password As String) As DataTable
         Dim result As New DataTable()
         Try
@@ -111,8 +105,16 @@ Public Class DatabaseHelper
                     cmd.ExecuteNonQuery()
                 End Using
             End Using
-        Catch : End Try
+        Catch
+            ' ignore errors silently
+        End Try
     End Sub
+
+    Private Shared Function HashPassword(password As String) As String
+        Dim passwordBytes As Byte() = Encoding.UTF8.GetBytes(password)
+        Dim hashBytes As Byte() = SHA256.HashData(passwordBytes)
+        Return Convert.ToBase64String(hashBytes)
+    End Function
 
     ' --- PRODUCT METHODS ---
     Public Function SaveProduct(prod As frmPOS.Product) As Boolean

@@ -90,16 +90,7 @@ Partial Class frmPOS
         SalesBuyer = New DataGridViewTextBoxColumn()
         SalesTotal = New DataGridViewTextBoxColumn()
         pnlShoppingCart = New Panel()
-        Panel6 = New Panel()
-        lblProdcutCheckout = New Label()
-        txtBuyerName = New TextBox()
-        lblProductName = New Label()
-        btnClearCart = New Button()
-        lblTotal = New Label()
-        lblSubtotal = New Label()
-        Label10 = New Label()
-        Label9 = New Label()
-        Label8 = New Label()
+        flpCart = New FlowLayoutPanel()
         Label7 = New Label()
         Label6 = New Label()
         lblShoppingCart = New Label()
@@ -125,7 +116,6 @@ Partial Class frmPOS
         Panel1.SuspendLayout()
         CType(DataGridView3, ComponentModel.ISupportInitialize).BeginInit()
         pnlShoppingCart.SuspendLayout()
-        Panel6.SuspendLayout()
         Panel7.SuspendLayout()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         pnlTotalProducts.SuspendLayout()
@@ -778,7 +768,7 @@ Partial Class frmPOS
         ' pnlShoppingCart
         ' 
         pnlShoppingCart.BackColor = Color.Silver
-        pnlShoppingCart.Controls.Add(Panel6)
+        pnlShoppingCart.Controls.Add(flpCart)
         pnlShoppingCart.Controls.Add(Label7)
         pnlShoppingCart.Controls.Add(Label6)
         pnlShoppingCart.Controls.Add(lblShoppingCart)
@@ -787,109 +777,12 @@ Partial Class frmPOS
         pnlShoppingCart.Size = New Size(562, 697)
         pnlShoppingCart.TabIndex = 3
         ' 
-        ' Panel6
+        ' flpCart
         ' 
-        Panel6.BackColor = Color.White
-        Panel6.Controls.Add(lblProdcutCheckout)
-        Panel6.Controls.Add(txtBuyerName)
-        Panel6.Controls.Add(lblProductName)
-        Panel6.Controls.Add(btnClearCart)
-        Panel6.Controls.Add(lblTotal)
-        Panel6.Controls.Add(lblSubtotal)
-        Panel6.Controls.Add(Label10)
-        Panel6.Controls.Add(Label9)
-        Panel6.Controls.Add(Label8)
-        Panel6.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Panel6.Location = New Point(38, 164)
-        Panel6.Name = "Panel6"
-        Panel6.Size = New Size(480, 491)
-        Panel6.TabIndex = 3
-        ' 
-        ' lblProdcutCheckout
-        ' 
-        lblProdcutCheckout.AutoSize = True
-        lblProdcutCheckout.Location = New Point(275, 83)
-        lblProdcutCheckout.Name = "lblProdcutCheckout"
-        lblProdcutCheckout.Size = New Size(0, 25)
-        lblProdcutCheckout.TabIndex = 10
-        ' 
-        ' txtBuyerName
-        ' 
-        txtBuyerName.Location = New Point(152, 29)
-        txtBuyerName.Name = "txtBuyerName"
-        txtBuyerName.Size = New Size(268, 33)
-        txtBuyerName.TabIndex = 9
-        ' 
-        ' lblProductName
-        ' 
-        lblProductName.AutoSize = True
-        lblProductName.Location = New Point(15, 83)
-        lblProductName.Name = "lblProductName"
-        lblProductName.Size = New Size(141, 25)
-        lblProductName.TabIndex = 8
-        lblProductName.Text = "Product Name"
-        ' 
-        ' btnClearCart
-        ' 
-        btnClearCart.BackColor = Color.Green
-        btnClearCart.ForeColor = Color.White
-        btnClearCart.Location = New Point(182, 371)
-        btnClearCart.Name = "btnClearCart"
-        btnClearCart.Size = New Size(205, 53)
-        btnClearCart.TabIndex = 7
-        btnClearCart.Text = "Check Out"
-        btnClearCart.UseVisualStyleBackColor = False
-        ' 
-        ' lblTotal
-        ' 
-        lblTotal.AutoSize = True
-        lblTotal.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblTotal.ForeColor = Color.Navy
-        lblTotal.Location = New Point(322, 179)
-        lblTotal.Name = "lblTotal"
-        lblTotal.Size = New Size(34, 25)
-        lblTotal.TabIndex = 5
-        lblTotal.Text = "₱  "
-        ' 
-        ' lblSubtotal
-        ' 
-        lblSubtotal.AutoSize = True
-        lblSubtotal.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblSubtotal.Location = New Point(322, 140)
-        lblSubtotal.Name = "lblSubtotal"
-        lblSubtotal.Size = New Size(26, 20)
-        lblSubtotal.TabIndex = 4
-        lblSubtotal.Text = "₱  "
-        ' 
-        ' Label10
-        ' 
-        Label10.AutoSize = True
-        Label10.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label10.Location = New Point(15, 179)
-        Label10.Name = "Label10"
-        Label10.Size = New Size(60, 25)
-        Label10.TabIndex = 2
-        Label10.Text = "Total:"
-        ' 
-        ' Label9
-        ' 
-        Label9.AutoSize = True
-        Label9.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label9.Location = New Point(15, 140)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(93, 25)
-        Label9.TabIndex = 1
-        Label9.Text = "Subtotal:"
-        ' 
-        ' Label8
-        ' 
-        Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label8.Location = New Point(15, 37)
-        Label8.Name = "Label8"
-        Label8.Size = New Size(70, 25)
-        Label8.TabIndex = 0
-        Label8.Text = "Buyer:"
+        flpCart.Location = New Point(81, 171)
+        flpCart.Name = "flpCart"
+        flpCart.Size = New Size(426, 360)
+        flpCart.TabIndex = 3
         ' 
         ' Label7
         ' 
@@ -1026,8 +919,6 @@ Partial Class frmPOS
         CType(DataGridView3, ComponentModel.ISupportInitialize).EndInit()
         pnlShoppingCart.ResumeLayout(False)
         pnlShoppingCart.PerformLayout()
-        Panel6.ResumeLayout(False)
-        Panel6.PerformLayout()
         Panel7.ResumeLayout(False)
         CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
         pnlTotalProducts.ResumeLayout(False)
@@ -1061,14 +952,8 @@ Partial Class frmPOS
     Friend WithEvents BtnExportcsv As Button
     Friend WithEvents pnlShoppingCart As Panel
     Friend WithEvents lblShoppingCart As Label
-    Friend WithEvents Panel6 As Panel
-    Friend WithEvents lblSubtotal As Label
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label9 As Label
-    Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents lblTotal As Label
     Friend WithEvents Panel7 As Panel
     Friend WithEvents Label13 As Label
     Friend WithEvents ComboBox1 As ComboBox
@@ -1115,10 +1000,7 @@ Partial Class frmPOS
     Friend WithEvents btnUpdate As Button
     Friend WithEvents btnDelete As Button
     Friend WithEvents PictureBox3 As PictureBox
-    Friend WithEvents btnClearCart As Button
-    Friend WithEvents lblProductName As Label
-    Friend WithEvents txtBuyerName As TextBox
     Friend WithEvents flpProduct1 As FlowLayoutPanel
-    Friend WithEvents lblProdcutCheckout As Label
+    Friend WithEvents flpCart As FlowLayoutPanel
 
 End Class

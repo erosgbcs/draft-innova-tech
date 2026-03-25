@@ -15,11 +15,27 @@ Public Class frmPOS
         Public Property Stock As Integer
     End Class
 
+    ' Cart item structure
+    Public Class CartItem
+        Public Property ProductCode As String
+        Public Property ProductName As String
+        Public Property Price As Decimal
+        Public Property Quantity As Integer
+        Public ReadOnly Property Subtotal As Decimal
+            Get
+                Return Price * Quantity
+            End Get
+        End Property
+    End Class
+
+    Private Cart As New List(Of CartItem)
+
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         db.InitializeDatabase()
         Timer1.Start()
         dgvProducts.DataSource = db.LoadProducts()
         LoadProductCards()
+        LoadCartCards()
     End Sub
 
     ' Timer
@@ -62,81 +78,172 @@ Public Class frmPOS
         txtStock.Clear()
     End Sub
 
-    ' Export to CSV
-    Private Sub BtnExportcsv_Click(sender As Object, e As EventArgs) Handles BtnExportcsv.Click
-        If dgvProducts.Rows.Count = 0 Then
-            MessageBox.Show("No data to export.", "Empty", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    ' Add to Cart
+    Private Sub AddToCart(code As String, name As String, price As Decimal)
+        Dim existing = Cart.FirstOrDefault(Function(c) c.ProductCode = code)
+        If existing IsNot Nothing Then
+            existing.Quantity += 1
+        Else
+            Cart.Add(New CartItem With {.ProductCode = code, .ProductName = name, .Price = price, .Quantity = 1})
+        End If
+        LoadCartCards()
+    End Sub
+
+    ' Load cart cards into flpCart
+    Private Sub LoadCartCards()
+        flpCart.Controls.Clear()
+
+        For Each item In Cart
+            Dim card As New Panel With {
+                .Width = 250,
+                .Height = 100,
+                .BorderStyle = BorderStyle.FixedSingle,
+                .Margin = New Padding(5)
+            }
+
+            Dim lblName As New Label With {
+                .Text = item.ProductName,
+                .Font = New Font("Segoe UI", 10, FontStyle.Bold),
+                .Location = New Point(10, 10),
+                .AutoSize = True
+            }
+            card.Controls.Add(lblName)
+
+            Dim lblQty As New Label With {
+                .Text = "Qty: " & item.Quantity,
+                .Location = New Point(10, 35),
+                .AutoSize = True
+            }
+            card.Controls.Add(lblQty)
+
+            Dim lblSubtotal1 As New Label With {
+                .Text = "Subtotal: ₱" & item.Subtotal.ToString("N2"),
+                .Location = New Point(10, 60),
+                .AutoSize = True
+            }
+            card.Controls.Add(lblSubtotal1)
+
+            ' Increase quantity
+            Dim btnIncrease As New Button With {
+                .Text = "+",
+                .Location = New Point(150, 30),
+                .Width = 30
+            }
+            AddHandler btnIncrease.Click,
+                Sub(sender, e)
+                    item.Quantity += 1
+                    LoadCartCards()
+                End Sub
+            card.Controls.Add(btnIncrease)
+
+            ' Decrease quantity
+            Dim btnDecrease As New Button With {
+                .Text = "-",
+                .Location = New Point(190, 30),
+                .Width = 30
+            }
+            AddHandler btnDecrease.Click,
+                Sub(sender, e)
+                    If item.Quantity > 1 Then
+                        item.Quantity -= 1
+                    Else
+                        Cart.Remove(item)
+                    End If
+                    LoadCartCards()
+                End Sub
+            card.Controls.Add(btnDecrease)
+
+            ' Remove button
+            Dim btnRemove As New Button With {
+                .Text = "Remove",
+                .Location = New Point(150, 60),
+                .Width = 70
+            }
+            AddHandler btnRemove.Click,
+                Sub(sender, e)
+                    Cart.Remove(item)
+                    LoadCartCards()
+                End Sub
+            card.Controls.Add(btnRemove)
+
+            flpCart.Controls.Add(card)
+        Next
+
+        ' --- Totals card at the bottom ---
+        Dim totalsCard As New Panel With {
+            .Width = 250,
+            .Height = 100,
+            .BorderStyle = BorderStyle.FixedSingle,
+            .Margin = New Padding(5),
+            .BackColor = Color.LightGray
+        }
+
+        Dim subtotal As Decimal = Cart.Sum(Function(c) c.Subtotal)
+        Dim total As Decimal = subtotal ' add tax/discount logic here if needed
+
+        Dim lblSubtotal As New Label With {
+            .Text = "Subtotal: ₱" & subtotal.ToString("N2"),
+            .Font = New Font("Segoe UI", 10, FontStyle.Bold),
+            .Location = New Point(10, 10),
+            .AutoSize = True
+        }
+        totalsCard.Controls.Add(lblSubtotal)
+
+        Dim lblTotal As New Label With {
+            .Text = "Total: ₱" & total.ToString("N2"),
+            .Font = New Font("Segoe UI", 10, FontStyle.Bold),
+            .Location = New Point(10, 35),
+            .AutoSize = True
+        }
+        totalsCard.Controls.Add(lblTotal)
+
+        ' Checkout button inside totals card
+        ' Checkout button inside totals card
+        Dim btnCheckout As New Button With {
+            .Text = "Check Out",
+            .Location = New Point(10, 60),
+            .Width = 100
+        }
+        AddHandler btnCheckout.Click, AddressOf btnCheckout_Click
+        totalsCard.Controls.Add(btnCheckout)
+
+        ' Clear Cart button inside totals card
+        Dim btnClear As New Button With {
+            .Text = "Clear Cart",
+            .Location = New Point(120, 60),
+            .Width = 100
+        }
+        AddHandler btnClear.Click,
+            Sub(sender, e)
+                Cart.Clear()
+                LoadCartCards()
+            End Sub
+        totalsCard.Controls.Add(btnClear)
+
+        flpCart.Controls.Add(totalsCard)
+    End Sub
+
+    ' Checkout logic
+    Private Sub btnCheckout_Click(sender As Object, e As EventArgs)
+        If Cart.Count = 0 Then
+            MessageBox.Show("Cart is empty.", "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        Dim folderPath As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-        Dim fileName As String = "Inventory_" & DateTime.Now.ToString("yyyyMMdd_HHmmss") & ".csv"
-        Dim fullPath As String = Path.Combine(folderPath, fileName)
+        Dim subtotal As Decimal = Cart.Sum(Function(c) c.Subtotal)
+        Dim total As Decimal = subtotal ' add tax/discount if needed
 
-        Dim sb As New StringBuilder()
-        sb.AppendLine("Product Code,Product Name,Category,Price,Stock")
+        MessageBox.Show("Checkout successful!" & vbCrLf &
+                        "Subtotal: ₱" & subtotal.ToString("N2") & vbCrLf &
+                        "Total: ₱" & total.ToString("N2"),
+                        "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-        For Each row As DataGridViewRow In dgvProducts.Rows
-            If Not row.IsNewRow Then
-                sb.AppendLine($"{row.Cells(0).Value},{row.Cells(1).Value},{row.Cells(2).Value},{row.Cells(3).Value},{row.Cells(4).Value}")
-            End If
-        Next
-
-        File.WriteAllText(fullPath, sb.ToString(), Encoding.UTF8)
-        MessageBox.Show("CSV Saved to My Documents!", "Export Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        ' Clear cart after checkout
+        Cart.Clear()
+        LoadCartCards()
     End Sub
 
-    ' Print Layout
-    ' Print Layout
-    Private Sub PrintLayout(sender As Object, e As PrintPageEventArgs)
-        Dim fHeader As New Font("Arial", 14, FontStyle.Bold)
-        Dim fBody As New Font("Arial", 10, FontStyle.Regular)
-        Dim fBold As New Font("Arial", 10, FontStyle.Bold)
-
-        Dim x As Integer = 50
-        Dim y As Integer = 50
-
-        e.Graphics.DrawString("INVENTORY REPORT", fHeader, Brushes.Black, x, y)
-        y += 30
-        e.Graphics.DrawString("Date: " & DateTime.Now.ToString("yyyy-MM-dd HH:mm"), fBody, Brushes.Black, x, y)
-        y += 20
-        e.Graphics.DrawString(New String("-"c, 45), fBody, Brushes.Black, x, y)
-
-        ' Table Headers
-        y += 25
-        e.Graphics.DrawString("Product", fBold, Brushes.Black, x, y)
-        e.Graphics.DrawString("Price", fBold, Brushes.Black, x + 200, y)
-        e.Graphics.DrawString("Stock", fBold, Brushes.Black, x + 300, y)
-        y += 20
-
-        ' Items Loop
-        For Each row As DataGridViewRow In dgvProducts.Rows
-            If Not row.IsNewRow Then
-                y += 25
-                e.Graphics.DrawString(row.Cells("ProductName").Value.ToString(), fBody, Brushes.Black, x, y)
-                e.Graphics.DrawString(row.Cells("Price").Value.ToString(), fBody, Brushes.Black, x + 200, y)
-                e.Graphics.DrawString(row.Cells("Stock").Value.ToString(), fBody, Brushes.Black, x + 300, y)
-            End If
-        Next
-
-        y += 40
-        e.Graphics.DrawString("--- End of Report ---", fBody, Brushes.Black, x + 100, y)
-    End Sub
-
-    ' Clear Cart (optional logic)
-    Private Sub btnClearCart_Click(sender As Object, e As EventArgs) Handles btnClearCart.Click
-        dgvProducts.DataSource = Nothing
-        dgvProducts.DataSource = db.LoadProducts()
-        LoadProductCards()
-        MessageBox.Show("Cart cleared and products reloaded.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
-    End Sub
-
-    ' FlowLayoutPanel paint event (optional, can be used for custom drawing)
-    Private Sub flpProduct1_Paint(sender As Object, e As PaintEventArgs) Handles flpProduct1.Paint
-        ' You can leave this empty or add custom background drawing
-    End Sub
-
-    ' Load product cards into FlowLayoutPanel
+    ' Load product cards into flpProduct1
     Private Sub LoadProductCards()
         flpProduct1.Controls.Clear()
         Dim dt As DataTable = db.LoadProducts()
@@ -186,7 +293,9 @@ Public Class frmPOS
             }
             AddHandler btnAdd.Click,
                 Sub(sender, e)
-                    MessageBox.Show(row("ProductName").ToString() & " added to cart!", "Cart", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    AddToCart(row("ProductCode").ToString(),
+                              row("ProductName").ToString(),
+                              Convert.ToDecimal(row("Price")))
                 End Sub
             card.Controls.Add(btnAdd)
 
