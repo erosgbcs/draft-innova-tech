@@ -983,7 +983,7 @@ Partial Class frmPOS
         AutoScaleMode = AutoScaleMode.Font
         AutoScroll = True
         BackColor = Color.Gainsboro
-        ClientSize = New Size(1879, 1061)
+        ClientSize = New Size(1370, 749)
         Controls.Add(pnlTotalProducts)
         Controls.Add(pnlHeader)
         Controls.Add(pnlTodaysSales)
@@ -997,7 +997,7 @@ Partial Class frmPOS
         Name = "frmPOS"
         StartPosition = FormStartPosition.CenterScreen
         Text = "S"
-        WindowState = FormWindowState.Maximized
+        WindowState = FormWindowState.Minimized
         pnlHeader.ResumeLayout(False)
         pnlHeader.PerformLayout()
         pnlWeeklyRevenue.ResumeLayout(False)

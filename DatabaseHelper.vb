@@ -14,7 +14,9 @@ Public Class DatabaseHelper
         Try
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
-                Dim createTableQuery As String = "
+
+                ' Users table
+                Dim createUsers As String = "
                     CREATE TABLE IF NOT EXISTS Users (
                         UserID INTEGER PRIMARY KEY AUTOINCREMENT,
                         Username TEXT UNIQUE NOT NULL,
@@ -25,7 +27,21 @@ Public Class DatabaseHelper
                         LastLogin DATETIME,
                         CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP
                     )"
-                Using cmd As New SQLiteCommand(createTableQuery, conn)
+                Using cmd As New SQLiteCommand(createUsers, conn)
+                    cmd.ExecuteNonQuery()
+                End Using
+
+                ' Products table
+                Dim createProducts As String = "
+                    CREATE TABLE IF NOT EXISTS Products (
+                        ProductID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        ProductCode TEXT UNIQUE NOT NULL,
+                        ProductName TEXT NOT NULL,
+                        Category TEXT,
+                        Price REAL NOT NULL,
+                        Stock INTEGER NOT NULL
+                    )"
+                Using cmd As New SQLiteCommand(createProducts, conn)
                     cmd.ExecuteNonQuery()
                 End Using
             End Using
@@ -34,7 +50,7 @@ Public Class DatabaseHelper
         End Try
     End Sub
 
-    ' --- NEW: Method to Register a User ---
+    ' --- USER METHODS ---
     Public Function RegisterUser(username As String, password As String, fullName As String, role As String) As Boolean
         Try
             Using conn As New SQLiteConnection(connectionString)
@@ -68,7 +84,8 @@ Public Class DatabaseHelper
         Try
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
-                Dim query As String = "SELECT UserID, Username, FullName, Role FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash AND IsActive = 1"
+                Dim query As String = "SELECT UserID, Username, FullName, Role FROM Users 
+                                       WHERE Username = @Username AND PasswordHash = @PasswordHash AND IsActive = 1"
                 Using cmd As New SQLiteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Username", username)
                     cmd.Parameters.AddWithValue("@PasswordHash", HashPassword(password))
@@ -97,5 +114,41 @@ Public Class DatabaseHelper
         Catch : End Try
     End Sub
 
-    ' ... (Keep ChangePassword and ResetPassword as they were) ...
+    ' --- PRODUCT METHODS ---
+    Public Function SaveProduct(prod As frmPOS.Product) As Boolean
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Dim query As String = "INSERT INTO Products (ProductCode, ProductName, Category, Price, Stock) 
+                                       VALUES (@Code, @Name, @Category, @Price, @Stock)"
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@Code", prod.Code)
+                    cmd.Parameters.AddWithValue("@Name", prod.Name)
+                    cmd.Parameters.AddWithValue("@Category", prod.Category)
+                    cmd.Parameters.AddWithValue("@Price", prod.Price)
+                    cmd.Parameters.AddWithValue("@Stock", prod.Stock)
+                    Return cmd.ExecuteNonQuery() > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show($"Error saving product: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
+    Public Function LoadProducts() As DataTable
+        Dim dt As New DataTable()
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Dim query As String = "SELECT ProductCode, ProductName, Category, Price, Stock FROM Products"
+                Using da As New SQLiteDataAdapter(query, conn)
+                    da.Fill(dt)
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show($"Error loading products: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+        Return dt
+    End Function
 End Class
