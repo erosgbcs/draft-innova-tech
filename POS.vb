@@ -5,6 +5,51 @@ Imports System.Drawing.Printing
 
 Public Class frmPOS
     Private db As New DatabaseHelper()
+    Public Class RoundedShadowPanel
+        Inherits Panel
+
+        Public Property CornerRadius As Integer = 20
+        Public Property ShadowSize As Integer = 5
+
+        Protected Overrides Sub OnPaint(e As PaintEventArgs)
+            MyBase.OnPaint(e)
+
+            Dim g As Graphics = e.Graphics
+            g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+
+            ' Shadow rectangle with rounded corners
+            Dim shadowRect As New Rectangle(ShadowSize, ShadowSize, Me.Width - ShadowSize, Me.Height - ShadowSize)
+            Using shadowPath As Drawing2D.GraphicsPath = GetRoundedRect(shadowRect, CornerRadius)
+                Using shadowBrush As New SolidBrush(Color.FromArgb(50, Color.Black))
+                    g.FillPath(shadowBrush, shadowPath)
+                End Using
+            End Using
+
+
+            ' Rounded rectangle for panel
+            Dim rect As New Rectangle(0, 0, Me.Width - ShadowSize, Me.Height - ShadowSize)
+            Using path As Drawing2D.GraphicsPath = GetRoundedRect(rect, CornerRadius)
+                Using brush As New SolidBrush(Me.BackColor)
+                    g.FillPath(brush, path)
+                End Using
+                Using pen As New Pen(Me.BorderColor, 1)
+                    g.DrawPath(pen, path)
+                End Using
+            End Using
+        End Sub
+
+        Private Function GetRoundedRect(rect As Rectangle, radius As Integer) As Drawing2D.GraphicsPath
+            Dim path As New Drawing2D.GraphicsPath()
+            path.AddArc(rect.X, rect.Y, radius, radius, 180, 90)
+            path.AddArc(rect.Right - radius, rect.Y, radius, radius, 270, 90)
+            path.AddArc(rect.Right - radius, rect.Bottom - radius, radius, radius, 0, 90)
+            path.AddArc(rect.X, rect.Bottom - radius, radius, radius, 90, 90)
+            path.CloseFigure()
+            Return path
+        End Function
+
+        Public Property BorderColor As Color = Color.Gray
+    End Class
 
     ' Product structure
     Public Class Product
@@ -249,13 +294,16 @@ Public Class frmPOS
         Dim dt As DataTable = db.LoadProducts()
 
         For Each row As DataRow In dt.Rows
-            Dim card As New Panel With {
-                .Width = 200,
-                .Height = 140,
-                .BorderStyle = BorderStyle.FixedSingle,
-                .Margin = New Padding(10),
-                .BackColor = Color.White
-            }
+            Dim card As New RoundedShadowPanel With {
+    .Width = 200,
+    .Height = 180,
+    .Margin = New Padding(10),
+    .BackColor = Color.White,
+    .BorderColor = Color.LightGray,
+    .CornerRadius = 30,   ' more rounded corners
+    .ShadowSize = 8      ' bigger shadow spread
+}
+
 
             Dim lblName As New Label With {
                 .Text = row("ProductName").ToString(),

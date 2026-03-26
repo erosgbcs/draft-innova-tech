@@ -287,7 +287,7 @@ Partial Class frmPOS
         ' 
         ' flpProduct1
         ' 
-        flpProduct1.BackColor = Color.Silver
+        flpProduct1.BackColor = Color.White
         flpProduct1.BackgroundImageLayout = ImageLayout.Zoom
         flpProduct1.Location = New Point(6, 85)
         flpProduct1.Name = "flpProduct1"
