@@ -10,6 +10,21 @@ Public Class frmPOS
 
         Public Property CornerRadius As Integer = 20
         Public Property ShadowSize As Integer = 5
+        Public Property BorderColor As Color = Color.Gray
+
+        Private normalShadowAlpha As Integer = 50
+        Private hoverShadowAlpha As Integer = 120
+        Private currentShadowAlpha As Integer = 50
+
+        Private fadeTimer As Timer
+        Private targetAlpha As Integer
+
+        Public Sub New()
+            Me.DoubleBuffered = True
+            fadeTimer = New Timer()
+            fadeTimer.Interval = 15 ' speed of animation (ms)
+            AddHandler fadeTimer.Tick, AddressOf FadeStep
+        End Sub
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)
@@ -20,11 +35,10 @@ Public Class frmPOS
             ' Shadow rectangle with rounded corners
             Dim shadowRect As New Rectangle(ShadowSize, ShadowSize, Me.Width - ShadowSize, Me.Height - ShadowSize)
             Using shadowPath As Drawing2D.GraphicsPath = GetRoundedRect(shadowRect, CornerRadius)
-                Using shadowBrush As New SolidBrush(Color.FromArgb(50, Color.Black))
+                Using shadowBrush As New SolidBrush(Color.FromArgb(currentShadowAlpha, Color.Black))
                     g.FillPath(shadowBrush, shadowPath)
                 End Using
             End Using
-
 
             ' Rounded rectangle for panel
             Dim rect As New Rectangle(0, 0, Me.Width - ShadowSize, Me.Height - ShadowSize)
@@ -48,8 +62,37 @@ Public Class frmPOS
             Return path
         End Function
 
-        Public Property BorderColor As Color = Color.Gray
+        ' Hover effect with animation
+        Protected Overrides Sub OnMouseEnter(e As EventArgs)
+            MyBase.OnMouseEnter(e)
+            targetAlpha = hoverShadowAlpha
+            fadeTimer.Start()
+        End Sub
+
+        Protected Overrides Sub OnMouseLeave(e As EventArgs)
+            MyBase.OnMouseLeave(e)
+            targetAlpha = normalShadowAlpha
+            fadeTimer.Start()
+        End Sub
+
+        Private Sub FadeStep(sender As Object, e As EventArgs)
+            If currentShadowAlpha < targetAlpha Then
+                currentShadowAlpha += 5
+                If currentShadowAlpha >= targetAlpha Then
+                    currentShadowAlpha = targetAlpha
+                    fadeTimer.Stop()
+                End If
+            ElseIf currentShadowAlpha > targetAlpha Then
+                currentShadowAlpha -= 5
+                If currentShadowAlpha <= targetAlpha Then
+                    currentShadowAlpha = targetAlpha
+                    fadeTimer.Stop()
+                End If
+            End If
+            Me.Invalidate()
+        End Sub
     End Class
+
 
     ' Product structure
     Public Class Product
