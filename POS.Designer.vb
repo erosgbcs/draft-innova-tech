@@ -886,11 +886,10 @@ Partial Class frmPOS
         Controls.Add(pnlShoppingCart)
         Controls.Add(Inventory)
         KeyPreview = True
-        MaximizeBox = False
         Name = "frmPOS"
         StartPosition = FormStartPosition.CenterScreen
         Text = "S"
-        WindowState = FormWindowState.Minimized
+        WindowState = FormWindowState.Maximized
         pnlHeader.ResumeLayout(False)
         pnlHeader.PerformLayout()
         pnlWeeklyRevenue.ResumeLayout(False)

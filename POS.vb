@@ -5,7 +5,8 @@ Imports System.Drawing.Printing
 
 Public Class frmPOS
     Private db As New DatabaseHelper()
-    'class for button hover effect
+
+    ' --- Rounded Button Class ---
     Public Class RoundedButton
         Inherits Button
 
@@ -24,9 +25,8 @@ Public Class frmPOS
                 End Using
             End Using
 
-            ' Draw centered text
             TextRenderer.DrawText(pevent.Graphics, Me.Text, Me.Font, rect, Me.ForeColor,
-                              TextFormatFlags.HorizontalCenter Or TextFormatFlags.VerticalCenter)
+                                  TextFormatFlags.HorizontalCenter Or TextFormatFlags.VerticalCenter)
         End Sub
 
         Private Function GetRoundedRect(rect As Rectangle, radius As Integer) As Drawing2D.GraphicsPath
@@ -52,10 +52,9 @@ Public Class frmPOS
         End Sub
     End Class
 
-
+    ' --- Rounded Shadow Panel Class ---
     Public Class RoundedShadowPanel
         Inherits Panel
-
         Public Property CornerRadius As Integer = 20
         Public Property ShadowSize As Integer = 5
         Public Property BorderColor As Color = Color.Gray
@@ -63,24 +62,21 @@ Public Class frmPOS
         Private normalShadowAlpha As Integer = 50
         Private hoverShadowAlpha As Integer = 120
         Private currentShadowAlpha As Integer = 50
-
         Private fadeTimer As Timer
         Private targetAlpha As Integer
 
         Public Sub New()
             Me.DoubleBuffered = True
             fadeTimer = New Timer()
-            fadeTimer.Interval = 15 ' speed of animation (ms)
+            fadeTimer.Interval = 15
             AddHandler fadeTimer.Tick, AddressOf FadeStep
         End Sub
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)
-
             Dim g As Graphics = e.Graphics
             g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
 
-            ' Shadow rectangle with rounded corners
             Dim shadowRect As New Rectangle(ShadowSize, ShadowSize, Me.Width - ShadowSize, Me.Height - ShadowSize)
             Using shadowPath As Drawing2D.GraphicsPath = GetRoundedRect(shadowRect, CornerRadius)
                 Using shadowBrush As New SolidBrush(Color.FromArgb(currentShadowAlpha, Color.Black))
@@ -88,7 +84,6 @@ Public Class frmPOS
                 End Using
             End Using
 
-            ' Rounded rectangle for panel
             Dim rect As New Rectangle(0, 0, Me.Width - ShadowSize, Me.Height - ShadowSize)
             Using path As Drawing2D.GraphicsPath = GetRoundedRect(rect, CornerRadius)
                 Using brush As New SolidBrush(Me.BackColor)
@@ -110,7 +105,6 @@ Public Class frmPOS
             Return path
         End Function
 
-        ' Hover effect with animation
         Protected Overrides Sub OnMouseEnter(e As EventArgs)
             MyBase.OnMouseEnter(e)
             targetAlpha = hoverShadowAlpha
@@ -141,8 +135,7 @@ Public Class frmPOS
         End Sub
     End Class
 
-
-    ' Product structure
+    ' --- Product and Cart Classes ---
     Public Class Product
         Public Property Code As String
         Public Property Name As String
@@ -151,7 +144,6 @@ Public Class frmPOS
         Public Property Stock As Integer
     End Class
 
-    ' Cart item structure
     Public Class CartItem
         Public Property ProductCode As String
         Public Property ProductName As String
@@ -166,20 +158,85 @@ Public Class frmPOS
 
     Private Cart As New List(Of CartItem)
 
+    ' --- Form Load ---
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         db.InitializeDatabase()
         Timer1.Start()
         dgvProducts.DataSource = db.LoadProducts()
+
+        ' Make DataGridView read-only
+        dgvProducts.ReadOnly = True
+        dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvProducts.MultiSelect = False
+        dgvProducts.AllowUserToAddRows = False
+        dgvProducts.AllowUserToDeleteRows = False
+
         LoadProductCards()
         LoadCartCards()
     End Sub
 
-    ' Timer
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        lblTime.Text = DateTime.Now.ToString("hh:mm:ss tt")
+    ' --- Load selected row into textboxes ---
+    Private Sub dgvProducts_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellClick
+        If e.RowIndex >= 0 Then
+            Dim row As DataGridViewRow = dgvProducts.Rows(e.RowIndex)
+            txtProductCode.Text = row.Cells("ProductCode").Value.ToString()
+            txtProductName.Text = row.Cells("ProductName").Value.ToString()
+            txtCategory.Text = row.Cells("Category").Value.ToString()
+            txtPrice.Text = row.Cells("Price").Value.ToString()
+            txtStock.Text = row.Cells("Stock").Value.ToString()
+        End If
     End Sub
 
-    ' Add Product
+    'time
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        ' Example: March 26, 2026 02:17:45 PM
+        lblTime.Text = DateTime.Now.ToString("MMMM dd, yyyy hh:mm:ss tt")
+    End Sub
+
+
+    ' --- Export to CSV Button Click ---
+    Private Sub btnExportCSV_Click(sender As Object, e As EventArgs) Handles BtnExportcsv.Click
+        Try
+            ' 1. Load products from the database into a DataTable
+            Dim dt As DataTable = db.LoadProducts()
+
+            ' 2. Ask the user where to save the CSV file
+            Using sfd As New SaveFileDialog()
+                sfd.Filter = "CSV files (*.csv)|*.csv"   ' Only allow CSV files
+                sfd.Title = "Export Products to CSV"    ' Dialog title
+                sfd.FileName = "Products.csv"           ' Default file name
+
+                ' 3. If the user clicks Save
+                If sfd.ShowDialog() = DialogResult.OK Then
+                    ' 4. Create a StreamWriter to write the CSV file
+                    Using sw As New IO.StreamWriter(sfd.FileName, False, Encoding.UTF8)
+
+                        ' 5. Write the header row (column names)
+                        Dim headers As String = String.Join(",", dt.Columns.Cast(Of DataColumn).Select(Function(c) c.ColumnName))
+                        sw.WriteLine(headers)
+
+                        ' 6. Write each product row
+                        For Each row As DataRow In dt.Rows
+                            ' Convert each field to string and join with commas
+                            Dim fields As String = String.Join(",", row.ItemArray.Select(Function(f) f.ToString()))
+                            sw.WriteLine(fields)
+                        Next
+                    End Using
+
+                    ' 7. Show success message
+                    MessageBox.Show("Products exported successfully to " & sfd.FileName,
+                                "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End Using
+        Catch ex As Exception
+            ' 8. Handle errors gracefully
+            MessageBox.Show("Error exporting products: " & ex.Message,
+                        "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
+    ' --- Add/Update Product ---
     Private Sub btnAddProduct_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Try
             If String.IsNullOrWhiteSpace(txtProductName.Text) OrElse String.IsNullOrWhiteSpace(txtPrice.Text) Then
@@ -187,7 +244,7 @@ Public Class frmPOS
                 Return
             End If
 
-            Dim newProd As New Product With {
+            Dim prod As New Product With {
                 .Code = txtProductCode.Text,
                 .Name = txtProductName.Text,
                 .Category = txtCategory.Text,
@@ -195,14 +252,14 @@ Public Class frmPOS
                 .Stock = Integer.Parse(txtStock.Text)
             }
 
-            If db.SaveProduct(newProd) Then
+            If db.SaveProduct(prod) Then
                 dgvProducts.DataSource = db.LoadProducts()
                 LoadProductCards()
                 ClearInputs()
-                MessageBox.Show("Product saved to database successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Product saved/updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         Catch ex As Exception
-            MessageBox.Show("Error adding product: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error saving product: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -214,16 +271,38 @@ Public Class frmPOS
         txtStock.Clear()
     End Sub
 
-    ' Add to Cart
+    ' Temporary stock tracker
+    Private TempStock As New Dictionary(Of String, Integer)
+
     Private Sub AddToCart(code As String, name As String, price As Decimal)
-        Dim existing = Cart.FirstOrDefault(Function(c) c.ProductCode = code)
-        If existing IsNot Nothing Then
-            existing.Quantity += 1
-        Else
-            Cart.Add(New CartItem With {.ProductCode = code, .ProductName = name, .Price = price, .Quantity = 1})
+        ' Initialize temp stock if not tracked yet
+        If Not TempStock.ContainsKey(code) Then
+            Dim actualStock As Integer = Convert.ToInt32(db.LoadProducts().Select("ProductCode='" & code & "'")(0)("Stock"))
+            TempStock(code) = actualStock
         End If
-        LoadCartCards()
+
+        ' Check if stock is available
+        If TempStock(code) > 0 Then
+            ' Decrease temporary stock
+            TempStock(code) -= 1
+
+            ' Add to cart
+            Dim existing = Cart.FirstOrDefault(Function(c) c.ProductCode = code)
+            If existing IsNot Nothing Then
+                existing.Quantity += 1
+            Else
+                Cart.Add(New CartItem With {.ProductCode = code, .ProductName = name, .Price = price, .Quantity = 1})
+            End If
+
+            ' Refresh UI
+            LoadCartCards()
+            LoadProductCards()
+        Else
+            MessageBox.Show("This product is out of stock!", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
     End Sub
+
+
 
     ' Load cart cards into flpCart
     Private Sub LoadCartCards()
@@ -352,12 +431,17 @@ Public Class frmPOS
         AddHandler btnClear.Click,
             Sub(sender, e)
                 Cart.Clear()
+                TempStock.Clear()   ' Reset temporary stock
                 LoadCartCards()
+                LoadProductCards()  ' Refresh labels back to DB values
             End Sub
         totalsCard.Controls.Add(btnClear)
 
         flpCart.Controls.Add(totalsCard)
-    End Sub
+    End Sub   ' <-- this was missing
+
+
+
 
     ' Checkout logic
     Private Sub btnCheckout_Click(sender As Object, e As EventArgs)
@@ -367,17 +451,33 @@ Public Class frmPOS
         End If
 
         Dim subtotal As Decimal = Cart.Sum(Function(c) c.Subtotal)
-        Dim total As Decimal = subtotal ' add tax/discount if needed
+        Dim total As Decimal = subtotal
 
+        ' Commit stock changes to database
+        For Each item In Cart
+            If Not db.UpdateStock(item.ProductCode, item.Quantity) Then
+                MessageBox.Show("Failed to update stock for " & item.ProductName,
+                            "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        Next
+
+        ' Refresh product list and cards
+        dgvProducts.DataSource = db.LoadProducts()
+        LoadProductCards()
+
+        ' Show success message once
         MessageBox.Show("Checkout successful!" & vbCrLf &
-                        "Subtotal: ₱" & subtotal.ToString("N2") & vbCrLf &
-                        "Total: ₱" & total.ToString("N2"),
-                        "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    "Subtotal: ₱" & subtotal.ToString("N2") & vbCrLf &
+                    "Total: ₱" & total.ToString("N2"),
+                    "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-        ' Clear cart after checkout
+        ' Clear cart and temporary stock
         Cart.Clear()
+        TempStock.Clear()
         LoadCartCards()
     End Sub
+
+
 
     ' Load product cards into flpProduct1
     Private Sub LoadProductCards()
@@ -420,7 +520,13 @@ Public Class frmPOS
             }
             card.Controls.Add(lblPrice)
 
-            Dim stockValue As Integer = Convert.ToInt32(row("Stock"))
+            Dim productCode As String = row("ProductCode").ToString()
+
+            ' Use TempStock if available, otherwise use DB stock
+            Dim stockValue As Integer = If(TempStock.ContainsKey(productCode),
+                               TempStock(productCode),
+                               Convert.ToInt32(row("Stock")))
+
             Dim stockText As String
             Dim stockColor As Color
 
@@ -477,4 +583,33 @@ Public Class frmPOS
             flpProduct1.Controls.Add(card)
         Next
     End Sub
+    Private Sub btnUpdateProduct_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        Try
+            If String.IsNullOrWhiteSpace(txtProductCode.Text) Then
+                MessageBox.Show("Please select a product to update.", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            Dim prod As New Product With {
+            .Code = txtProductCode.Text,
+            .Name = txtProductName.Text,
+            .Category = txtCategory.Text,
+            .Price = Decimal.Parse(txtPrice.Text),
+            .Stock = Integer.Parse(txtStock.Text)
+        }
+
+            ' Call your database helper update method
+            If db.UpdateProduct(prod) Then
+                dgvProducts.DataSource = db.LoadProducts()
+                LoadProductCards()
+                ClearInputs()
+                MessageBox.Show("Product updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("Failed to update product.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error updating product: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
 End Class

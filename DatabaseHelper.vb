@@ -138,6 +138,28 @@ Public Class DatabaseHelper
         End Try
     End Function
 
+    Public Function UpdateProduct(prod As frmPOS.Product) As Boolean
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Dim query As String = "UPDATE Products 
+                                       SET ProductName=@Name, Category=@Category, Price=@Price, Stock=@Stock 
+                                       WHERE ProductCode=@Code"
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@Code", prod.Code)
+                    cmd.Parameters.AddWithValue("@Name", prod.Name)
+                    cmd.Parameters.AddWithValue("@Category", prod.Category)
+                    cmd.Parameters.AddWithValue("@Price", prod.Price)
+                    cmd.Parameters.AddWithValue("@Stock", prod.Stock)
+                    Return cmd.ExecuteNonQuery() > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show($"Error updating product: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
     Public Function LoadProducts() As DataTable
         Dim dt As New DataTable()
         Try
@@ -153,4 +175,43 @@ Public Class DatabaseHelper
         End Try
         Return dt
     End Function
+    ' --- Decrease stock when adding to cart ---
+    Public Function DecreaseStock(productCode As String, quantity As Integer) As Boolean
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Dim query As String = "UPDATE Products 
+                                   SET Stock = Stock - @Qty 
+                                   WHERE ProductCode = @Code AND Stock >= @Qty"
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@Qty", quantity)
+                    cmd.Parameters.AddWithValue("@Code", productCode)
+                    Return cmd.ExecuteNonQuery() > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show($"Error decreasing stock: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+    ' --- Update stock after checkout ---
+    Public Function UpdateStock(productCode As String, quantity As Integer) As Boolean
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Dim query As String = "UPDATE Products 
+                                   SET Stock = Stock - @Qty 
+                                   WHERE ProductCode = @Code AND Stock >= @Qty"
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@Qty", quantity)
+                    cmd.Parameters.AddWithValue("@Code", productCode)
+                    Return cmd.ExecuteNonQuery() > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show($"Error updating stock: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
 End Class
