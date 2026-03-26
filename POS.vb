@@ -5,6 +5,54 @@ Imports System.Drawing.Printing
 
 Public Class frmPOS
     Private db As New DatabaseHelper()
+    'class for button hover effect
+    Public Class RoundedButton
+        Inherits Button
+
+        Public Property CornerRadius As Integer = 12
+        Private normalColor As Color = Color.FromArgb(0, 120, 215)
+        Private hoverColor As Color = Color.FromArgb(0, 150, 255)
+        Private currentColor As Color = Color.FromArgb(0, 120, 215)
+
+        Protected Overrides Sub OnPaint(pevent As PaintEventArgs)
+            pevent.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+            Dim rect As New Rectangle(0, 0, Me.Width, Me.Height)
+
+            Using path As Drawing2D.GraphicsPath = GetRoundedRect(rect, CornerRadius)
+                Using brush As New SolidBrush(currentColor)
+                    pevent.Graphics.FillPath(brush, path)
+                End Using
+            End Using
+
+            ' Draw centered text
+            TextRenderer.DrawText(pevent.Graphics, Me.Text, Me.Font, rect, Me.ForeColor,
+                              TextFormatFlags.HorizontalCenter Or TextFormatFlags.VerticalCenter)
+        End Sub
+
+        Private Function GetRoundedRect(rect As Rectangle, radius As Integer) As Drawing2D.GraphicsPath
+            Dim path As New Drawing2D.GraphicsPath()
+            path.AddArc(rect.X, rect.Y, radius, radius, 180, 90)
+            path.AddArc(rect.Right - radius, rect.Y, radius, radius, 270, 90)
+            path.AddArc(rect.Right - radius, rect.Bottom - radius, radius, radius, 0, 90)
+            path.AddArc(rect.X, rect.Bottom - radius, radius, radius, 90, 90)
+            path.CloseFigure()
+            Return path
+        End Function
+
+        Protected Overrides Sub OnMouseEnter(e As EventArgs)
+            MyBase.OnMouseEnter(e)
+            currentColor = hoverColor
+            Me.Invalidate()
+        End Sub
+
+        Protected Overrides Sub OnMouseLeave(e As EventArgs)
+            MyBase.OnMouseLeave(e)
+            currentColor = normalColor
+            Me.Invalidate()
+        End Sub
+    End Class
+
+
     Public Class RoundedShadowPanel
         Inherits Panel
 
@@ -349,19 +397,21 @@ Public Class frmPOS
 
 
             Dim lblName As New Label With {
-                .Text = row("ProductName").ToString(),
-                .Font = New Font("Segoe UI", 10, FontStyle.Bold),
-                .Location = New Point(10, 10),
-                .AutoSize = True
-            }
+    .Text = row("ProductName").ToString(),
+    .Font = New Font("Segoe UI", 11, FontStyle.Bold),
+    .ForeColor = Color.FromArgb(30, 30, 30), ' dark gray
+    .Location = New Point(10, 10),
+    .AutoSize = True
+}
+
             card.Controls.Add(lblName)
 
-            Dim lblCategory As New Label With {
-                .Text = "Category: " & row("Category").ToString(),
+            Dim lblproductcode As New Label With {
+                .Text = "Product Code: " & row("ProductCode").ToString(),
                 .Location = New Point(10, 35),
                 .AutoSize = True
             }
-            card.Controls.Add(lblCategory)
+            card.Controls.Add(lblproductcode)
 
             Dim lblPrice As New Label With {
                 .Text = "₱" & Convert.ToDecimal(row("Price")).ToString("N2"),
@@ -370,18 +420,52 @@ Public Class frmPOS
             }
             card.Controls.Add(lblPrice)
 
+            Dim stockValue As Integer = Convert.ToInt32(row("Stock"))
+            Dim stockText As String
+            Dim stockColor As Color
+
+            If stockValue = 0 Then
+                stockText = "❌ Out of Stock"
+                stockColor = Color.Red
+            ElseIf stockValue <= 5 Then
+                stockText = "⚠️ Low Stock (" & stockValue & ")"
+                stockColor = Color.Orange
+            Else
+                stockText = "✅ In Stock (" & stockValue & ")"
+                stockColor = Color.ForestGreen
+            End If
+
             Dim lblStock As New Label With {
-                .Text = "Stock: " & row("Stock").ToString(),
-                .Location = New Point(10, 85),
-                .AutoSize = True
-            }
+    .Text = stockText,
+    .Font = New Font("Segoe UI", 9, FontStyle.Bold),
+    .ForeColor = stockColor,
+    .Location = New Point(10, 85),
+    .AutoSize = True
+}
             card.Controls.Add(lblStock)
 
-            Dim btnAdd As New Button With {
-                .Text = "Add to Cart",
-                .Location = New Point(10, 110),
-                .Width = 100
-            }
+
+
+
+            card.Controls.Add(lblStock)
+
+            Dim btnAdd As New RoundedButton With {
+    .Text = "Add to Cart",
+    .Location = New Point(10, 110),
+    .Width = 120,
+    .Height = 35,
+    .ForeColor = Color.White,
+    .Font = New Font("Segoe UI", 9, FontStyle.Bold),
+    .CornerRadius = 15
+}
+            btnAdd.FlatAppearance.BorderSize = 0
+            AddHandler btnAdd.MouseEnter, Sub()
+                                              btnAdd.BackColor = Color.FromArgb(0, 150, 255) ' lighter blue on hover
+                                          End Sub
+            AddHandler btnAdd.MouseLeave, Sub()
+                                              btnAdd.BackColor = Color.FromArgb(0, 120, 215) ' revert
+                                          End Sub
+
             AddHandler btnAdd.Click,
                 Sub(sender, e)
                     AddToCart(row("ProductCode").ToString(),
