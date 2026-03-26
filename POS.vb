@@ -346,9 +346,17 @@ Public Class frmPOS
             }
             AddHandler btnIncrease.Click,
                 Sub(sender, e)
-                    item.Quantity += 1
-                    LoadCartCards()
+                    If TempStock.ContainsKey(item.ProductCode) AndAlso TempStock(item.ProductCode) > 0 Then
+                        item.Quantity += 1
+                        TempStock(item.ProductCode) -= 1   ' decrease temp stock
+                        LoadCartCards()
+                        LoadProductCards()
+                    Else
+                        MessageBox.Show("No more stock available for " & item.ProductName,
+                                        "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    End If
                 End Sub
+
             card.Controls.Add(btnIncrease)
 
             ' Decrease quantity
@@ -361,11 +369,15 @@ Public Class frmPOS
                 Sub(sender, e)
                     If item.Quantity > 1 Then
                         item.Quantity -= 1
+                        TempStock(item.ProductCode) += 1   ' restore temp stock
                     Else
                         Cart.Remove(item)
+                        TempStock(item.ProductCode) += 1   ' restore one unit back
                     End If
                     LoadCartCards()
+                    LoadProductCards()
                 End Sub
+
             card.Controls.Add(btnDecrease)
 
             ' Remove button
@@ -376,71 +388,98 @@ Public Class frmPOS
             }
             AddHandler btnRemove.Click,
                 Sub(sender, e)
+                    If TempStock.ContainsKey(item.ProductCode) Then
+                        TempStock(item.ProductCode) += item.Quantity   ' restore all removed stock
+                    End If
                     Cart.Remove(item)
                     LoadCartCards()
+                    LoadProductCards()
                 End Sub
+
             card.Controls.Add(btnRemove)
 
             flpCart.Controls.Add(card)
         Next
 
         ' --- Totals card at the bottom ---
-        Dim totalsCard As New Panel With {
-            .Width = 250,
-            .Height = 100,
-            .BorderStyle = BorderStyle.FixedSingle,
-            .Margin = New Padding(5),
-            .BackColor = Color.LightGray
-        }
-
+        Dim totalsCard As New RoundedShadowPanel With {
+    .Width = 280,
+    .Height = 150,
+    .Margin = New Padding(10),
+    .BackColor = Color.White,
+    .BorderColor = Color.LightGray,
+    .CornerRadius = 20,
+    .ShadowSize = 6
+}
+        ' Calculate subtotal and total inside this method
         Dim subtotal As Decimal = Cart.Sum(Function(c) c.Subtotal)
         Dim total As Decimal = subtotal ' add tax/discount logic here if needed
 
+        ' Subtotal label
         Dim lblSubtotal As New Label With {
-            .Text = "Subtotal: ₱" & subtotal.ToString("N2"),
-            .Font = New Font("Segoe UI", 10, FontStyle.Bold),
-            .Location = New Point(10, 10),
-            .AutoSize = True
-        }
+    .Text = "Subtotal: ₱" & subtotal.ToString("N2"),
+    .Font = New Font("Segoe UI", 10, FontStyle.Regular),
+    .Location = New Point(10, 10),
+    .AutoSize = True
+}
         totalsCard.Controls.Add(lblSubtotal)
 
+        ' Total label (larger, bold)
         Dim lblTotal As New Label With {
-            .Text = "Total: ₱" & total.ToString("N2"),
-            .Font = New Font("Segoe UI", 10, FontStyle.Bold),
-            .Location = New Point(10, 35),
-            .AutoSize = True
-        }
+    .Text = "Total: ₱" & total.ToString("N2"),
+    .Font = New Font("Segoe UI", 12, FontStyle.Bold),
+    .Location = New Point(10, 35),
+    .AutoSize = True
+}
         totalsCard.Controls.Add(lblTotal)
 
-        ' Checkout button inside totals card
-        ' Checkout button inside totals card
-        Dim btnCheckout As New Button With {
-            .Text = "Check Out",
-            .Location = New Point(10, 60),
-            .Width = 100
-        }
+        ' Items count
+        Dim lblItems As New Label With {
+    .Text = "Items: " & Cart.Sum(Function(c) c.Quantity),
+    .Font = New Font("Segoe UI", 9, FontStyle.Italic),
+    .Location = New Point(10, 60),
+    .AutoSize = True
+}
+        totalsCard.Controls.Add(lblItems)
+
+        ' Checkout button (green)
+        Dim btnCheckout As New RoundedButton With {
+    .Text = "Checkout",
+    .Location = New Point(10, 90),
+    .Width = 120,
+    .Height = 35,
+    .ForeColor = Color.White,
+    .Font = New Font("Segoe UI", 9, FontStyle.Bold),
+    .CornerRadius = 15
+}
+        btnCheckout.BackColor = Color.ForestGreen
         AddHandler btnCheckout.Click, AddressOf btnCheckout_Click
         totalsCard.Controls.Add(btnCheckout)
 
-        ' Clear Cart button inside totals card
-        Dim btnClear As New Button With {
-            .Text = "Clear Cart",
-            .Location = New Point(120, 60),
-            .Width = 100
-        }
+        ' Clear Cart button (red)
+        Dim btnClear As New RoundedButton With {
+    .Text = "Clear Cart",
+    .Location = New Point(150, 90),
+    .Width = 120,
+    .Height = 35,
+    .ForeColor = Color.White,
+    .Font = New Font("Segoe UI", 9, FontStyle.Bold),
+    .CornerRadius = 15
+}
+        btnClear.BackColor = Color.Firebrick
         AddHandler btnClear.Click,
-            Sub(sender, e)
-                Cart.Clear()
-                TempStock.Clear()   ' Reset temporary stock
-                LoadCartCards()
-                LoadProductCards()  ' Refresh labels back to DB values
-            End Sub
+    Sub(sender, e)
+        Cart.Clear()
+        TempStock.Clear()
+        LoadCartCards()
+        LoadProductCards()
+    End Sub
         totalsCard.Controls.Add(btnClear)
 
+
         flpCart.Controls.Add(totalsCard)
-    End Sub   ' <-- this was missing
 
-
+    End Sub   ' <-- make sure this is here to close LoadCartCards
 
 
     ' Checkout logic

@@ -779,6 +779,7 @@ Partial Class frmPOS
         ' 
         ' flpCart
         ' 
+        flpCart.BackColor = Color.White
         flpCart.Location = New Point(81, 171)
         flpCart.Name = "flpCart"
         flpCart.Size = New Size(426, 360)
