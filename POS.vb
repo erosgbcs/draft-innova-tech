@@ -2,7 +2,6 @@
 Imports System.Text
 Imports System.Drawing
 Imports System.Drawing.Printing
-
 Public Class frmPOS
     Private db As New DatabaseHelper()
 
@@ -403,81 +402,69 @@ Public Class frmPOS
 
         ' --- Totals card at the bottom ---
         Dim totalsCard As New RoundedShadowPanel With {
-    .Width = 280,
-    .Height = 150,
+    .Width = 300,
+    .Height = 280,   ' mas mataas para magkasya lahat
     .Margin = New Padding(10),
     .BackColor = Color.White,
     .BorderColor = Color.LightGray,
     .CornerRadius = 20,
     .ShadowSize = 6
 }
-        ' Calculate subtotal and total inside this method
-        Dim subtotal As Decimal = Cart.Sum(Function(c) c.Subtotal)
-        Dim total As Decimal = subtotal ' add tax/discount logic here if needed
 
-        ' Subtotal label
-        Dim lblSubtotal As New Label With {
-    .Text = "Subtotal: ₱" & subtotal.ToString("N2"),
-    .Font = New Font("Segoe UI", 10, FontStyle.Regular),
-    .Location = New Point(10, 10),
-    .AutoSize = True
-}
-        totalsCard.Controls.Add(lblSubtotal)
+        ' Buyer Info fields
+        Dim lblBuyerName As New Label With {.Text = "Buyer Name:", .Location = New Point(10, 100), .AutoSize = True}
+        Dim txtBuyerName As New TextBox With {.Name = "txtBuyerName", .Location = New Point(100, 97), .Width = 150}
 
-        ' Total label (larger, bold)
-        Dim lblTotal As New Label With {
-    .Text = "Total: ₱" & total.ToString("N2"),
-    .Font = New Font("Segoe UI", 12, FontStyle.Bold),
-    .Location = New Point(10, 35),
-    .AutoSize = True
-}
-        totalsCard.Controls.Add(lblTotal)
+        Dim lblBuyerAddress As New Label With {.Text = "Address:", .Location = New Point(10, 140), .AutoSize = True}
+        Dim txtBuyerAddress As New TextBox With {.Name = "txtBuyerAddress", .Location = New Point(100, 137), .Width = 150}
 
-        ' Items count
-        Dim lblItems As New Label With {
-    .Text = "Items: " & Cart.Sum(Function(c) c.Quantity),
-    .Font = New Font("Segoe UI", 9, FontStyle.Italic),
-    .Location = New Point(10, 60),
-    .AutoSize = True
-}
-        totalsCard.Controls.Add(lblItems)
+        Dim lblBuyerContact As New Label With {.Text = "Contact No:", .Location = New Point(10, 180), .AutoSize = True}
+        Dim txtBuyerContact As New TextBox With {.Name = "txtBuyerContact", .Location = New Point(100, 177), .Width = 150}
 
-        ' Checkout button (green)
+        totalsCard.Controls.Add(lblBuyerName)
+        totalsCard.Controls.Add(txtBuyerName)
+        totalsCard.Controls.Add(lblBuyerAddress)
+        totalsCard.Controls.Add(txtBuyerAddress)
+        totalsCard.Controls.Add(lblBuyerContact)
+        totalsCard.Controls.Add(txtBuyerContact)
+
+        ' Checkout button (ilagay sa ilalim ng buyer info)
         Dim btnCheckout As New RoundedButton With {
-    .Text = "Checkout",
-    .Location = New Point(10, 90),
-    .Width = 120,
-    .Height = 35,
-    .ForeColor = Color.White,
-    .Font = New Font("Segoe UI", 9, FontStyle.Bold),
-    .CornerRadius = 15
-}
+            .Text = "Checkout",
+            .Location = New Point(10, 230),   ' moved down
+            .Width = 120,
+            .Height = 35,
+            .ForeColor = Color.White,
+            .Font = New Font("Segoe UI", 9, FontStyle.Bold),
+            .CornerRadius = 15
+        }
         btnCheckout.BackColor = Color.ForestGreen
         AddHandler btnCheckout.Click, AddressOf btnCheckout_Click
         totalsCard.Controls.Add(btnCheckout)
 
-        ' Clear Cart button (red)
+        ' Clear Cart button (katabi ng Checkout)
         Dim btnClear As New RoundedButton With {
-    .Text = "Clear Cart",
-    .Location = New Point(150, 90),
-    .Width = 120,
-    .Height = 35,
-    .ForeColor = Color.White,
-    .Font = New Font("Segoe UI", 9, FontStyle.Bold),
-    .CornerRadius = 15
-}
+            .Text = "Clear Cart",
+            .Location = New Point(150, 230),   ' moved down
+            .Width = 120,
+            .Height = 35,
+            .ForeColor = Color.White,
+            .Font = New Font("Segoe UI", 9, FontStyle.Bold),
+            .CornerRadius = 15
+        }
         btnClear.BackColor = Color.Firebrick
         AddHandler btnClear.Click,
-    Sub(sender, e)
-        Cart.Clear()
-        TempStock.Clear()
-        LoadCartCards()
-        LoadProductCards()
-    End Sub
+            Sub(sender, e)
+                Cart.Clear()
+                TempStock.Clear()
+                LoadCartCards()
+                LoadProductCards()
+            End Sub
         totalsCard.Controls.Add(btnClear)
 
-
+        ' Finally add totalsCard to flow layout
         flpCart.Controls.Add(totalsCard)
+
 
     End Sub   ' <-- make sure this is here to close LoadCartCards
 
