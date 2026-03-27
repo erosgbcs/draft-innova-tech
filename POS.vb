@@ -468,7 +468,6 @@ Public Class frmPOS
 
     End Sub   ' <-- make sure this is here to close LoadCartCards
 
-
     ' Checkout logic
     Private Sub btnCheckout_Click(sender As Object, e As EventArgs)
         If Cart.Count = 0 Then
@@ -483,25 +482,52 @@ Public Class frmPOS
         For Each item In Cart
             If Not db.UpdateStock(item.ProductCode, item.Quantity) Then
                 MessageBox.Show("Failed to update stock for " & item.ProductName,
-                            "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
         Next
+
+        ' --- Capture buyer info from totalsCard ---
+        Dim buyerName As String = ""
+        Dim buyerAddress As String = ""
+        Dim buyerContact As String = ""
+
+        For Each ctrl As Control In flpCart.Controls
+            If TypeOf ctrl Is RoundedShadowPanel Then
+                If ctrl.Controls.ContainsKey("txtBuyerName") Then
+                    buyerName = CType(ctrl.Controls("txtBuyerName"), TextBox).Text
+                End If
+                If ctrl.Controls.ContainsKey("txtBuyerAddress") Then
+                    buyerAddress = CType(ctrl.Controls("txtBuyerAddress"), TextBox).Text
+                End If
+                If ctrl.Controls.ContainsKey("txtBuyerContact") Then
+                    buyerContact = CType(ctrl.Controls("txtBuyerContact"), TextBox).Text
+                End If
+            End If
+        Next
+
+        ' --- Save sale record ---
+        If db.SaveSale(buyerName, buyerAddress, buyerContact, subtotal, total) Then
+            MessageBox.Show("Checkout successful!" & vbCrLf &
+                        "Subtotal: ₱" & subtotal.ToString("N2") & vbCrLf &
+                        "Total: ₱" & total.ToString("N2"),
+                        "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' Refresh sales grid
+            dgvSales.DataSource = db.LoadSales()
+        Else
+            MessageBox.Show("Failed to save sale.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
 
         ' Refresh product list and cards
         dgvProducts.DataSource = db.LoadProducts()
         LoadProductCards()
-
-        ' Show success message once
-        MessageBox.Show("Checkout successful!" & vbCrLf &
-                    "Subtotal: ₱" & subtotal.ToString("N2") & vbCrLf &
-                    "Total: ₱" & total.ToString("N2"),
-                    "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         ' Clear cart and temporary stock
         Cart.Clear()
         TempStock.Clear()
         LoadCartCards()
     End Sub
+
 
 
 

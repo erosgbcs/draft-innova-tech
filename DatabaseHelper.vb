@@ -1,6 +1,7 @@
 ﻿Imports System.Data.SQLite
 Imports System.Security.Cryptography
 Imports System.Text
+Imports draft_innova_tech.frmPOS
 
 Public Class DatabaseHelper
     Private ReadOnly connectionString As String
@@ -10,6 +11,7 @@ Public Class DatabaseHelper
         connectionString = $"Data Source={databasePath};Version=3;"
     End Sub
 
+    ' --- Initialize Database ---
     Public Sub InitializeDatabase()
         Try
             Using conn As New SQLiteConnection(connectionString)
@@ -42,6 +44,21 @@ Public Class DatabaseHelper
                         Stock INTEGER NOT NULL
                     )"
                 Using cmd As New SQLiteCommand(createProducts, conn)
+                    cmd.ExecuteNonQuery()
+                End Using
+
+                ' --- Sales table ---
+                Dim createSales As String = "
+                    CREATE TABLE IF NOT EXISTS Sales (
+                        SaleID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        BuyerName TEXT,
+                        BuyerAddress TEXT,
+                        BuyerContact TEXT,
+                        Subtotal REAL,
+                        Total REAL,
+                        SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP
+                    )"
+                Using cmd As New SQLiteCommand(createSales, conn)
                     cmd.ExecuteNonQuery()
                 End Using
             End Using
@@ -117,7 +134,7 @@ Public Class DatabaseHelper
     End Function
 
     ' --- PRODUCT METHODS ---
-    Public Function SaveProduct(prod As frmPOS.Product) As Boolean
+    Public Function SaveProduct(prod As Product) As Boolean
         Try
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
@@ -138,7 +155,7 @@ Public Class DatabaseHelper
         End Try
     End Function
 
-    Public Function UpdateProduct(prod As frmPOS.Product) As Boolean
+    Public Function UpdateProduct(prod As Product) As Boolean
         Try
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
@@ -175,7 +192,8 @@ Public Class DatabaseHelper
         End Try
         Return dt
     End Function
-    ' --- Decrease stock when adding to cart ---
+
+    ' --- STOCK METHODS ---
     Public Function DecreaseStock(productCode As String, quantity As Integer) As Boolean
         Try
             Using conn As New SQLiteConnection(connectionString)
@@ -194,7 +212,7 @@ Public Class DatabaseHelper
             Return False
         End Try
     End Function
-    ' --- Update stock after checkout ---
+
     Public Function UpdateStock(productCode As String, quantity As Integer) As Boolean
         Try
             Using conn As New SQLiteConnection(connectionString)
@@ -212,6 +230,45 @@ Public Class DatabaseHelper
             MessageBox.Show($"Error updating stock: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
         End Try
+    End Function
+
+    ' --- SALES METHODS ---
+    Public Function SaveSale(buyerName As String, buyerAddress As String, buyerContact As String, subtotal As Decimal, total As Decimal) As Boolean
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Dim query As String = "INSERT INTO Sales (BuyerName, BuyerAddress, BuyerContact, Subtotal, Total) 
+                                       VALUES (@Name, @Address, @Contact, @Subtotal, @Total)"
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@Name", buyerName)
+                    cmd.Parameters.AddWithValue("@Address", buyerAddress)
+                    cmd.Parameters.AddWithValue("@Contact", buyerContact)
+                    cmd.Parameters.AddWithValue("@Subtotal", subtotal)
+                    cmd.Parameters.AddWithValue("@Total", total)
+                    Return cmd.ExecuteNonQuery() > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error saving sale: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
+    Public Function LoadSales() As DataTable
+        Dim dt As New DataTable()
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Dim query As String = "SELECT SaleID, BuyerName, BuyerAddress, BuyerContact, Subtotal, Total, SaleDate 
+                                   FROM Sales ORDER BY SaleDate DESC"
+                Using da As New SQLiteDataAdapter(query, conn)
+                    da.Fill(dt)
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error loading sales: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+        Return dt
     End Function
 
 

@@ -24,6 +24,14 @@ Partial Class frmPOS
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPOS))
+        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         pnlHeader = New Panel()
         lblTime = New Label()
         Label24 = New Label()
@@ -33,7 +41,6 @@ Partial Class frmPOS
         Label5 = New Label()
         pnlTodaysSales = New Panel()
         Label4 = New Label()
-        pnlItemsStock = New Panel()
         Label3 = New Label()
         lblAvailableProducts = New Label()
         TextBox1 = New TextBox()
@@ -61,12 +68,6 @@ Partial Class frmPOS
         colItemsSold = New DataGridViewTextBoxColumn()
         colRevenue = New DataGridViewTextBoxColumn()
         colAvgTransaction = New DataGridViewTextBoxColumn()
-        Panel10 = New Panel()
-        Label16 = New Label()
-        Label14 = New Label()
-        Panel9 = New Panel()
-        Label15 = New Label()
-        Label1 = New Label()
         btnNextWeek = New Button()
         lblWeekStarting = New Label()
         btnRefresh = New Button()
@@ -84,11 +85,7 @@ Partial Class frmPOS
         Label18 = New Label()
         lblSalesHistory = New Label()
         txtSearchHistory = New TextBox()
-        dvgsales = New DataGridView()
-        SalesDate = New DataGridViewTextBoxColumn()
-        SalesTime = New DataGridViewTextBoxColumn()
-        SalesBuyer = New DataGridViewTextBoxColumn()
-        SalesTotal = New DataGridViewTextBoxColumn()
+        dgvSales = New DataGridView()
         pnlShoppingCart = New Panel()
         flpCart = New FlowLayoutPanel()
         Label7 = New Label()
@@ -97,28 +94,36 @@ Partial Class frmPOS
         Panel7 = New Panel()
         PictureBox3 = New PictureBox()
         Button18 = New Button()
-        pnlTotalProducts = New Panel()
         Label25 = New Label()
         Timer1 = New Timer(components)
+        Guna2CustomGradientPanel1 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
+        Label1 = New Label()
+        Label15 = New Label()
+        Guna2CustomGradientPanel2 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
+        Label8 = New Label()
+        Label9 = New Label()
+        btnUploadPictures = New Button()
+        Guna2CustomGradientPanel3 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
+        Guna2CustomGradientPanel4 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         pnlHeader.SuspendLayout()
         pnlWeeklyRevenue.SuspendLayout()
         pnlTodaysSales.SuspendLayout()
-        pnlItemsStock.SuspendLayout()
         Inventory.SuspendLayout()
         tabProducts.SuspendLayout()
         tabInventory.SuspendLayout()
         CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         tabWeeklyReports.SuspendLayout()
         CType(DataGridView2, ComponentModel.ISupportInitialize).BeginInit()
-        Panel10.SuspendLayout()
-        Panel9.SuspendLayout()
         tabSalesHistory.SuspendLayout()
         Panel1.SuspendLayout()
-        CType(dvgsales, ComponentModel.ISupportInitialize).BeginInit()
+        CType(dgvSales, ComponentModel.ISupportInitialize).BeginInit()
         pnlShoppingCart.SuspendLayout()
         Panel7.SuspendLayout()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
-        pnlTotalProducts.SuspendLayout()
+        Guna2CustomGradientPanel1.SuspendLayout()
+        Guna2CustomGradientPanel2.SuspendLayout()
+        Guna2CustomGradientPanel3.SuspendLayout()
+        Guna2CustomGradientPanel4.SuspendLayout()
         SuspendLayout()
         ' 
         ' pnlHeader
@@ -171,7 +176,7 @@ Partial Class frmPOS
         ' 
         lblTitle.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblTitle.ForeColor = Color.White
-        lblTitle.Location = New Point(183, 20)
+        lblTitle.Location = New Point(244, 12)
         lblTitle.Name = "lblTitle"
         lblTitle.Size = New Size(1198, 72)
         lblTitle.TabIndex = 0
@@ -220,22 +225,11 @@ Partial Class frmPOS
         Label4.TabIndex = 0
         Label4.Text = "Today’s Sales"
         ' 
-        ' pnlItemsStock
-        ' 
-        pnlItemsStock.BackColor = Color.White
-        pnlItemsStock.BorderStyle = BorderStyle.FixedSingle
-        pnlItemsStock.Controls.Add(Label3)
-        pnlItemsStock.Location = New Point(680, 173)
-        pnlItemsStock.Margin = New Padding(3, 4, 3, 4)
-        pnlItemsStock.Name = "pnlItemsStock"
-        pnlItemsStock.Size = New Size(274, 154)
-        pnlItemsStock.TabIndex = 1
-        ' 
         ' Label3
         ' 
         Label3.AutoSize = True
         Label3.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label3.Location = New Point(77, 105)
+        Label3.Location = New Point(61, 50)
         Label3.Name = "Label3"
         Label3.Size = New Size(146, 28)
         Label3.TabIndex = 0
@@ -456,9 +450,9 @@ Partial Class frmPOS
         ' tabWeeklyReports
         ' 
         tabWeeklyReports.BackColor = Color.White
+        tabWeeklyReports.Controls.Add(Guna2CustomGradientPanel2)
+        tabWeeklyReports.Controls.Add(Guna2CustomGradientPanel1)
         tabWeeklyReports.Controls.Add(DataGridView2)
-        tabWeeklyReports.Controls.Add(Panel10)
-        tabWeeklyReports.Controls.Add(Panel9)
         tabWeeklyReports.Controls.Add(btnNextWeek)
         tabWeeklyReports.Controls.Add(lblWeekStarting)
         tabWeeklyReports.Controls.Add(btnRefresh)
@@ -528,72 +522,6 @@ Partial Class frmPOS
         colAvgTransaction.MinimumWidth = 6
         colAvgTransaction.Name = "colAvgTransaction"
         colAvgTransaction.Width = 125
-        ' 
-        ' Panel10
-        ' 
-        Panel10.BackColor = Color.White
-        Panel10.Controls.Add(Label16)
-        Panel10.Controls.Add(Label14)
-        Panel10.Location = New Point(695, 163)
-        Panel10.Margin = New Padding(3, 4, 3, 4)
-        Panel10.Name = "Panel10"
-        Panel10.Size = New Size(590, 259)
-        Panel10.TabIndex = 19
-        ' 
-        ' Label16
-        ' 
-        Label16.AutoSize = True
-        Label16.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label16.ForeColor = Color.DodgerBlue
-        Label16.Location = New Point(30, 67)
-        Label16.Name = "Label16"
-        Label16.Size = New Size(25, 28)
-        Label16.TabIndex = 1
-        Label16.Text = "₱"
-        ' 
-        ' Label14
-        ' 
-        Label14.AutoSize = True
-        Label14.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label14.ForeColor = Color.Navy
-        Label14.Location = New Point(30, 17)
-        Label14.Name = "Label14"
-        Label14.Size = New Size(202, 25)
-        Label14.TabIndex = 0
-        Label14.Text = ChrW(55357) & ChrW(57042) & " Sales Performance"
-        ' 
-        ' Panel9
-        ' 
-        Panel9.BackColor = Color.White
-        Panel9.Controls.Add(Label15)
-        Panel9.Controls.Add(Label1)
-        Panel9.Location = New Point(27, 163)
-        Panel9.Margin = New Padding(3, 4, 3, 4)
-        Panel9.Name = "Panel9"
-        Panel9.Size = New Size(539, 259)
-        Panel9.TabIndex = 18
-        ' 
-        ' Label15
-        ' 
-        Label15.AutoSize = True
-        Label15.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label15.ForeColor = Color.DodgerBlue
-        Label15.Location = New Point(14, 67)
-        Label15.Name = "Label15"
-        Label15.Size = New Size(25, 28)
-        Label15.TabIndex = 1
-        Label15.Text = "₱"
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.ForeColor = Color.Navy
-        Label1.Location = New Point(14, 17)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(201, 25)
-        Label1.TabIndex = 0
-        Label1.Text = "₱  Revenue Summary"
         ' 
         ' btnNextWeek
         ' 
@@ -699,7 +627,7 @@ Partial Class frmPOS
         tabSalesHistory.Controls.Add(Panel1)
         tabSalesHistory.Controls.Add(lblSalesHistory)
         tabSalesHistory.Controls.Add(txtSearchHistory)
-        tabSalesHistory.Controls.Add(dvgsales)
+        tabSalesHistory.Controls.Add(dgvSales)
         tabSalesHistory.Location = New Point(4, 30)
         tabSalesHistory.Margin = New Padding(3, 4, 3, 4)
         tabSalesHistory.Name = "tabSalesHistory"
@@ -781,45 +709,17 @@ Partial Class frmPOS
         txtSearchHistory.Size = New Size(411, 29)
         txtSearchHistory.TabIndex = 1
         ' 
-        ' dvgsales
+        ' dgvSales
         ' 
-        dvgsales.BackgroundColor = Color.Silver
-        dvgsales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dvgsales.Columns.AddRange(New DataGridViewColumn() {SalesDate, SalesTime, SalesBuyer, SalesTotal})
-        dvgsales.Location = New Point(22, 96)
-        dvgsales.Margin = New Padding(3, 4, 3, 4)
-        dvgsales.Name = "dvgsales"
-        dvgsales.RowHeadersWidth = 51
-        dvgsales.Size = New Size(1266, 644)
-        dvgsales.TabIndex = 0
-        ' 
-        ' SalesDate
-        ' 
-        SalesDate.HeaderText = "Date"
-        SalesDate.MinimumWidth = 6
-        SalesDate.Name = "SalesDate"
-        SalesDate.Width = 125
-        ' 
-        ' SalesTime
-        ' 
-        SalesTime.HeaderText = "Time"
-        SalesTime.MinimumWidth = 6
-        SalesTime.Name = "SalesTime"
-        SalesTime.Width = 125
-        ' 
-        ' SalesBuyer
-        ' 
-        SalesBuyer.HeaderText = "Buyer"
-        SalesBuyer.MinimumWidth = 6
-        SalesBuyer.Name = "SalesBuyer"
-        SalesBuyer.Width = 125
-        ' 
-        ' SalesTotal
-        ' 
-        SalesTotal.HeaderText = "Total"
-        SalesTotal.MinimumWidth = 6
-        SalesTotal.Name = "SalesTotal"
-        SalesTotal.Width = 125
+        dgvSales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgvSales.BackgroundColor = Color.Silver
+        dgvSales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvSales.Location = New Point(22, 96)
+        dgvSales.Margin = New Padding(3, 4, 3, 4)
+        dgvSales.Name = "dgvSales"
+        dgvSales.RowHeadersWidth = 51
+        dgvSales.Size = New Size(1266, 644)
+        dgvSales.TabIndex = 0
         ' 
         ' pnlShoppingCart
         ' 
@@ -878,7 +778,8 @@ Partial Class frmPOS
         ' 
         ' Panel7
         ' 
-        Panel7.BackColor = Color.LightSteelBlue
+        Panel7.BackColor = Color.CornflowerBlue
+        Panel7.Controls.Add(btnUploadPictures)
         Panel7.Controls.Add(PictureBox3)
         Panel7.Controls.Add(Button18)
         Panel7.Dock = DockStyle.Left
@@ -891,7 +792,7 @@ Partial Class frmPOS
         ' PictureBox3
         ' 
         PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), Image)
-        PictureBox3.Location = New Point(14, 16)
+        PictureBox3.Location = New Point(12, 16)
         PictureBox3.Margin = New Padding(3, 4, 3, 4)
         PictureBox3.Name = "PictureBox3"
         PictureBox3.Size = New Size(145, 140)
@@ -910,21 +811,11 @@ Partial Class frmPOS
         Button18.Text = "Logout"
         Button18.UseVisualStyleBackColor = False
         ' 
-        ' pnlTotalProducts
-        ' 
-        pnlTotalProducts.BackColor = Color.White
-        pnlTotalProducts.Controls.Add(Label25)
-        pnlTotalProducts.Location = New Point(211, 173)
-        pnlTotalProducts.Margin = New Padding(3, 4, 3, 4)
-        pnlTotalProducts.Name = "pnlTotalProducts"
-        pnlTotalProducts.Size = New Size(263, 155)
-        pnlTotalProducts.TabIndex = 5
-        ' 
         ' Label25
         ' 
         Label25.AutoSize = True
         Label25.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label25.Location = New Point(57, 108)
+        Label25.Location = New Point(61, 97)
         Label25.Name = "Label25"
         Label25.Size = New Size(140, 25)
         Label25.TabIndex = 0
@@ -934,19 +825,127 @@ Partial Class frmPOS
         ' 
         Timer1.Interval = 1000
         ' 
+        ' Guna2CustomGradientPanel1
+        ' 
+        Guna2CustomGradientPanel1.BackColor = Color.Transparent
+        Guna2CustomGradientPanel1.BorderColor = Color.DarkBlue
+        Guna2CustomGradientPanel1.BorderRadius = 40
+        Guna2CustomGradientPanel1.Controls.Add(Label15)
+        Guna2CustomGradientPanel1.Controls.Add(Label1)
+        Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges3
+        Guna2CustomGradientPanel1.Location = New Point(67, 161)
+        Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
+        Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        Guna2CustomGradientPanel1.Size = New Size(546, 229)
+        Guna2CustomGradientPanel1.TabIndex = 21
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.ForeColor = Color.Navy
+        Label1.Location = New Point(37, 19)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(201, 25)
+        Label1.TabIndex = 0
+        Label1.Text = "₱  Revenue Summary"
+        ' 
+        ' Label15
+        ' 
+        Label15.AutoSize = True
+        Label15.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label15.ForeColor = Color.DodgerBlue
+        Label15.Location = New Point(37, 69)
+        Label15.Name = "Label15"
+        Label15.Size = New Size(25, 28)
+        Label15.TabIndex = 1
+        Label15.Text = "₱"
+        ' 
+        ' Guna2CustomGradientPanel2
+        ' 
+        Guna2CustomGradientPanel2.BackColor = Color.Transparent
+        Guna2CustomGradientPanel2.BorderColor = Color.DarkBlue
+        Guna2CustomGradientPanel2.BorderRadius = 40
+        Guna2CustomGradientPanel2.Controls.Add(Label8)
+        Guna2CustomGradientPanel2.Controls.Add(Label9)
+        Guna2CustomGradientPanel2.CustomizableEdges = CustomizableEdges1
+        Guna2CustomGradientPanel2.Location = New Point(653, 161)
+        Guna2CustomGradientPanel2.Name = "Guna2CustomGradientPanel2"
+        Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        Guna2CustomGradientPanel2.Size = New Size(546, 229)
+        Guna2CustomGradientPanel2.TabIndex = 22
+        ' 
+        ' Label8
+        ' 
+        Label8.AutoSize = True
+        Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label8.ForeColor = Color.DodgerBlue
+        Label8.Location = New Point(37, 69)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(25, 28)
+        Label8.TabIndex = 1
+        Label8.Text = "₱"
+        ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.ForeColor = Color.Navy
+        Label9.Location = New Point(37, 19)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(201, 25)
+        Label9.TabIndex = 0
+        Label9.Text = "₱  Revenue Summary"
+        ' 
+        ' btnUploadPictures
+        ' 
+        btnUploadPictures.Font = New Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnUploadPictures.Location = New Point(24, 163)
+        btnUploadPictures.Name = "btnUploadPictures"
+        btnUploadPictures.Size = New Size(118, 31)
+        btnUploadPictures.TabIndex = 1
+        btnUploadPictures.Text = "Upload Pictures"
+        btnUploadPictures.UseVisualStyleBackColor = True
+        ' 
+        ' Guna2CustomGradientPanel3
+        ' 
+        Guna2CustomGradientPanel3.BackColor = Color.Transparent
+        Guna2CustomGradientPanel3.BorderColor = Color.DarkBlue
+        Guna2CustomGradientPanel3.BorderRadius = 40
+        Guna2CustomGradientPanel3.Controls.Add(Label25)
+        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges5
+        Guna2CustomGradientPanel3.Location = New Point(240, 173)
+        Guna2CustomGradientPanel3.Name = "Guna2CustomGradientPanel3"
+        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        Guna2CustomGradientPanel3.Size = New Size(302, 149)
+        Guna2CustomGradientPanel3.TabIndex = 22
+        ' 
+        ' Guna2CustomGradientPanel4
+        ' 
+        Guna2CustomGradientPanel4.BackColor = Color.Transparent
+        Guna2CustomGradientPanel4.BorderColor = Color.DarkBlue
+        Guna2CustomGradientPanel4.BorderRadius = 40
+        Guna2CustomGradientPanel4.Controls.Add(Label3)
+        Guna2CustomGradientPanel4.CustomizableEdges = CustomizableEdges7
+        Guna2CustomGradientPanel4.Location = New Point(632, 178)
+        Guna2CustomGradientPanel4.Name = "Guna2CustomGradientPanel4"
+        Guna2CustomGradientPanel4.ShadowDecoration.CustomizableEdges = CustomizableEdges8
+        Guna2CustomGradientPanel4.Size = New Size(302, 149)
+        Guna2CustomGradientPanel4.TabIndex = 23
+        ' 
         ' frmPOS
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         AutoScroll = True
-        BackColor = Color.Gainsboro
+        BackColor = Color.White
         ClientSize = New Size(1566, 999)
-        Controls.Add(pnlTotalProducts)
+        Controls.Add(Guna2CustomGradientPanel4)
+        Controls.Add(Guna2CustomGradientPanel3)
         Controls.Add(pnlHeader)
         Controls.Add(pnlTodaysSales)
         Controls.Add(pnlWeeklyRevenue)
         Controls.Add(Panel7)
-        Controls.Add(pnlItemsStock)
         Controls.Add(pnlShoppingCart)
         Controls.Add(Inventory)
         KeyPreview = True
@@ -961,8 +960,6 @@ Partial Class frmPOS
         pnlWeeklyRevenue.PerformLayout()
         pnlTodaysSales.ResumeLayout(False)
         pnlTodaysSales.PerformLayout()
-        pnlItemsStock.ResumeLayout(False)
-        pnlItemsStock.PerformLayout()
         Inventory.ResumeLayout(False)
         tabProducts.ResumeLayout(False)
         tabProducts.PerformLayout()
@@ -972,21 +969,23 @@ Partial Class frmPOS
         tabWeeklyReports.ResumeLayout(False)
         tabWeeklyReports.PerformLayout()
         CType(DataGridView2, ComponentModel.ISupportInitialize).EndInit()
-        Panel10.ResumeLayout(False)
-        Panel10.PerformLayout()
-        Panel9.ResumeLayout(False)
-        Panel9.PerformLayout()
         tabSalesHistory.ResumeLayout(False)
         tabSalesHistory.PerformLayout()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
-        CType(dvgsales, ComponentModel.ISupportInitialize).EndInit()
+        CType(dgvSales, ComponentModel.ISupportInitialize).EndInit()
         pnlShoppingCart.ResumeLayout(False)
         pnlShoppingCart.PerformLayout()
         Panel7.ResumeLayout(False)
         CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
-        pnlTotalProducts.ResumeLayout(False)
-        pnlTotalProducts.PerformLayout()
+        Guna2CustomGradientPanel1.ResumeLayout(False)
+        Guna2CustomGradientPanel1.PerformLayout()
+        Guna2CustomGradientPanel2.ResumeLayout(False)
+        Guna2CustomGradientPanel2.PerformLayout()
+        Guna2CustomGradientPanel3.ResumeLayout(False)
+        Guna2CustomGradientPanel3.PerformLayout()
+        Guna2CustomGradientPanel4.ResumeLayout(False)
+        Guna2CustomGradientPanel4.PerformLayout()
         ResumeLayout(False)
     End Sub
 
@@ -997,7 +996,6 @@ Partial Class frmPOS
     Friend WithEvents Label5 As Label
     Friend WithEvents pnlTodaysSales As Panel
     Friend WithEvents Label4 As Label
-    Friend WithEvents pnlItemsStock As Panel
     Friend WithEvents Label3 As Label
     Friend WithEvents Inventory As TabControl
     Friend WithEvents tabProducts As TabPage
@@ -1030,15 +1028,8 @@ Partial Class frmPOS
     Friend WithEvents Button18 As Button
     Friend WithEvents Label24 As Label
     Friend WithEvents dgvProducts As DataGridView
-    Friend WithEvents pnlTotalProducts As Panel
     Friend WithEvents Label25 As Label
-    Friend WithEvents Panel10 As Panel
-    Friend WithEvents Panel9 As Panel
     Friend WithEvents btnNextWeek As Button
-    Friend WithEvents Label16 As Label
-    Friend WithEvents Label14 As Label
-    Friend WithEvents Label15 As Label
-    Friend WithEvents Label1 As Label
     Friend WithEvents DataGridView2 As DataGridView
     Friend WithEvents colDay As DataGridViewTextBoxColumn
     Friend WithEvents colDate As DataGridViewTextBoxColumn
@@ -1049,11 +1040,7 @@ Partial Class frmPOS
     Friend WithEvents tabSalesHistory As TabPage
     Friend WithEvents lblSalesHistory As Label
     Friend WithEvents txtSearchHistory As TextBox
-    Friend WithEvents dvgsales As DataGridView
-    Friend WithEvents SalesDate As DataGridViewTextBoxColumn
-    Friend WithEvents SalesTime As DataGridViewTextBoxColumn
-    Friend WithEvents SalesBuyer As DataGridViewTextBoxColumn
-    Friend WithEvents SalesTotal As DataGridViewTextBoxColumn
+    Friend WithEvents dgvSales As DataGridView
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label22 As Label
     Friend WithEvents Label26 As Label
@@ -1066,5 +1053,14 @@ Partial Class frmPOS
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents flpProduct1 As FlowLayoutPanel
     Friend WithEvents flpCart As FlowLayoutPanel
+    Friend WithEvents Guna2CustomGradientPanel2 As Guna.UI2.WinForms.Guna2CustomGradientPanel
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Guna2CustomGradientPanel1 As Guna.UI2.WinForms.Guna2CustomGradientPanel
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents btnUploadPictures As Button
+    Friend WithEvents Guna2CustomGradientPanel3 As Guna.UI2.WinForms.Guna2CustomGradientPanel
+    Friend WithEvents Guna2CustomGradientPanel4 As Guna.UI2.WinForms.Guna2CustomGradientPanel
 
 End Class
