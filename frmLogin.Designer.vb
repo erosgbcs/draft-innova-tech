@@ -47,6 +47,7 @@ Partial Class frmLogin
         ' 
         ' Guna2CustomGradientPanel1
         ' 
+        Guna2CustomGradientPanel1.Anchor = AnchorStyles.None
         Guna2CustomGradientPanel1.BackColor = Color.Transparent
         Guna2CustomGradientPanel1.BorderColor = Color.DarkBlue
         Guna2CustomGradientPanel1.BorderRadius = 18
@@ -59,7 +60,7 @@ Partial Class frmLogin
         Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges11
         Guna2CustomGradientPanel1.FillColor = Color.Lavender
         Guna2CustomGradientPanel1.FillColor2 = Color.LavenderBlush
-        Guna2CustomGradientPanel1.Location = New Point(781, 321)
+        Guna2CustomGradientPanel1.Location = New Point(238, 22)
         Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
         Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges12
         Guna2CustomGradientPanel1.Size = New Size(350, 470)
@@ -185,7 +186,7 @@ Partial Class frmLogin
         BackColor = Color.IndianRed
         BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(1370, 749)
+        ClientSize = New Size(763, 417)
         Controls.Add(Guna2CustomGradientPanel1)
         Font = New Font("Segoe UI", 48F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         MdiChildrenMinimizedAnchorBottom = False

@@ -161,17 +161,20 @@ Public Class frmPOS
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         db.InitializeDatabase()
         Timer1.Start()
-        dgvProducts.DataSource = db.LoadProducts()
 
-        ' Make DataGridView read-only
-        dgvProducts.ReadOnly = True
-        dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvProducts.MultiSelect = False
-        dgvProducts.AllowUserToAddRows = False
-        dgvProducts.AllowUserToDeleteRows = False
+        ' Load Products and Sales into their respective Grids
+        dgvProducts.DataSource = db.LoadProducts()
+        dgvSales.DataSource = db.LoadSales() ' <--- Loads History on startup
+
+        ' Optional: Grid Formatting
+        dgvSales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgvSales.SelectionMode = DataGridViewSelectionMode.FullRowSelect
 
         LoadProductCards()
         LoadCartCards()
+
+        Me.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size
+        Me.AutoScroll = True
     End Sub
 
     ' --- Load selected row into textboxes ---
@@ -402,25 +405,59 @@ Public Class frmPOS
 
         ' --- Totals card at the bottom ---
         Dim totalsCard As New RoundedShadowPanel With {
-    .Width = 300,
-    .Height = 280,   ' mas mataas para magkasya lahat
-    .Margin = New Padding(10),
-    .BackColor = Color.White,
-    .BorderColor = Color.LightGray,
-    .CornerRadius = 20,
-    .ShadowSize = 6
-}
+            .Width = 300,
+            .Height = 280,   ' Height maintained for a clean look
+            .Margin = New Padding(10),
+            .BackColor = Color.White,
+            .BorderColor = Color.LightGray,
+            .CornerRadius = 20,
+            .ShadowSize = 6
+        }
 
-        ' Buyer Info fields
-        Dim lblBuyerName As New Label With {.Text = "Buyer Name:", .Location = New Point(10, 100), .AutoSize = True}
-        Dim txtBuyerName As New TextBox With {.Name = "txtBuyerName", .Location = New Point(100, 97), .Width = 150}
+        ' --- Buyer Info fields (Aligned and Resized) ---
+        Dim labelFont As New Font("Segoe UI", 9, FontStyle.Regular)
+        Dim textBoxWidth As Integer = 180
 
-        Dim lblBuyerAddress As New Label With {.Text = "Address:", .Location = New Point(10, 140), .AutoSize = True}
-        Dim txtBuyerAddress As New TextBox With {.Name = "txtBuyerAddress", .Location = New Point(100, 137), .Width = 150}
+        ' Buyer Name
+        Dim lblBuyerName As New Label With {
+            .Text = "Buyer Name:",
+            .Location = New Point(15, 40),
+            .Font = labelFont,
+            .AutoSize = True
+        }
+        Dim txtBuyerName As New TextBox With {
+            .Name = "txtBuyerName",
+            .Location = New Point(105, 37),
+            .Width = textBoxWidth
+        }
 
-        Dim lblBuyerContact As New Label With {.Text = "Contact No:", .Location = New Point(10, 180), .AutoSize = True}
-        Dim txtBuyerContact As New TextBox With {.Name = "txtBuyerContact", .Location = New Point(100, 177), .Width = 150}
+        ' Address
+        Dim lblBuyerAddress As New Label With {
+            .Text = "Address:",
+            .Location = New Point(15, 90),
+            .Font = labelFont,
+            .AutoSize = True
+        }
+        Dim txtBuyerAddress As New TextBox With {
+            .Name = "txtBuyerAddress",
+            .Location = New Point(105, 87),
+            .Width = textBoxWidth
+        }
 
+        ' Contact No
+        Dim lblBuyerContact As New Label With {
+            .Text = "Contact No:",
+            .Location = New Point(15, 140),
+            .Font = labelFont,
+            .AutoSize = True
+        }
+        Dim txtBuyerContact As New TextBox With {
+            .Name = "txtBuyerContact",
+            .Location = New Point(105, 137),
+            .Width = textBoxWidth
+        }
+
+        ' Add Info fields to the card
         totalsCard.Controls.Add(lblBuyerName)
         totalsCard.Controls.Add(txtBuyerName)
         totalsCard.Controls.Add(lblBuyerAddress)
@@ -428,12 +465,14 @@ Public Class frmPOS
         totalsCard.Controls.Add(lblBuyerContact)
         totalsCard.Controls.Add(txtBuyerContact)
 
-        ' Checkout button (ilagay sa ilalim ng buyer info)
+        ' --- Action Buttons (Positioned at the Bottom) ---
+
+        ' Checkout button
         Dim btnCheckout As New RoundedButton With {
             .Text = "Checkout",
-            .Location = New Point(10, 230),   ' moved down
-            .Width = 120,
-            .Height = 35,
+            .Location = New Point(20, 200),   ' Fixed position below the last field
+            .Width = 125,
+            .Height = 40,
             .ForeColor = Color.White,
             .Font = New Font("Segoe UI", 9, FontStyle.Bold),
             .CornerRadius = 15
@@ -442,12 +481,12 @@ Public Class frmPOS
         AddHandler btnCheckout.Click, AddressOf btnCheckout_Click
         totalsCard.Controls.Add(btnCheckout)
 
-        ' Clear Cart button (katabi ng Checkout)
+        ' Clear Cart button
         Dim btnClear As New RoundedButton With {
             .Text = "Clear Cart",
-            .Location = New Point(150, 230),   ' moved down
-            .Width = 120,
-            .Height = 35,
+            .Location = New Point(155, 200),  ' Aligned with Checkout
+            .Width = 125,
+            .Height = 40,
             .ForeColor = Color.White,
             .Font = New Font("Segoe UI", 9, FontStyle.Bold),
             .CornerRadius = 15
@@ -465,8 +504,7 @@ Public Class frmPOS
         ' Finally add totalsCard to flow layout
         flpCart.Controls.Add(totalsCard)
 
-
-    End Sub   ' <-- make sure this is here to close LoadCartCards
+    End Sub ' <-- Closes LoadCartCards
 
     ' Checkout logic
     Private Sub btnCheckout_Click(sender As Object, e As EventArgs)
@@ -664,7 +702,10 @@ Public Class frmPOS
         End Try
     End Sub
 
+
+
     Private Sub flpProduct1_Paint(sender As Object, e As PaintEventArgs) Handles flpProduct1.Paint
 
     End Sub
+
 End Class
