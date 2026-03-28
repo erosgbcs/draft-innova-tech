@@ -42,11 +42,11 @@ Partial Class frmPOS
         pnlTodaysSales = New Panel()
         Label4 = New Label()
         Label3 = New Label()
-        lblAvailableProducts = New Label()
-        TextBox1 = New TextBox()
         Inventory = New TabControl()
         tabProducts = New TabPage()
+        TextBox1 = New TextBox()
         flpProduct1 = New FlowLayoutPanel()
+        lblAvailableProducts = New Label()
         tabInventory = New TabPage()
         btnDelete = New Button()
         btnUpdate = New Button()
@@ -154,7 +154,7 @@ Partial Class frmPOS
         Label24.AutoSize = True
         Label24.Font = New Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label24.ForeColor = Color.White
-        Label24.Location = New Point(3, 22)
+        Label24.Location = New Point(7, 32)
         Label24.Name = "Label24"
         Label24.Size = New Size(211, 50)
         Label24.TabIndex = 9
@@ -232,27 +232,6 @@ Partial Class frmPOS
         Label3.TabIndex = 0
         Label3.Text = "Items in Stock"
         ' 
-        ' lblAvailableProducts
-        ' 
-        lblAvailableProducts.AutoSize = True
-        lblAvailableProducts.Font = New Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblAvailableProducts.ForeColor = Color.Navy
-        lblAvailableProducts.Location = New Point(874, 3)
-        lblAvailableProducts.Name = "lblAvailableProducts"
-        lblAvailableProducts.Size = New Size(257, 37)
-        lblAvailableProducts.TabIndex = 5
-        lblAvailableProducts.Text = "Available Products"
-        lblAvailableProducts.TextAlign = ContentAlignment.TopRight
-        ' 
-        ' TextBox1
-        ' 
-        TextBox1.BorderStyle = BorderStyle.FixedSingle
-        TextBox1.Location = New Point(0, 31)
-        TextBox1.Name = "TextBox1"
-        TextBox1.PlaceholderText = "Search products by one code or name..."
-        TextBox1.Size = New Size(1125, 25)
-        TextBox1.TabIndex = 3
-        ' 
         ' Inventory
         ' 
         Inventory.Controls.Add(tabProducts)
@@ -260,11 +239,11 @@ Partial Class frmPOS
         Inventory.Controls.Add(tabWeeklyReports)
         Inventory.Controls.Add(tabSalesHistory)
         Inventory.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Inventory.Location = New Point(148, 259)
+        Inventory.Location = New Point(152, 256)
         Inventory.Multiline = True
         Inventory.Name = "Inventory"
         Inventory.SelectedIndex = 0
-        Inventory.Size = New Size(1148, 802)
+        Inventory.Size = New Size(869, 737)
         Inventory.TabIndex = 2
         Inventory.Tag = "."
         ' 
@@ -277,19 +256,40 @@ Partial Class frmPOS
         tabProducts.Location = New Point(4, 26)
         tabProducts.Name = "tabProducts"
         tabProducts.Padding = New Padding(3)
-        tabProducts.Size = New Size(1140, 772)
+        tabProducts.Size = New Size(861, 707)
         tabProducts.TabIndex = 0
         tabProducts.Text = "Products"
+        ' 
+        ' TextBox1
+        ' 
+        TextBox1.BorderStyle = BorderStyle.FixedSingle
+        TextBox1.Location = New Point(38, 19)
+        TextBox1.Name = "TextBox1"
+        TextBox1.PlaceholderText = "Search products by one code or name..."
+        TextBox1.Size = New Size(1125, 25)
+        TextBox1.TabIndex = 3
         ' 
         ' flpProduct1
         ' 
         flpProduct1.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         flpProduct1.BackColor = Color.White
         flpProduct1.BackgroundImageLayout = ImageLayout.Zoom
-        flpProduct1.Location = New Point(6, 93)
+        flpProduct1.Location = New Point(47, 37)
         flpProduct1.Name = "flpProduct1"
         flpProduct1.Size = New Size(1125, 667)
         flpProduct1.TabIndex = 7
+        ' 
+        ' lblAvailableProducts
+        ' 
+        lblAvailableProducts.AutoSize = True
+        lblAvailableProducts.Font = New Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblAvailableProducts.ForeColor = Color.Navy
+        lblAvailableProducts.Location = New Point(874, 3)
+        lblAvailableProducts.Name = "lblAvailableProducts"
+        lblAvailableProducts.Size = New Size(257, 37)
+        lblAvailableProducts.TabIndex = 5
+        lblAvailableProducts.Text = "Available Products"
+        lblAvailableProducts.TextAlign = ContentAlignment.TopRight
         ' 
         ' tabInventory
         ' 
@@ -308,7 +308,7 @@ Partial Class frmPOS
         tabInventory.Location = New Point(4, 26)
         tabInventory.Name = "tabInventory"
         tabInventory.Padding = New Padding(3)
-        tabInventory.Size = New Size(1140, 772)
+        tabInventory.Size = New Size(777, 707)
         tabInventory.TabIndex = 1
         tabInventory.Text = "Inventory"
         tabInventory.UseVisualStyleBackColor = True
@@ -448,7 +448,7 @@ Partial Class frmPOS
         tabWeeklyReports.Location = New Point(4, 26)
         tabWeeklyReports.Name = "tabWeeklyReports"
         tabWeeklyReports.Padding = New Padding(3)
-        tabWeeklyReports.Size = New Size(1140, 772)
+        tabWeeklyReports.Size = New Size(777, 707)
         tabWeeklyReports.TabIndex = 2
         tabWeeklyReports.Text = "Weekly Reports"
         ' 
@@ -681,7 +681,7 @@ Partial Class frmPOS
         tabSalesHistory.Location = New Point(4, 26)
         tabSalesHistory.Name = "tabSalesHistory"
         tabSalesHistory.Padding = New Padding(3)
-        tabSalesHistory.Size = New Size(1140, 772)
+        tabSalesHistory.Size = New Size(777, 707)
         tabSalesHistory.TabIndex = 3
         tabSalesHistory.Text = "Sales History"
         ' 
@@ -829,7 +829,7 @@ Partial Class frmPOS
         Panel7.Dock = DockStyle.Left
         Panel7.Location = New Point(0, 0)
         Panel7.Name = "Panel7"
-        Panel7.Size = New Size(143, 1061)
+        Panel7.Size = New Size(143, 993)
         Panel7.TabIndex = 4
         ' 
         ' btnUploadPictures
@@ -884,7 +884,7 @@ Partial Class frmPOS
         Guna2CustomGradientPanel3.BorderRadius = 25
         Guna2CustomGradientPanel3.Controls.Add(Label25)
         Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges5
-        Guna2CustomGradientPanel3.Location = New Point(194, 122)
+        Guna2CustomGradientPanel3.Location = New Point(158, 119)
         Guna2CustomGradientPanel3.Margin = New Padding(3, 2, 3, 2)
         Guna2CustomGradientPanel3.Name = "Guna2CustomGradientPanel3"
         Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges6
@@ -898,7 +898,7 @@ Partial Class frmPOS
         Guna2CustomGradientPanel4.BorderRadius = 25
         Guna2CustomGradientPanel4.Controls.Add(Label3)
         Guna2CustomGradientPanel4.CustomizableEdges = CustomizableEdges7
-        Guna2CustomGradientPanel4.Location = New Point(553, 122)
+        Guna2CustomGradientPanel4.Location = New Point(553, 119)
         Guna2CustomGradientPanel4.Margin = New Padding(3, 2, 3, 2)
         Guna2CustomGradientPanel4.Name = "Guna2CustomGradientPanel4"
         Guna2CustomGradientPanel4.ShadowDecoration.CustomizableEdges = CustomizableEdges8
@@ -969,11 +969,8 @@ Partial Class frmPOS
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Inventory As TabControl
-    Friend WithEvents tabProducts As TabPage
     Friend WithEvents tabInventory As TabPage
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents tabWeeklyReports As TabPage
-    Friend WithEvents lblAvailableProducts As Label
     Friend WithEvents txtProductName As TextBox
     Friend WithEvents txtProductCode As TextBox
     Friend WithEvents btnAdd As Button
@@ -1022,7 +1019,6 @@ Partial Class frmPOS
     Friend WithEvents btnUpdate As Button
     Friend WithEvents btnDelete As Button
     Friend WithEvents PictureBox3 As PictureBox
-    Friend WithEvents flpProduct1 As FlowLayoutPanel
     Friend WithEvents flpCart As FlowLayoutPanel
     Friend WithEvents Guna2CustomGradientPanel2 As Guna.UI2.WinForms.Guna2CustomGradientPanel
     Friend WithEvents Label8 As Label
@@ -1033,5 +1029,9 @@ Partial Class frmPOS
     Friend WithEvents btnUploadPictures As Button
     Friend WithEvents Guna2CustomGradientPanel3 As Guna.UI2.WinForms.Guna2CustomGradientPanel
     Friend WithEvents Guna2CustomGradientPanel4 As Guna.UI2.WinForms.Guna2CustomGradientPanel
+    Friend WithEvents tabProducts As TabPage
+    Friend WithEvents flpProduct1 As FlowLayoutPanel
+    Friend WithEvents lblAvailableProducts As Label
+    Friend WithEvents TextBox1 As TextBox
 
 End Class
