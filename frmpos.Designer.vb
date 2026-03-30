@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Products
+Partial Class pos
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -70,7 +70,7 @@ Partial Class Products
         lblAvailableProducts.Text = "Available Products"
         lblAvailableProducts.TextAlign = ContentAlignment.TopRight
         ' 
-        ' Products
+        ' pos
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
@@ -79,7 +79,7 @@ Partial Class Products
         Controls.Add(flpCart)
         Controls.Add(flpProduct1)
         Controls.Add(TextBox1)
-        Name = "Products"
+        Name = "pos"
         Text = "Products"
         ResumeLayout(False)
         PerformLayout()

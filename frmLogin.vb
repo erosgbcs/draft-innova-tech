@@ -56,7 +56,7 @@ Public Class FrmLogin
 
             ' You can pass this to your POS form
             ' For example, create a constructor in frmPOS that accepts user info
-            Dim posForm As New frmPOS
+            Dim posForm As New frmdashboard
             ' If you want to pass user info, you can add a property to frmPOS
             ' posForm.CurrentUser = currentUser
 

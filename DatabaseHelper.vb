@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SQLite
 Imports System.Security.Cryptography
 Imports System.Text
-Imports draft_innova_tech.frmPOS
+Imports draft_innova_tech.frmdashboard
 
 Public Class DatabaseHelper
     Private ReadOnly connectionString As String
