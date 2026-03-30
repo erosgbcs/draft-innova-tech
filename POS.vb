@@ -178,14 +178,14 @@ Public Class frmPOS
     End Sub
 
     ' --- Load selected row into textboxes ---
-    Private Sub dgvProducts_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellClick
+    Private Sub dgvProducts_CellClick(sender As Object, e As DataGridViewCellEventArgs)
         If e.RowIndex >= 0 Then
-            Dim row As DataGridViewRow = dgvProducts.Rows(e.RowIndex)
-            txtProductCode.Text = row.Cells("ProductCode").Value.ToString()
-            txtProductName.Text = row.Cells("ProductName").Value.ToString()
-            txtCategory.Text = row.Cells("Category").Value.ToString()
-            txtPrice.Text = row.Cells("Price").Value.ToString()
-            txtStock.Text = row.Cells("Stock").Value.ToString()
+            Dim row = dgvProducts.Rows(e.RowIndex)
+            txtProductCode.Text = row.Cells("ProductCode").Value.ToString
+            txtProductName.Text = row.Cells("ProductName").Value.ToString
+            txtCategory.Text = row.Cells("Category").Value.ToString
+            txtPrice.Text = row.Cells("Price").Value.ToString
+            txtStock.Text = row.Cells("Stock").Value.ToString
         End If
     End Sub
 
@@ -197,30 +197,30 @@ Public Class frmPOS
 
 
     ' --- Export to CSV Button Click ---
-    Private Sub btnExportCSV_Click(sender As Object, e As EventArgs) Handles BtnExportcsv.Click
+    Private Sub btnExportCSV_Click(sender As Object, e As EventArgs)
         Try
             ' 1. Load products from the database into a DataTable
-            Dim dt As DataTable = db.LoadProducts()
+            Dim dt = db.LoadProducts
 
             ' 2. Ask the user where to save the CSV file
-            Using sfd As New SaveFileDialog()
+            Using sfd As New SaveFileDialog
                 sfd.Filter = "CSV files (*.csv)|*.csv"   ' Only allow CSV files
                 sfd.Title = "Export Products to CSV"    ' Dialog title
                 sfd.FileName = "Products.csv"           ' Default file name
 
                 ' 3. If the user clicks Save
-                If sfd.ShowDialog() = DialogResult.OK Then
+                If sfd.ShowDialog = DialogResult.OK Then
                     ' 4. Create a StreamWriter to write the CSV file
-                    Using sw As New IO.StreamWriter(sfd.FileName, False, Encoding.UTF8)
+                    Using sw As New StreamWriter(sfd.FileName, False, Encoding.UTF8)
 
                         ' 5. Write the header row (column names)
-                        Dim headers As String = String.Join(",", dt.Columns.Cast(Of DataColumn).Select(Function(c) c.ColumnName))
+                        Dim headers = String.Join(",", dt.Columns.Cast(Of DataColumn).Select(Function(c) c.ColumnName))
                         sw.WriteLine(headers)
 
                         ' 6. Write each product row
                         For Each row As DataRow In dt.Rows
                             ' Convert each field to string and join with commas
-                            Dim fields As String = String.Join(",", row.ItemArray.Select(Function(f) f.ToString()))
+                            Dim fields = String.Join(",", row.ItemArray.Select(Function(f) f.ToString))
                             sw.WriteLine(fields)
                         Next
                     End Using
@@ -239,7 +239,7 @@ Public Class frmPOS
 
 
     ' --- Add/Update Product ---
-    Private Sub btnAddProduct_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+    Private Sub btnAddProduct_Click(sender As Object, e As EventArgs)
         Try
             If String.IsNullOrWhiteSpace(txtProductName.Text) OrElse String.IsNullOrWhiteSpace(txtPrice.Text) Then
                 MessageBox.Show("Please fill in the Product Name and Price.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -255,9 +255,9 @@ Public Class frmPOS
             }
 
             If db.SaveProduct(prod) Then
-                dgvProducts.DataSource = db.LoadProducts()
-                LoadProductCards()
-                ClearInputs()
+                dgvProducts.DataSource = db.LoadProducts
+                LoadProductCards
+                ClearInputs
                 MessageBox.Show("Product saved/updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         Catch ex As Exception
@@ -673,7 +673,7 @@ Public Class frmPOS
             flpProduct1.Controls.Add(card)
         Next
     End Sub
-    Private Sub btnUpdateProduct_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+    Private Sub btnUpdateProduct_Click(sender As Object, e As EventArgs)
         Try
             If String.IsNullOrWhiteSpace(txtProductCode.Text) Then
                 MessageBox.Show("Please select a product to update.", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -690,9 +690,9 @@ Public Class frmPOS
 
             ' Call your database helper update method
             If db.UpdateProduct(prod) Then
-                dgvProducts.DataSource = db.LoadProducts()
-                LoadProductCards()
-                ClearInputs()
+                dgvProducts.DataSource = db.LoadProducts
+                LoadProductCards
+                ClearInputs
                 MessageBox.Show("Product updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
                 MessageBox.Show("Failed to update product.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -704,8 +704,15 @@ Public Class frmPOS
 
 
 
-    Private Sub flpProduct1_Paint(sender As Object, e As PaintEventArgs) Handles flpProduct1.Paint
+    Private Sub flpProduct1_Paint(sender As Object, e As PaintEventArgs)
 
     End Sub
 
+    Private Sub tabProducts_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub Label22_Click(sender As Object, e As EventArgs)
+
+    End Sub
 End Class
