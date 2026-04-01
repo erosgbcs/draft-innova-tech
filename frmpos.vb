@@ -234,4 +234,8 @@ Public Class pos
     Private Sub btnOpensalehistory_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
         Sales_History.Show()
     End Sub
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
+
+    End Sub
 End Class

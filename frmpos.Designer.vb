@@ -34,6 +34,7 @@ Partial Class pos
         btnUploadPictures = New Button()
         PictureBox3 = New PictureBox()
         Button18 = New Button()
+        Label1 = New Label()
         Panel7.SuspendLayout()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -41,11 +42,11 @@ Partial Class pos
         ' TextBox1
         ' 
         TextBox1.BorderStyle = BorderStyle.FixedSingle
-        TextBox1.Location = New Point(277, 52)
+        TextBox1.Location = New Point(153, 84)
         TextBox1.Margin = New Padding(4, 3, 4, 3)
         TextBox1.Name = "TextBox1"
         TextBox1.PlaceholderText = "Search products by one code or name..."
-        TextBox1.Size = New Size(629, 23)
+        TextBox1.Size = New Size(873, 23)
         TextBox1.TabIndex = 4
         ' 
         ' flpProduct1
@@ -54,16 +55,17 @@ Partial Class pos
         flpProduct1.Location = New Point(153, 113)
         flpProduct1.Margin = New Padding(4, 3, 4, 3)
         flpProduct1.Name = "flpProduct1"
-        flpProduct1.Size = New Size(465, 378)
+        flpProduct1.Size = New Size(534, 481)
         flpProduct1.TabIndex = 7
         ' 
         ' flpCart
         ' 
+        flpCart.AutoScroll = True
         flpCart.BackColor = Color.White
-        flpCart.Location = New Point(641, 113)
+        flpCart.Location = New Point(711, 113)
         flpCart.Margin = New Padding(4, 3, 4, 3)
         flpCart.Name = "flpCart"
-        flpCart.Size = New Size(265, 378)
+        flpCart.Size = New Size(338, 394)
         flpCart.TabIndex = 8
         ' 
         ' lblAvailableProducts
@@ -71,7 +73,7 @@ Partial Class pos
         lblAvailableProducts.AutoSize = True
         lblAvailableProducts.Font = New Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblAvailableProducts.ForeColor = Color.Navy
-        lblAvailableProducts.Location = New Point(668, 12)
+        lblAvailableProducts.Location = New Point(153, 44)
         lblAvailableProducts.Margin = New Padding(4, 0, 4, 0)
         lblAvailableProducts.Name = "lblAvailableProducts"
         lblAvailableProducts.Size = New Size(257, 37)
@@ -91,7 +93,7 @@ Partial Class pos
         Panel7.Dock = DockStyle.Left
         Panel7.Location = New Point(0, 0)
         Panel7.Name = "Panel7"
-        Panel7.Size = New Size(126, 514)
+        Panel7.Size = New Size(126, 594)
         Panel7.TabIndex = 10
         ' 
         ' btnSALESHISTORY
@@ -155,11 +157,26 @@ Partial Class pos
         Button18.Text = "Logout"
         Button18.UseVisualStyleBackColor = False
         ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.ForeColor = Color.Navy
+        Label1.Location = New Point(221, 0)
+        Label1.Margin = New Padding(4, 0, 4, 0)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(600, 37)
+        Label1.TabIndex = 11
+        Label1.Text = "KIRBYS HARDWARE TRADING POINT OF SALE"
+        Label1.TextAlign = ContentAlignment.TopRight
+        ' 
         ' pos
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(938, 514)
+        AutoScroll = True
+        ClientSize = New Size(1068, 514)
+        Controls.Add(Label1)
         Controls.Add(Panel7)
         Controls.Add(lblAvailableProducts)
         Controls.Add(flpCart)
@@ -168,6 +185,7 @@ Partial Class pos
         Margin = New Padding(3, 2, 3, 2)
         Name = "pos"
         Text = "Products"
+        WindowState = FormWindowState.Maximized
         Panel7.ResumeLayout(False)
         CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
@@ -185,4 +203,5 @@ Partial Class pos
     Friend WithEvents btnUploadPictures As Button
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents Button18 As Button
+    Friend WithEvents Label1 As Label
 End Class
