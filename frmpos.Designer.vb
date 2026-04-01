@@ -65,7 +65,7 @@ Partial Class pos
         flpCart.Location = New Point(711, 113)
         flpCart.Margin = New Padding(4, 3, 4, 3)
         flpCart.Name = "flpCart"
-        flpCart.Size = New Size(338, 394)
+        flpCart.Size = New Size(374, 481)
         flpCart.TabIndex = 8
         ' 
         ' lblAvailableProducts
