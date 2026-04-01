@@ -29,7 +29,7 @@ Partial Class frmInventory
         txtCategory = New TextBox()
         txtPrice = New TextBox()
         txtStock = New TextBox()
-        btnAdd = New Button()
+        btnAddProduct = New Button()
         btnDelete = New Button()
         btnUpdate = New Button()
         BtnExportcsv = New Button()
@@ -49,93 +49,93 @@ Partial Class frmInventory
         ' txtSearch
         ' 
         txtSearch.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtSearch.Location = New Point(12, 233)
-        txtSearch.Margin = New Padding(4)
+        txtSearch.Location = New Point(10, 175)
+        txtSearch.Margin = New Padding(4, 3, 4, 3)
         txtSearch.Name = "txtSearch"
         txtSearch.PlaceholderText = "Product Inventory by code or name.."
-        txtSearch.Size = New Size(835, 32)
+        txtSearch.Size = New Size(731, 27)
         txtSearch.TabIndex = 5
         ' 
         ' dgvProducts
         ' 
         dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvProducts.Location = New Point(13, 285)
-        dgvProducts.Margin = New Padding(4)
+        dgvProducts.Location = New Point(11, 214)
+        dgvProducts.Margin = New Padding(4, 3, 4, 3)
         dgvProducts.Name = "dgvProducts"
         dgvProducts.RowHeadersWidth = 51
-        dgvProducts.Size = New Size(834, 230)
+        dgvProducts.Size = New Size(730, 172)
         dgvProducts.TabIndex = 6
         ' 
         ' txtProductCode
         ' 
         txtProductCode.BackColor = Color.White
-        txtProductCode.Location = New Point(21, 35)
-        txtProductCode.Margin = New Padding(4)
+        txtProductCode.Location = New Point(18, 26)
+        txtProductCode.Margin = New Padding(4, 3, 4, 3)
         txtProductCode.Name = "txtProductCode"
         txtProductCode.PlaceholderText = "Product code"
-        txtProductCode.Size = New Size(220, 27)
+        txtProductCode.Size = New Size(193, 23)
         txtProductCode.TabIndex = 7
         ' 
         ' txtProductName
         ' 
         txtProductName.BackColor = Color.White
-        txtProductName.Location = New Point(21, 106)
-        txtProductName.Margin = New Padding(4)
+        txtProductName.Location = New Point(18, 80)
+        txtProductName.Margin = New Padding(4, 3, 4, 3)
         txtProductName.Name = "txtProductName"
         txtProductName.PlaceholderText = "Product name"
-        txtProductName.Size = New Size(220, 27)
+        txtProductName.Size = New Size(193, 23)
         txtProductName.TabIndex = 8
         ' 
         ' txtCategory
         ' 
-        txtCategory.Location = New Point(310, 35)
-        txtCategory.Margin = New Padding(4)
+        txtCategory.Location = New Point(271, 26)
+        txtCategory.Margin = New Padding(4, 3, 4, 3)
         txtCategory.Name = "txtCategory"
         txtCategory.PlaceholderText = "Category"
-        txtCategory.Size = New Size(220, 27)
+        txtCategory.Size = New Size(193, 23)
         txtCategory.TabIndex = 9
         ' 
         ' txtPrice
         ' 
-        txtPrice.Location = New Point(310, 106)
-        txtPrice.Margin = New Padding(4)
+        txtPrice.Location = New Point(271, 80)
+        txtPrice.Margin = New Padding(4, 3, 4, 3)
         txtPrice.Name = "txtPrice"
         txtPrice.PlaceholderText = "Price"
-        txtPrice.Size = New Size(220, 27)
+        txtPrice.Size = New Size(193, 23)
         txtPrice.TabIndex = 10
         ' 
         ' txtStock
         ' 
-        txtStock.Location = New Point(601, 35)
-        txtStock.Margin = New Padding(4)
+        txtStock.Location = New Point(526, 26)
+        txtStock.Margin = New Padding(4, 3, 4, 3)
         txtStock.Name = "txtStock"
         txtStock.PlaceholderText = "Stock"
-        txtStock.Size = New Size(220, 27)
+        txtStock.Size = New Size(193, 23)
         txtStock.TabIndex = 11
         ' 
-        ' btnAdd
+        ' btnAddProduct
         ' 
-        btnAdd.BackColor = Color.FromArgb(CByte(45), CByte(84), CByte(150))
-        btnAdd.FlatStyle = FlatStyle.Flat
-        btnAdd.ForeColor = Color.White
-        btnAdd.Location = New Point(815, 9)
-        btnAdd.Margin = New Padding(4)
-        btnAdd.Name = "btnAdd"
-        btnAdd.Size = New Size(36, 33)
-        btnAdd.TabIndex = 12
-        btnAdd.Text = "➕"
-        btnAdd.UseVisualStyleBackColor = False
+        btnAddProduct.BackColor = Color.FromArgb(CByte(45), CByte(84), CByte(150))
+        btnAddProduct.FlatStyle = FlatStyle.Flat
+        btnAddProduct.ForeColor = Color.White
+        btnAddProduct.Location = New Point(713, 7)
+        btnAddProduct.Margin = New Padding(4, 3, 4, 3)
+        btnAddProduct.Name = "btnAddProduct"
+        btnAddProduct.Size = New Size(32, 25)
+        btnAddProduct.TabIndex = 12
+        btnAddProduct.Text = "➕"
+        btnAddProduct.UseVisualStyleBackColor = False
         ' 
         ' btnDelete
         ' 
         btnDelete.BackColor = Color.Red
         btnDelete.FlatStyle = FlatStyle.Flat
         btnDelete.ForeColor = Color.White
-        btnDelete.Location = New Point(766, 9)
-        btnDelete.Margin = New Padding(4)
+        btnDelete.Location = New Point(670, 7)
+        btnDelete.Margin = New Padding(4, 3, 4, 3)
         btnDelete.Name = "btnDelete"
-        btnDelete.Size = New Size(41, 33)
+        btnDelete.Size = New Size(36, 25)
         btnDelete.TabIndex = 16
         btnDelete.Text = "🗑️"
         btnDelete.UseVisualStyleBackColor = False
@@ -145,10 +145,10 @@ Partial Class frmInventory
         btnUpdate.BackColor = Color.Green
         btnUpdate.FlatStyle = FlatStyle.Flat
         btnUpdate.ForeColor = Color.White
-        btnUpdate.Location = New Point(365, 5)
-        btnUpdate.Margin = New Padding(4)
+        btnUpdate.Location = New Point(319, 4)
+        btnUpdate.Margin = New Padding(4, 3, 4, 3)
         btnUpdate.Name = "btnUpdate"
-        btnUpdate.Size = New Size(145, 37)
+        btnUpdate.Size = New Size(127, 28)
         btnUpdate.TabIndex = 17
         btnUpdate.Text = "Update Product"
         btnUpdate.UseVisualStyleBackColor = False
@@ -158,10 +158,10 @@ Partial Class frmInventory
         BtnExportcsv.BackColor = Color.Lime
         BtnExportcsv.FlatStyle = FlatStyle.Flat
         BtnExportcsv.Font = New Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        BtnExportcsv.Location = New Point(651, 9)
-        BtnExportcsv.Margin = New Padding(4)
+        BtnExportcsv.Location = New Point(570, 7)
+        BtnExportcsv.Margin = New Padding(4, 3, 4, 3)
         BtnExportcsv.Name = "BtnExportcsv"
-        BtnExportcsv.Size = New Size(107, 33)
+        BtnExportcsv.Size = New Size(94, 25)
         BtnExportcsv.TabIndex = 18
         BtnExportcsv.Text = "📄 Export CSV"
         BtnExportcsv.UseVisualStyleBackColor = False
@@ -179,18 +179,19 @@ Partial Class frmInventory
         Panel1.Controls.Add(txtProductName)
         Panel1.Controls.Add(txtPrice)
         Panel1.Controls.Add(txtStock)
-        Panel1.Location = New Point(6, 62)
+        Panel1.Location = New Point(5, 46)
+        Panel1.Margin = New Padding(3, 2, 3, 2)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(864, 148)
+        Panel1.Size = New Size(756, 111)
         Panel1.TabIndex = 19
         ' 
         ' Label7
         ' 
         Label7.AutoSize = True
         Label7.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label7.Location = New Point(601, 11)
+        Label7.Location = New Point(526, 8)
         Label7.Name = "Label7"
-        Label7.Size = New Size(47, 20)
+        Label7.Size = New Size(39, 15)
         Label7.TabIndex = 16
         Label7.Text = "Stock"
         ' 
@@ -198,9 +199,9 @@ Partial Class frmInventory
         ' 
         Label6.AutoSize = True
         Label6.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label6.Location = New Point(310, 82)
+        Label6.Location = New Point(271, 62)
         Label6.Name = "Label6"
-        Label6.Size = New Size(43, 20)
+        Label6.Size = New Size(35, 15)
         Label6.TabIndex = 15
         Label6.Text = "Price"
         ' 
@@ -208,9 +209,9 @@ Partial Class frmInventory
         ' 
         Label5.AutoSize = True
         Label5.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label5.Location = New Point(310, 11)
+        Label5.Location = New Point(271, 8)
         Label5.Name = "Label5"
-        Label5.Size = New Size(73, 20)
+        Label5.Size = New Size(57, 15)
         Label5.TabIndex = 14
         Label5.Text = "Category"
         ' 
@@ -218,9 +219,9 @@ Partial Class frmInventory
         ' 
         Label4.AutoSize = True
         Label4.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label4.Location = New Point(21, 82)
+        Label4.Location = New Point(18, 62)
         Label4.Name = "Label4"
-        Label4.Size = New Size(110, 20)
+        Label4.Size = New Size(87, 15)
         Label4.TabIndex = 13
         Label4.Text = "Product Name"
         ' 
@@ -228,18 +229,18 @@ Partial Class frmInventory
         ' 
         Label3.AutoSize = True
         Label3.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label3.Location = New Point(21, 11)
+        Label3.Location = New Point(18, 8)
         Label3.Name = "Label3"
-        Label3.Size = New Size(103, 20)
+        Label3.Size = New Size(82, 15)
         Label3.TabIndex = 12
         Label3.Text = "Product Code"
         ' 
         ' Label1
         ' 
         Label1.BackColor = Color.DimGray
-        Label1.Location = New Point(6, 46)
+        Label1.Location = New Point(5, 34)
         Label1.Name = "Label1"
-        Label1.Size = New Size(846, 2)
+        Label1.Size = New Size(740, 2)
         Label1.TabIndex = 12
         Label1.Text = "Label1"
         ' 
@@ -247,9 +248,9 @@ Partial Class frmInventory
         ' 
         Label2.AutoSize = True
         Label2.ForeColor = Color.DimGray
-        Label2.Location = New Point(6, 9)
+        Label2.Location = New Point(5, 7)
         Label2.Name = "Label2"
-        Label2.Size = New Size(70, 20)
+        Label2.Size = New Size(57, 15)
         Label2.TabIndex = 20
         Label2.Text = "Inventory"
         ' 
@@ -258,29 +259,31 @@ Partial Class frmInventory
         Button1.BackColor = SystemColors.Highlight
         Button1.FlatStyle = FlatStyle.Flat
         Button1.ForeColor = Color.Black
-        Button1.Location = New Point(517, 9)
+        Button1.Location = New Point(452, 7)
+        Button1.Margin = New Padding(3, 2, 3, 2)
         Button1.Name = "Button1"
-        Button1.Size = New Size(127, 33)
+        Button1.Size = New Size(111, 25)
         Button1.TabIndex = 21
         Button1.Text = "🖨️ Print Report"
         Button1.UseVisualStyleBackColor = False
         ' 
-        ' Inventory
+        ' frmInventory
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(864, 522)
+        ClientSize = New Size(756, 392)
         Controls.Add(Button1)
         Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(Panel1)
         Controls.Add(btnUpdate)
         Controls.Add(BtnExportcsv)
-        Controls.Add(btnAdd)
+        Controls.Add(btnAddProduct)
         Controls.Add(dgvProducts)
         Controls.Add(txtSearch)
         Controls.Add(btnDelete)
-        Name = "Inventory"
+        Margin = New Padding(3, 2, 3, 2)
+        Name = "frmInventory"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Inventory"
         WindowState = FormWindowState.Maximized
@@ -297,7 +300,7 @@ Partial Class frmInventory
     Friend WithEvents txtCategory As TextBox
     Friend WithEvents txtPrice As TextBox
     Friend WithEvents txtStock As TextBox
-    Friend WithEvents btnAdd As Button
+    Friend WithEvents btnAddProduct As Button
     Friend WithEvents btnDelete As Button
     Friend WithEvents btnUpdate As Button
     Friend WithEvents BtnExportcsv As Button
