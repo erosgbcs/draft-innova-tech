@@ -41,7 +41,7 @@ Partial Class pos
         ' TextBox1
         ' 
         TextBox1.BorderStyle = BorderStyle.FixedSingle
-        TextBox1.Location = New Point(153, 62)
+        TextBox1.Location = New Point(277, 52)
         TextBox1.Margin = New Padding(4, 3, 4, 3)
         TextBox1.Name = "TextBox1"
         TextBox1.PlaceholderText = "Search products by one code or name..."
@@ -50,21 +50,20 @@ Partial Class pos
         ' 
         ' flpProduct1
         ' 
-        flpProduct1.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         flpProduct1.BackColor = Color.White
-        flpProduct1.Location = New Point(153, 91)
+        flpProduct1.Location = New Point(153, 113)
         flpProduct1.Margin = New Padding(4, 3, 4, 3)
         flpProduct1.Name = "flpProduct1"
-        flpProduct1.Size = New Size(331, 400)
+        flpProduct1.Size = New Size(465, 378)
         flpProduct1.TabIndex = 7
         ' 
         ' flpCart
         ' 
         flpCart.BackColor = Color.White
-        flpCart.Location = New Point(508, 122)
+        flpCart.Location = New Point(641, 113)
         flpCart.Margin = New Padding(4, 3, 4, 3)
         flpCart.Name = "flpCart"
-        flpCart.Size = New Size(275, 271)
+        flpCart.Size = New Size(265, 378)
         flpCart.TabIndex = 8
         ' 
         ' lblAvailableProducts
@@ -72,7 +71,7 @@ Partial Class pos
         lblAvailableProducts.AutoSize = True
         lblAvailableProducts.Font = New Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblAvailableProducts.ForeColor = Color.Navy
-        lblAvailableProducts.Location = New Point(526, 22)
+        lblAvailableProducts.Location = New Point(668, 12)
         lblAvailableProducts.Margin = New Padding(4, 0, 4, 0)
         lblAvailableProducts.Name = "lblAvailableProducts"
         lblAvailableProducts.Size = New Size(257, 37)
@@ -160,7 +159,7 @@ Partial Class pos
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(814, 514)
+        ClientSize = New Size(938, 514)
         Controls.Add(Panel7)
         Controls.Add(lblAvailableProducts)
         Controls.Add(flpCart)
