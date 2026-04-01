@@ -22,6 +22,7 @@ Partial Class frmInventory
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInventory))
         txtSearch = New TextBox()
         dgvProducts = New DataGridView()
         txtProductCode = New TextBox()
@@ -42,29 +43,38 @@ Partial Class frmInventory
         Label1 = New Label()
         Label2 = New Label()
         Button1 = New Button()
+        Panel7 = New Panel()
+        btnSALESHISTORY = New Button()
+        btnOpenInventory = New Button()
+        btnOpenPOS = New Button()
+        btnUploadPictures = New Button()
+        PictureBox3 = New PictureBox()
+        Button18 = New Button()
         CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         Panel1.SuspendLayout()
+        Panel7.SuspendLayout()
+        CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' txtSearch
         ' 
         txtSearch.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtSearch.Location = New Point(10, 175)
+        txtSearch.Location = New Point(149, 196)
         txtSearch.Margin = New Padding(4, 3, 4, 3)
         txtSearch.Name = "txtSearch"
         txtSearch.PlaceholderText = "Product Inventory by code or name.."
-        txtSearch.Size = New Size(731, 27)
+        txtSearch.Size = New Size(757, 27)
         txtSearch.TabIndex = 5
         ' 
         ' dgvProducts
         ' 
         dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvProducts.Location = New Point(11, 214)
+        dgvProducts.Location = New Point(150, 235)
         dgvProducts.Margin = New Padding(4, 3, 4, 3)
         dgvProducts.Name = "dgvProducts"
         dgvProducts.RowHeadersWidth = 51
-        dgvProducts.Size = New Size(730, 172)
+        dgvProducts.Size = New Size(756, 255)
         dgvProducts.TabIndex = 6
         ' 
         ' txtProductCode
@@ -119,7 +129,7 @@ Partial Class frmInventory
         btnAddProduct.BackColor = Color.FromArgb(CByte(45), CByte(84), CByte(150))
         btnAddProduct.FlatStyle = FlatStyle.Flat
         btnAddProduct.ForeColor = Color.White
-        btnAddProduct.Location = New Point(713, 7)
+        btnAddProduct.Location = New Point(894, 15)
         btnAddProduct.Margin = New Padding(4, 3, 4, 3)
         btnAddProduct.Name = "btnAddProduct"
         btnAddProduct.Size = New Size(32, 25)
@@ -132,7 +142,7 @@ Partial Class frmInventory
         btnDelete.BackColor = Color.Red
         btnDelete.FlatStyle = FlatStyle.Flat
         btnDelete.ForeColor = Color.White
-        btnDelete.Location = New Point(670, 7)
+        btnDelete.Location = New Point(851, 15)
         btnDelete.Margin = New Padding(4, 3, 4, 3)
         btnDelete.Name = "btnDelete"
         btnDelete.Size = New Size(36, 25)
@@ -145,7 +155,7 @@ Partial Class frmInventory
         btnUpdate.BackColor = Color.Green
         btnUpdate.FlatStyle = FlatStyle.Flat
         btnUpdate.ForeColor = Color.White
-        btnUpdate.Location = New Point(319, 4)
+        btnUpdate.Location = New Point(500, 12)
         btnUpdate.Margin = New Padding(4, 3, 4, 3)
         btnUpdate.Name = "btnUpdate"
         btnUpdate.Size = New Size(127, 28)
@@ -158,7 +168,7 @@ Partial Class frmInventory
         BtnExportcsv.BackColor = Color.Lime
         BtnExportcsv.FlatStyle = FlatStyle.Flat
         BtnExportcsv.Font = New Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        BtnExportcsv.Location = New Point(570, 7)
+        BtnExportcsv.Location = New Point(751, 15)
         BtnExportcsv.Margin = New Padding(4, 3, 4, 3)
         BtnExportcsv.Name = "BtnExportcsv"
         BtnExportcsv.Size = New Size(94, 25)
@@ -179,7 +189,7 @@ Partial Class frmInventory
         Panel1.Controls.Add(txtProductName)
         Panel1.Controls.Add(txtPrice)
         Panel1.Controls.Add(txtStock)
-        Panel1.Location = New Point(5, 46)
+        Panel1.Location = New Point(150, 65)
         Panel1.Margin = New Padding(3, 2, 3, 2)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(756, 111)
@@ -238,7 +248,7 @@ Partial Class frmInventory
         ' Label1
         ' 
         Label1.BackColor = Color.DimGray
-        Label1.Location = New Point(5, 34)
+        Label1.Location = New Point(149, 52)
         Label1.Name = "Label1"
         Label1.Size = New Size(740, 2)
         Label1.TabIndex = 12
@@ -248,7 +258,7 @@ Partial Class frmInventory
         ' 
         Label2.AutoSize = True
         Label2.ForeColor = Color.DimGray
-        Label2.Location = New Point(5, 7)
+        Label2.Location = New Point(149, 25)
         Label2.Name = "Label2"
         Label2.Size = New Size(57, 15)
         Label2.TabIndex = 20
@@ -259,7 +269,7 @@ Partial Class frmInventory
         Button1.BackColor = SystemColors.Highlight
         Button1.FlatStyle = FlatStyle.Flat
         Button1.ForeColor = Color.Black
-        Button1.Location = New Point(452, 7)
+        Button1.Location = New Point(633, 15)
         Button1.Margin = New Padding(3, 2, 3, 2)
         Button1.Name = "Button1"
         Button1.Size = New Size(111, 25)
@@ -267,11 +277,88 @@ Partial Class frmInventory
         Button1.Text = "🖨️ Print Report"
         Button1.UseVisualStyleBackColor = False
         ' 
+        ' Panel7
+        ' 
+        Panel7.BackColor = Color.CornflowerBlue
+        Panel7.Controls.Add(btnSALESHISTORY)
+        Panel7.Controls.Add(btnOpenInventory)
+        Panel7.Controls.Add(btnOpenPOS)
+        Panel7.Controls.Add(btnUploadPictures)
+        Panel7.Controls.Add(PictureBox3)
+        Panel7.Controls.Add(Button18)
+        Panel7.Dock = DockStyle.Left
+        Panel7.Location = New Point(0, 0)
+        Panel7.Name = "Panel7"
+        Panel7.Size = New Size(126, 516)
+        Panel7.TabIndex = 22
+        ' 
+        ' btnSALESHISTORY
+        ' 
+        btnSALESHISTORY.Location = New Point(29, 295)
+        btnSALESHISTORY.Margin = New Padding(2)
+        btnSALESHISTORY.Name = "btnSALESHISTORY"
+        btnSALESHISTORY.Size = New Size(75, 25)
+        btnSALESHISTORY.TabIndex = 12
+        btnSALESHISTORY.Text = "Sales History"
+        btnSALESHISTORY.UseVisualStyleBackColor = True
+        ' 
+        ' btnOpenInventory
+        ' 
+        btnOpenInventory.Location = New Point(29, 256)
+        btnOpenInventory.Margin = New Padding(2)
+        btnOpenInventory.Name = "btnOpenInventory"
+        btnOpenInventory.Size = New Size(75, 23)
+        btnOpenInventory.TabIndex = 11
+        btnOpenInventory.Text = "Inventory"
+        btnOpenInventory.UseVisualStyleBackColor = True
+        ' 
+        ' btnOpenPOS
+        ' 
+        btnOpenPOS.Location = New Point(29, 219)
+        btnOpenPOS.Margin = New Padding(2)
+        btnOpenPOS.Name = "btnOpenPOS"
+        btnOpenPOS.Size = New Size(75, 23)
+        btnOpenPOS.TabIndex = 10
+        btnOpenPOS.Text = "Products"
+        btnOpenPOS.UseVisualStyleBackColor = True
+        ' 
+        ' btnUploadPictures
+        ' 
+        btnUploadPictures.Font = New Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnUploadPictures.Location = New Point(10, 122)
+        btnUploadPictures.Margin = New Padding(3, 2, 3, 2)
+        btnUploadPictures.Name = "btnUploadPictures"
+        btnUploadPictures.Size = New Size(103, 23)
+        btnUploadPictures.TabIndex = 1
+        btnUploadPictures.Text = "Upload Pictures"
+        btnUploadPictures.UseVisualStyleBackColor = True
+        ' 
+        ' PictureBox3
+        ' 
+        PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), Image)
+        PictureBox3.Location = New Point(3, 12)
+        PictureBox3.Name = "PictureBox3"
+        PictureBox3.Size = New Size(113, 105)
+        PictureBox3.SizeMode = PictureBoxSizeMode.Zoom
+        PictureBox3.TabIndex = 9
+        PictureBox3.TabStop = False
+        ' 
+        ' Button18
+        ' 
+        Button18.BackColor = SystemColors.Info
+        Button18.Location = New Point(12, 965)
+        Button18.Name = "Button18"
+        Button18.Size = New Size(117, 30)
+        Button18.TabIndex = 8
+        Button18.Text = "Logout"
+        Button18.UseVisualStyleBackColor = False
+        ' 
         ' frmInventory
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(756, 392)
+        ClientSize = New Size(936, 516)
+        Controls.Add(Panel7)
         Controls.Add(Button1)
         Controls.Add(Label2)
         Controls.Add(Label1)
@@ -290,6 +377,8 @@ Partial Class frmInventory
         CType(dgvProducts, ComponentModel.ISupportInitialize).EndInit()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
+        Panel7.ResumeLayout(False)
+        CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -313,4 +402,11 @@ Partial Class frmInventory
     Friend WithEvents Label3 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Button1 As Button
+    Friend WithEvents Panel7 As Panel
+    Friend WithEvents btnSALESHISTORY As Button
+    Friend WithEvents btnOpenInventory As Button
+    Friend WithEvents btnOpenPOS As Button
+    Friend WithEvents btnUploadPictures As Button
+    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents Button18 As Button
 End Class

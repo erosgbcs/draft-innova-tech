@@ -24,14 +24,14 @@ Partial Class frmdashboard
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmdashboard))
-        Dim CustomizableEdges9 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges11 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges12 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges13 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges14 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges15 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         pnlHeader = New Panel()
         lblTime = New Label()
         Label24 = New Label()
@@ -293,11 +293,11 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel3.BorderColor = Color.DarkBlue
         Guna2CustomGradientPanel3.BorderRadius = 25
         Guna2CustomGradientPanel3.Controls.Add(Label25)
-        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges9
+        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges1
         Guna2CustomGradientPanel3.Location = New Point(158, 119)
         Guna2CustomGradientPanel3.Margin = New Padding(3, 2, 3, 2)
         Guna2CustomGradientPanel3.Name = "Guna2CustomGradientPanel3"
-        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges10
+        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         Guna2CustomGradientPanel3.Size = New Size(264, 132)
         Guna2CustomGradientPanel3.TabIndex = 22
         ' 
@@ -307,11 +307,11 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel4.BorderColor = Color.DarkBlue
         Guna2CustomGradientPanel4.BorderRadius = 25
         Guna2CustomGradientPanel4.Controls.Add(Label3)
-        Guna2CustomGradientPanel4.CustomizableEdges = CustomizableEdges11
+        Guna2CustomGradientPanel4.CustomizableEdges = CustomizableEdges3
         Guna2CustomGradientPanel4.Location = New Point(553, 119)
         Guna2CustomGradientPanel4.Margin = New Padding(3, 2, 3, 2)
         Guna2CustomGradientPanel4.Name = "Guna2CustomGradientPanel4"
-        Guna2CustomGradientPanel4.ShadowDecoration.CustomizableEdges = CustomizableEdges12
+        Guna2CustomGradientPanel4.ShadowDecoration.CustomizableEdges = CustomizableEdges4
         Guna2CustomGradientPanel4.Size = New Size(264, 132)
         Guna2CustomGradientPanel4.TabIndex = 23
         ' 
@@ -344,11 +344,11 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel2.BorderRadius = 40
         Guna2CustomGradientPanel2.Controls.Add(Label8)
         Guna2CustomGradientPanel2.Controls.Add(Label9)
-        Guna2CustomGradientPanel2.CustomizableEdges = CustomizableEdges13
+        Guna2CustomGradientPanel2.CustomizableEdges = CustomizableEdges5
         Guna2CustomGradientPanel2.Location = New Point(571, 121)
         Guna2CustomGradientPanel2.Margin = New Padding(3, 2, 3, 2)
         Guna2CustomGradientPanel2.Name = "Guna2CustomGradientPanel2"
-        Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges14
+        Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges6
         Guna2CustomGradientPanel2.Size = New Size(478, 172)
         Guna2CustomGradientPanel2.TabIndex = 22
         ' 
@@ -381,11 +381,11 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel1.BorderRadius = 40
         Guna2CustomGradientPanel1.Controls.Add(Label15)
         Guna2CustomGradientPanel1.Controls.Add(Label1)
-        Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges15
+        Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges7
         Guna2CustomGradientPanel1.Location = New Point(59, 121)
         Guna2CustomGradientPanel1.Margin = New Padding(3, 2, 3, 2)
         Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
-        Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges16
+        Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges8
         Guna2CustomGradientPanel1.Size = New Size(478, 172)
         Guna2CustomGradientPanel1.TabIndex = 21
         ' 

@@ -9,7 +9,7 @@
     End Sub
 
     ' Add Product Button logic
-    Private Sub btnAddProduct_Click(sender As Object, e As EventArgs) Handles btnAddProduct.Click
+    Private Sub btnAddProduct_Click(sender As Object, e As EventArgs) Handles btnAddProduct.Click, Button3.Click
         Try
             ' Validation
             If String.IsNullOrWhiteSpace(txtProductName.Text) OrElse String.IsNullOrWhiteSpace(txtPrice.Text) Then
@@ -28,8 +28,8 @@
 
             ' Save to SQLite via your Helper
             If db.SaveProduct(prod) Then
-                RefreshData()
-                ClearInputs()
+                RefreshData
+                ClearInputs
                 MessageBox.Show("Product saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
