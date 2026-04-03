@@ -40,10 +40,10 @@ Partial Class frmdashboard
         Dim CustomizableEdges14 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges15 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges19 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges20 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges17 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges18 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges19 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges20 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         pnlHeader = New Panel()
         lblTime = New Label()
         Label24 = New Label()
@@ -65,29 +65,29 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel5 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         Guna2CustomGradientPanel6 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         Inventory = New TabControl()
-        DateTimePicker1 = New DateTimePicker()
-        ComboBox1 = New ComboBox()
-        Label13 = New Label()
-        lblWeeklyReport = New Label()
-        lblCategory = New Label()
-        btnPreviousWeek = New Button()
-        btnRefresh = New Button()
-        lblWeekStarting = New Label()
-        btnNextWeek = New Button()
-        DataGridView2 = New DataGridView()
-        colAvgTransaction = New DataGridViewTextBoxColumn()
-        colRevenue = New DataGridViewTextBoxColumn()
-        colItemsSold = New DataGridViewTextBoxColumn()
-        colTransactions = New DataGridViewTextBoxColumn()
-        colDate = New DataGridViewTextBoxColumn()
-        colDay = New DataGridViewTextBoxColumn()
-        Guna2CustomGradientPanel1 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
-        Label1 = New Label()
-        Label15 = New Label()
-        Guna2CustomGradientPanel2 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
-        Label9 = New Label()
-        Label8 = New Label()
         tabWeeklyReports = New TabPage()
+        Guna2CustomGradientPanel2 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
+        Label8 = New Label()
+        Label9 = New Label()
+        Guna2CustomGradientPanel1 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
+        Label15 = New Label()
+        Label1 = New Label()
+        DataGridView2 = New DataGridView()
+        colDay = New DataGridViewTextBoxColumn()
+        colDate = New DataGridViewTextBoxColumn()
+        colTransactions = New DataGridViewTextBoxColumn()
+        colItemsSold = New DataGridViewTextBoxColumn()
+        colRevenue = New DataGridViewTextBoxColumn()
+        colAvgTransaction = New DataGridViewTextBoxColumn()
+        btnNextWeek = New Button()
+        lblWeekStarting = New Label()
+        btnRefresh = New Button()
+        btnPreviousWeek = New Button()
+        lblCategory = New Label()
+        lblWeeklyReport = New Label()
+        Label13 = New Label()
+        ComboBox1 = New ComboBox()
+        DateTimePicker1 = New DateTimePicker()
         pnlHeader.SuspendLayout()
         Guna2CustomGradientPanel3.SuspendLayout()
         Guna2CustomGradientPanel4.SuspendLayout()
@@ -96,10 +96,10 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel5.SuspendLayout()
         Guna2CustomGradientPanel6.SuspendLayout()
         Inventory.SuspendLayout()
-        CType(DataGridView2, ComponentModel.ISupportInitialize).BeginInit()
-        Guna2CustomGradientPanel1.SuspendLayout()
-        Guna2CustomGradientPanel2.SuspendLayout()
         tabWeeklyReports.SuspendLayout()
+        Guna2CustomGradientPanel2.SuspendLayout()
+        Guna2CustomGradientPanel1.SuspendLayout()
+        CType(DataGridView2, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' pnlHeader
@@ -111,7 +111,7 @@ Partial Class frmdashboard
         pnlHeader.Controls.Add(lblTitle)
         pnlHeader.Location = New Point(145, 3)
         pnlHeader.Name = "pnlHeader"
-        pnlHeader.Size = New Size(1152, 105)
+        pnlHeader.Size = New Size(1136, 105)
         pnlHeader.TabIndex = 0
         ' 
         ' lblTime
@@ -369,225 +369,6 @@ Partial Class frmdashboard
         Inventory.TabIndex = 2
         Inventory.Tag = "."
         ' 
-        ' DateTimePicker1
-        ' 
-        DateTimePicker1.Location = New Point(636, 16)
-        DateTimePicker1.Name = "DateTimePicker1"
-        DateTimePicker1.Size = New Size(220, 25)
-        DateTimePicker1.TabIndex = 0
-        ' 
-        ' ComboBox1
-        ' 
-        ComboBox1.FormattingEnabled = True
-        ComboBox1.Location = New Point(1003, 16)
-        ComboBox1.Name = "ComboBox1"
-        ComboBox1.Size = New Size(121, 25)
-        ComboBox1.TabIndex = 1
-        ComboBox1.Text = "All Categories"
-        ' 
-        ' Label13
-        ' 
-        Label13.AutoSize = True
-        Label13.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label13.Location = New Point(224, 64)
-        Label13.Name = "Label13"
-        Label13.Size = New Size(119, 17)
-        Label13.TabIndex = 2
-        Label13.Text = "UpdateWeekLabel"
-        ' 
-        ' lblWeeklyReport
-        ' 
-        lblWeeklyReport.AutoSize = True
-        lblWeeklyReport.BackColor = Color.Transparent
-        lblWeeklyReport.Font = New Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblWeeklyReport.ForeColor = Color.Navy
-        lblWeeklyReport.Location = New Point(24, 6)
-        lblWeeklyReport.Name = "lblWeeklyReport"
-        lblWeeklyReport.Size = New Size(245, 32)
-        lblWeeklyReport.TabIndex = 9
-        lblWeeklyReport.Text = "Weekly Sales Report"
-        ' 
-        ' lblCategory
-        ' 
-        lblCategory.AutoSize = True
-        lblCategory.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblCategory.ForeColor = Color.DarkBlue
-        lblCategory.Location = New Point(879, 13)
-        lblCategory.Name = "lblCategory"
-        lblCategory.Size = New Size(99, 25)
-        lblCategory.TabIndex = 10
-        lblCategory.Text = "Category:"
-        ' 
-        ' btnPreviousWeek
-        ' 
-        btnPreviousWeek.BackColor = Color.White
-        btnPreviousWeek.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        btnPreviousWeek.Location = New Point(24, 57)
-        btnPreviousWeek.Name = "btnPreviousWeek"
-        btnPreviousWeek.Size = New Size(158, 29)
-        btnPreviousWeek.TabIndex = 14
-        btnPreviousWeek.Text = "<  Previous Week"
-        btnPreviousWeek.UseVisualStyleBackColor = False
-        ' 
-        ' btnRefresh
-        ' 
-        btnRefresh.BackColor = Color.Navy
-        btnRefresh.ForeColor = Color.White
-        btnRefresh.Location = New Point(1003, 50)
-        btnRefresh.Name = "btnRefresh"
-        btnRefresh.Size = New Size(117, 39)
-        btnRefresh.TabIndex = 15
-        btnRefresh.Text = "🔄  Refresh"
-        btnRefresh.UseVisualStyleBackColor = False
-        ' 
-        ' lblWeekStarting
-        ' 
-        lblWeekStarting.AutoSize = True
-        lblWeekStarting.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblWeekStarting.ForeColor = Color.Navy
-        lblWeekStarting.Location = New Point(475, 16)
-        lblWeekStarting.Name = "lblWeekStarting"
-        lblWeekStarting.Size = New Size(144, 25)
-        lblWeekStarting.TabIndex = 16
-        lblWeekStarting.Text = "Week Starting:"
-        ' 
-        ' btnNextWeek
-        ' 
-        btnNextWeek.BackColor = Color.White
-        btnNextWeek.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        btnNextWeek.Location = New Point(390, 57)
-        btnNextWeek.Name = "btnNextWeek"
-        btnNextWeek.Size = New Size(117, 29)
-        btnNextWeek.TabIndex = 17
-        btnNextWeek.Text = "Next Week >"
-        btnNextWeek.UseVisualStyleBackColor = False
-        ' 
-        ' DataGridView2
-        ' 
-        DataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView2.Columns.AddRange(New DataGridViewColumn() {colDay, colDate, colTransactions, colItemsSold, colRevenue, colAvgTransaction})
-        DataGridView2.Location = New Point(24, 332)
-        DataGridView2.Name = "DataGridView2"
-        DataGridView2.RowHeadersWidth = 51
-        DataGridView2.Size = New Size(1100, 366)
-        DataGridView2.TabIndex = 20
-        ' 
-        ' colAvgTransaction
-        ' 
-        colAvgTransaction.HeaderText = "Avg. Transaction"
-        colAvgTransaction.MinimumWidth = 6
-        colAvgTransaction.Name = "colAvgTransaction"
-        colAvgTransaction.Width = 125
-        ' 
-        ' colRevenue
-        ' 
-        colRevenue.HeaderText = "Revenue"
-        colRevenue.MinimumWidth = 6
-        colRevenue.Name = "colRevenue"
-        colRevenue.Width = 125
-        ' 
-        ' colItemsSold
-        ' 
-        colItemsSold.HeaderText = "Items Sold"
-        colItemsSold.MinimumWidth = 6
-        colItemsSold.Name = "colItemsSold"
-        colItemsSold.Width = 125
-        ' 
-        ' colTransactions
-        ' 
-        colTransactions.HeaderText = "Transactions"
-        colTransactions.MinimumWidth = 6
-        colTransactions.Name = "colTransactions"
-        colTransactions.Width = 125
-        ' 
-        ' colDate
-        ' 
-        colDate.HeaderText = "Date"
-        colDate.MinimumWidth = 6
-        colDate.Name = "colDate"
-        colDate.Width = 125
-        ' 
-        ' colDay
-        ' 
-        colDay.HeaderText = "Day"
-        colDay.MinimumWidth = 6
-        colDay.Name = "colDay"
-        colDay.Width = 125
-        ' 
-        ' Guna2CustomGradientPanel1
-        ' 
-        Guna2CustomGradientPanel1.BackColor = Color.Transparent
-        Guna2CustomGradientPanel1.BorderColor = Color.DarkBlue
-        Guna2CustomGradientPanel1.BorderRadius = 40
-        Guna2CustomGradientPanel1.Controls.Add(Label15)
-        Guna2CustomGradientPanel1.Controls.Add(Label1)
-        Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges19
-        Guna2CustomGradientPanel1.Location = New Point(59, 121)
-        Guna2CustomGradientPanel1.Margin = New Padding(3, 2, 3, 2)
-        Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
-        Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges20
-        Guna2CustomGradientPanel1.Size = New Size(478, 172)
-        Guna2CustomGradientPanel1.TabIndex = 21
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.ForeColor = Color.Navy
-        Label1.Location = New Point(32, 14)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(159, 20)
-        Label1.TabIndex = 0
-        Label1.Text = "₱  Revenue Summary"
-        ' 
-        ' Label15
-        ' 
-        Label15.AutoSize = True
-        Label15.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label15.ForeColor = Color.DodgerBlue
-        Label15.Location = New Point(32, 52)
-        Label15.Name = "Label15"
-        Label15.Size = New Size(20, 21)
-        Label15.TabIndex = 1
-        Label15.Text = "₱"
-        ' 
-        ' Guna2CustomGradientPanel2
-        ' 
-        Guna2CustomGradientPanel2.BackColor = Color.Transparent
-        Guna2CustomGradientPanel2.BorderColor = Color.DarkBlue
-        Guna2CustomGradientPanel2.BorderRadius = 40
-        Guna2CustomGradientPanel2.Controls.Add(Label8)
-        Guna2CustomGradientPanel2.Controls.Add(Label9)
-        Guna2CustomGradientPanel2.CustomizableEdges = CustomizableEdges17
-        Guna2CustomGradientPanel2.Location = New Point(571, 121)
-        Guna2CustomGradientPanel2.Margin = New Padding(3, 2, 3, 2)
-        Guna2CustomGradientPanel2.Name = "Guna2CustomGradientPanel2"
-        Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges18
-        Guna2CustomGradientPanel2.Size = New Size(478, 172)
-        Guna2CustomGradientPanel2.TabIndex = 22
-        ' 
-        ' Label9
-        ' 
-        Label9.AutoSize = True
-        Label9.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label9.ForeColor = Color.Navy
-        Label9.Location = New Point(32, 14)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(159, 20)
-        Label9.TabIndex = 0
-        Label9.Text = "₱  Revenue Summary"
-        ' 
-        ' Label8
-        ' 
-        Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label8.ForeColor = Color.DodgerBlue
-        Label8.Location = New Point(32, 52)
-        Label8.Name = "Label8"
-        Label8.Size = New Size(20, 21)
-        Label8.TabIndex = 1
-        Label8.Text = "₱"
-        ' 
         ' tabWeeklyReports
         ' 
         tabWeeklyReports.BackColor = Color.White
@@ -610,6 +391,225 @@ Partial Class frmdashboard
         tabWeeklyReports.TabIndex = 2
         tabWeeklyReports.Text = "Weekly Reports"
         ' 
+        ' Guna2CustomGradientPanel2
+        ' 
+        Guna2CustomGradientPanel2.BackColor = Color.Transparent
+        Guna2CustomGradientPanel2.BorderColor = Color.DarkBlue
+        Guna2CustomGradientPanel2.BorderRadius = 40
+        Guna2CustomGradientPanel2.Controls.Add(Label8)
+        Guna2CustomGradientPanel2.Controls.Add(Label9)
+        Guna2CustomGradientPanel2.CustomizableEdges = CustomizableEdges17
+        Guna2CustomGradientPanel2.Location = New Point(571, 121)
+        Guna2CustomGradientPanel2.Margin = New Padding(3, 2, 3, 2)
+        Guna2CustomGradientPanel2.Name = "Guna2CustomGradientPanel2"
+        Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges18
+        Guna2CustomGradientPanel2.Size = New Size(478, 172)
+        Guna2CustomGradientPanel2.TabIndex = 22
+        ' 
+        ' Label8
+        ' 
+        Label8.AutoSize = True
+        Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label8.ForeColor = Color.DodgerBlue
+        Label8.Location = New Point(32, 52)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(20, 21)
+        Label8.TabIndex = 1
+        Label8.Text = "₱"
+        ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.ForeColor = Color.Navy
+        Label9.Location = New Point(32, 14)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(159, 20)
+        Label9.TabIndex = 0
+        Label9.Text = "₱  Revenue Summary"
+        ' 
+        ' Guna2CustomGradientPanel1
+        ' 
+        Guna2CustomGradientPanel1.BackColor = Color.Transparent
+        Guna2CustomGradientPanel1.BorderColor = Color.DarkBlue
+        Guna2CustomGradientPanel1.BorderRadius = 40
+        Guna2CustomGradientPanel1.Controls.Add(Label15)
+        Guna2CustomGradientPanel1.Controls.Add(Label1)
+        Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges19
+        Guna2CustomGradientPanel1.Location = New Point(59, 121)
+        Guna2CustomGradientPanel1.Margin = New Padding(3, 2, 3, 2)
+        Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
+        Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges20
+        Guna2CustomGradientPanel1.Size = New Size(478, 172)
+        Guna2CustomGradientPanel1.TabIndex = 21
+        ' 
+        ' Label15
+        ' 
+        Label15.AutoSize = True
+        Label15.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label15.ForeColor = Color.DodgerBlue
+        Label15.Location = New Point(32, 52)
+        Label15.Name = "Label15"
+        Label15.Size = New Size(20, 21)
+        Label15.TabIndex = 1
+        Label15.Text = "₱"
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.ForeColor = Color.Navy
+        Label1.Location = New Point(32, 14)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(159, 20)
+        Label1.TabIndex = 0
+        Label1.Text = "₱  Revenue Summary"
+        ' 
+        ' DataGridView2
+        ' 
+        DataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridView2.Columns.AddRange(New DataGridViewColumn() {colDay, colDate, colTransactions, colItemsSold, colRevenue, colAvgTransaction})
+        DataGridView2.Location = New Point(24, 332)
+        DataGridView2.Name = "DataGridView2"
+        DataGridView2.RowHeadersWidth = 51
+        DataGridView2.Size = New Size(1100, 366)
+        DataGridView2.TabIndex = 20
+        ' 
+        ' colDay
+        ' 
+        colDay.HeaderText = "Day"
+        colDay.MinimumWidth = 6
+        colDay.Name = "colDay"
+        colDay.Width = 125
+        ' 
+        ' colDate
+        ' 
+        colDate.HeaderText = "Date"
+        colDate.MinimumWidth = 6
+        colDate.Name = "colDate"
+        colDate.Width = 125
+        ' 
+        ' colTransactions
+        ' 
+        colTransactions.HeaderText = "Transactions"
+        colTransactions.MinimumWidth = 6
+        colTransactions.Name = "colTransactions"
+        colTransactions.Width = 125
+        ' 
+        ' colItemsSold
+        ' 
+        colItemsSold.HeaderText = "Items Sold"
+        colItemsSold.MinimumWidth = 6
+        colItemsSold.Name = "colItemsSold"
+        colItemsSold.Width = 125
+        ' 
+        ' colRevenue
+        ' 
+        colRevenue.HeaderText = "Revenue"
+        colRevenue.MinimumWidth = 6
+        colRevenue.Name = "colRevenue"
+        colRevenue.Width = 125
+        ' 
+        ' colAvgTransaction
+        ' 
+        colAvgTransaction.HeaderText = "Avg. Transaction"
+        colAvgTransaction.MinimumWidth = 6
+        colAvgTransaction.Name = "colAvgTransaction"
+        colAvgTransaction.Width = 125
+        ' 
+        ' btnNextWeek
+        ' 
+        btnNextWeek.BackColor = Color.White
+        btnNextWeek.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnNextWeek.Location = New Point(390, 57)
+        btnNextWeek.Name = "btnNextWeek"
+        btnNextWeek.Size = New Size(117, 29)
+        btnNextWeek.TabIndex = 17
+        btnNextWeek.Text = "Next Week >"
+        btnNextWeek.UseVisualStyleBackColor = False
+        ' 
+        ' lblWeekStarting
+        ' 
+        lblWeekStarting.AutoSize = True
+        lblWeekStarting.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblWeekStarting.ForeColor = Color.Navy
+        lblWeekStarting.Location = New Point(475, 16)
+        lblWeekStarting.Name = "lblWeekStarting"
+        lblWeekStarting.Size = New Size(144, 25)
+        lblWeekStarting.TabIndex = 16
+        lblWeekStarting.Text = "Week Starting:"
+        ' 
+        ' btnRefresh
+        ' 
+        btnRefresh.BackColor = Color.Navy
+        btnRefresh.ForeColor = Color.White
+        btnRefresh.Location = New Point(1003, 50)
+        btnRefresh.Name = "btnRefresh"
+        btnRefresh.Size = New Size(117, 39)
+        btnRefresh.TabIndex = 15
+        btnRefresh.Text = "🔄  Refresh"
+        btnRefresh.UseVisualStyleBackColor = False
+        ' 
+        ' btnPreviousWeek
+        ' 
+        btnPreviousWeek.BackColor = Color.White
+        btnPreviousWeek.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnPreviousWeek.Location = New Point(24, 57)
+        btnPreviousWeek.Name = "btnPreviousWeek"
+        btnPreviousWeek.Size = New Size(158, 29)
+        btnPreviousWeek.TabIndex = 14
+        btnPreviousWeek.Text = "<  Previous Week"
+        btnPreviousWeek.UseVisualStyleBackColor = False
+        ' 
+        ' lblCategory
+        ' 
+        lblCategory.AutoSize = True
+        lblCategory.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblCategory.ForeColor = Color.DarkBlue
+        lblCategory.Location = New Point(879, 13)
+        lblCategory.Name = "lblCategory"
+        lblCategory.Size = New Size(99, 25)
+        lblCategory.TabIndex = 10
+        lblCategory.Text = "Category:"
+        ' 
+        ' lblWeeklyReport
+        ' 
+        lblWeeklyReport.AutoSize = True
+        lblWeeklyReport.BackColor = Color.Transparent
+        lblWeeklyReport.Font = New Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblWeeklyReport.ForeColor = Color.Navy
+        lblWeeklyReport.Location = New Point(24, 6)
+        lblWeeklyReport.Name = "lblWeeklyReport"
+        lblWeeklyReport.Size = New Size(245, 32)
+        lblWeeklyReport.TabIndex = 9
+        lblWeeklyReport.Text = "Weekly Sales Report"
+        ' 
+        ' Label13
+        ' 
+        Label13.AutoSize = True
+        Label13.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label13.Location = New Point(224, 64)
+        Label13.Name = "Label13"
+        Label13.Size = New Size(119, 17)
+        Label13.TabIndex = 2
+        Label13.Text = "UpdateWeekLabel"
+        ' 
+        ' ComboBox1
+        ' 
+        ComboBox1.FormattingEnabled = True
+        ComboBox1.Location = New Point(1003, 16)
+        ComboBox1.Name = "ComboBox1"
+        ComboBox1.Size = New Size(121, 25)
+        ComboBox1.TabIndex = 1
+        ComboBox1.Text = "All Categories"
+        ' 
+        ' DateTimePicker1
+        ' 
+        DateTimePicker1.Location = New Point(636, 16)
+        DateTimePicker1.Name = "DateTimePicker1"
+        DateTimePicker1.Size = New Size(220, 25)
+        DateTimePicker1.TabIndex = 0
+        ' 
         ' frmdashboard
         ' 
         AutoScaleDimensions = New SizeF(96F, 96F)
@@ -628,6 +628,7 @@ Partial Class frmdashboard
         Name = "frmdashboard"
         StartPosition = FormStartPosition.CenterScreen
         Text = "S"
+        WindowState = FormWindowState.Maximized
         pnlHeader.ResumeLayout(False)
         pnlHeader.PerformLayout()
         Guna2CustomGradientPanel3.ResumeLayout(False)
@@ -641,13 +642,13 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel6.ResumeLayout(False)
         Guna2CustomGradientPanel6.PerformLayout()
         Inventory.ResumeLayout(False)
-        CType(DataGridView2, ComponentModel.ISupportInitialize).EndInit()
-        Guna2CustomGradientPanel1.ResumeLayout(False)
-        Guna2CustomGradientPanel1.PerformLayout()
-        Guna2CustomGradientPanel2.ResumeLayout(False)
-        Guna2CustomGradientPanel2.PerformLayout()
         tabWeeklyReports.ResumeLayout(False)
         tabWeeklyReports.PerformLayout()
+        Guna2CustomGradientPanel2.ResumeLayout(False)
+        Guna2CustomGradientPanel2.PerformLayout()
+        Guna2CustomGradientPanel1.ResumeLayout(False)
+        Guna2CustomGradientPanel1.PerformLayout()
+        CType(DataGridView2, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
