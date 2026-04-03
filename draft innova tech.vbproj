@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows8.0</TargetFramework>
     <RootNamespace>draft_innova_tech</RootNamespace>
     <StartupObject>draft_innova_tech.My.MyApplication</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>

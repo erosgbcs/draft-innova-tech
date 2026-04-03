@@ -334,7 +334,7 @@ Public Class pos
         Me.Show()
     End Sub
 
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
         frmInventory.Show()
     End Sub
 
