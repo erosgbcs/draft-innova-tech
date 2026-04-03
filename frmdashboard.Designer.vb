@@ -23,7 +23,6 @@ Partial Class frmdashboard
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmdashboard))
         Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
@@ -32,6 +31,15 @@ Partial Class frmdashboard
         Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges15 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges9 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges11 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges12 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges13 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges14 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmdashboard))
         pnlHeader = New Panel()
         lblTime = New Label()
         Label24 = New Label()
@@ -42,13 +50,6 @@ Partial Class frmdashboard
         pnlTodaysSales = New Panel()
         Label4 = New Label()
         Label3 = New Label()
-        Panel7 = New Panel()
-        btnSALESHISTORY = New Button()
-        btnOpenInventory = New Button()
-        btnOpenPOS = New Button()
-        btnUploadPictures = New Button()
-        PictureBox3 = New PictureBox()
-        Button18 = New Button()
         Label25 = New Label()
         Timer1 = New Timer(components)
         Guna2CustomGradientPanel3 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
@@ -77,11 +78,15 @@ Partial Class frmdashboard
         ComboBox1 = New ComboBox()
         DateTimePicker1 = New DateTimePicker()
         Inventory = New TabControl()
+        Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
+        btnOpenInventory = New Guna.UI2.WinForms.Guna2Button()
+        btnOpenPOS = New Guna.UI2.WinForms.Guna2Button()
+        btnSALESHISTORY = New Guna.UI2.WinForms.Guna2Button()
+        btnUploadPictures = New Button()
+        PictureBox3 = New PictureBox()
         pnlHeader.SuspendLayout()
         pnlWeeklyRevenue.SuspendLayout()
         pnlTodaysSales.SuspendLayout()
-        Panel7.SuspendLayout()
-        CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         Guna2CustomGradientPanel3.SuspendLayout()
         Guna2CustomGradientPanel4.SuspendLayout()
         tabWeeklyReports.SuspendLayout()
@@ -89,6 +94,8 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel1.SuspendLayout()
         CType(DataGridView2, ComponentModel.ISupportInitialize).BeginInit()
         Inventory.SuspendLayout()
+        Guna2Panel1.SuspendLayout()
+        CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' pnlHeader
@@ -196,82 +203,6 @@ Partial Class frmdashboard
         Label3.Size = New Size(117, 21)
         Label3.TabIndex = 0
         Label3.Text = "Items in Stock"
-        ' 
-        ' Panel7
-        ' 
-        Panel7.BackColor = Color.CornflowerBlue
-        Panel7.Controls.Add(btnSALESHISTORY)
-        Panel7.Controls.Add(btnOpenInventory)
-        Panel7.Controls.Add(btnOpenPOS)
-        Panel7.Controls.Add(btnUploadPictures)
-        Panel7.Controls.Add(PictureBox3)
-        Panel7.Controls.Add(Button18)
-        Panel7.Dock = DockStyle.Left
-        Panel7.Location = New Point(0, 0)
-        Panel7.Name = "Panel7"
-        Panel7.Size = New Size(143, 1065)
-        Panel7.TabIndex = 4
-        ' 
-        ' btnSALESHISTORY
-        ' 
-        btnSALESHISTORY.Location = New Point(20, 301)
-        btnSALESHISTORY.Margin = New Padding(2)
-        btnSALESHISTORY.Name = "btnSALESHISTORY"
-        btnSALESHISTORY.Size = New Size(84, 29)
-        btnSALESHISTORY.TabIndex = 12
-        btnSALESHISTORY.Text = "Sales History"
-        btnSALESHISTORY.UseVisualStyleBackColor = True
-        ' 
-        ' btnOpenInventory
-        ' 
-        btnOpenInventory.Location = New Point(29, 265)
-        btnOpenInventory.Margin = New Padding(2)
-        btnOpenInventory.Name = "btnOpenInventory"
-        btnOpenInventory.Size = New Size(75, 23)
-        btnOpenInventory.TabIndex = 11
-        btnOpenInventory.Text = "Inventory"
-        btnOpenInventory.UseVisualStyleBackColor = True
-        ' 
-        ' btnOpenPOS
-        ' 
-        btnOpenPOS.Location = New Point(29, 219)
-        btnOpenPOS.Margin = New Padding(2)
-        btnOpenPOS.Name = "btnOpenPOS"
-        btnOpenPOS.Size = New Size(75, 23)
-        btnOpenPOS.TabIndex = 10
-        btnOpenPOS.Text = "Products"
-        btnOpenPOS.UseVisualStyleBackColor = True
-        ' 
-        ' btnUploadPictures
-        ' 
-        btnUploadPictures.Font = New Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        btnUploadPictures.Location = New Point(21, 122)
-        btnUploadPictures.Margin = New Padding(3, 2, 3, 2)
-        btnUploadPictures.Name = "btnUploadPictures"
-        btnUploadPictures.Size = New Size(103, 23)
-        btnUploadPictures.TabIndex = 1
-        btnUploadPictures.Text = "Upload Pictures"
-        btnUploadPictures.UseVisualStyleBackColor = True
-        ' 
-        ' PictureBox3
-        ' 
-        PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), Image)
-        PictureBox3.Location = New Point(10, 12)
-        PictureBox3.Name = "PictureBox3"
-        PictureBox3.Size = New Size(127, 105)
-        PictureBox3.SizeMode = PictureBoxSizeMode.Zoom
-        PictureBox3.TabIndex = 9
-        PictureBox3.TabStop = False
-        ' 
-        ' Button18
-        ' 
-        Button18.BackColor = SystemColors.Info
-        Button18.Location = New Point(12, 965)
-        Button18.Name = "Button18"
-        Button18.Size = New Size(117, 30)
-        Button18.TabIndex = 8
-        Button18.Text = "Logout"
-        Button18.UseVisualStyleBackColor = False
         ' 
         ' Label25
         ' 
@@ -568,6 +499,96 @@ Partial Class frmdashboard
         Inventory.TabIndex = 2
         Inventory.Tag = "."
         ' 
+        ' Guna2Panel1
+        ' 
+        Guna2Panel1.BackColor = Color.Transparent
+        Guna2Panel1.BorderRadius = 20
+        Guna2Panel1.Controls.Add(btnOpenInventory)
+        Guna2Panel1.Controls.Add(btnOpenPOS)
+        Guna2Panel1.Controls.Add(btnSALESHISTORY)
+        Guna2Panel1.Controls.Add(btnUploadPictures)
+        Guna2Panel1.Controls.Add(PictureBox3)
+        Guna2Panel1.CustomBorderColor = Color.Transparent
+        Guna2Panel1.CustomizableEdges = CustomizableEdges15
+        Guna2Panel1.FillColor = Color.DarkBlue
+        Guna2Panel1.Location = New Point(4, 3)
+        Guna2Panel1.Name = "Guna2Panel1"
+        Guna2Panel1.ShadowDecoration.CustomizableEdges = CustomizableEdges16
+        Guna2Panel1.Size = New Size(142, 634)
+        Guna2Panel1.TabIndex = 45
+        ' 
+        ' btnOpenInventory
+        ' 
+        btnOpenInventory.BorderRadius = 12
+        btnOpenInventory.CustomizableEdges = CustomizableEdges9
+        btnOpenInventory.DisabledState.BorderColor = Color.DarkGray
+        btnOpenInventory.DisabledState.CustomBorderColor = Color.DarkGray
+        btnOpenInventory.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnOpenInventory.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnOpenInventory.Font = New Font("Segoe UI", 9F)
+        btnOpenInventory.ForeColor = Color.White
+        btnOpenInventory.Location = New Point(7, 332)
+        btnOpenInventory.Name = "btnOpenInventory"
+        btnOpenInventory.ShadowDecoration.CustomizableEdges = CustomizableEdges10
+        btnOpenInventory.Size = New Size(128, 34)
+        btnOpenInventory.TabIndex = 20
+        btnOpenInventory.Text = "Inventory"
+        ' 
+        ' btnOpenPOS
+        ' 
+        btnOpenPOS.BorderRadius = 12
+        btnOpenPOS.CustomizableEdges = CustomizableEdges11
+        btnOpenPOS.DisabledState.BorderColor = Color.DarkGray
+        btnOpenPOS.DisabledState.CustomBorderColor = Color.DarkGray
+        btnOpenPOS.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnOpenPOS.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnOpenPOS.Font = New Font("Segoe UI", 9F)
+        btnOpenPOS.ForeColor = Color.White
+        btnOpenPOS.Location = New Point(7, 280)
+        btnOpenPOS.Name = "btnOpenPOS"
+        btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges12
+        btnOpenPOS.Size = New Size(128, 34)
+        btnOpenPOS.TabIndex = 19
+        btnOpenPOS.Text = "Products"
+        ' 
+        ' btnSALESHISTORY
+        ' 
+        btnSALESHISTORY.BorderRadius = 12
+        btnSALESHISTORY.CustomizableEdges = CustomizableEdges13
+        btnSALESHISTORY.DisabledState.BorderColor = Color.DarkGray
+        btnSALESHISTORY.DisabledState.CustomBorderColor = Color.DarkGray
+        btnSALESHISTORY.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnSALESHISTORY.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnSALESHISTORY.Font = New Font("Segoe UI", 9F)
+        btnSALESHISTORY.ForeColor = Color.White
+        btnSALESHISTORY.Location = New Point(7, 224)
+        btnSALESHISTORY.Name = "btnSALESHISTORY"
+        btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges14
+        btnSALESHISTORY.Size = New Size(128, 34)
+        btnSALESHISTORY.TabIndex = 18
+        btnSALESHISTORY.Text = "Sales History"
+        ' 
+        ' btnUploadPictures
+        ' 
+        btnUploadPictures.Font = New Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnUploadPictures.Location = New Point(18, 125)
+        btnUploadPictures.Margin = New Padding(3, 2, 3, 2)
+        btnUploadPictures.Name = "btnUploadPictures"
+        btnUploadPictures.Size = New Size(103, 23)
+        btnUploadPictures.TabIndex = 13
+        btnUploadPictures.Text = "Upload Pictures"
+        btnUploadPictures.UseVisualStyleBackColor = True
+        ' 
+        ' PictureBox3
+        ' 
+        PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), Image)
+        PictureBox3.Location = New Point(11, 15)
+        PictureBox3.Name = "PictureBox3"
+        PictureBox3.Size = New Size(113, 105)
+        PictureBox3.SizeMode = PictureBoxSizeMode.Zoom
+        PictureBox3.TabIndex = 14
+        PictureBox3.TabStop = False
+        ' 
         ' frmdashboard
         ' 
         AutoScaleDimensions = New SizeF(96F, 96F)
@@ -575,13 +596,13 @@ Partial Class frmdashboard
         AutoScroll = True
         BackColor = Color.LightGray
         ClientSize = New Size(1069, 599)
+        Controls.Add(Guna2Panel1)
         Controls.Add(Guna2CustomGradientPanel4)
         Controls.Add(Inventory)
         Controls.Add(Guna2CustomGradientPanel3)
         Controls.Add(pnlHeader)
         Controls.Add(pnlTodaysSales)
         Controls.Add(pnlWeeklyRevenue)
-        Controls.Add(Panel7)
         KeyPreview = True
         MinimumSize = New Size(800, 589)
         Name = "frmdashboard"
@@ -593,8 +614,6 @@ Partial Class frmdashboard
         pnlWeeklyRevenue.PerformLayout()
         pnlTodaysSales.ResumeLayout(False)
         pnlTodaysSales.PerformLayout()
-        Panel7.ResumeLayout(False)
-        CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
         Guna2CustomGradientPanel3.ResumeLayout(False)
         Guna2CustomGradientPanel3.PerformLayout()
         Guna2CustomGradientPanel4.ResumeLayout(False)
@@ -607,6 +626,8 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel1.PerformLayout()
         CType(DataGridView2, ComponentModel.ISupportInitialize).EndInit()
         Inventory.ResumeLayout(False)
+        Guna2Panel1.ResumeLayout(False)
+        CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -618,19 +639,12 @@ Partial Class frmdashboard
     Friend WithEvents pnlTodaysSales As Panel
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents Panel7 As Panel
-    Friend WithEvents Button18 As Button
     Friend WithEvents Label24 As Label
     Friend WithEvents Label25 As Label
     Friend WithEvents lblTime As Label
     Friend WithEvents Timer1 As Timer
-    Friend WithEvents PictureBox3 As PictureBox
-    Friend WithEvents btnUploadPictures As Button
     Friend WithEvents Guna2CustomGradientPanel3 As Guna.UI2.WinForms.Guna2CustomGradientPanel
     Friend WithEvents Guna2CustomGradientPanel4 As Guna.UI2.WinForms.Guna2CustomGradientPanel
-    Friend WithEvents btnOpenInventory As Button
-    Friend WithEvents btnOpenPOS As Button
-    Friend WithEvents btnSALESHISTORY As Button
     Friend WithEvents tabWeeklyReports As TabPage
     Friend WithEvents Guna2CustomGradientPanel2 As Guna.UI2.WinForms.Guna2CustomGradientPanel
     Friend WithEvents Label8 As Label
@@ -655,5 +669,11 @@ Partial Class frmdashboard
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents Inventory As TabControl
+    Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents btnOpenInventory As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnOpenPOS As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnSALESHISTORY As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnUploadPictures As Button
+    Friend WithEvents PictureBox3 As PictureBox
 
 End Class
