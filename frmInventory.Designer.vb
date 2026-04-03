@@ -31,6 +31,8 @@ Partial Class frmInventory
         Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInventory))
+        Dim CustomizableEdges9 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         txtSearch = New TextBox()
         dgvProducts = New DataGridView()
         btnAddProduct = New Button()
@@ -56,9 +58,11 @@ Partial Class frmInventory
         btnSALESHISTORY = New Guna.UI2.WinForms.Guna2Button()
         btnUploadPictures = New Button()
         PictureBox3 = New PictureBox()
+        Guna2GradientPanel1 = New Guna.UI2.WinForms.Guna2GradientPanel()
         CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         Guna2Panel1.SuspendLayout()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
+        Guna2GradientPanel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' txtSearch
@@ -170,7 +174,7 @@ Partial Class frmInventory
         ' 
         Label7.AutoSize = True
         Label7.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label7.Location = New Point(689, 76)
+        Label7.Location = New Point(539, 25)
         Label7.Name = "Label7"
         Label7.Size = New Size(39, 15)
         Label7.TabIndex = 42
@@ -178,7 +182,7 @@ Partial Class frmInventory
         ' 
         ' txtCategory
         ' 
-        txtCategory.Location = New Point(434, 94)
+        txtCategory.Location = New Point(284, 43)
         txtCategory.Margin = New Padding(4, 3, 4, 3)
         txtCategory.Name = "txtCategory"
         txtCategory.PlaceholderText = "Category"
@@ -189,7 +193,7 @@ Partial Class frmInventory
         ' 
         Label6.AutoSize = True
         Label6.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label6.Location = New Point(434, 130)
+        Label6.Location = New Point(284, 79)
         Label6.Name = "Label6"
         Label6.Size = New Size(35, 15)
         Label6.TabIndex = 41
@@ -197,7 +201,7 @@ Partial Class frmInventory
         ' 
         ' txtStock
         ' 
-        txtStock.Location = New Point(689, 94)
+        txtStock.Location = New Point(539, 43)
         txtStock.Margin = New Padding(4, 3, 4, 3)
         txtStock.Name = "txtStock"
         txtStock.PlaceholderText = "Stock"
@@ -208,7 +212,7 @@ Partial Class frmInventory
         ' 
         Label5.AutoSize = True
         Label5.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label5.Location = New Point(434, 76)
+        Label5.Location = New Point(284, 25)
         Label5.Name = "Label5"
         Label5.Size = New Size(57, 15)
         Label5.TabIndex = 40
@@ -216,7 +220,7 @@ Partial Class frmInventory
         ' 
         ' txtPrice
         ' 
-        txtPrice.Location = New Point(434, 148)
+        txtPrice.Location = New Point(284, 97)
         txtPrice.Margin = New Padding(4, 3, 4, 3)
         txtPrice.Name = "txtPrice"
         txtPrice.PlaceholderText = "Price"
@@ -227,7 +231,7 @@ Partial Class frmInventory
         ' 
         Label4.AutoSize = True
         Label4.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label4.Location = New Point(181, 130)
+        Label4.Location = New Point(31, 79)
         Label4.Name = "Label4"
         Label4.Size = New Size(87, 15)
         Label4.TabIndex = 39
@@ -236,7 +240,7 @@ Partial Class frmInventory
         ' txtProductName
         ' 
         txtProductName.BackColor = Color.White
-        txtProductName.Location = New Point(181, 148)
+        txtProductName.Location = New Point(31, 97)
         txtProductName.Margin = New Padding(4, 3, 4, 3)
         txtProductName.Name = "txtProductName"
         txtProductName.PlaceholderText = "Product name"
@@ -247,7 +251,7 @@ Partial Class frmInventory
         ' 
         Label3.AutoSize = True
         Label3.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label3.Location = New Point(181, 76)
+        Label3.Location = New Point(31, 25)
         Label3.Name = "Label3"
         Label3.Size = New Size(82, 15)
         Label3.TabIndex = 38
@@ -256,7 +260,7 @@ Partial Class frmInventory
         ' txtProductCode
         ' 
         txtProductCode.BackColor = Color.White
-        txtProductCode.Location = New Point(181, 94)
+        txtProductCode.Location = New Point(31, 43)
         txtProductCode.Margin = New Padding(4, 3, 4, 3)
         txtProductCode.Name = "txtProductCode"
         txtProductCode.PlaceholderText = "Product code"
@@ -350,6 +354,28 @@ Partial Class frmInventory
         PictureBox3.TabIndex = 14
         PictureBox3.TabStop = False
         ' 
+        ' Guna2GradientPanel1
+        ' 
+        Guna2GradientPanel1.BorderRadius = 20
+        Guna2GradientPanel1.Controls.Add(txtCategory)
+        Guna2GradientPanel1.Controls.Add(Label7)
+        Guna2GradientPanel1.Controls.Add(txtProductCode)
+        Guna2GradientPanel1.Controls.Add(Label3)
+        Guna2GradientPanel1.Controls.Add(Label6)
+        Guna2GradientPanel1.Controls.Add(txtProductName)
+        Guna2GradientPanel1.Controls.Add(Label4)
+        Guna2GradientPanel1.Controls.Add(txtStock)
+        Guna2GradientPanel1.Controls.Add(txtPrice)
+        Guna2GradientPanel1.Controls.Add(Label5)
+        Guna2GradientPanel1.CustomizableEdges = CustomizableEdges9
+        Guna2GradientPanel1.FillColor = Color.FromArgb(CByte(15), CByte(23), CByte(42))
+        Guna2GradientPanel1.FillColor2 = Color.MediumBlue
+        Guna2GradientPanel1.Location = New Point(150, 71)
+        Guna2GradientPanel1.Name = "Guna2GradientPanel1"
+        Guna2GradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges10
+        Guna2GradientPanel1.Size = New Size(1048, 157)
+        Guna2GradientPanel1.TabIndex = 44
+        ' 
         ' frmInventory
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -357,25 +383,16 @@ Partial Class frmInventory
         AutoScroll = True
         ClientSize = New Size(1044, 516)
         Controls.Add(Guna2Panel1)
-        Controls.Add(Label7)
-        Controls.Add(txtCategory)
-        Controls.Add(Label6)
         Controls.Add(Button1)
-        Controls.Add(txtStock)
         Controls.Add(Label2)
-        Controls.Add(Label5)
         Controls.Add(Label1)
-        Controls.Add(txtPrice)
         Controls.Add(btnUpdate)
-        Controls.Add(Label4)
         Controls.Add(BtnExportcsv)
-        Controls.Add(txtProductName)
         Controls.Add(btnAddProduct)
-        Controls.Add(Label3)
         Controls.Add(dgvProducts)
-        Controls.Add(txtProductCode)
         Controls.Add(txtSearch)
         Controls.Add(btnDelete)
+        Controls.Add(Guna2GradientPanel1)
         Margin = New Padding(3, 2, 3, 2)
         Name = "frmInventory"
         StartPosition = FormStartPosition.CenterScreen
@@ -384,6 +401,8 @@ Partial Class frmInventory
         CType(dgvProducts, ComponentModel.ISupportInitialize).EndInit()
         Guna2Panel1.ResumeLayout(False)
         CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
+        Guna2GradientPanel1.ResumeLayout(False)
+        Guna2GradientPanel1.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -412,4 +431,5 @@ Partial Class frmInventory
     Friend WithEvents btnSALESHISTORY As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnUploadPictures As Button
     Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents Guna2GradientPanel1 As Guna.UI2.WinForms.Guna2GradientPanel
 End Class

@@ -193,7 +193,7 @@ Partial Class pos
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         AutoScroll = True
-        ClientSize = New Size(1068, 420)
+        ClientSize = New Size(1068, 517)
         Controls.Add(Guna2Panel1)
         Controls.Add(Label1)
         Controls.Add(lblAvailableProducts)

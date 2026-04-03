@@ -60,6 +60,6 @@
     End Sub
 
     Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
-        Me.Show()
+        Show()
     End Sub
 End Class
