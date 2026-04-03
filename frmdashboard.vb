@@ -8,16 +8,25 @@
         lblTime.Text = DateTime.Now.ToString("MMMM dd, yyyy hh:mm:ss tt")
     End Sub
 
-    ' Navigation Example
-    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
+    ' Navigation button
+
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
+        pos.Show()
+    End Sub
+
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
+        frmInventory.Show()
+    End Sub
+
+    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
         Sales_History.Show()
     End Sub
 
-    Private Sub btnOpenPOS_Click_1(sender As Object, e As EventArgs)
-        Show()
+    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
+
     End Sub
 
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
-        Show()
+    Private Sub tabWeeklyReports_Click(sender As Object, e As EventArgs)
+
     End Sub
 End Class

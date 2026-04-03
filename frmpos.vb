@@ -329,16 +329,18 @@ Public Class pos
         flpCart.Controls.Add(summaryPanel)
     End Sub
 
-    ' --- Navigation Events ---
     Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
         Sales_History.Show()
     End Sub
 
-    Private Sub btnOpenPOS_Click_1(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
         Me.Show()
     End Sub
 
     Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
-        Me.Show()
+        frmInventory.Show()
     End Sub
+
+    ' --- Navigation Events ---
+
 End Class

@@ -189,15 +189,18 @@ Partial Class frmInventory
         ' 
         ' btnOpenInventory
         ' 
+        btnOpenInventory.BorderColor = Color.White
         btnOpenInventory.BorderRadius = 12
+        btnOpenInventory.BorderThickness = 1
         btnOpenInventory.CustomizableEdges = CustomizableEdges1
         btnOpenInventory.DisabledState.BorderColor = Color.DarkGray
         btnOpenInventory.DisabledState.CustomBorderColor = Color.DarkGray
         btnOpenInventory.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnOpenInventory.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnOpenInventory.FillColor = Color.Blue
         btnOpenInventory.Font = New Font("Segoe UI", 9F)
         btnOpenInventory.ForeColor = Color.White
-        btnOpenInventory.Location = New Point(7, 332)
+        btnOpenInventory.Location = New Point(7, 370)
         btnOpenInventory.Name = "btnOpenInventory"
         btnOpenInventory.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         btnOpenInventory.Size = New Size(128, 34)
@@ -206,15 +209,18 @@ Partial Class frmInventory
         ' 
         ' btnOpenPOS
         ' 
+        btnOpenPOS.BorderColor = Color.White
         btnOpenPOS.BorderRadius = 12
+        btnOpenPOS.BorderThickness = 1
         btnOpenPOS.CustomizableEdges = CustomizableEdges3
         btnOpenPOS.DisabledState.BorderColor = Color.DarkGray
         btnOpenPOS.DisabledState.CustomBorderColor = Color.DarkGray
         btnOpenPOS.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnOpenPOS.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnOpenPOS.FillColor = Color.Blue
         btnOpenPOS.Font = New Font("Segoe UI", 9F)
         btnOpenPOS.ForeColor = Color.White
-        btnOpenPOS.Location = New Point(7, 280)
+        btnOpenPOS.Location = New Point(7, 287)
         btnOpenPOS.Name = "btnOpenPOS"
         btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges4
         btnOpenPOS.Size = New Size(128, 34)
@@ -223,15 +229,18 @@ Partial Class frmInventory
         ' 
         ' btnSALESHISTORY
         ' 
+        btnSALESHISTORY.BorderColor = Color.White
         btnSALESHISTORY.BorderRadius = 12
+        btnSALESHISTORY.BorderThickness = 1
         btnSALESHISTORY.CustomizableEdges = CustomizableEdges5
         btnSALESHISTORY.DisabledState.BorderColor = Color.DarkGray
         btnSALESHISTORY.DisabledState.CustomBorderColor = Color.DarkGray
         btnSALESHISTORY.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnSALESHISTORY.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnSALESHISTORY.FillColor = Color.Blue
         btnSALESHISTORY.Font = New Font("Segoe UI", 9F)
-        btnSALESHISTORY.ForeColor = Color.White
-        btnSALESHISTORY.Location = New Point(7, 224)
+        btnSALESHISTORY.ForeColor = Color.WhiteSmoke
+        btnSALESHISTORY.Location = New Point(7, 207)
         btnSALESHISTORY.Name = "btnSALESHISTORY"
         btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges6
         btnSALESHISTORY.Size = New Size(128, 34)

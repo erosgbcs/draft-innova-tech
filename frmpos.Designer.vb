@@ -24,24 +24,24 @@ Partial Class pos
     Private Sub InitializeComponent()
         Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pos))
         Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pos))
         TextBox1 = New TextBox()
         flpProduct1 = New FlowLayoutPanel()
         flpCart = New FlowLayoutPanel()
         lblAvailableProducts = New Label()
         Label1 = New Label()
         Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
+        btnUploadPictures = New Button()
+        PictureBox3 = New PictureBox()
         btnOpenInventory = New Guna.UI2.WinForms.Guna2Button()
         btnOpenPOS = New Guna.UI2.WinForms.Guna2Button()
         btnSALESHISTORY = New Guna.UI2.WinForms.Guna2Button()
-        btnUploadPictures = New Button()
-        PictureBox3 = New PictureBox()
         Guna2Panel1.SuspendLayout()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -119,57 +119,6 @@ Partial Class pos
         Guna2Panel1.Size = New Size(142, 634)
         Guna2Panel1.TabIndex = 44
         ' 
-        ' btnOpenInventory
-        ' 
-        btnOpenInventory.BorderRadius = 12
-        btnOpenInventory.CustomizableEdges = CustomizableEdges1
-        btnOpenInventory.DisabledState.BorderColor = Color.DarkGray
-        btnOpenInventory.DisabledState.CustomBorderColor = Color.DarkGray
-        btnOpenInventory.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        btnOpenInventory.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnOpenInventory.Font = New Font("Segoe UI", 9F)
-        btnOpenInventory.ForeColor = Color.White
-        btnOpenInventory.Location = New Point(7, 332)
-        btnOpenInventory.Name = "btnOpenInventory"
-        btnOpenInventory.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        btnOpenInventory.Size = New Size(128, 34)
-        btnOpenInventory.TabIndex = 20
-        btnOpenInventory.Text = "Inventory"
-        ' 
-        ' btnOpenPOS
-        ' 
-        btnOpenPOS.BorderRadius = 12
-        btnOpenPOS.CustomizableEdges = CustomizableEdges3
-        btnOpenPOS.DisabledState.BorderColor = Color.DarkGray
-        btnOpenPOS.DisabledState.CustomBorderColor = Color.DarkGray
-        btnOpenPOS.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        btnOpenPOS.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnOpenPOS.Font = New Font("Segoe UI", 9F)
-        btnOpenPOS.ForeColor = Color.White
-        btnOpenPOS.Location = New Point(7, 280)
-        btnOpenPOS.Name = "btnOpenPOS"
-        btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges4
-        btnOpenPOS.Size = New Size(128, 34)
-        btnOpenPOS.TabIndex = 19
-        btnOpenPOS.Text = "Products"
-        ' 
-        ' btnSALESHISTORY
-        ' 
-        btnSALESHISTORY.BorderRadius = 12
-        btnSALESHISTORY.CustomizableEdges = CustomizableEdges5
-        btnSALESHISTORY.DisabledState.BorderColor = Color.DarkGray
-        btnSALESHISTORY.DisabledState.CustomBorderColor = Color.DarkGray
-        btnSALESHISTORY.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        btnSALESHISTORY.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnSALESHISTORY.Font = New Font("Segoe UI", 9F)
-        btnSALESHISTORY.ForeColor = Color.White
-        btnSALESHISTORY.Location = New Point(7, 224)
-        btnSALESHISTORY.Name = "btnSALESHISTORY"
-        btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        btnSALESHISTORY.Size = New Size(128, 34)
-        btnSALESHISTORY.TabIndex = 18
-        btnSALESHISTORY.Text = "Sales History"
-        ' 
         ' btnUploadPictures
         ' 
         btnUploadPictures.Font = New Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -190,6 +139,66 @@ Partial Class pos
         PictureBox3.SizeMode = PictureBoxSizeMode.Zoom
         PictureBox3.TabIndex = 14
         PictureBox3.TabStop = False
+        ' 
+        ' btnOpenInventory
+        ' 
+        btnOpenInventory.BorderColor = Color.White
+        btnOpenInventory.BorderRadius = 12
+        btnOpenInventory.BorderThickness = 1
+        btnOpenInventory.CustomizableEdges = CustomizableEdges1
+        btnOpenInventory.DisabledState.BorderColor = Color.DarkGray
+        btnOpenInventory.DisabledState.CustomBorderColor = Color.DarkGray
+        btnOpenInventory.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnOpenInventory.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnOpenInventory.FillColor = Color.Blue
+        btnOpenInventory.Font = New Font("Segoe UI", 9F)
+        btnOpenInventory.ForeColor = Color.White
+        btnOpenInventory.Location = New Point(7, 382)
+        btnOpenInventory.Name = "btnOpenInventory"
+        btnOpenInventory.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        btnOpenInventory.Size = New Size(128, 34)
+        btnOpenInventory.TabIndex = 23
+        btnOpenInventory.Text = "Inventory"
+        ' 
+        ' btnOpenPOS
+        ' 
+        btnOpenPOS.BorderColor = Color.White
+        btnOpenPOS.BorderRadius = 12
+        btnOpenPOS.BorderThickness = 1
+        btnOpenPOS.CustomizableEdges = CustomizableEdges3
+        btnOpenPOS.DisabledState.BorderColor = Color.DarkGray
+        btnOpenPOS.DisabledState.CustomBorderColor = Color.DarkGray
+        btnOpenPOS.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnOpenPOS.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnOpenPOS.FillColor = Color.Blue
+        btnOpenPOS.Font = New Font("Segoe UI", 9F)
+        btnOpenPOS.ForeColor = Color.White
+        btnOpenPOS.Location = New Point(7, 299)
+        btnOpenPOS.Name = "btnOpenPOS"
+        btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        btnOpenPOS.Size = New Size(128, 34)
+        btnOpenPOS.TabIndex = 22
+        btnOpenPOS.Text = "Products"
+        ' 
+        ' btnSALESHISTORY
+        ' 
+        btnSALESHISTORY.BorderColor = Color.White
+        btnSALESHISTORY.BorderRadius = 12
+        btnSALESHISTORY.BorderThickness = 1
+        btnSALESHISTORY.CustomizableEdges = CustomizableEdges5
+        btnSALESHISTORY.DisabledState.BorderColor = Color.DarkGray
+        btnSALESHISTORY.DisabledState.CustomBorderColor = Color.DarkGray
+        btnSALESHISTORY.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnSALESHISTORY.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnSALESHISTORY.FillColor = Color.Blue
+        btnSALESHISTORY.Font = New Font("Segoe UI", 9F)
+        btnSALESHISTORY.ForeColor = Color.WhiteSmoke
+        btnSALESHISTORY.Location = New Point(7, 219)
+        btnSALESHISTORY.Name = "btnSALESHISTORY"
+        btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        btnSALESHISTORY.Size = New Size(128, 34)
+        btnSALESHISTORY.TabIndex = 21
+        btnSALESHISTORY.Text = "Sales History"
         ' 
         ' pos
         ' 
@@ -219,9 +228,9 @@ Partial Class pos
     Friend WithEvents lblAvailableProducts As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents btnUploadPictures As Button
+    Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents btnOpenInventory As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnOpenPOS As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnSALESHISTORY As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents btnUploadPictures As Button
-    Friend WithEvents PictureBox3 As PictureBox
 End Class
