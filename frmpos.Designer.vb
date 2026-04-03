@@ -121,6 +121,7 @@ Partial Class pos
         ' 
         ' btnOpenInventory
         ' 
+        btnOpenInventory.BorderRadius = 12
         btnOpenInventory.CustomizableEdges = CustomizableEdges1
         btnOpenInventory.DisabledState.BorderColor = Color.DarkGray
         btnOpenInventory.DisabledState.CustomBorderColor = Color.DarkGray
@@ -137,6 +138,7 @@ Partial Class pos
         ' 
         ' btnOpenPOS
         ' 
+        btnOpenPOS.BorderRadius = 12
         btnOpenPOS.CustomizableEdges = CustomizableEdges3
         btnOpenPOS.DisabledState.BorderColor = Color.DarkGray
         btnOpenPOS.DisabledState.CustomBorderColor = Color.DarkGray
@@ -153,6 +155,7 @@ Partial Class pos
         ' 
         ' btnSALESHISTORY
         ' 
+        btnSALESHISTORY.BorderRadius = 12
         btnSALESHISTORY.CustomizableEdges = CustomizableEdges5
         btnSALESHISTORY.DisabledState.BorderColor = Color.DarkGray
         btnSALESHISTORY.DisabledState.CustomBorderColor = Color.DarkGray
