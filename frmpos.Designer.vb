@@ -22,48 +22,45 @@ Partial Class pos
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim CustomizableEdges35 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges36 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges21 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges22 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges23 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges24 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges25 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges26 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges27 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges28 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges29 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges30 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges31 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges32 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges33 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges34 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges13 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges14 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges9 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges11 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges12 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges17 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges18 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges15 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pos))
-        Dim CustomizableEdges39 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges40 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges37 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges38 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         TextBox1 = New TextBox()
         flpProduct1 = New FlowLayoutPanel()
         flpCart = New FlowLayoutPanel()
         Guna2CustomGradientPanel2 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
-        btnUploadPictures = New Guna.UI2.WinForms.Guna2Button()
         Guna2Button4 = New Guna.UI2.WinForms.Guna2Button()
         Guna2Button1 = New Guna.UI2.WinForms.Guna2Button()
         btnUsers = New Guna.UI2.WinForms.Guna2Button()
         btnOpenInventory = New Guna.UI2.WinForms.Guna2Button()
         btnOpenPOS = New Guna.UI2.WinForms.Guna2Button()
         btnSALESHISTORY = New Guna.UI2.WinForms.Guna2Button()
-        PictureBox3 = New PictureBox()
         Guna2CustomGradientPanel3 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         Label2 = New Label()
         Label24 = New Label()
         lblTitle = New Label()
         lblTime = New Label()
         Guna2Button7 = New Guna.UI2.WinForms.Guna2Button()
+        PictureBox1 = New PictureBox()
         Guna2CustomGradientPanel2.SuspendLayout()
-        CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         Guna2CustomGradientPanel3.SuspendLayout()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' TextBox1
@@ -104,15 +101,14 @@ Partial Class pos
         Guna2CustomGradientPanel2.BorderColor = Color.Black
         Guna2CustomGradientPanel2.BorderRadius = 20
         Guna2CustomGradientPanel2.BorderThickness = 1
-        Guna2CustomGradientPanel2.Controls.Add(btnUploadPictures)
         Guna2CustomGradientPanel2.Controls.Add(Guna2Button4)
         Guna2CustomGradientPanel2.Controls.Add(Guna2Button1)
         Guna2CustomGradientPanel2.Controls.Add(btnUsers)
         Guna2CustomGradientPanel2.Controls.Add(btnOpenInventory)
         Guna2CustomGradientPanel2.Controls.Add(btnOpenPOS)
         Guna2CustomGradientPanel2.Controls.Add(btnSALESHISTORY)
-        Guna2CustomGradientPanel2.Controls.Add(PictureBox3)
-        Guna2CustomGradientPanel2.CustomizableEdges = CustomizableEdges35
+        Guna2CustomGradientPanel2.Controls.Add(PictureBox1)
+        Guna2CustomGradientPanel2.CustomizableEdges = CustomizableEdges13
         Guna2CustomGradientPanel2.Dock = DockStyle.Left
         Guna2CustomGradientPanel2.FillColor = Color.DodgerBlue
         Guna2CustomGradientPanel2.FillColor2 = Color.SteelBlue
@@ -120,36 +116,16 @@ Partial Class pos
         Guna2CustomGradientPanel2.FillColor4 = Color.SkyBlue
         Guna2CustomGradientPanel2.Location = New Point(0, 0)
         Guna2CustomGradientPanel2.Name = "Guna2CustomGradientPanel2"
-        Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges36
+        Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges14
         Guna2CustomGradientPanel2.Size = New Size(143, 782)
         Guna2CustomGradientPanel2.TabIndex = 55
-        ' 
-        ' btnUploadPictures
-        ' 
-        btnUploadPictures.BorderColor = Color.DarkBlue
-        btnUploadPictures.BorderRadius = 12
-        btnUploadPictures.BorderThickness = 1
-        btnUploadPictures.CustomizableEdges = CustomizableEdges21
-        btnUploadPictures.DisabledState.BorderColor = Color.DarkGray
-        btnUploadPictures.DisabledState.CustomBorderColor = Color.DarkGray
-        btnUploadPictures.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        btnUploadPictures.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnUploadPictures.FillColor = Color.Blue
-        btnUploadPictures.Font = New Font("Segoe UI", 9F)
-        btnUploadPictures.ForeColor = Color.White
-        btnUploadPictures.Location = New Point(8, 143)
-        btnUploadPictures.Name = "btnUploadPictures"
-        btnUploadPictures.ShadowDecoration.CustomizableEdges = CustomizableEdges22
-        btnUploadPictures.Size = New Size(128, 32)
-        btnUploadPictures.TabIndex = 28
-        btnUploadPictures.Text = "Upload Pictures"
         ' 
         ' Guna2Button4
         ' 
         Guna2Button4.BorderColor = Color.White
         Guna2Button4.BorderRadius = 12
         Guna2Button4.BorderThickness = 1
-        Guna2Button4.CustomizableEdges = CustomizableEdges23
+        Guna2Button4.CustomizableEdges = CustomizableEdges1
         Guna2Button4.DisabledState.BorderColor = Color.DarkGray
         Guna2Button4.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button4.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -159,7 +135,7 @@ Partial Class pos
         Guna2Button4.ForeColor = Color.WhiteSmoke
         Guna2Button4.Location = New Point(8, 725)
         Guna2Button4.Name = "Guna2Button4"
-        Guna2Button4.ShadowDecoration.CustomizableEdges = CustomizableEdges24
+        Guna2Button4.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         Guna2Button4.Size = New Size(128, 34)
         Guna2Button4.TabIndex = 27
         Guna2Button4.Text = "Logout"
@@ -169,7 +145,7 @@ Partial Class pos
         Guna2Button1.BorderColor = Color.DarkBlue
         Guna2Button1.BorderRadius = 12
         Guna2Button1.BorderThickness = 1
-        Guna2Button1.CustomizableEdges = CustomizableEdges25
+        Guna2Button1.CustomizableEdges = CustomizableEdges3
         Guna2Button1.DisabledState.BorderColor = Color.DarkGray
         Guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button1.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -179,7 +155,7 @@ Partial Class pos
         Guna2Button1.ForeColor = Color.White
         Guna2Button1.Location = New Point(8, 254)
         Guna2Button1.Name = "Guna2Button1"
-        Guna2Button1.ShadowDecoration.CustomizableEdges = CustomizableEdges26
+        Guna2Button1.ShadowDecoration.CustomizableEdges = CustomizableEdges4
         Guna2Button1.Size = New Size(128, 34)
         Guna2Button1.TabIndex = 24
         Guna2Button1.Text = "Dasboard"
@@ -189,7 +165,7 @@ Partial Class pos
         btnUsers.BorderColor = Color.White
         btnUsers.BorderRadius = 12
         btnUsers.BorderThickness = 1
-        btnUsers.CustomizableEdges = CustomizableEdges27
+        btnUsers.CustomizableEdges = CustomizableEdges5
         btnUsers.DisabledState.BorderColor = Color.DarkGray
         btnUsers.DisabledState.CustomBorderColor = Color.DarkGray
         btnUsers.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -199,7 +175,7 @@ Partial Class pos
         btnUsers.ForeColor = Color.WhiteSmoke
         btnUsers.Location = New Point(8, 664)
         btnUsers.Name = "btnUsers"
-        btnUsers.ShadowDecoration.CustomizableEdges = CustomizableEdges28
+        btnUsers.ShadowDecoration.CustomizableEdges = CustomizableEdges6
         btnUsers.Size = New Size(128, 34)
         btnUsers.TabIndex = 25
         btnUsers.Text = "Users 👥"
@@ -209,7 +185,7 @@ Partial Class pos
         btnOpenInventory.BorderColor = Color.DarkBlue
         btnOpenInventory.BorderRadius = 12
         btnOpenInventory.BorderThickness = 1
-        btnOpenInventory.CustomizableEdges = CustomizableEdges29
+        btnOpenInventory.CustomizableEdges = CustomizableEdges7
         btnOpenInventory.DisabledState.BorderColor = Color.DarkGray
         btnOpenInventory.DisabledState.CustomBorderColor = Color.DarkGray
         btnOpenInventory.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -220,7 +196,7 @@ Partial Class pos
         btnOpenInventory.Location = New Point(8, 392)
         btnOpenInventory.Name = "btnOpenInventory"
         btnOpenInventory.PressedColor = Color.Transparent
-        btnOpenInventory.ShadowDecoration.CustomizableEdges = CustomizableEdges30
+        btnOpenInventory.ShadowDecoration.CustomizableEdges = CustomizableEdges8
         btnOpenInventory.Size = New Size(128, 34)
         btnOpenInventory.TabIndex = 23
         btnOpenInventory.Text = "Inventory  📦"
@@ -230,7 +206,7 @@ Partial Class pos
         btnOpenPOS.BorderColor = Color.DarkBlue
         btnOpenPOS.BorderRadius = 12
         btnOpenPOS.BorderThickness = 1
-        btnOpenPOS.CustomizableEdges = CustomizableEdges31
+        btnOpenPOS.CustomizableEdges = CustomizableEdges9
         btnOpenPOS.DisabledState.BorderColor = Color.DarkGray
         btnOpenPOS.DisabledState.CustomBorderColor = Color.DarkGray
         btnOpenPOS.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -240,7 +216,7 @@ Partial Class pos
         btnOpenPOS.ForeColor = Color.White
         btnOpenPOS.Location = New Point(8, 320)
         btnOpenPOS.Name = "btnOpenPOS"
-        btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges32
+        btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges10
         btnOpenPOS.Size = New Size(128, 34)
         btnOpenPOS.TabIndex = 22
         btnOpenPOS.Text = "Point Of Sale " & ChrW(55357) & ChrW(57042)
@@ -250,7 +226,7 @@ Partial Class pos
         btnSALESHISTORY.BorderColor = Color.White
         btnSALESHISTORY.BorderRadius = 12
         btnSALESHISTORY.BorderThickness = 1
-        btnSALESHISTORY.CustomizableEdges = CustomizableEdges33
+        btnSALESHISTORY.CustomizableEdges = CustomizableEdges11
         btnSALESHISTORY.DisabledState.BorderColor = Color.DarkGray
         btnSALESHISTORY.DisabledState.CustomBorderColor = Color.DarkGray
         btnSALESHISTORY.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -260,20 +236,10 @@ Partial Class pos
         btnSALESHISTORY.ForeColor = Color.WhiteSmoke
         btnSALESHISTORY.Location = New Point(7, 465)
         btnSALESHISTORY.Name = "btnSALESHISTORY"
-        btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges34
+        btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges12
         btnSALESHISTORY.Size = New Size(128, 34)
         btnSALESHISTORY.TabIndex = 21
         btnSALESHISTORY.Text = "Sales History 📜"
-        ' 
-        ' PictureBox3
-        ' 
-        PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), Image)
-        PictureBox3.Location = New Point(13, 27)
-        PictureBox3.Name = "PictureBox3"
-        PictureBox3.Size = New Size(113, 105)
-        PictureBox3.SizeMode = PictureBoxSizeMode.Zoom
-        PictureBox3.TabIndex = 14
-        PictureBox3.TabStop = False
         ' 
         ' Guna2CustomGradientPanel3
         ' 
@@ -286,14 +252,14 @@ Partial Class pos
         Guna2CustomGradientPanel3.Controls.Add(lblTitle)
         Guna2CustomGradientPanel3.Controls.Add(lblTime)
         Guna2CustomGradientPanel3.Controls.Add(Guna2Button7)
-        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges39
+        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges17
         Guna2CustomGradientPanel3.FillColor = Color.DodgerBlue
         Guna2CustomGradientPanel3.FillColor2 = Color.SteelBlue
         Guna2CustomGradientPanel3.FillColor3 = Color.Navy
         Guna2CustomGradientPanel3.FillColor4 = Color.SkyBlue
         Guna2CustomGradientPanel3.Location = New Point(148, 9)
         Guna2CustomGradientPanel3.Name = "Guna2CustomGradientPanel3"
-        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges40
+        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges18
         Guna2CustomGradientPanel3.Size = New Size(1525, 102)
         Guna2CustomGradientPanel3.TabIndex = 58
         ' 
@@ -346,7 +312,7 @@ Partial Class pos
         Guna2Button7.BorderColor = Color.White
         Guna2Button7.BorderRadius = 12
         Guna2Button7.BorderThickness = 1
-        Guna2Button7.CustomizableEdges = CustomizableEdges37
+        Guna2Button7.CustomizableEdges = CustomizableEdges15
         Guna2Button7.DisabledState.BorderColor = Color.DarkGray
         Guna2Button7.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button7.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -356,10 +322,20 @@ Partial Class pos
         Guna2Button7.ForeColor = Color.WhiteSmoke
         Guna2Button7.Location = New Point(10, 610)
         Guna2Button7.Name = "Guna2Button7"
-        Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges38
+        Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges16
         Guna2Button7.Size = New Size(128, 34)
         Guna2Button7.TabIndex = 26
         Guna2Button7.Text = "Logout"
+        ' 
+        ' PictureBox1
+        ' 
+        PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
+        PictureBox1.Location = New Point(13, 27)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(113, 105)
+        PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
+        PictureBox1.TabIndex = 14
+        PictureBox1.TabStop = False
         ' 
         ' pos
         ' 
@@ -378,9 +354,9 @@ Partial Class pos
         Text = "Products"
         WindowState = FormWindowState.Maximized
         Guna2CustomGradientPanel2.ResumeLayout(False)
-        CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
         Guna2CustomGradientPanel3.ResumeLayout(False)
         Guna2CustomGradientPanel3.PerformLayout()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -395,12 +371,11 @@ Partial Class pos
     Friend WithEvents btnOpenInventory As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnOpenPOS As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnSALESHISTORY As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents Guna2CustomGradientPanel3 As Guna.UI2.WinForms.Guna2CustomGradientPanel
     Friend WithEvents Label2 As Label
     Friend WithEvents Label24 As Label
     Friend WithEvents lblTitle As Label
     Friend WithEvents lblTime As Label
     Friend WithEvents Guna2Button7 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents btnUploadPictures As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

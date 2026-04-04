@@ -232,11 +232,21 @@ Public Class frmdashboard
             ofd.Filter = "Images|*.jpg;*.png;*.bmp"
             If ofd.ShowDialog() = DialogResult.OK Then
                 Dim newImg = Image.FromFile(ofd.FileName)
-                PictureBox1.Image = newImg ' Update UI
+                PictureBox1.Image = newImg
 
-                ' Save to DB as "StoreLogo"
+                ' 1. Save to DB
                 If db.SaveSystemImage("StoreLogo", newImg) Then
-                    MessageBox.Show("Logo saved successfully!")
+                    ' 2. SYNC OPEN FORMS IMMEDIATELY
+                    ' This loops through all currently open windows and updates their PictureBox
+                    For Each f As Form In Application.OpenForms
+                        ' Look for a PictureBox named "PictureBox1" (or whatever yours is named)
+                        Dim targetPB = f.Controls.Find("PictureBox1", True).FirstOrDefault()
+                        If targetPB IsNot Nothing AndAlso TypeOf targetPB Is PictureBox Then
+                            DirectCast(targetPB, PictureBox).Image = newImg
+                        End If
+                    Next
+
+                    MessageBox.Show("Logo synced across all open forms!")
                 End If
             End If
         End Using

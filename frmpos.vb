@@ -12,6 +12,7 @@ Public Class pos
         SecurityManager.ApplyRestrictions(Me)
         RefreshProductDisplay()
         LoadCartCards()
+        SyncFormLogo(Me.PictureBox1)
     End Sub
 
     ' --- Hover styling for buttons ---
