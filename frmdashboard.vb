@@ -202,8 +202,28 @@ Public Class frmdashboard
         User.Show()
     End Sub
 
+    ' --- LOGOUT LOGIC ---
     Private Sub Guna2Button5_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
+        ' 1. Ask for confirmation
+        Dim result As DialogResult = MessageBox.Show("Are you sure you want to log out?", "Logout Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
+        If result = DialogResult.Yes Then
+            ' 2. Stop the timers to prevent background errors while closing
+            Timer1.Stop()
+            DashboardTimer.Stop()
+
+            ' 3. Clear Global Session Data for security
+            GlobalData.CurrentUser = ""
+            GlobalData.UserRole = ""
+
+            ' 4. Show the Login Form (Ensure the name matches your login form, e.g., frmLogin)
+            ' Using a new instance to ensure a fresh state
+            Dim loginForm As New FrmLogin
+            loginForm.Show()
+
+            ' 5. Close this Dashboard
+            Me.Dispose()
+        End If
     End Sub
 
     ' Logic for the Upload Pictures Button
