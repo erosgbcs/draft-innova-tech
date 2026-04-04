@@ -10,17 +10,27 @@
 
     ' Navigation button
 
-    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs)
-        pos.Show
+    ' Open POS form maximized
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
+        Dim posForm As New pos()
+        posForm.WindowState = FormWindowState.Maximized
+        posForm.Show()
     End Sub
 
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
-        frmInventory.Show
+    ' Open Inventory form maximized
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
+        Dim invForm As New frmInventory()
+        invForm.WindowState = FormWindowState.Maximized
+        invForm.Show()
     End Sub
 
-    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
-        Sales_History.Show
+    ' Open Sales History form maximized
+    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
+        Dim salesForm As New Sales_History()
+        salesForm.WindowState = FormWindowState.Maximized
+        salesForm.Show()
     End Sub
+
 
     Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
 

@@ -51,17 +51,25 @@
         txtPrice.Clear()
         txtStock.Clear()
     End Sub
-    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
-        Sales_History.Show()
+    ' Open Sales History
+    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
+        Dim salesForm As New Sales_History()
+        salesForm.WindowState = FormWindowState.Maximized
+        salesForm.Show()
     End Sub
 
-    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs)
-        pos.Show()
+    ' Open POS
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
+        Dim posForm As New pos()
+        posForm.WindowState = FormWindowState.Maximized
+        posForm.Show()
     End Sub
 
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
-        Show()
-        Hide()
+    ' Open Inventory (current form) – usually not needed
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
+        ' You’re already inside frmInventory, so this button doesn’t need to reopen itself.
+        ' If you want to refresh, just call RefreshData()
+        RefreshData()
     End Sub
 
     Private Sub Guna2CustomGradientPanel2_Paint(sender As Object, e As PaintEventArgs) Handles Guna2CustomGradientPanel2.Paint
