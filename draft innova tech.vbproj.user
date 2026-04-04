@@ -2,6 +2,9 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="frmdashboard.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrmForgotPassword.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -18,9 +21,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmRegister.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="frmdashboard.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="frmSalesHIstory.vb">

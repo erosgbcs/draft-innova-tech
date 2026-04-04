@@ -285,4 +285,43 @@ Public Class DatabaseHelper
         End Try
     End Function
 
+    ' --- DASHBOARD STATS METHODS ---
+
+    Public Function GetTotalProductsCount() As Integer
+        Using conn As New SQLiteConnection(connectionString)
+            conn.Open()
+            Dim cmd As New SQLiteCommand("SELECT COUNT(*) FROM Products", conn)
+            Return Convert.ToInt32(cmd.ExecuteScalar())
+        End Using
+    End Function
+
+    Public Function GetTotalItemsInStock() As Integer
+        Using conn As New SQLiteConnection(connectionString)
+            conn.Open()
+            Dim cmd As New SQLiteCommand("SELECT SUM(Stock) FROM Products", conn)
+            Dim result = cmd.ExecuteScalar()
+            Return If(IsDBNull(result), 0, Convert.ToInt32(result))
+        End Using
+    End Function
+
+    Public Function GetTodaySales() As Decimal
+        Using conn As New SQLiteConnection(connectionString)
+            conn.Open()
+            ' Matches sales where the Date is Today
+            Dim cmd As New SQLiteCommand("SELECT SUM(Total) FROM Sales WHERE date(SaleDate) = date('now')", conn)
+            Dim result = cmd.ExecuteScalar()
+            Return If(IsDBNull(result), 0, Convert.ToDecimal(result))
+        End Using
+    End Function
+
+    Public Function GetWeeklyRevenue() As Decimal
+        Using conn As New SQLiteConnection(connectionString)
+            conn.Open()
+            ' Calculates sum of Total for the last 7 days
+            Dim cmd As New SQLiteCommand("SELECT SUM(Total) FROM Sales WHERE SaleDate >= date('now', '-7 days')", conn)
+            Dim result = cmd.ExecuteScalar()
+            Return If(IsDBNull(result), 0, Convert.ToDecimal(result))
+        End Using
+    End Function
+
 End Class
