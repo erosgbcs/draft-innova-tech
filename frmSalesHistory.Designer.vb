@@ -43,9 +43,6 @@ Partial Class frmSalesHIstory
         Dim CustomizableEdges20 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges17 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges18 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Guna2CustomGradientPanel2 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         btnUploadPictures = New Guna.UI2.WinForms.Guna2Button()
         Guna2Button4 = New Guna.UI2.WinForms.Guna2Button()
@@ -58,18 +55,12 @@ Partial Class frmSalesHIstory
         Guna2CustomGradientPanel3 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         Label1 = New Label()
         Guna2Button7 = New Guna.UI2.WinForms.Guna2Button()
-        Guna2DataGridView1 = New Guna.UI2.WinForms.Guna2DataGridView()
         txtSearchSales = New TextBox()
-        clmBuyerName = New DataGridViewTextBoxColumn()
-        clmGmail = New DataGridViewTextBoxColumn()
-        clmAdress = New DataGridViewTextBoxColumn()
-        clmContacts = New DataGridViewTextBoxColumn()
-        clmPrices = New DataGridViewTextBoxColumn()
-        clmDate = New DataGridViewTextBoxColumn()
+        dgvsaleshistory = New DataGridView()
         Guna2CustomGradientPanel2.SuspendLayout()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         Guna2CustomGradientPanel3.SuspendLayout()
-        CType(Guna2DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
+        CType(dgvsaleshistory, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Guna2CustomGradientPanel2
@@ -93,10 +84,9 @@ Partial Class frmSalesHIstory
         Guna2CustomGradientPanel2.FillColor3 = Color.Navy
         Guna2CustomGradientPanel2.FillColor4 = Color.SkyBlue
         Guna2CustomGradientPanel2.Location = New Point(0, 0)
-        Guna2CustomGradientPanel2.Margin = New Padding(3, 4, 3, 4)
         Guna2CustomGradientPanel2.Name = "Guna2CustomGradientPanel2"
         Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges16
-        Guna2CustomGradientPanel2.Size = New Size(163, 1043)
+        Guna2CustomGradientPanel2.Size = New Size(143, 545)
         Guna2CustomGradientPanel2.TabIndex = 56
         ' 
         ' btnUploadPictures
@@ -112,11 +102,10 @@ Partial Class frmSalesHIstory
         btnUploadPictures.FillColor = Color.Blue
         btnUploadPictures.Font = New Font("Segoe UI", 9F)
         btnUploadPictures.ForeColor = Color.White
-        btnUploadPictures.Location = New Point(9, 191)
-        btnUploadPictures.Margin = New Padding(3, 4, 3, 4)
+        btnUploadPictures.Location = New Point(8, 143)
         btnUploadPictures.Name = "btnUploadPictures"
         btnUploadPictures.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        btnUploadPictures.Size = New Size(146, 43)
+        btnUploadPictures.Size = New Size(128, 32)
         btnUploadPictures.TabIndex = 28
         btnUploadPictures.Text = "Upload Pictures"
         ' 
@@ -133,11 +122,10 @@ Partial Class frmSalesHIstory
         Guna2Button4.FillColor = Color.Blue
         Guna2Button4.Font = New Font("Segoe UI", 9F)
         Guna2Button4.ForeColor = Color.WhiteSmoke
-        Guna2Button4.Location = New Point(9, 948)
-        Guna2Button4.Margin = New Padding(3, 4, 3, 4)
+        Guna2Button4.Location = New Point(8, 711)
         Guna2Button4.Name = "Guna2Button4"
         Guna2Button4.ShadowDecoration.CustomizableEdges = CustomizableEdges4
-        Guna2Button4.Size = New Size(146, 45)
+        Guna2Button4.Size = New Size(128, 34)
         Guna2Button4.TabIndex = 27
         Guna2Button4.Text = "Logout"
         ' 
@@ -154,11 +142,10 @@ Partial Class frmSalesHIstory
         Guna2Button1.FillColor = Color.Blue
         Guna2Button1.Font = New Font("Segoe UI", 9F)
         Guna2Button1.ForeColor = Color.White
-        Guna2Button1.Location = New Point(9, 349)
-        Guna2Button1.Margin = New Padding(3, 4, 3, 4)
+        Guna2Button1.Location = New Point(8, 262)
         Guna2Button1.Name = "Guna2Button1"
         Guna2Button1.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        Guna2Button1.Size = New Size(146, 45)
+        Guna2Button1.Size = New Size(128, 34)
         Guna2Button1.TabIndex = 24
         Guna2Button1.Text = "Dasboard"
         ' 
@@ -175,11 +162,10 @@ Partial Class frmSalesHIstory
         Guna2Button2.FillColor = Color.Blue
         Guna2Button2.Font = New Font("Segoe UI", 9F)
         Guna2Button2.ForeColor = Color.WhiteSmoke
-        Guna2Button2.Location = New Point(9, 867)
-        Guna2Button2.Margin = New Padding(3, 4, 3, 4)
+        Guna2Button2.Location = New Point(8, 650)
         Guna2Button2.Name = "Guna2Button2"
         Guna2Button2.ShadowDecoration.CustomizableEdges = CustomizableEdges8
-        Guna2Button2.Size = New Size(146, 45)
+        Guna2Button2.Size = New Size(128, 34)
         Guna2Button2.TabIndex = 25
         Guna2Button2.Text = "Users 👥"
         ' 
@@ -196,12 +182,11 @@ Partial Class frmSalesHIstory
         btnOpenInventory.FillColor = Color.Blue
         btnOpenInventory.Font = New Font("Segoe UI", 9F)
         btnOpenInventory.ForeColor = Color.White
-        btnOpenInventory.Location = New Point(9, 543)
-        btnOpenInventory.Margin = New Padding(3, 4, 3, 4)
+        btnOpenInventory.Location = New Point(8, 407)
         btnOpenInventory.Name = "btnOpenInventory"
         btnOpenInventory.PressedColor = Color.Transparent
         btnOpenInventory.ShadowDecoration.CustomizableEdges = CustomizableEdges10
-        btnOpenInventory.Size = New Size(146, 45)
+        btnOpenInventory.Size = New Size(128, 34)
         btnOpenInventory.TabIndex = 23
         btnOpenInventory.Text = "Inventory  📦"
         ' 
@@ -218,11 +203,10 @@ Partial Class frmSalesHIstory
         btnOpenPOS.FillColor = Color.Blue
         btnOpenPOS.Font = New Font("Segoe UI", 9F)
         btnOpenPOS.ForeColor = Color.White
-        btnOpenPOS.Location = New Point(9, 444)
-        btnOpenPOS.Margin = New Padding(3, 4, 3, 4)
+        btnOpenPOS.Location = New Point(8, 333)
         btnOpenPOS.Name = "btnOpenPOS"
         btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges12
-        btnOpenPOS.Size = New Size(146, 45)
+        btnOpenPOS.Size = New Size(128, 34)
         btnOpenPOS.TabIndex = 22
         btnOpenPOS.Text = "Point Of Sale " & ChrW(55357) & ChrW(57042)
         ' 
@@ -239,21 +223,19 @@ Partial Class frmSalesHIstory
         btnSALESHISTORY.FillColor = Color.Blue
         btnSALESHISTORY.Font = New Font("Segoe UI", 9F)
         btnSALESHISTORY.ForeColor = Color.WhiteSmoke
-        btnSALESHISTORY.Location = New Point(3, 643)
-        btnSALESHISTORY.Margin = New Padding(3, 4, 3, 4)
+        btnSALESHISTORY.Location = New Point(3, 482)
         btnSALESHISTORY.Name = "btnSALESHISTORY"
         btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges14
-        btnSALESHISTORY.Size = New Size(146, 45)
+        btnSALESHISTORY.Size = New Size(128, 34)
         btnSALESHISTORY.TabIndex = 21
         btnSALESHISTORY.Text = "Sales History 📜"
         ' 
         ' PictureBox3
         ' 
         PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), Image)
-        PictureBox3.Location = New Point(15, 36)
-        PictureBox3.Margin = New Padding(3, 4, 3, 4)
+        PictureBox3.Location = New Point(13, 27)
         PictureBox3.Name = "PictureBox3"
-        PictureBox3.Size = New Size(129, 140)
+        PictureBox3.Size = New Size(113, 105)
         PictureBox3.SizeMode = PictureBoxSizeMode.Zoom
         PictureBox3.TabIndex = 14
         PictureBox3.TabStop = False
@@ -271,11 +253,10 @@ Partial Class frmSalesHIstory
         Guna2CustomGradientPanel3.FillColor2 = Color.SteelBlue
         Guna2CustomGradientPanel3.FillColor3 = Color.Navy
         Guna2CustomGradientPanel3.FillColor4 = Color.SkyBlue
-        Guna2CustomGradientPanel3.Location = New Point(169, 0)
-        Guna2CustomGradientPanel3.Margin = New Padding(3, 4, 3, 4)
+        Guna2CustomGradientPanel3.Location = New Point(148, 0)
         Guna2CustomGradientPanel3.Name = "Guna2CustomGradientPanel3"
         Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges20
-        Guna2CustomGradientPanel3.Size = New Size(1743, 93)
+        Guna2CustomGradientPanel3.Size = New Size(1525, 70)
         Guna2CustomGradientPanel3.TabIndex = 58
         ' 
         ' Label1
@@ -283,9 +264,9 @@ Partial Class frmSalesHIstory
         Label1.AutoSize = True
         Label1.Font = New Font("Segoe UI", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.ForeColor = Color.White
-        Label1.Location = New Point(31, 9)
+        Label1.Location = New Point(27, 7)
         Label1.Name = "Label1"
-        Label1.Size = New Size(277, 60)
+        Label1.Size = New Size(219, 47)
         Label1.TabIndex = 27
         Label1.Text = "Sales Hitory"
         ' 
@@ -302,123 +283,42 @@ Partial Class frmSalesHIstory
         Guna2Button7.FillColor = Color.Blue
         Guna2Button7.Font = New Font("Segoe UI", 9F)
         Guna2Button7.ForeColor = Color.WhiteSmoke
-        Guna2Button7.Location = New Point(11, 813)
-        Guna2Button7.Margin = New Padding(3, 4, 3, 4)
+        Guna2Button7.Location = New Point(10, 610)
         Guna2Button7.Name = "Guna2Button7"
         Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges18
-        Guna2Button7.Size = New Size(146, 45)
+        Guna2Button7.Size = New Size(128, 34)
         Guna2Button7.TabIndex = 26
         Guna2Button7.Text = "Logout"
-        ' 
-        ' Guna2DataGridView1
-        ' 
-        DataGridViewCellStyle1.BackColor = Color.White
-        Guna2DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Guna2DataGridView1.BackgroundColor = Color.Gainsboro
-        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = Color.FromArgb(CByte(100), CByte(88), CByte(255))
-        DataGridViewCellStyle2.Font = New Font("Segoe UI", 9F)
-        DataGridViewCellStyle2.ForeColor = Color.White
-        DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
-        Guna2DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Guna2DataGridView1.ColumnHeadersHeight = 4
-        Guna2DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing
-        Guna2DataGridView1.Columns.AddRange(New DataGridViewColumn() {clmBuyerName, clmGmail, clmAdress, clmContacts, clmPrices, clmDate})
-        DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = Color.White
-        DataGridViewCellStyle3.Font = New Font("Segoe UI", 9F)
-        DataGridViewCellStyle3.ForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
-        DataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
-        DataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
-        DataGridViewCellStyle3.WrapMode = DataGridViewTriState.False
-        Guna2DataGridView1.DefaultCellStyle = DataGridViewCellStyle3
-        Guna2DataGridView1.GridColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
-        Guna2DataGridView1.Location = New Point(169, 162)
-        Guna2DataGridView1.Name = "Guna2DataGridView1"
-        Guna2DataGridView1.RowHeadersVisible = False
-        Guna2DataGridView1.RowHeadersWidth = 51
-        Guna2DataGridView1.Size = New Size(1743, 881)
-        Guna2DataGridView1.TabIndex = 59
-        Guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White
-        Guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = Nothing
-        Guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty
-        Guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty
-        Guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty
-        Guna2DataGridView1.ThemeStyle.BackColor = Color.Gainsboro
-        Guna2DataGridView1.ThemeStyle.GridColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
-        Guna2DataGridView1.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(CByte(100), CByte(88), CByte(255))
-        Guna2DataGridView1.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None
-        Guna2DataGridView1.ThemeStyle.HeaderStyle.Font = New Font("Segoe UI", 9F)
-        Guna2DataGridView1.ThemeStyle.HeaderStyle.ForeColor = Color.White
-        Guna2DataGridView1.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing
-        Guna2DataGridView1.ThemeStyle.HeaderStyle.Height = 4
-        Guna2DataGridView1.ThemeStyle.ReadOnly = False
-        Guna2DataGridView1.ThemeStyle.RowsStyle.BackColor = Color.White
-        Guna2DataGridView1.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
-        Guna2DataGridView1.ThemeStyle.RowsStyle.Font = New Font("Segoe UI", 9F)
-        Guna2DataGridView1.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
-        Guna2DataGridView1.ThemeStyle.RowsStyle.Height = 29
-        Guna2DataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
-        Guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
         ' 
         ' txtSearchSales
         ' 
         txtSearchSales.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtSearchSales.Location = New Point(173, 101)
-        txtSearchSales.Margin = New Padding(5, 4, 5, 4)
+        txtSearchSales.Location = New Point(154, 93)
+        txtSearchSales.Margin = New Padding(4, 3, 4, 3)
         txtSearchSales.Name = "txtSearchSales"
         txtSearchSales.PlaceholderText = "Product Sales History by code or name.."
-        txtSearchSales.Size = New Size(1739, 32)
+        txtSearchSales.Size = New Size(1522, 27)
         txtSearchSales.TabIndex = 60
         ' 
-        ' clmBuyerName
+        ' dgvsaleshistory
         ' 
-        clmBuyerName.HeaderText = "Buyer Name"
-        clmBuyerName.MinimumWidth = 6
-        clmBuyerName.Name = "clmBuyerName"
-        ' 
-        ' clmGmail
-        ' 
-        clmGmail.HeaderText = "Gmail"
-        clmGmail.MinimumWidth = 6
-        clmGmail.Name = "clmGmail"
-        ' 
-        ' clmAdress
-        ' 
-        clmAdress.HeaderText = "Adress"
-        clmAdress.MinimumWidth = 6
-        clmAdress.Name = "clmAdress"
-        ' 
-        ' clmContacts
-        ' 
-        clmContacts.HeaderText = "Contacts"
-        clmContacts.MinimumWidth = 6
-        clmContacts.Name = "clmContacts"
-        ' 
-        ' clmPrices
-        ' 
-        clmPrices.HeaderText = "Prices"
-        clmPrices.MinimumWidth = 6
-        clmPrices.Name = "clmPrices"
-        ' 
-        ' clmDate
-        ' 
-        clmDate.HeaderText = "Date"
-        clmDate.MinimumWidth = 6
-        clmDate.Name = "clmDate"
+        dgvsaleshistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvsaleshistory.Location = New Point(154, 143)
+        dgvsaleshistory.Name = "dgvsaleshistory"
+        dgvsaleshistory.Size = New Size(1519, 398)
+        dgvsaleshistory.TabIndex = 61
         ' 
         ' frmSalesHIstory
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         AutoScroll = True
-        ClientSize = New Size(1370, 749)
+        ClientSize = New Size(1199, 562)
+        Controls.Add(dgvsaleshistory)
         Controls.Add(txtSearchSales)
         Controls.Add(Guna2CustomGradientPanel3)
         Controls.Add(Guna2CustomGradientPanel2)
-        Controls.Add(Guna2DataGridView1)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "frmSalesHIstory"
         StartPosition = FormStartPosition.CenterScreen
         Text = "frmSalesHIstory"
@@ -427,7 +327,7 @@ Partial Class frmSalesHIstory
         CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
         Guna2CustomGradientPanel3.ResumeLayout(False)
         Guna2CustomGradientPanel3.PerformLayout()
-        CType(Guna2DataGridView1, ComponentModel.ISupportInitialize).EndInit()
+        CType(dgvsaleshistory, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -444,12 +344,8 @@ Partial Class frmSalesHIstory
     Friend WithEvents Guna2CustomGradientPanel3 As Guna.UI2.WinForms.Guna2CustomGradientPanel
     Friend WithEvents Label1 As Label
     Friend WithEvents Guna2Button7 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents Guna2DataGridView1 As Guna.UI2.WinForms.Guna2DataGridView
     Friend WithEvents txtSearchSales As TextBox
-    Friend WithEvents clmBuyerName As DataGridViewTextBoxColumn
-    Friend WithEvents clmGmail As DataGridViewTextBoxColumn
-    Friend WithEvents clmAdress As DataGridViewTextBoxColumn
-    Friend WithEvents clmContacts As DataGridViewTextBoxColumn
-    Friend WithEvents clmPrices As DataGridViewTextBoxColumn
-    Friend WithEvents clmDate As DataGridViewTextBoxColumn
+    Friend WithEvents Guna2DataGridView1 As Guna.UI2.WinForms.Guna2DataGridView
+    Friend WithEvents dgvsaleshistory As DataGridView
+
 End Class

@@ -1,4 +1,5 @@
 ﻿Imports System.Data
+Imports System.Drawing.Drawing2D
 
 Public Class frmdashboard
     Private db As New DatabaseHelper()
@@ -6,20 +7,24 @@ Public Class frmdashboard
 
     Private Sub frmdashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.WindowState = FormWindowState.Maximized
+        Me.DoubleBuffered = True
 
-        ' Setup Clock
+        ' 1. Setup Clock Timer (Make sure you have a timer named Timer1 on your form)
+        ' If your timer has a different name, change "Timer1" below to that name.
+        Timer1.Interval = 1000
         Timer1.Start()
 
-        ' Setup Refresh Timer (5 seconds)
+        ' 2. Setup Refresh Timer (5 seconds)
         DashboardTimer.Interval = 5000
         DashboardTimer.Start()
 
-        ' Initial Data Load
+        ' 3. Initial Data Load
         LoadDashboardStats()
     End Sub
 
     ' Update Clock Label
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        ' Make sure you have a Label named "lblTime" on your form!
         lblTime.Text = DateTime.Now.ToString("MMMM dd, yyyy hh:mm:ss tt")
     End Sub
 
@@ -30,12 +35,12 @@ Public Class frmdashboard
 
     ' MAIN LOADING LOGIC
     Private Sub LoadDashboardStats()
-        ' Clear all panels to prevent stacking data
+        ' Clear panels (using the generic Control helper below to avoid type errors)
         ClearPanelControls(flptotalproducts)
         ClearPanelControls(flpitemsinstock)
         ClearPanelControls(flptodaysales)
         ClearPanelControls(flpweeklyrevenue)
-        ClearPanelControls(flpinventoryinsights) ' Clear the insights panel
+        ClearPanelControls(flpinventoryinsights)
 
         Try
             ' 1. Fetch Main Stats
@@ -50,7 +55,7 @@ Public Class frmdashboard
             flptodaysales.Controls.Add(CreateSummaryCard("Today's Sales", "₱" & todaysSales.ToString("N2")))
             flpweeklyrevenue.Controls.Add(CreateSummaryCard("Weekly Revenue", "₱" & weeklyRevenue.ToString("N2")))
 
-            ' 3. LOAD THE INSIGHTS (The missing link)
+            ' 3. Load the side insights
             LoadInventoryInsights()
 
         Catch ex As Exception
@@ -58,67 +63,6 @@ Public Class frmdashboard
         End Try
     End Sub
 
-    ' Helper to properly dispose and clear panels
-    Private Sub ClearPanelControls(panel As FlowLayoutPanel)
-        For Each ctrl As Control In panel.Controls
-            ctrl.Dispose()
-        Next
-        panel.Controls.Clear()
-    End Sub
-
-    ' Helper to build BIG summary cards
-    Private Function CreateSummaryCard(title As String, value As String) As Panel
-        Dim card As New Panel With {
-            .Width = 250, ' Increased width
-            .Height = 130, ' Increased height for big labels
-            .BackColor = Color.White,
-            .Margin = New Padding(10)
-        }
-
-        Dim lblTitle As New Label With {
-            .Text = title.ToUpper(),
-            .Font = New Font("Segoe UI", 12, FontStyle.Bold),
-            .ForeColor = Color.DimGray,
-            .Location = New Point(15, 15),
-            .AutoSize = True
-        }
-
-        Dim lblValue As New Label With {
-            .Text = value,
-            .Font = New Font("Segoe UI", 32, FontStyle.Bold), ' BIG FONT
-            .ForeColor = Color.MidnightBlue,
-            .Location = New Point(15, 55),
-            .AutoSize = True
-        }
-
-        card.Controls.Add(lblTitle)
-        card.Controls.Add(lblValue)
-        Return card
-    End Function
-
-    ' Navigation buttons
-    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs)
-        Dim posForm As New pos
-        posForm.WindowState = FormWindowState.Maximized
-        posForm.Show
-    End Sub
-
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
-        Dim invForm As New frmInventory
-        invForm.WindowState = FormWindowState.Maximized
-        invForm.Show
-    End Sub
-
-    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
-        Dim salesForm As New frmSalesHIstory
-        salesForm.WindowState = FormWindowState.Maximized
-        salesForm.Show
-    End Sub
-
-    Private Sub flpinventoryinsights_Paint(sender As Object, e As PaintEventArgs) Handles flpinventoryinsights.Paint
-
-    End Sub
-    ' Method to populate the Insights Panel
     Private Sub LoadInventoryInsights()
         flpinventoryinsights.FlowDirection = FlowDirection.TopDown
         flpinventoryinsights.WrapContents = False
@@ -151,17 +95,38 @@ Public Class frmdashboard
         flpinventoryinsights.Controls.Add(CreateInsightSection("Recommendations", recs, Color.DarkGreen))
     End Sub
 
-    ' HELPERS
-    Private Sub ClearPanelControls(panel As FlowLayoutPanel)
-        For Each ctrl As Control In panel.Controls : ctrl.Dispose() : Next
-        panel.Controls.Clear()
+    ' --- HELPERS (Defining these ONLY ONCE) ---
+
+    ' Changed to "container As Control" to handle both FlowLayoutPanel and Panels
+    Private Sub ClearPanelControls(container As Control)
+        If container IsNot Nothing Then
+            For i As Integer = container.Controls.Count - 1 To 0 Step -1
+                Dim ctrl = container.Controls(i)
+                container.Controls.Remove(ctrl)
+                ctrl.Dispose()
+            Next
+        End If
     End Sub
 
     Private Function CreateSummaryCard(title As String, value As String) As Panel
-        Dim card As New Panel With {.Width = 250, .Height = 130, .BackColor = Color.White, .Margin = New Padding(10)}
-        Dim lblT As New Label With {.Text = title.ToUpper(), .Font = New Font("Segoe UI", 12, FontStyle.Bold), .ForeColor = Color.DimGray, .Location = New Point(15, 15), .AutoSize = True}
-        Dim lblV As New Label With {.Text = value, .Font = New Font("Segoe UI", 32, FontStyle.Bold), .ForeColor = Color.MidnightBlue, .Location = New Point(15, 55), .AutoSize = True}
-        card.Controls.Add(lblT) : card.Controls.Add(lblV)
+        Dim card As New Panel With {
+            .Width = 250,
+            .Height = 130,
+            .BackColor = Color.White,
+            .Margin = New Padding(10),
+            .Cursor = Cursors.Hand
+        }
+
+        Dim lblT As New Label With {.Text = title.ToUpper(), .Font = New Font("Segoe UI", 12, FontStyle.Bold), .ForeColor = Color.DimGray, .Location = New Point(15, 15), .AutoSize = True, .BackColor = Color.Transparent}
+        Dim lblV As New Label With {.Text = value, .Font = New Font("Segoe UI", 32, FontStyle.Bold), .ForeColor = Color.MidnightBlue, .Location = New Point(15, 55), .AutoSize = True, .BackColor = Color.Transparent}
+
+        ' Add Hover & Style Events
+        AddHandler card.Paint, AddressOf Card_Paint
+        AddHandler card.MouseEnter, AddressOf Card_MouseEnter
+        AddHandler card.MouseLeave, AddressOf Card_MouseLeave
+
+        card.Controls.Add(lblT)
+        card.Controls.Add(lblV)
         Return card
     End Function
 
@@ -169,11 +134,54 @@ Public Class frmdashboard
         Dim pnl As New Panel With {.Width = flpinventoryinsights.Width - 25, .AutoSize = True, .Margin = New Padding(10, 0, 0, 15)}
         Dim lblT As New Label With {.Text = title, .Font = New Font("Segoe UI", 11, FontStyle.Bold), .ForeColor = titleColor, .AutoSize = True}
         Dim lblC As New Label With {.Text = content, .Font = New Font("Segoe UI", 10), .ForeColor = Color.FromArgb(64, 64, 64), .Location = New Point(5, 22), .AutoSize = True}
-        pnl.Controls.Add(lblT) : pnl.Controls.Add(lblC)
+        pnl.Controls.Add(lblT)
+        pnl.Controls.Add(lblC)
         Return pnl
     End Function
 
-    ' NAVIGATION
+    ' --- GDI+ PAINTING FOR ROUNDED CORNERS & SHADOWS ---
+    Private Sub Card_Paint(sender As Object, e As PaintEventArgs)
+        Dim pnl = DirectCast(sender, Panel)
+        Dim g = e.Graphics
+        g.SmoothingMode = SmoothingMode.AntiAlias
+        Dim radius As Integer = 20
+        Dim rect As New Rectangle(0, 0, pnl.Width - 5, pnl.Height - 5)
+
+        Using path As GraphicsPath = GetRoundedRectPath(rect, radius)
+            ' Draw Shadow
+            Dim shadowRect = rect
+            shadowRect.Offset(3, 3)
+            Using shadowPath As GraphicsPath = GetRoundedRectPath(shadowRect, radius)
+                g.FillPath(New SolidBrush(Color.FromArgb(30, Color.Black)), shadowPath)
+            End Using
+            ' Draw Background
+            g.FillPath(New SolidBrush(pnl.BackColor), path)
+            ' Draw Border
+            g.DrawPath(New Pen(Color.FromArgb(230, 230, 230)), path)
+        End Using
+    End Sub
+
+    Private Function GetRoundedRectPath(rect As Rectangle, radius As Integer) As GraphicsPath
+        Dim path As New GraphicsPath()
+        Dim d = radius * 2
+        path.AddArc(rect.X, rect.Y, d, d, 180, 90)
+        path.AddArc(rect.Right - d, rect.Y, d, d, 270, 90)
+        path.AddArc(rect.Right - d, rect.Bottom - d, d, d, 0, 90)
+        path.AddArc(rect.X, rect.Bottom - d, d, d, 90, 90)
+        path.CloseFigure()
+        Return path
+    End Function
+
+    Private Sub Card_MouseEnter(sender As Object, e As EventArgs)
+        DirectCast(sender, Panel).BackColor = Color.FromArgb(245, 250, 255)
+    End Sub
+
+    Private Sub Card_MouseLeave(sender As Object, e As EventArgs)
+        DirectCast(sender, Panel).BackColor = Color.White
+    End Sub
+
+    ' --- NAVIGATION BUTTONS ---
+    ' Ensure these buttons (btnOpenPOS, etc) exist in your Designer!
     Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
         pos.Show()
     End Sub
@@ -184,5 +192,13 @@ Public Class frmdashboard
 
     Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
         frmSalesHIstory.Show()
+    End Sub
+
+    Private Sub Guna2Button7_Click(sender As Object, e As EventArgs) Handles openbtnusers.Click
+        User.Show()
+    End Sub
+
+    Private Sub Guna2Button5_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
+
     End Sub
 End Class

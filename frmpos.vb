@@ -320,7 +320,7 @@ Public Class pos
     Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
         Dim salesForm As New frmSalesHIstory
         salesForm.WindowState = FormWindowState.Maximized
-        salesForm.Show
+        salesForm.Show()
     End Sub
 
     ' Open POS (this is the current form, so usually not needed)
@@ -332,12 +332,12 @@ Public Class pos
     Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
         Dim invForm As New frmInventory
         invForm.WindowState = FormWindowState.Maximized
-        invForm.Show
+        invForm.Show()
     End Sub
 
     Private Sub Guna2Button1_Click(sender As Object, e As EventArgs)
         Dim invForm As New frmdashboard
         invForm.WindowState = FormWindowState.Maximized
-        invForm.Show
+        invForm.Show()
     End Sub
 End Class

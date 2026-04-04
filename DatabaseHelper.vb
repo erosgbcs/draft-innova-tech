@@ -48,16 +48,18 @@ Public Class DatabaseHelper
                 End Using
 
                 ' --- Sales table ---
+                ' --- Sales table update ---
                 Dim createSales As String = "
-                    CREATE TABLE IF NOT EXISTS Sales (
-                        SaleID INTEGER PRIMARY KEY AUTOINCREMENT,
-                        BuyerName TEXT,
-                        BuyerAddress TEXT,
-                        BuyerContact TEXT,
-                        Subtotal REAL,
-                        Total REAL,
-                        SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP
-                    )"
+    CREATE TABLE IF NOT EXISTS Sales (
+        SaleID INTEGER PRIMARY KEY AUTOINCREMENT,
+        BuyerName TEXT,
+        BuyerAddress TEXT,
+        BuyerContact TEXT,
+        Subtotal REAL,
+        Total REAL,
+        ProcessedBy TEXT,  -- <--- ADD THIS LINE
+        SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP
+    )"
                 Using cmd As New SQLiteCommand(createSales, conn)
                     cmd.ExecuteNonQuery()
                 End Using
@@ -237,14 +239,18 @@ Public Class DatabaseHelper
         Try
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
-                Dim query As String = "INSERT INTO Sales (BuyerName, BuyerAddress, BuyerContact, Subtotal, Total) 
-                                       VALUES (@Name, @Address, @Contact, @Subtotal, @Total)"
+                ' Added "ProcessedBy" to the column list so it matches the 6 values below
+                Dim query As String = "INSERT INTO Sales (BuyerName, BuyerAddress, BuyerContact, Subtotal, Total, ProcessedBy) " &
+                                  "VALUES (@Name, @Address, @Contact, @Subtotal, @Total, @ProcessedBy)"
+
                 Using cmd As New SQLiteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Name", buyerName)
                     cmd.Parameters.AddWithValue("@Address", buyerAddress)
                     cmd.Parameters.AddWithValue("@Contact", buyerContact)
                     cmd.Parameters.AddWithValue("@Subtotal", subtotal)
                     cmd.Parameters.AddWithValue("@Total", total)
+                    cmd.Parameters.AddWithValue("@ProcessedBy", GlobalData.CurrentUser)
+
                     Return cmd.ExecuteNonQuery() > 0
                 End Using
             End Using
@@ -372,5 +378,51 @@ Public Class DatabaseHelper
             MessageBox.Show("Search Error: " & ex.Message)
         End Try
         Return dt
+    End Function
+    ' --- NEW USER MANAGEMENT METHODS ---
+
+    ' Get all users for the management grid
+    Public Function GetAllUsers() As DataTable
+        Dim dt As New DataTable()
+        Using conn As New SQLiteConnection(connectionString)
+            conn.Open()
+            ' We don't select PasswordHash for security
+            Dim query As String = "SELECT UserID, Username, FullName, Role, IsActive, LastLogin FROM Users"
+            Using da As New SQLiteDataAdapter(query, conn)
+                da.Fill(dt)
+            End Using
+        End Using
+        Return dt
+    End Function
+
+    ' Get activity for a specific staff member (Sales they processed)
+    ' NOTE: For this to work, ensure your "Sales" table has a "ProcessedBy" column
+    Public Function GetUserActivity(username As String) As DataTable
+        Dim dt As New DataTable()
+        Using conn As New SQLiteConnection(connectionString)
+            conn.Open()
+            ' This tracks what the staff is doing based on the sales they made
+            Dim query As String = "SELECT SaleID, BuyerName, Total, SaleDate FROM Sales WHERE ProcessedBy = @User ORDER BY SaleDate DESC"
+            Using cmd As New SQLiteCommand(query, conn)
+                cmd.Parameters.AddWithValue("@User", username)
+                Using da As New SQLiteDataAdapter(cmd)
+                    da.Fill(dt)
+                End Using
+            End Using
+        End Using
+        Return dt
+    End Function
+
+    ' Update User Status (Activate/Deactivate)
+    Public Function UpdateUserStatus(userId As Integer, isActive As Boolean) As Boolean
+        Using conn As New SQLiteConnection(connectionString)
+            conn.Open()
+            Dim query As String = "UPDATE Users SET IsActive = @Active WHERE UserID = @ID"
+            Using cmd As New SQLiteCommand(query, conn)
+                cmd.Parameters.AddWithValue("@Active", If(isActive, 1, 0))
+                cmd.Parameters.AddWithValue("@ID", userId)
+                Return cmd.ExecuteNonQuery() > 0
+            End Using
+        End Using
     End Function
 End Class
