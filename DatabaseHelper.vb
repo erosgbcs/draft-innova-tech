@@ -270,6 +270,19 @@ Public Class DatabaseHelper
         End Try
         Return dt
     End Function
-
+    Public Function DeleteProduct(productCode As String) As Boolean
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Dim query As String = "DELETE FROM Products WHERE ProductCode = @Code"
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@Code", productCode)
+                    Return cmd.ExecuteNonQuery() > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
 
 End Class
