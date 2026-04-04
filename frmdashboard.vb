@@ -1,5 +1,6 @@
 ﻿Imports System.Data
 Imports System.Drawing.Drawing2D
+Imports System.Security
 
 Public Class frmdashboard
     Private db As New DatabaseHelper()
@@ -8,15 +9,18 @@ Public Class frmdashboard
     Private Sub frmdashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.WindowState = FormWindowState.Maximized
         Me.DoubleBuffered = True
-
-        ' 1. Setup Clock Timer (Make sure you have a timer named Timer1 on your form)
-        ' If your timer has a different name, change "Timer1" below to that name.
         Timer1.Interval = 1000
         Timer1.Start()
-
+        'hideuser button
+        SecurityManager.ApplyRestrictions(Me)
         ' 2. Setup Refresh Timer (5 seconds)
         DashboardTimer.Interval = 5000
         DashboardTimer.Start()
+        Dim savedLogo = db.LoadSystemImage("StoreLogo")
+        If savedLogo IsNot Nothing Then
+            PictureBox1.Image = savedLogo
+            PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
+        End If
 
         ' 3. Initial Data Load
         LoadDashboardStats()
@@ -24,7 +28,7 @@ Public Class frmdashboard
 
     ' Update Clock Label
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        ' Make sure you have a Label named "lblTime" on your form!
+
         lblTime.Text = DateTime.Now.ToString("MMMM dd, yyyy hh:mm:ss tt")
     End Sub
 
@@ -194,11 +198,33 @@ Public Class frmdashboard
         frmSalesHIstory.Show()
     End Sub
 
-    Private Sub Guna2Button7_Click(sender As Object, e As EventArgs) Handles openbtnusers.Click
+    Private Sub Guna2Button7_Click(sender As Object, e As EventArgs) Handles btnUsers.Click
         User.Show()
     End Sub
 
     Private Sub Guna2Button5_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
 
+    End Sub
+
+    ' Logic for the Upload Pictures Button
+    Private Sub btnuploadpictures_Click(sender As Object, e As EventArgs) Handles btnuploadpictures.Click
+        Using ofd As New OpenFileDialog()
+            ofd.Filter = "Images|*.jpg;*.png;*.bmp"
+            If ofd.ShowDialog() = DialogResult.OK Then
+                Dim newImg = Image.FromFile(ofd.FileName)
+                PictureBox1.Image = newImg ' Update UI
+
+                ' Save to DB as "StoreLogo"
+                If db.SaveSystemImage("StoreLogo", newImg) Then
+                    MessageBox.Show("Logo saved successfully!")
+                End If
+            End If
+        End Using
+    End Sub
+
+    ' Logic for clicking the PictureBox directly (often used as a shortcut)
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        ' We can simply call the upload button's logic to avoid repeating code
+        btnuploadpictures.PerformClick()
     End Sub
 End Class

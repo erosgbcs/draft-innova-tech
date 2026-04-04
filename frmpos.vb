@@ -9,7 +9,7 @@ Public Class pos
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size
         Me.AutoScroll = True
-
+        SecurityManager.ApplyRestrictions(Me)
         RefreshProductDisplay()
         LoadCartCards()
     End Sub

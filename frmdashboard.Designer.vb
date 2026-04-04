@@ -53,10 +53,10 @@ Partial Class frmdashboard
         flptodaysales = New FlowLayoutPanel()
         flpweeklyrevenue = New FlowLayoutPanel()
         Guna2CustomGradientPanel2 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
-        Guna2Button4 = New Guna.UI2.WinForms.Guna2Button()
+        btnuploadpictures = New Guna.UI2.WinForms.Guna2Button()
         btnlogout = New Guna.UI2.WinForms.Guna2Button()
         Guna2Button6 = New Guna.UI2.WinForms.Guna2Button()
-        openbtnusers = New Guna.UI2.WinForms.Guna2Button()
+        btnUsers = New Guna.UI2.WinForms.Guna2Button()
         btnOpenInventory = New Guna.UI2.WinForms.Guna2Button()
         btnOpenPOS = New Guna.UI2.WinForms.Guna2Button()
         btnSALESHISTORY = New Guna.UI2.WinForms.Guna2Button()
@@ -129,10 +129,10 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel2.BorderColor = Color.Black
         Guna2CustomGradientPanel2.BorderRadius = 20
         Guna2CustomGradientPanel2.BorderThickness = 1
-        Guna2CustomGradientPanel2.Controls.Add(Guna2Button4)
+        Guna2CustomGradientPanel2.Controls.Add(btnuploadpictures)
         Guna2CustomGradientPanel2.Controls.Add(btnlogout)
         Guna2CustomGradientPanel2.Controls.Add(Guna2Button6)
-        Guna2CustomGradientPanel2.Controls.Add(openbtnusers)
+        Guna2CustomGradientPanel2.Controls.Add(btnUsers)
         Guna2CustomGradientPanel2.Controls.Add(btnOpenInventory)
         Guna2CustomGradientPanel2.Controls.Add(btnOpenPOS)
         Guna2CustomGradientPanel2.Controls.Add(btnSALESHISTORY)
@@ -149,26 +149,26 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel2.Size = New Size(139, 781)
         Guna2CustomGradientPanel2.TabIndex = 56
         ' 
-        ' Guna2Button4
+        ' btnuploadpictures
         ' 
-        Guna2Button4.BorderColor = Color.DarkBlue
-        Guna2Button4.BorderRadius = 12
-        Guna2Button4.BorderThickness = 1
-        Guna2Button4.CustomizableEdges = CustomizableEdges23
-        Guna2Button4.DisabledState.BorderColor = Color.DarkGray
-        Guna2Button4.DisabledState.CustomBorderColor = Color.DarkGray
-        Guna2Button4.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        Guna2Button4.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        Guna2Button4.FillColor = Color.Blue
-        Guna2Button4.Font = New Font("Segoe UI", 9F)
-        Guna2Button4.ForeColor = Color.White
-        Guna2Button4.Location = New Point(7, 153)
-        Guna2Button4.Margin = New Padding(2, 3, 2, 3)
-        Guna2Button4.Name = "Guna2Button4"
-        Guna2Button4.ShadowDecoration.CustomizableEdges = CustomizableEdges24
-        Guna2Button4.Size = New Size(117, 34)
-        Guna2Button4.TabIndex = 28
-        Guna2Button4.Text = "Upload Pictures"
+        btnuploadpictures.BorderColor = Color.DarkBlue
+        btnuploadpictures.BorderRadius = 12
+        btnuploadpictures.BorderThickness = 1
+        btnuploadpictures.CustomizableEdges = CustomizableEdges23
+        btnuploadpictures.DisabledState.BorderColor = Color.DarkGray
+        btnuploadpictures.DisabledState.CustomBorderColor = Color.DarkGray
+        btnuploadpictures.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnuploadpictures.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnuploadpictures.FillColor = Color.Blue
+        btnuploadpictures.Font = New Font("Segoe UI", 9F)
+        btnuploadpictures.ForeColor = Color.White
+        btnuploadpictures.Location = New Point(7, 153)
+        btnuploadpictures.Margin = New Padding(2, 3, 2, 3)
+        btnuploadpictures.Name = "btnuploadpictures"
+        btnuploadpictures.ShadowDecoration.CustomizableEdges = CustomizableEdges24
+        btnuploadpictures.Size = New Size(117, 34)
+        btnuploadpictures.TabIndex = 28
+        btnuploadpictures.Text = "Upload Pictures"
         ' 
         ' btnlogout
         ' 
@@ -212,26 +212,26 @@ Partial Class frmdashboard
         Guna2Button6.TabIndex = 24
         Guna2Button6.Text = "Dasboard"
         ' 
-        ' openbtnusers
+        ' btnUsers
         ' 
-        openbtnusers.BorderColor = Color.White
-        openbtnusers.BorderRadius = 12
-        openbtnusers.BorderThickness = 1
-        openbtnusers.CustomizableEdges = CustomizableEdges29
-        openbtnusers.DisabledState.BorderColor = Color.DarkGray
-        openbtnusers.DisabledState.CustomBorderColor = Color.DarkGray
-        openbtnusers.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        openbtnusers.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        openbtnusers.FillColor = Color.Blue
-        openbtnusers.Font = New Font("Segoe UI", 9F)
-        openbtnusers.ForeColor = Color.WhiteSmoke
-        openbtnusers.Location = New Point(7, 662)
-        openbtnusers.Margin = New Padding(2, 3, 2, 3)
-        openbtnusers.Name = "openbtnusers"
-        openbtnusers.ShadowDecoration.CustomizableEdges = CustomizableEdges30
-        openbtnusers.Size = New Size(117, 36)
-        openbtnusers.TabIndex = 25
-        openbtnusers.Text = "Users 👥"
+        btnUsers.BorderColor = Color.White
+        btnUsers.BorderRadius = 12
+        btnUsers.BorderThickness = 1
+        btnUsers.CustomizableEdges = CustomizableEdges29
+        btnUsers.DisabledState.BorderColor = Color.DarkGray
+        btnUsers.DisabledState.CustomBorderColor = Color.DarkGray
+        btnUsers.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnUsers.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnUsers.FillColor = Color.Blue
+        btnUsers.Font = New Font("Segoe UI", 9F)
+        btnUsers.ForeColor = Color.WhiteSmoke
+        btnUsers.Location = New Point(7, 662)
+        btnUsers.Margin = New Padding(2, 3, 2, 3)
+        btnUsers.Name = "btnUsers"
+        btnUsers.ShadowDecoration.CustomizableEdges = CustomizableEdges30
+        btnUsers.Size = New Size(117, 36)
+        btnUsers.TabIndex = 25
+        btnUsers.Text = "Users 👥"
         ' 
         ' btnOpenInventory
         ' 
@@ -468,10 +468,10 @@ Partial Class frmdashboard
     Friend WithEvents flptodaysales As FlowLayoutPanel
     Friend WithEvents flpweeklyrevenue As FlowLayoutPanel
     Friend WithEvents Guna2CustomGradientPanel2 As Guna.UI2.WinForms.Guna2CustomGradientPanel
-    Friend WithEvents Guna2Button4 As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnuploadpictures As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnlogout As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2Button6 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents openbtnusers As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnUsers As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnOpenInventory As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnOpenPOS As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnSALESHISTORY As Guna.UI2.WinForms.Guna2Button

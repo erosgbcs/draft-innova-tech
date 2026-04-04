@@ -20,24 +20,7 @@ Public Class FrmLogin
         Dim username = txtUsername.Text.Trim
         Dim password = txtPassword.Text
 
-        ' Validate input
-        If String.IsNullOrWhiteSpace(username) Then
-            MessageBox.Show("Please enter username", "Validation Error",
-                          MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtUsername.Focus()
-            Return
-        End If
-
-        If String.IsNullOrWhiteSpace(password) Then
-            MessageBox.Show("Please enter password", "Validation Error",
-                          MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtPassword.Focus()
-            Return
-        End If
-
-        ' Disable button to prevent multiple clicks
-        btnLogin.Enabled = False
-        btnLogin.Text = "Logging in..."
+        ' ... [Keep your validation logic here] ...
 
         ' Validate credentials against database
         Dim userData = dbHelper.ValidateUser(username, password)
@@ -46,30 +29,31 @@ Public Class FrmLogin
             ' Login successful
             Dim userRow = userData.Rows(0)
 
-            ' Store user info for use in other forms
-            Dim currentUser As New Dictionary(Of String, Object) From {
-                {"UserID", userRow("UserID")},
-                {"Username", userRow("Username")},
-                {"FullName", userRow("FullName")},
-                {"Role", userRow("Role")}
-            }
+            ' --- ADDED: SAVE TO GLOBAL DATA ---
+            ' This is what the SecurityManager uses to hide buttons
+            GlobalData.CurrentUser = userRow("Username").ToString()
+            GlobalData.UserRole = userRow("Role").ToString()
+            ' ----------------------------------
 
-            ' You can pass this to your POS form
-            ' For example, create a constructor in frmPOS that accepts user info
-            Dim posForm As New frmdashboard
-            ' If you want to pass user info, you can add a property to frmPOS
-            ' posForm.CurrentUser = currentUser
+            ' Store user info in a local dictionary (as you had it)
+            Dim currentUser As New Dictionary(Of String, Object) From {
+            {"UserID", userRow("UserID")},
+            {"Username", userRow("Username")},
+            {"FullName", userRow("FullName")},
+            {"Role", userRow("Role")}
+        }
 
             MessageBox.Show($"Login Successful! Welcome {userRow("FullName")}!",
-                          "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                      "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             ' Show POS form and hide login
+            Dim posForm As New frmdashboard
             posForm.Show()
-            Hide()
+            Me.Hide() ' Use Me.Hide() to ensure the login form closes
         Else
-            ' Login failed
+            ' Login failed logic...
             MessageBox.Show("Invalid username or password", "Login Failed",
-                          MessageBoxButtons.OK, MessageBoxIcon.Error)
+                      MessageBoxButtons.OK, MessageBoxIcon.Error)
             txtPassword.Clear()
             txtUsername.Focus()
         End If
@@ -363,4 +347,5 @@ Public Class FrmLogin
             ' 3. The Required Closing Statement
         End If
     End Sub
+
 End Class

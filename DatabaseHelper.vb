@@ -17,53 +17,84 @@ Public Class DatabaseHelper
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
 
-                ' --- Users table ---
+                ' 1. --- Create Users table ---
                 Dim createUsers As String = "
-                    CREATE TABLE IF NOT EXISTS Users (
-                        UserID INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Username TEXT UNIQUE NOT NULL,
-                        PasswordHash TEXT NOT NULL,
-                        FullName TEXT NOT NULL,
-                        Role TEXT DEFAULT 'Staff',
-                        IsActive BOOLEAN DEFAULT 1,
-                        LastLogin DATETIME,
-                        CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP
-                    )"
+                CREATE TABLE IF NOT EXISTS Users (
+                    UserID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Username TEXT UNIQUE NOT NULL,
+                    PasswordHash TEXT NOT NULL,
+                    FullName TEXT NOT NULL,
+                    Role TEXT DEFAULT 'Staff',
+                    IsActive BOOLEAN DEFAULT 1,
+                    LastLogin DATETIME,
+                    CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP
+                )"
                 Using cmd As New SQLiteCommand(createUsers, conn)
                     cmd.ExecuteNonQuery()
                 End Using
 
-                ' --- Products table ---
+                ' 2. --- SEED DEFAULT ADMIN ACCOUNT ---
+                ' Check if any user exists. If not, create the default admin.
+                Dim checkUserQuery As String = "SELECT COUNT(*) FROM Users"
+                Using checkCmd As New SQLiteCommand(checkUserQuery, conn)
+                    Dim userCount As Integer = Convert.ToInt32(checkCmd.ExecuteScalar())
+
+                    If userCount = 0 Then
+                        Dim insertAdmin As String = "
+                        INSERT INTO Users (Username, PasswordHash, FullName, Role, IsActive) 
+                        VALUES (@Username, @Hash, @Full, 'Admin', 1)"
+
+                        Using insertCmd As New SQLiteCommand(insertAdmin, conn)
+                            insertCmd.Parameters.AddWithValue("@Username", "admin")
+                            ' Standard password is 'admin123' - change this after first login!
+                            insertCmd.Parameters.AddWithValue("@Hash", HashPassword("admin123"))
+                            insertCmd.Parameters.AddWithValue("@Full", "System Administrator")
+                            insertCmd.ExecuteNonQuery()
+                        End Using
+                    End If
+                End Using
+
+                ' 3. --- Create Products table ---
                 Dim createProducts As String = "
-                    CREATE TABLE IF NOT EXISTS Products (
-                        ProductID INTEGER PRIMARY KEY AUTOINCREMENT,
-                        ProductCode TEXT UNIQUE NOT NULL,
-                        ProductName TEXT NOT NULL,
-                        Category TEXT,
-                        Price REAL NOT NULL,
-                        Stock INTEGER NOT NULL
-                    )"
+                CREATE TABLE IF NOT EXISTS Products (
+                    ProductID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ProductCode TEXT UNIQUE NOT NULL,
+                    ProductName TEXT NOT NULL,
+                    Category TEXT,
+                    Price REAL NOT NULL,
+                    Stock INTEGER NOT NULL
+                )"
                 Using cmd As New SQLiteCommand(createProducts, conn)
                     cmd.ExecuteNonQuery()
                 End Using
 
-                ' --- Sales table ---
-                ' --- Sales table update ---
+                ' 4. --- Create Sales table ---
                 Dim createSales As String = "
-    CREATE TABLE IF NOT EXISTS Sales (
-        SaleID INTEGER PRIMARY KEY AUTOINCREMENT,
-        BuyerName TEXT,
-        BuyerAddress TEXT,
-        BuyerContact TEXT,
-        Subtotal REAL,
-        Total REAL,
-        ProcessedBy TEXT,  -- <--- ADD THIS LINE
-        SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP
-    )"
+                CREATE TABLE IF NOT EXISTS Sales (
+                    SaleID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    BuyerName TEXT,
+                    BuyerAddress TEXT,
+                    BuyerContact TEXT,
+                    Subtotal REAL,
+                    Total REAL,
+                    ProcessedBy TEXT,
+                    SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP
+                )"
                 Using cmd As New SQLiteCommand(createSales, conn)
                     cmd.ExecuteNonQuery()
                 End Using
+                ' 5. --- Create SystemSettings table for images/logos ---
+                Dim createSettings As String = "
+CREATE TABLE IF NOT EXISTS SystemSettings (
+    SettingID INTEGER PRIMARY KEY AUTOINCREMENT,
+    SettingName TEXT UNIQUE NOT NULL,
+    SettingValue BLOB
+)"
+                Using cmd As New SQLiteCommand(createSettings, conn)
+                    cmd.ExecuteNonQuery()
+                End Using
             End Using
+
         Catch ex As Exception
             MessageBox.Show($"Database initialization error: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -424,5 +455,56 @@ Public Class DatabaseHelper
                 Return cmd.ExecuteNonQuery() > 0
             End Using
         End Using
+    End Function
+    ' --- IMAGE / LOGO METHODS ---
+
+    ' Save an Image to the database as a BLOB
+    Public Function SaveSystemImage(imageName As String, img As Image) As Boolean
+        Try
+            Using ms As New IO.MemoryStream()
+                ' Save image to stream in PNG format (best for logos)
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
+                Dim byteImage As Byte() = ms.ToArray()
+
+                Using conn As New SQLiteConnection(connectionString)
+                    conn.Open()
+                    ' INSERT OR REPLACE handles updating the existing logo
+                    Dim query As String = "INSERT OR REPLACE INTO SystemSettings (SettingName, SettingValue) VALUES (@Name, @Value)"
+                    Using cmd As New SQLiteCommand(query, conn)
+                        cmd.Parameters.AddWithValue("@Name", imageName)
+                        cmd.Parameters.AddWithValue("@Value", byteImage)
+                        Return cmd.ExecuteNonQuery() > 0
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error saving image: " & ex.Message)
+            Return False
+        End Try
+    End Function
+
+    ' Load an Image from the database
+    Public Function LoadSystemImage(imageName As String) As Image
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Dim query As String = "SELECT SettingValue FROM SystemSettings WHERE SettingName = @Name"
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@Name", imageName)
+                    Dim result = cmd.ExecuteScalar()
+
+                    If result IsNot Nothing AndAlso Not IsDBNull(result) Then
+                        Dim imgBytes As Byte() = DirectCast(result, Byte())
+                        Using ms As New IO.MemoryStream(imgBytes)
+                            ' Return a copy of the image to avoid stream-locking errors
+                            Return Image.FromStream(ms)
+                        End Using
+                    End If
+                End Using
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("Error loading image: " & ex.Message)
+        End Try
+        Return Nothing ' Return nothing if no image is found
     End Function
 End Class
