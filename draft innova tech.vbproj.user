@@ -23,7 +23,7 @@
     <Compile Update="FrmRegister.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="frmSalesHIstory.vb">
+    <Compile Update="frmSalesHistory.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

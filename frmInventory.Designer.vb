@@ -35,18 +35,16 @@ Partial Class frmInventory
         Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges11 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges12 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges13 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges14 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges19 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges20 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges23 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges24 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges21 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges22 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges17 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges18 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges13 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges14 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges15 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges21 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges22 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges19 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges20 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         txtSearch = New TextBox()
         dgvProducts = New DataGridView()
         btnAddProduct = New Button()
@@ -59,27 +57,26 @@ Partial Class frmInventory
         Label3 = New Label()
         Label4 = New Label()
         Label7 = New Label()
-        Label5 = New Label()
-        Label6 = New Label()
         txtCategory = New TextBox()
-        txtProductCode = New TextBox()
-        txtProductName = New TextBox()
         txtStock = New TextBox()
+        Label5 = New Label()
+        txtProductCode = New TextBox()
+        Label6 = New Label()
         txtPrice = New TextBox()
+        txtProductName = New TextBox()
         PictureBox3 = New PictureBox()
         btnSALESHISTORY = New Guna.UI2.WinForms.Guna2Button()
         btnOpenPOS = New Guna.UI2.WinForms.Guna2Button()
         btnOpenInventory = New Guna.UI2.WinForms.Guna2Button()
         Guna2Button1 = New Guna.UI2.WinForms.Guna2Button()
         Guna2Button2 = New Guna.UI2.WinForms.Guna2Button()
-        Guna2Button3 = New Guna.UI2.WinForms.Guna2Button()
         Guna2CustomGradientPanel2 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
+        btnUploadPictures = New Guna.UI2.WinForms.Guna2Button()
+        Guna2Button4 = New Guna.UI2.WinForms.Guna2Button()
         Guna2CustomGradientPanel3 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         Label2 = New Label()
         Guna2Button7 = New Guna.UI2.WinForms.Guna2Button()
         PictureBox1 = New PictureBox()
-        Guna2Button4 = New Guna.UI2.WinForms.Guna2Button()
-        btnUploadPictures = New Guna.UI2.WinForms.Guna2Button()
         CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         Guna2CustomGradientPanel1.SuspendLayout()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
@@ -95,7 +92,7 @@ Partial Class frmInventory
         txtSearch.Margin = New Padding(5, 4, 5, 4)
         txtSearch.Name = "txtSearch"
         txtSearch.PlaceholderText = "Product Inventory by code or name.."
-        txtSearch.Size = New Size(1379, 32)
+        txtSearch.Size = New Size(1739, 32)
         txtSearch.TabIndex = 5
         ' 
         ' dgvProducts
@@ -107,7 +104,7 @@ Partial Class frmInventory
         dgvProducts.Margin = New Padding(5, 4, 5, 4)
         dgvProducts.Name = "dgvProducts"
         dgvProducts.RowHeadersWidth = 51
-        dgvProducts.Size = New Size(1378, 521)
+        dgvProducts.Size = New Size(1739, 642)
         dgvProducts.TabIndex = 6
         ' 
         ' btnAddProduct
@@ -115,7 +112,7 @@ Partial Class frmInventory
         btnAddProduct.BackColor = Color.FromArgb(CByte(45), CByte(84), CByte(150))
         btnAddProduct.FlatStyle = FlatStyle.Flat
         btnAddProduct.ForeColor = Color.White
-        btnAddProduct.Location = New Point(1308, 8)
+        btnAddProduct.Location = New Point(1676, 8)
         btnAddProduct.Margin = New Padding(5, 4, 5, 4)
         btnAddProduct.Name = "btnAddProduct"
         btnAddProduct.Size = New Size(37, 33)
@@ -128,7 +125,7 @@ Partial Class frmInventory
         btnDelete.BackColor = Color.Red
         btnDelete.FlatStyle = FlatStyle.Flat
         btnDelete.ForeColor = Color.White
-        btnDelete.Location = New Point(1259, 8)
+        btnDelete.Location = New Point(1613, 8)
         btnDelete.Margin = New Padding(5, 4, 5, 4)
         btnDelete.Name = "btnDelete"
         btnDelete.Size = New Size(41, 33)
@@ -141,7 +138,7 @@ Partial Class frmInventory
         btnUpdate.BackColor = Color.Green
         btnUpdate.FlatStyle = FlatStyle.Flat
         btnUpdate.ForeColor = Color.Wheat
-        btnUpdate.Location = New Point(837, 8)
+        btnUpdate.Location = New Point(1182, 8)
         btnUpdate.Margin = New Padding(5, 4, 5, 4)
         btnUpdate.Name = "btnUpdate"
         btnUpdate.Size = New Size(145, 37)
@@ -154,7 +151,7 @@ Partial Class frmInventory
         BtnExportcsv.BackColor = Color.Lime
         BtnExportcsv.FlatStyle = FlatStyle.Flat
         BtnExportcsv.Font = New Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        BtnExportcsv.Location = New Point(1134, 8)
+        BtnExportcsv.Location = New Point(1483, 8)
         BtnExportcsv.Margin = New Padding(5, 4, 5, 4)
         BtnExportcsv.Name = "BtnExportcsv"
         BtnExportcsv.Size = New Size(107, 33)
@@ -167,7 +164,7 @@ Partial Class frmInventory
         Label1.BackColor = Color.DimGray
         Label1.Location = New Point(171, 118)
         Label1.Name = "Label1"
-        Label1.Size = New Size(1367, 2)
+        Label1.Size = New Size(1733, 3)
         Label1.TabIndex = 12
         Label1.Text = "Label1"
         ' 
@@ -176,7 +173,7 @@ Partial Class frmInventory
         Button1.BackColor = SystemColors.Highlight
         Button1.FlatStyle = FlatStyle.Flat
         Button1.ForeColor = Color.Black
-        Button1.Location = New Point(990, 8)
+        Button1.Location = New Point(1348, 10)
         Button1.Name = "Button1"
         Button1.Size = New Size(127, 33)
         Button1.TabIndex = 21
@@ -211,7 +208,7 @@ Partial Class frmInventory
         Guna2CustomGradientPanel1.ShadowDecoration.Color = Color.FromArgb(CByte(191), CByte(219), CByte(254))
         Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         Guna2CustomGradientPanel1.ShadowDecoration.Enabled = True
-        Guna2CustomGradientPanel1.Size = New Size(1378, 211)
+        Guna2CustomGradientPanel1.Size = New Size(1742, 211)
         Guna2CustomGradientPanel1.TabIndex = 45
         ' 
         ' Label3
@@ -250,6 +247,24 @@ Partial Class frmInventory
         Label7.TabIndex = 52
         Label7.Text = "Stock"
         ' 
+        ' txtCategory
+        ' 
+        txtCategory.Location = New Point(322, 61)
+        txtCategory.Margin = New Padding(5, 4, 5, 4)
+        txtCategory.Name = "txtCategory"
+        txtCategory.PlaceholderText = "Category"
+        txtCategory.Size = New Size(220, 27)
+        txtCategory.TabIndex = 45
+        ' 
+        ' txtStock
+        ' 
+        txtStock.Location = New Point(614, 61)
+        txtStock.Margin = New Padding(5, 4, 5, 4)
+        txtStock.Name = "txtStock"
+        txtStock.PlaceholderText = "Stock"
+        txtStock.Size = New Size(220, 27)
+        txtStock.TabIndex = 47
+        ' 
         ' Label5
         ' 
         Label5.AutoSize = True
@@ -261,6 +276,17 @@ Partial Class frmInventory
         Label5.Size = New Size(90, 25)
         Label5.TabIndex = 50
         Label5.Text = "Category"
+        ' 
+        ' txtProductCode
+        ' 
+        txtProductCode.BackColor = Color.White
+        txtProductCode.ForeColor = SystemColors.WindowText
+        txtProductCode.Location = New Point(28, 61)
+        txtProductCode.Margin = New Padding(5, 4, 5, 4)
+        txtProductCode.Name = "txtProductCode"
+        txtProductCode.PlaceholderText = "Product code"
+        txtProductCode.Size = New Size(220, 27)
+        txtProductCode.TabIndex = 43
         ' 
         ' Label6
         ' 
@@ -274,25 +300,14 @@ Partial Class frmInventory
         Label6.TabIndex = 51
         Label6.Text = "Price"
         ' 
-        ' txtCategory
+        ' txtPrice
         ' 
-        txtCategory.Location = New Point(322, 61)
-        txtCategory.Margin = New Padding(5, 4, 5, 4)
-        txtCategory.Name = "txtCategory"
-        txtCategory.PlaceholderText = "Category"
-        txtCategory.Size = New Size(220, 27)
-        txtCategory.TabIndex = 45
-        ' 
-        ' txtProductCode
-        ' 
-        txtProductCode.BackColor = Color.White
-        txtProductCode.ForeColor = Color.White
-        txtProductCode.Location = New Point(28, 61)
-        txtProductCode.Margin = New Padding(5, 4, 5, 4)
-        txtProductCode.Name = "txtProductCode"
-        txtProductCode.PlaceholderText = "Product code"
-        txtProductCode.Size = New Size(220, 27)
-        txtProductCode.TabIndex = 43
+        txtPrice.Location = New Point(322, 155)
+        txtPrice.Margin = New Padding(5, 4, 5, 4)
+        txtPrice.Name = "txtPrice"
+        txtPrice.PlaceholderText = "Price"
+        txtPrice.Size = New Size(220, 27)
+        txtPrice.TabIndex = 46
         ' 
         ' txtProductName
         ' 
@@ -303,24 +318,6 @@ Partial Class frmInventory
         txtProductName.PlaceholderText = "Product name"
         txtProductName.Size = New Size(220, 27)
         txtProductName.TabIndex = 44
-        ' 
-        ' txtStock
-        ' 
-        txtStock.Location = New Point(614, 61)
-        txtStock.Margin = New Padding(5, 4, 5, 4)
-        txtStock.Name = "txtStock"
-        txtStock.PlaceholderText = "Stock"
-        txtStock.Size = New Size(220, 27)
-        txtStock.TabIndex = 47
-        ' 
-        ' txtPrice
-        ' 
-        txtPrice.Location = New Point(322, 155)
-        txtPrice.Margin = New Padding(5, 4, 5, 4)
-        txtPrice.Name = "txtPrice"
-        txtPrice.PlaceholderText = "Price"
-        txtPrice.Size = New Size(220, 27)
-        txtPrice.TabIndex = 46
         ' 
         ' PictureBox3
         ' 
@@ -346,7 +343,7 @@ Partial Class frmInventory
         btnSALESHISTORY.FillColor = Color.Blue
         btnSALESHISTORY.Font = New Font("Segoe UI", 9F)
         btnSALESHISTORY.ForeColor = Color.WhiteSmoke
-        btnSALESHISTORY.Location = New Point(10, 499)
+        btnSALESHISTORY.Location = New Point(9, 572)
         btnSALESHISTORY.Margin = New Padding(3, 4, 3, 4)
         btnSALESHISTORY.Name = "btnSALESHISTORY"
         btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges4
@@ -367,7 +364,7 @@ Partial Class frmInventory
         btnOpenPOS.FillColor = Color.Blue
         btnOpenPOS.Font = New Font("Segoe UI", 9F)
         btnOpenPOS.ForeColor = Color.White
-        btnOpenPOS.Location = New Point(10, 365)
+        btnOpenPOS.Location = New Point(9, 402)
         btnOpenPOS.Margin = New Padding(3, 4, 3, 4)
         btnOpenPOS.Name = "btnOpenPOS"
         btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges6
@@ -388,7 +385,7 @@ Partial Class frmInventory
         btnOpenInventory.FillColor = Color.Blue
         btnOpenInventory.Font = New Font("Segoe UI", 9F)
         btnOpenInventory.ForeColor = Color.White
-        btnOpenInventory.Location = New Point(9, 435)
+        btnOpenInventory.Location = New Point(9, 487)
         btnOpenInventory.Margin = New Padding(3, 4, 3, 4)
         btnOpenInventory.Name = "btnOpenInventory"
         btnOpenInventory.PressedColor = Color.Transparent
@@ -410,7 +407,7 @@ Partial Class frmInventory
         Guna2Button1.FillColor = Color.Blue
         Guna2Button1.Font = New Font("Segoe UI", 9F)
         Guna2Button1.ForeColor = Color.White
-        Guna2Button1.Location = New Point(9, 294)
+        Guna2Button1.Location = New Point(9, 316)
         Guna2Button1.Margin = New Padding(3, 4, 3, 4)
         Guna2Button1.Name = "Guna2Button1"
         Guna2Button1.ShadowDecoration.CustomizableEdges = CustomizableEdges10
@@ -431,34 +428,13 @@ Partial Class frmInventory
         Guna2Button2.FillColor = Color.Blue
         Guna2Button2.Font = New Font("Segoe UI", 9F)
         Guna2Button2.ForeColor = Color.WhiteSmoke
-        Guna2Button2.Location = New Point(10, 664)
+        Guna2Button2.Location = New Point(3, 769)
         Guna2Button2.Margin = New Padding(3, 4, 3, 4)
         Guna2Button2.Name = "Guna2Button2"
         Guna2Button2.ShadowDecoration.CustomizableEdges = CustomizableEdges12
         Guna2Button2.Size = New Size(146, 45)
         Guna2Button2.TabIndex = 25
         Guna2Button2.Text = "Users 👥"
-        ' 
-        ' Guna2Button3
-        ' 
-        Guna2Button3.BorderColor = Color.White
-        Guna2Button3.BorderRadius = 12
-        Guna2Button3.BorderThickness = 1
-        Guna2Button3.CustomizableEdges = CustomizableEdges13
-        Guna2Button3.DisabledState.BorderColor = Color.DarkGray
-        Guna2Button3.DisabledState.CustomBorderColor = Color.DarkGray
-        Guna2Button3.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        Guna2Button3.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        Guna2Button3.FillColor = Color.Blue
-        Guna2Button3.Font = New Font("Segoe UI", 9F)
-        Guna2Button3.ForeColor = Color.WhiteSmoke
-        Guna2Button3.Location = New Point(11, 813)
-        Guna2Button3.Margin = New Padding(3, 4, 3, 4)
-        Guna2Button3.Name = "Guna2Button3"
-        Guna2Button3.ShadowDecoration.CustomizableEdges = CustomizableEdges14
-        Guna2Button3.Size = New Size(146, 45)
-        Guna2Button3.TabIndex = 26
-        Guna2Button3.Text = "Logout"
         ' 
         ' Guna2CustomGradientPanel2
         ' 
@@ -471,11 +447,10 @@ Partial Class frmInventory
         Guna2CustomGradientPanel2.Controls.Add(Guna2Button1)
         Guna2CustomGradientPanel2.Controls.Add(Guna2Button2)
         Guna2CustomGradientPanel2.Controls.Add(btnOpenInventory)
-        Guna2CustomGradientPanel2.Controls.Add(Guna2Button3)
         Guna2CustomGradientPanel2.Controls.Add(btnOpenPOS)
         Guna2CustomGradientPanel2.Controls.Add(btnSALESHISTORY)
         Guna2CustomGradientPanel2.Controls.Add(PictureBox3)
-        Guna2CustomGradientPanel2.CustomizableEdges = CustomizableEdges19
+        Guna2CustomGradientPanel2.CustomizableEdges = CustomizableEdges17
         Guna2CustomGradientPanel2.FillColor = Color.DodgerBlue
         Guna2CustomGradientPanel2.FillColor2 = Color.SteelBlue
         Guna2CustomGradientPanel2.FillColor3 = Color.Navy
@@ -483,9 +458,51 @@ Partial Class frmInventory
         Guna2CustomGradientPanel2.Location = New Point(2, 118)
         Guna2CustomGradientPanel2.Margin = New Padding(3, 4, 3, 4)
         Guna2CustomGradientPanel2.Name = "Guna2CustomGradientPanel2"
-        Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges20
-        Guna2CustomGradientPanel2.Size = New Size(163, 815)
+        Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges18
+        Guna2CustomGradientPanel2.Size = New Size(160, 936)
         Guna2CustomGradientPanel2.TabIndex = 54
+        ' 
+        ' btnUploadPictures
+        ' 
+        btnUploadPictures.BorderColor = Color.DarkBlue
+        btnUploadPictures.BorderRadius = 12
+        btnUploadPictures.BorderThickness = 1
+        btnUploadPictures.CustomizableEdges = CustomizableEdges13
+        btnUploadPictures.DisabledState.BorderColor = Color.DarkGray
+        btnUploadPictures.DisabledState.CustomBorderColor = Color.DarkGray
+        btnUploadPictures.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnUploadPictures.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnUploadPictures.FillColor = Color.Blue
+        btnUploadPictures.Font = New Font("Segoe UI", 9F)
+        btnUploadPictures.ForeColor = Color.White
+        btnUploadPictures.Location = New Point(10, 189)
+        btnUploadPictures.Margin = New Padding(3, 4, 3, 4)
+        btnUploadPictures.Name = "btnUploadPictures"
+        btnUploadPictures.ShadowDecoration.CustomizableEdges = CustomizableEdges14
+        btnUploadPictures.Size = New Size(146, 42)
+        btnUploadPictures.TabIndex = 29
+        btnUploadPictures.Text = "Upload Pictures"
+        ' 
+        ' Guna2Button4
+        ' 
+        Guna2Button4.BorderColor = Color.White
+        Guna2Button4.BorderRadius = 12
+        Guna2Button4.BorderThickness = 1
+        Guna2Button4.CustomizableEdges = CustomizableEdges15
+        Guna2Button4.DisabledState.BorderColor = Color.DarkGray
+        Guna2Button4.DisabledState.CustomBorderColor = Color.DarkGray
+        Guna2Button4.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        Guna2Button4.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        Guna2Button4.FillColor = Color.Blue
+        Guna2Button4.Font = New Font("Segoe UI", 9F)
+        Guna2Button4.ForeColor = Color.WhiteSmoke
+        Guna2Button4.Location = New Point(3, 847)
+        Guna2Button4.Margin = New Padding(3, 4, 3, 4)
+        Guna2Button4.Name = "Guna2Button4"
+        Guna2Button4.ShadowDecoration.CustomizableEdges = CustomizableEdges16
+        Guna2Button4.Size = New Size(146, 45)
+        Guna2Button4.TabIndex = 27
+        Guna2Button4.Text = "Logout"
         ' 
         ' Guna2CustomGradientPanel3
         ' 
@@ -500,7 +517,7 @@ Partial Class frmInventory
         Guna2CustomGradientPanel3.Controls.Add(BtnExportcsv)
         Guna2CustomGradientPanel3.Controls.Add(btnDelete)
         Guna2CustomGradientPanel3.Controls.Add(btnAddProduct)
-        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges23
+        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges21
         Guna2CustomGradientPanel3.FillColor = Color.DodgerBlue
         Guna2CustomGradientPanel3.FillColor2 = Color.SteelBlue
         Guna2CustomGradientPanel3.FillColor3 = Color.Navy
@@ -508,8 +525,8 @@ Partial Class frmInventory
         Guna2CustomGradientPanel3.Location = New Point(171, 13)
         Guna2CustomGradientPanel3.Margin = New Padding(3, 4, 3, 4)
         Guna2CustomGradientPanel3.Name = "Guna2CustomGradientPanel3"
-        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges24
-        Guna2CustomGradientPanel3.Size = New Size(1367, 93)
+        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges22
+        Guna2CustomGradientPanel3.Size = New Size(1739, 93)
         Guna2CustomGradientPanel3.TabIndex = 56
         ' 
         ' Label2
@@ -528,7 +545,7 @@ Partial Class frmInventory
         Guna2Button7.BorderColor = Color.White
         Guna2Button7.BorderRadius = 12
         Guna2Button7.BorderThickness = 1
-        Guna2Button7.CustomizableEdges = CustomizableEdges21
+        Guna2Button7.CustomizableEdges = CustomizableEdges19
         Guna2Button7.DisabledState.BorderColor = Color.DarkGray
         Guna2Button7.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button7.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -539,7 +556,7 @@ Partial Class frmInventory
         Guna2Button7.Location = New Point(11, 813)
         Guna2Button7.Margin = New Padding(3, 4, 3, 4)
         Guna2Button7.Name = "Guna2Button7"
-        Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges22
+        Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges20
         Guna2Button7.Size = New Size(146, 45)
         Guna2Button7.TabIndex = 26
         Guna2Button7.Text = "Logout"
@@ -554,55 +571,13 @@ Partial Class frmInventory
         PictureBox1.TabIndex = 27
         PictureBox1.TabStop = False
         ' 
-        ' Guna2Button4
-        ' 
-        Guna2Button4.BorderColor = Color.White
-        Guna2Button4.BorderRadius = 12
-        Guna2Button4.BorderThickness = 1
-        Guna2Button4.CustomizableEdges = CustomizableEdges17
-        Guna2Button4.DisabledState.BorderColor = Color.DarkGray
-        Guna2Button4.DisabledState.CustomBorderColor = Color.DarkGray
-        Guna2Button4.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        Guna2Button4.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        Guna2Button4.FillColor = Color.Blue
-        Guna2Button4.Font = New Font("Segoe UI", 9F)
-        Guna2Button4.ForeColor = Color.WhiteSmoke
-        Guna2Button4.Location = New Point(10, 734)
-        Guna2Button4.Margin = New Padding(3, 4, 3, 4)
-        Guna2Button4.Name = "Guna2Button4"
-        Guna2Button4.ShadowDecoration.CustomizableEdges = CustomizableEdges18
-        Guna2Button4.Size = New Size(146, 45)
-        Guna2Button4.TabIndex = 27
-        Guna2Button4.Text = "Logout"
-        ' 
-        ' btnUploadPictures
-        ' 
-        btnUploadPictures.BorderColor = Color.DarkBlue
-        btnUploadPictures.BorderRadius = 12
-        btnUploadPictures.BorderThickness = 1
-        btnUploadPictures.CustomizableEdges = CustomizableEdges15
-        btnUploadPictures.DisabledState.BorderColor = Color.DarkGray
-        btnUploadPictures.DisabledState.CustomBorderColor = Color.DarkGray
-        btnUploadPictures.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        btnUploadPictures.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnUploadPictures.FillColor = Color.Blue
-        btnUploadPictures.Font = New Font("Segoe UI", 9F)
-        btnUploadPictures.ForeColor = Color.White
-        btnUploadPictures.Location = New Point(10, 189)
-        btnUploadPictures.Margin = New Padding(3, 4, 3, 4)
-        btnUploadPictures.Name = "btnUploadPictures"
-        btnUploadPictures.ShadowDecoration.CustomizableEdges = CustomizableEdges16
-        btnUploadPictures.Size = New Size(146, 42)
-        btnUploadPictures.TabIndex = 29
-        btnUploadPictures.Text = "Upload Pictures"
-        ' 
         ' frmInventory
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         AutoScroll = True
         BackColor = Color.Gainsboro
-        ClientSize = New Size(1135, 684)
+        ClientSize = New Size(1924, 1055)
         Controls.Add(PictureBox1)
         Controls.Add(Guna2CustomGradientPanel3)
         Controls.Add(Guna2CustomGradientPanel2)
@@ -650,7 +625,6 @@ Partial Class frmInventory
     Friend WithEvents btnOpenInventory As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2Button1 As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2Button2 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents Guna2Button3 As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2CustomGradientPanel2 As Guna.UI2.WinForms.Guna2CustomGradientPanel
     Friend WithEvents Guna2CustomGradientPanel3 As Guna.UI2.WinForms.Guna2CustomGradientPanel
     Friend WithEvents Guna2Button7 As Guna.UI2.WinForms.Guna2Button
