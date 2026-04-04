@@ -63,4 +63,8 @@
         Show()
         Hide()
     End Sub
+
+    Private Sub Guna2CustomGradientPanel2_Paint(sender As Object, e As PaintEventArgs) Handles Guna2CustomGradientPanel2.Paint
+
+    End Sub
 End Class
