@@ -133,8 +133,12 @@
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        'PRINT REPORT INVENTORY
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles printreport.Click
+        ' Initialize the Print Preview Dialog
+        Dim ppd As New PrintPreviewDialog()
+        ppd.Document = PrintInventoryDoc
+        ppd.WindowState = FormWindowState.Maximized
+        ppd.ShowDialog()
     End Sub
     'EXPORT CSV
     Private Sub BtnExportcsv_Click(sender As Object, e As EventArgs) Handles BtnExportcsv.Click
@@ -168,5 +172,54 @@
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
         'PICTUREBOX
+    End Sub
+    ' THIS IS THE MISSING LOGIC THAT DRAWS THE CONTENT
+    Private Sub PrintInventoryDoc_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintInventoryDoc.PrintPage
+        Dim g As Graphics = e.Graphics
+        Dim fontHeader As New Font("Segoe UI", 18, FontStyle.Bold)
+        Dim fontSubHeader As New Font("Segoe UI", 9, FontStyle.Italic)
+        Dim fontColumn As New Font("Segoe UI", 10, FontStyle.Bold)
+        Dim fontRow As New Font("Segoe UI", 10, FontStyle.Regular)
+
+        Dim posX As Integer = 50
+        Dim posY As Integer = 50
+
+        ' 1. Title
+        g.DrawString("INNOVATECH INVENTORY REPORT", fontHeader, Brushes.Black, posX, posY)
+
+        ' 2. Full Date and Time
+        posY += 35
+        g.DrawString("Report Date: " & DateTime.Now.ToString("f"), fontSubHeader, Brushes.DimGray, posX, posY)
+
+        posY += 45 ' Space before table
+
+        ' 3. Table Headers (Using Column Indexes)
+        g.DrawString("CODE", fontColumn, Brushes.Black, posX, posY)
+        g.DrawString("NAME", fontColumn, Brushes.Black, posX + 100, posY)
+        g.DrawString("CATEGORY", fontColumn, Brushes.Black, posX + 350, posY)
+        g.DrawString("PRICE", fontColumn, Brushes.Black, posX + 500, posY)
+        g.DrawString("STOCK", fontColumn, Brushes.Black, posX + 600, posY)
+
+        posY += 25
+        g.DrawLine(Pens.Black, posX, posY, posX + 700, posY)
+        posY += 10
+
+        ' 4. Loop Data
+        For Each row As DataGridViewRow In dgvProducts.Rows
+            If Not row.IsNewRow Then
+                ' Use index 0 to 4 to match your columns
+                g.DrawString(If(row.Cells(0).Value?.ToString(), ""), fontRow, Brushes.Black, posX, posY)
+                g.DrawString(If(row.Cells(1).Value?.ToString(), ""), fontRow, Brushes.Black, posX + 100, posY)
+                g.DrawString(If(row.Cells(2).Value?.ToString(), ""), fontRow, Brushes.Black, posX + 350, posY)
+
+                ' Format as Currency
+                Dim priceVal As Decimal = If(IsNumeric(row.Cells(3).Value), CDec(row.Cells(3).Value), 0)
+                g.DrawString(priceVal.ToString("N2"), fontRow, Brushes.Black, posX + 500, posY)
+
+                g.DrawString(If(row.Cells(4).Value?.ToString(), ""), fontRow, Brushes.Black, posX + 600, posY)
+
+                posY += 25
+            End If
+        Next
     End Sub
 End Class
