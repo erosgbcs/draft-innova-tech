@@ -33,11 +33,15 @@
 
 
 
-    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
+    Private Sub Label5_Click(sender As Object, e As EventArgs)
 
     End Sub
 
     Private Sub tabWeeklyReports_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub flptotalproducts_Paint(sender As Object, e As PaintEventArgs) Handles flptotalproducts.Paint
 
     End Sub
 End Class
