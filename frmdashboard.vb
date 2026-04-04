@@ -1,54 +1,58 @@
 ﻿Imports System.Data
 
 Public Class frmdashboard
-    ' Fixed: Declare the database helper and the Timer with events to fix "Not Declared" errors
     Private db As New DatabaseHelper()
     Private WithEvents DashboardTimer As New Timer()
 
     Private Sub frmdashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.WindowState = FormWindowState.Maximized
 
-        ' Setup Clock Timer (Timer1 should be dragged from Toolbox or declared)
+        ' Setup Clock
         Timer1.Start()
 
-        ' Setup Dashboard Refresh Timer
-        DashboardTimer.Interval = 5000 ' 5 seconds
+        ' Setup Refresh Timer (5 seconds)
+        DashboardTimer.Interval = 5000
         DashboardTimer.Start()
 
-        ' Initial Load
+        ' Initial Data Load
         LoadDashboardStats()
     End Sub
 
-    ' Clock Logic
+    ' Update Clock Label
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         lblTime.Text = DateTime.Now.ToString("MMMM dd, yyyy hh:mm:ss tt")
     End Sub
 
-    ' Auto-refresh stats from Timer
+    ' Auto-refresh every 5 seconds
     Private Sub DashboardTimer_Tick(sender As Object, e As EventArgs) Handles DashboardTimer.Tick
         LoadDashboardStats()
     End Sub
 
-    ' Load dashboard summary values
+    ' MAIN LOADING LOGIC
     Private Sub LoadDashboardStats()
-        ' Clear previous controls to prevent stacking/memory leaks
+        ' Clear all panels to prevent stacking data
         ClearPanelControls(flptotalproducts)
         ClearPanelControls(flpitemsinstock)
         ClearPanelControls(flptodaysales)
         ClearPanelControls(flpweeklyrevenue)
+        ClearPanelControls(flpinventoryinsights) ' Clear the insights panel
 
         Try
-            ' Fetch data using the specific helper methods
+            ' 1. Fetch Main Stats
             Dim totalProducts As Integer = db.GetTotalProductsCount()
             Dim itemsInStock As Integer = db.GetTotalItemsInStock()
             Dim todaysSales As Decimal = db.GetTodaySales()
             Dim weeklyRevenue As Decimal = db.GetWeeklyRevenue()
 
-            ' Add the big summary cards
+            ' 2. Create Big Summary Cards
             flptotalproducts.Controls.Add(CreateSummaryCard("Total Products", totalProducts.ToString()))
             flpitemsinstock.Controls.Add(CreateSummaryCard("Items in Stock", itemsInStock.ToString()))
             flptodaysales.Controls.Add(CreateSummaryCard("Today's Sales", "₱" & todaysSales.ToString("N2")))
             flpweeklyrevenue.Controls.Add(CreateSummaryCard("Weekly Revenue", "₱" & weeklyRevenue.ToString("N2")))
+
+            ' 3. LOAD THE INSIGHTS (The missing link)
+            LoadInventoryInsights()
+
         Catch ex As Exception
             Console.WriteLine("Data Load Error: " & ex.Message)
         End Try
@@ -116,69 +120,69 @@ Public Class frmdashboard
     End Sub
     ' Method to populate the Insights Panel
     Private Sub LoadInventoryInsights()
-        ClearPanelControls(flpinventoryinsights)
         flpinventoryinsights.FlowDirection = FlowDirection.TopDown
         flpinventoryinsights.WrapContents = False
-        flpinventoryinsights.AutoScroll = True ' Allow scrolling if list is long
+        flpinventoryinsights.AutoScroll = True
 
-        ' 1. Main Header
+        ' Header
         Dim lblHeader As New Label With {
             .Text = "Inventory Insights",
             .Font = New Font("Segoe UI", 16, FontStyle.Bold),
-            .ForeColor = Color.Black,
             .AutoSize = True,
             .Margin = New Padding(10, 10, 0, 10)
         }
         flpinventoryinsights.Controls.Add(lblHeader)
 
-        ' 2. Low Stock Items Section
+        ' Low Stock Section
         Dim lowStockDt As DataTable = db.GetLowStockItems(10)
-        Dim lowStockList As String = ""
+        Dim lowStockText As String = ""
         If lowStockDt.Rows.Count > 0 Then
             For Each row As DataRow In lowStockDt.Rows
-                lowStockList &= $"• {row("ProductName")} ({row("Stock")} left)" & vbCrLf
+                lowStockText &= $"• {row("ProductName")} ({row("Stock")} left)" & vbCrLf
             Next
         Else
-            lowStockList = "• All items are well stocked."
+            lowStockText = "• All items are well stocked."
         End If
-        flpinventoryinsights.Controls.Add(CreateInsightSection("Low Stock Items (< 10)", lowStockList, Color.Firebrick))
+        flpinventoryinsights.Controls.Add(CreateInsightSection("Low Stock Items (< 10)", lowStockText, Color.Firebrick))
 
-        ' 3. Top Selling Products
-        flpinventoryinsights.Controls.Add(CreateInsightSection("Top Selling Products", db.GetTopSellingPlaceholder(), Color.Navy))
-
-        ' 4. Recommendations
+        ' Recommendations Section
         Dim outCount As Integer = db.GetOutOfStockCount()
-        Dim lowCount As Integer = lowStockDt.Rows.Count
-        Dim recs As String = $"• Restock {outCount} out-of-stock items" & vbCrLf & $"• Reorder {lowCount} low-stock items"
+        Dim recs As String = $"• Restock {outCount} out-of-stock items" & vbCrLf & $"• Reorder {lowStockDt.Rows.Count} low-stock items"
         flpinventoryinsights.Controls.Add(CreateInsightSection("Recommendations", recs, Color.DarkGreen))
     End Sub
 
-    ' Helper to build the individual text sections
+    ' HELPERS
+    Private Sub ClearPanelControls(panel As FlowLayoutPanel)
+        For Each ctrl As Control In panel.Controls : ctrl.Dispose() : Next
+        panel.Controls.Clear()
+    End Sub
+
+    Private Function CreateSummaryCard(title As String, value As String) As Panel
+        Dim card As New Panel With {.Width = 250, .Height = 130, .BackColor = Color.White, .Margin = New Padding(10)}
+        Dim lblT As New Label With {.Text = title.ToUpper(), .Font = New Font("Segoe UI", 12, FontStyle.Bold), .ForeColor = Color.DimGray, .Location = New Point(15, 15), .AutoSize = True}
+        Dim lblV As New Label With {.Text = value, .Font = New Font("Segoe UI", 32, FontStyle.Bold), .ForeColor = Color.MidnightBlue, .Location = New Point(15, 55), .AutoSize = True}
+        card.Controls.Add(lblT) : card.Controls.Add(lblV)
+        Return card
+    End Function
+
     Private Function CreateInsightSection(title As String, content As String, titleColor As Color) As Panel
-        Dim pnl As New Panel With {
-            .Width = flpinventoryinsights.Width - 25,
-            .AutoSize = True,
-            .Margin = New Padding(10, 0, 0, 15)
-        }
-
-        Dim lblTitle As New Label With {
-            .Text = title,
-            .Font = New Font("Segoe UI", 11, FontStyle.Bold),
-            .ForeColor = titleColor,
-            .AutoSize = True,
-            .Location = New Point(0, 0)
-        }
-
-        Dim lblContent As New Label With {
-            .Text = content,
-            .Font = New Font("Segoe UI", 10, FontStyle.Regular),
-            .ForeColor = Color.FromArgb(64, 64, 64),
-            .AutoSize = True,
-            .Location = New Point(5, 22)
-        }
-
-        pnl.Controls.Add(lblTitle)
-        pnl.Controls.Add(lblContent)
+        Dim pnl As New Panel With {.Width = flpinventoryinsights.Width - 25, .AutoSize = True, .Margin = New Padding(10, 0, 0, 15)}
+        Dim lblT As New Label With {.Text = title, .Font = New Font("Segoe UI", 11, FontStyle.Bold), .ForeColor = titleColor, .AutoSize = True}
+        Dim lblC As New Label With {.Text = content, .Font = New Font("Segoe UI", 10), .ForeColor = Color.FromArgb(64, 64, 64), .Location = New Point(5, 22), .AutoSize = True}
+        pnl.Controls.Add(lblT) : pnl.Controls.Add(lblC)
         Return pnl
     End Function
+
+    ' NAVIGATION
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
+        pos.Show()
+    End Sub
+
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
+        frmInventory.Show()
+    End Sub
+
+    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
+        frmSalesHIstory.Show()
+    End Sub
 End Class
