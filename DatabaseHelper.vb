@@ -351,4 +351,26 @@ Public Class DatabaseHelper
     Public Function GetTopSellingPlaceholder() As String
         Return "No sales data for this week"
     End Function
+    ' Add this to DatabaseHelper.vb
+    Public Function SearchSales(searchTerm As String) As DataTable
+        Dim dt As New DataTable()
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                ' Searches for matches in BuyerName or SaleID
+                Dim query As String = "SELECT SaleID, BuyerName, BuyerAddress, BuyerContact, Subtotal, Total, SaleDate " &
+                                     "FROM Sales WHERE BuyerName LIKE @Search OR SaleID LIKE @Search " &
+                                     "ORDER BY SaleDate DESC"
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@Search", "%" & searchTerm & "%")
+                    Using da As New SQLiteDataAdapter(cmd)
+                        da.Fill(dt)
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Search Error: " & ex.Message)
+        End Try
+        Return dt
+    End Function
 End Class
