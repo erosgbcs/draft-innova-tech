@@ -316,15 +316,28 @@ Public Class pos
         flpCart.Controls.Add(summaryPanel)
     End Sub
 
+    ' Open Sales History maximized
     Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
-        Sales_History.Show()
+        Dim salesForm As New Sales_History()
+        salesForm.WindowState = FormWindowState.Maximized
+        salesForm.Show()
     End Sub
 
+    ' Open POS (this is the current form, so usually not needed)
     Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
-        Me.Show()
+        Me.WindowState = FormWindowState.Maximized
     End Sub
 
+    ' Open Inventory maximized
     Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
-        frmInventory.Show()
+        Dim invForm As New frmInventory()
+        invForm.WindowState = FormWindowState.Maximized
+        invForm.Show()
+    End Sub
+
+    Private Sub Guna2Button1_Click(sender As Object, e As EventArgs) Handles Guna2Button1.Click
+        Dim invForm As New frmdashboard()
+        invForm.WindowState = FormWindowState.Maximized
+        invForm.Show()
     End Sub
 End Class
