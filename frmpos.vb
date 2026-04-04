@@ -48,22 +48,9 @@ Public Class pos
         t.Start()
     End Sub
 
-    ' --- Search bar ---
-    Private Sub AddSearchBar()
-        Dim txtSearch As New TextBox With {
-            .PlaceholderText = "Search products...",
-            .Width = flpProduct1.Width - 30,
-            .Location = New Point(10, 0)
-        }
-        AddHandler txtSearch.TextChanged, Sub()
-                                              RefreshProductDisplay(txtSearch.Text)
-                                          End Sub
-        flpProduct1.Controls.Add(txtSearch)
-    End Sub
-
+    ' --- Product Display (Search Bar Removed) ---
     Private Sub RefreshProductDisplay(Optional filter As String = "")
         flpProduct1.Controls.Clear()
-        AddSearchBar()
 
         Dim lblProductHeader As New Label With {
             .Text = "PRODUCT SELECTION",
@@ -72,7 +59,7 @@ Public Class pos
             .Width = flpProduct1.Width - 30,
             .Height = 40,
             .TextAlign = ContentAlignment.MiddleLeft,
-            .Margin = New Padding(10, 10, 0, 10)
+            .Margin = New Padding(10, 20, 0, 10) ' Added top margin for spacing
         }
         flpProduct1.Controls.Add(lblProductHeader)
 
@@ -340,7 +327,4 @@ Public Class pos
     Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
         frmInventory.Show()
     End Sub
-
-    ' --- Navigation Events ---
-
 End Class

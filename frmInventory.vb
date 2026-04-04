@@ -51,16 +51,16 @@
         txtPrice.Clear()
         txtStock.Clear()
     End Sub
-    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
+    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
         Sales_History.Show()
     End Sub
 
-    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs)
         pos.Show()
     End Sub
 
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
-        Me.Show()
-        Me.Hide()
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
+        Show()
+        Hide()
     End Sub
 End Class

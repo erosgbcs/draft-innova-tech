@@ -10,16 +10,16 @@
 
     ' Navigation button
 
-    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
-        pos.Show()
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs)
+        pos.Show
     End Sub
 
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
-        frmInventory.Show()
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
+        frmInventory.Show
     End Sub
 
-    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
-        Sales_History.Show()
+    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
+        Sales_History.Show
     End Sub
 
     Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
