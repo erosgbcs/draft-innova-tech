@@ -23,5 +23,8 @@
     <Compile Update="frmdashboard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="frmSalesHIstory.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

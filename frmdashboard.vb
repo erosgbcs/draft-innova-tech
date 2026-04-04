@@ -26,7 +26,7 @@
 
     ' Open Sales History form maximized
     Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
-        Dim salesForm As New Sales_History()
+        Dim salesForm As New frmSalesHIstory()
         salesForm.WindowState = FormWindowState.Maximized
         salesForm.Show()
     End Sub
@@ -42,6 +42,18 @@
     End Sub
 
     Private Sub flptotalproducts_Paint(sender As Object, e As PaintEventArgs) Handles flptotalproducts.Paint
+
+    End Sub
+
+    Private Sub flpitemsinstock_Paint(sender As Object, e As PaintEventArgs) Handles flpitemsinstock.Paint
+
+    End Sub
+
+    Private Sub flptodaysales_Paint(sender As Object, e As PaintEventArgs) Handles flptodaysales.Paint
+
+    End Sub
+
+    Private Sub flpweeklyrevenue_Paint(sender As Object, e As PaintEventArgs) Handles flpweeklyrevenue.Paint
 
     End Sub
 End Class

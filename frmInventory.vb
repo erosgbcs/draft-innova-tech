@@ -53,7 +53,7 @@
     End Sub
     ' Open Sales History
     Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
-        Dim salesForm As New Sales_History
+        Dim salesForm As New frmSalesHIstory
         salesForm.WindowState = FormWindowState.Maximized
         salesForm.Show()
     End Sub
