@@ -110,4 +110,75 @@ Public Class frmdashboard
         salesForm.WindowState = FormWindowState.Maximized
         salesForm.Show()
     End Sub
+
+    Private Sub flpinventoryinsights_Paint(sender As Object, e As PaintEventArgs) Handles flpinventoryinsights.Paint
+
+    End Sub
+    ' Method to populate the Insights Panel
+    Private Sub LoadInventoryInsights()
+        ClearPanelControls(flpinventoryinsights)
+        flpinventoryinsights.FlowDirection = FlowDirection.TopDown
+        flpinventoryinsights.WrapContents = False
+        flpinventoryinsights.AutoScroll = True ' Allow scrolling if list is long
+
+        ' 1. Main Header
+        Dim lblHeader As New Label With {
+            .Text = "Inventory Insights",
+            .Font = New Font("Segoe UI", 16, FontStyle.Bold),
+            .ForeColor = Color.Black,
+            .AutoSize = True,
+            .Margin = New Padding(10, 10, 0, 10)
+        }
+        flpinventoryinsights.Controls.Add(lblHeader)
+
+        ' 2. Low Stock Items Section
+        Dim lowStockDt As DataTable = db.GetLowStockItems(10)
+        Dim lowStockList As String = ""
+        If lowStockDt.Rows.Count > 0 Then
+            For Each row As DataRow In lowStockDt.Rows
+                lowStockList &= $"• {row("ProductName")} ({row("Stock")} left)" & vbCrLf
+            Next
+        Else
+            lowStockList = "• All items are well stocked."
+        End If
+        flpinventoryinsights.Controls.Add(CreateInsightSection("Low Stock Items (< 10)", lowStockList, Color.Firebrick))
+
+        ' 3. Top Selling Products
+        flpinventoryinsights.Controls.Add(CreateInsightSection("Top Selling Products", db.GetTopSellingPlaceholder(), Color.Navy))
+
+        ' 4. Recommendations
+        Dim outCount As Integer = db.GetOutOfStockCount()
+        Dim lowCount As Integer = lowStockDt.Rows.Count
+        Dim recs As String = $"• Restock {outCount} out-of-stock items" & vbCrLf & $"• Reorder {lowCount} low-stock items"
+        flpinventoryinsights.Controls.Add(CreateInsightSection("Recommendations", recs, Color.DarkGreen))
+    End Sub
+
+    ' Helper to build the individual text sections
+    Private Function CreateInsightSection(title As String, content As String, titleColor As Color) As Panel
+        Dim pnl As New Panel With {
+            .Width = flpinventoryinsights.Width - 25,
+            .AutoSize = True,
+            .Margin = New Padding(10, 0, 0, 15)
+        }
+
+        Dim lblTitle As New Label With {
+            .Text = title,
+            .Font = New Font("Segoe UI", 11, FontStyle.Bold),
+            .ForeColor = titleColor,
+            .AutoSize = True,
+            .Location = New Point(0, 0)
+        }
+
+        Dim lblContent As New Label With {
+            .Text = content,
+            .Font = New Font("Segoe UI", 10, FontStyle.Regular),
+            .ForeColor = Color.FromArgb(64, 64, 64),
+            .AutoSize = True,
+            .Location = New Point(5, 22)
+        }
+
+        pnl.Controls.Add(lblTitle)
+        pnl.Controls.Add(lblContent)
+        Return pnl
+    End Function
 End Class

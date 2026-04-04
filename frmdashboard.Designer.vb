@@ -23,20 +23,20 @@ Partial Class frmdashboard
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
-        Dim CustomizableEdges13 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges14 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges9 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges11 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges12 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges27 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges28 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges15 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges17 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges18 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges19 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges20 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges21 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges22 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges23 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges24 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges25 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges26 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmdashboard))
         pnlHeader = New Panel()
         lblTime = New Label()
@@ -57,6 +57,7 @@ Partial Class frmdashboard
         flpitemsinstock = New FlowLayoutPanel()
         flptodaysales = New FlowLayoutPanel()
         flpweeklyrevenue = New FlowLayoutPanel()
+        flpinventoryinsights = New FlowLayoutPanel()
         pnlHeader.SuspendLayout()
         Guna2Panel1.SuspendLayout()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
@@ -135,11 +136,11 @@ Partial Class frmdashboard
         Guna2Panel1.Controls.Add(btnUploadPictures)
         Guna2Panel1.Controls.Add(PictureBox3)
         Guna2Panel1.CustomBorderColor = Color.Transparent
-        Guna2Panel1.CustomizableEdges = CustomizableEdges13
+        Guna2Panel1.CustomizableEdges = CustomizableEdges27
         Guna2Panel1.FillColor = Color.DarkBlue
         Guna2Panel1.Location = New Point(3, -11)
         Guna2Panel1.Name = "Guna2Panel1"
-        Guna2Panel1.ShadowDecoration.CustomizableEdges = CustomizableEdges14
+        Guna2Panel1.ShadowDecoration.CustomizableEdges = CustomizableEdges28
         Guna2Panel1.Size = New Size(142, 699)
         Guna2Panel1.TabIndex = 45
         ' 
@@ -148,7 +149,7 @@ Partial Class frmdashboard
         Guna2Button3.BorderColor = Color.White
         Guna2Button3.BorderRadius = 12
         Guna2Button3.BorderThickness = 1
-        Guna2Button3.CustomizableEdges = CustomizableEdges1
+        Guna2Button3.CustomizableEdges = CustomizableEdges15
         Guna2Button3.DisabledState.BorderColor = Color.DarkGray
         Guna2Button3.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button3.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -158,7 +159,7 @@ Partial Class frmdashboard
         Guna2Button3.ForeColor = Color.WhiteSmoke
         Guna2Button3.Location = New Point(8, 600)
         Guna2Button3.Name = "Guna2Button3"
-        Guna2Button3.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        Guna2Button3.ShadowDecoration.CustomizableEdges = CustomizableEdges16
         Guna2Button3.Size = New Size(128, 34)
         Guna2Button3.TabIndex = 26
         Guna2Button3.Text = "Logout"
@@ -168,7 +169,7 @@ Partial Class frmdashboard
         Guna2Button2.BorderColor = Color.White
         Guna2Button2.BorderRadius = 12
         Guna2Button2.BorderThickness = 1
-        Guna2Button2.CustomizableEdges = CustomizableEdges3
+        Guna2Button2.CustomizableEdges = CustomizableEdges17
         Guna2Button2.DisabledState.BorderColor = Color.DarkGray
         Guna2Button2.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button2.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -178,7 +179,7 @@ Partial Class frmdashboard
         Guna2Button2.ForeColor = Color.WhiteSmoke
         Guna2Button2.Location = New Point(6, 526)
         Guna2Button2.Name = "Guna2Button2"
-        Guna2Button2.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        Guna2Button2.ShadowDecoration.CustomizableEdges = CustomizableEdges18
         Guna2Button2.Size = New Size(128, 34)
         Guna2Button2.TabIndex = 25
         Guna2Button2.Text = "Users 👥"
@@ -188,7 +189,7 @@ Partial Class frmdashboard
         Guna2Button1.BorderColor = Color.White
         Guna2Button1.BorderRadius = 12
         Guna2Button1.BorderThickness = 1
-        Guna2Button1.CustomizableEdges = CustomizableEdges5
+        Guna2Button1.CustomizableEdges = CustomizableEdges19
         Guna2Button1.DisabledState.BorderColor = Color.DarkGray
         Guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button1.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -198,7 +199,7 @@ Partial Class frmdashboard
         Guna2Button1.ForeColor = Color.WhiteSmoke
         Guna2Button1.Location = New Point(6, 220)
         Guna2Button1.Name = "Guna2Button1"
-        Guna2Button1.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        Guna2Button1.ShadowDecoration.CustomizableEdges = CustomizableEdges20
         Guna2Button1.Size = New Size(128, 34)
         Guna2Button1.TabIndex = 24
         Guna2Button1.Text = "Dasboard"
@@ -208,7 +209,7 @@ Partial Class frmdashboard
         btnOpenInventory.BorderColor = Color.White
         btnOpenInventory.BorderRadius = 12
         btnOpenInventory.BorderThickness = 1
-        btnOpenInventory.CustomizableEdges = CustomizableEdges7
+        btnOpenInventory.CustomizableEdges = CustomizableEdges21
         btnOpenInventory.DisabledState.BorderColor = Color.DarkGray
         btnOpenInventory.DisabledState.CustomBorderColor = Color.DarkGray
         btnOpenInventory.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -218,7 +219,7 @@ Partial Class frmdashboard
         btnOpenInventory.ForeColor = Color.White
         btnOpenInventory.Location = New Point(6, 374)
         btnOpenInventory.Name = "btnOpenInventory"
-        btnOpenInventory.ShadowDecoration.CustomizableEdges = CustomizableEdges8
+        btnOpenInventory.ShadowDecoration.CustomizableEdges = CustomizableEdges22
         btnOpenInventory.Size = New Size(128, 34)
         btnOpenInventory.TabIndex = 23
         btnOpenInventory.Text = "Inventory  📦"
@@ -228,7 +229,7 @@ Partial Class frmdashboard
         btnOpenPOS.BorderColor = Color.White
         btnOpenPOS.BorderRadius = 12
         btnOpenPOS.BorderThickness = 1
-        btnOpenPOS.CustomizableEdges = CustomizableEdges9
+        btnOpenPOS.CustomizableEdges = CustomizableEdges23
         btnOpenPOS.DisabledState.BorderColor = Color.DarkGray
         btnOpenPOS.DisabledState.CustomBorderColor = Color.DarkGray
         btnOpenPOS.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -238,7 +239,7 @@ Partial Class frmdashboard
         btnOpenPOS.ForeColor = Color.White
         btnOpenPOS.Location = New Point(6, 299)
         btnOpenPOS.Name = "btnOpenPOS"
-        btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges10
+        btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges24
         btnOpenPOS.Size = New Size(128, 34)
         btnOpenPOS.TabIndex = 22
         btnOpenPOS.Text = "Point Of Sale " & ChrW(55357) & ChrW(57042)
@@ -248,7 +249,7 @@ Partial Class frmdashboard
         btnSALESHISTORY.BorderColor = Color.White
         btnSALESHISTORY.BorderRadius = 12
         btnSALESHISTORY.BorderThickness = 1
-        btnSALESHISTORY.CustomizableEdges = CustomizableEdges11
+        btnSALESHISTORY.CustomizableEdges = CustomizableEdges25
         btnSALESHISTORY.DisabledState.BorderColor = Color.DarkGray
         btnSALESHISTORY.DisabledState.CustomBorderColor = Color.DarkGray
         btnSALESHISTORY.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -258,7 +259,7 @@ Partial Class frmdashboard
         btnSALESHISTORY.ForeColor = Color.WhiteSmoke
         btnSALESHISTORY.Location = New Point(6, 449)
         btnSALESHISTORY.Name = "btnSALESHISTORY"
-        btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges12
+        btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges26
         btnSALESHISTORY.Size = New Size(128, 34)
         btnSALESHISTORY.TabIndex = 21
         btnSALESHISTORY.Text = "Sales History 📜"
@@ -316,6 +317,14 @@ Partial Class frmdashboard
         flpweeklyrevenue.Size = New Size(239, 132)
         flpweeklyrevenue.TabIndex = 47
         ' 
+        ' flpinventoryinsights
+        ' 
+        flpinventoryinsights.BackColor = Color.White
+        flpinventoryinsights.Location = New Point(162, 556)
+        flpinventoryinsights.Name = "flpinventoryinsights"
+        flpinventoryinsights.Size = New Size(1160, 132)
+        flpinventoryinsights.TabIndex = 48
+        ' 
         ' frmdashboard
         ' 
         AutoScaleDimensions = New SizeF(96F, 96F)
@@ -323,6 +332,7 @@ Partial Class frmdashboard
         AutoScroll = True
         BackColor = Color.LightGray
         ClientSize = New Size(1069, 436)
+        Controls.Add(flpinventoryinsights)
         Controls.Add(flpweeklyrevenue)
         Controls.Add(flptodaysales)
         Controls.Add(flpitemsinstock)
@@ -360,5 +370,6 @@ Partial Class frmdashboard
     Friend WithEvents flpitemsinstock As FlowLayoutPanel
     Friend WithEvents flptodaysales As FlowLayoutPanel
     Friend WithEvents flpweeklyrevenue As FlowLayoutPanel
+    Friend WithEvents flpinventoryinsights As FlowLayoutPanel
 
 End Class

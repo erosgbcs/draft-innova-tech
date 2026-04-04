@@ -323,5 +323,32 @@ Public Class DatabaseHelper
             Return If(IsDBNull(result), 0, Convert.ToDecimal(result))
         End Using
     End Function
+    ' --- INVENTORY INSIGHTS DATA METHODS ---
 
+    Public Function GetLowStockItems(limit As Integer) As DataTable
+        Dim dt As New DataTable()
+        Using conn As New SQLiteConnection(connectionString)
+            conn.Open()
+            ' Get items that are low but not out of stock
+            Dim query As String = "SELECT ProductName, Stock FROM Products WHERE Stock > 0 AND Stock <= @Limit ORDER BY Stock ASC"
+            Using da As New SQLiteDataAdapter(query, conn)
+                da.SelectCommand.Parameters.AddWithValue("@Limit", limit)
+                da.Fill(dt)
+            End Using
+        End Using
+        Return dt
+    End Function
+
+    Public Function GetOutOfStockCount() As Integer
+        Using conn As New SQLiteConnection(connectionString)
+            conn.Open()
+            Dim cmd As New SQLiteCommand("SELECT COUNT(*) FROM Products WHERE Stock <= 0", conn)
+            Return Convert.ToInt32(cmd.ExecuteScalar())
+        End Using
+    End Function
+
+    ' Placeholder: This would usually query a "SalesDetails" table linked to Products
+    Public Function GetTopSellingPlaceholder() As String
+        Return "No sales data for this week"
+    End Function
 End Class
