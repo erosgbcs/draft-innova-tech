@@ -93,22 +93,22 @@ Public Class frmdashboard
     End Function
 
     ' Navigation buttons
-    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
-        Dim posForm As New pos()
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs)
+        Dim posForm As New pos
         posForm.WindowState = FormWindowState.Maximized
-        posForm.Show()
+        posForm.Show
     End Sub
 
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
-        Dim invForm As New frmInventory()
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
+        Dim invForm As New frmInventory
         invForm.WindowState = FormWindowState.Maximized
-        invForm.Show()
+        invForm.Show
     End Sub
 
-    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
-        Dim salesForm As New frmSalesHIstory()
+    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
+        Dim salesForm As New frmSalesHIstory
         salesForm.WindowState = FormWindowState.Maximized
-        salesForm.Show()
+        salesForm.Show
     End Sub
 
     Private Sub flpinventoryinsights_Paint(sender As Object, e As PaintEventArgs) Handles flpinventoryinsights.Paint

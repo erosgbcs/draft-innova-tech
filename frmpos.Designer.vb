@@ -180,7 +180,7 @@ Partial Class pos
         Guna2Button1.FillColor = Color.Blue
         Guna2Button1.Font = New Font("Segoe UI", 9F)
         Guna2Button1.ForeColor = Color.White
-        Guna2Button1.Location = New Point(9, 340)
+        Guna2Button1.Location = New Point(9, 338)
         Guna2Button1.Margin = New Padding(3, 4, 3, 4)
         Guna2Button1.Name = "Guna2Button1"
         Guna2Button1.ShadowDecoration.CustomizableEdges = CustomizableEdges6
@@ -222,7 +222,7 @@ Partial Class pos
         btnOpenInventory.FillColor = Color.Blue
         btnOpenInventory.Font = New Font("Segoe UI", 9F)
         btnOpenInventory.ForeColor = Color.White
-        btnOpenInventory.Location = New Point(9, 499)
+        btnOpenInventory.Location = New Point(3, 523)
         btnOpenInventory.Margin = New Padding(3, 4, 3, 4)
         btnOpenInventory.Name = "btnOpenInventory"
         btnOpenInventory.PressedColor = Color.Transparent
@@ -244,7 +244,7 @@ Partial Class pos
         btnOpenPOS.FillColor = Color.Blue
         btnOpenPOS.Font = New Font("Segoe UI", 9F)
         btnOpenPOS.ForeColor = Color.White
-        btnOpenPOS.Location = New Point(9, 420)
+        btnOpenPOS.Location = New Point(9, 426)
         btnOpenPOS.Margin = New Padding(3, 4, 3, 4)
         btnOpenPOS.Name = "btnOpenPOS"
         btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges12
@@ -265,7 +265,7 @@ Partial Class pos
         btnSALESHISTORY.FillColor = Color.Blue
         btnSALESHISTORY.Font = New Font("Segoe UI", 9F)
         btnSALESHISTORY.ForeColor = Color.WhiteSmoke
-        btnSALESHISTORY.Location = New Point(9, 581)
+        btnSALESHISTORY.Location = New Point(0, 620)
         btnSALESHISTORY.Margin = New Padding(3, 4, 3, 4)
         btnSALESHISTORY.Name = "btnSALESHISTORY"
         btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges14
@@ -321,11 +321,11 @@ Partial Class pos
         ' Label24
         ' 
         Label24.AutoSize = True
-        Label24.Font = New Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label24.Font = New Font("Segoe UI", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label24.ForeColor = Color.White
-        Label24.Location = New Point(829, 0)
+        Label24.Location = New Point(569, 18)
         Label24.Name = "Label24"
-        Label24.Size = New Size(266, 54)
+        Label24.Size = New Size(295, 60)
         Label24.TabIndex = 9
         Label24.Text = "Point Of Sale"
         ' 
@@ -345,7 +345,7 @@ Partial Class pos
         lblTime.AutoSize = True
         lblTime.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblTime.ForeColor = Color.White
-        lblTime.Location = New Point(1076, 91)
+        lblTime.Location = New Point(1173, 86)
         lblTime.Name = "lblTime"
         lblTime.Size = New Size(127, 37)
         lblTime.TabIndex = 6

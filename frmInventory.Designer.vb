@@ -577,7 +577,7 @@ Partial Class frmInventory
         AutoScaleMode = AutoScaleMode.Font
         AutoScroll = True
         BackColor = Color.Gainsboro
-        ClientSize = New Size(1924, 1055)
+        ClientSize = New Size(1259, 786)
         Controls.Add(PictureBox1)
         Controls.Add(Guna2CustomGradientPanel3)
         Controls.Add(Guna2CustomGradientPanel2)
