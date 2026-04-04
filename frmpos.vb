@@ -317,27 +317,27 @@ Public Class pos
     End Sub
 
     ' Open Sales History maximized
-    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
-        Dim salesForm As New frmSalesHIstory()
+    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
+        Dim salesForm As New frmSalesHIstory
         salesForm.WindowState = FormWindowState.Maximized
-        salesForm.Show()
+        salesForm.Show
     End Sub
 
     ' Open POS (this is the current form, so usually not needed)
-    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
-        Me.WindowState = FormWindowState.Maximized
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs)
+        WindowState = FormWindowState.Maximized
     End Sub
 
     ' Open Inventory maximized
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
-        Dim invForm As New frmInventory()
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
+        Dim invForm As New frmInventory
         invForm.WindowState = FormWindowState.Maximized
-        invForm.Show()
+        invForm.Show
     End Sub
 
-    Private Sub Guna2Button1_Click(sender As Object, e As EventArgs) Handles Guna2Button1.Click
-        Dim invForm As New frmdashboard()
+    Private Sub Guna2Button1_Click(sender As Object, e As EventArgs)
+        Dim invForm As New frmdashboard
         invForm.WindowState = FormWindowState.Maximized
-        invForm.Show()
+        invForm.Show
     End Sub
 End Class
