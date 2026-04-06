@@ -6,7 +6,7 @@ Public Class frmSalesHIstory
     Private Sub frmSalesHIstory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Setup Form Background
         Me.BackColor = Color.FromArgb(241, 245, 249) ' Ghost Blue
-
+        SyncFormLogo(Me.PictureBox1)
         ' Load Initial Data
         RefreshSalesData()
     End Sub
@@ -107,7 +107,7 @@ Public Class frmSalesHIstory
     Private Sub dgvsaleshistory_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvsaleshistory.CellClick
         If e.RowIndex >= 0 Then
             Try
-                Dim selectedID As String = dgvsaleshistory.Rows(e.RowIndex).Cells("SaleID").Value.ToString()
+                Dim selectedID = dgvsaleshistory.Rows(e.RowIndex).Cells("SaleID").Value.ToString
                 ' Debugging check:
                 Console.WriteLine("Selected Sale ID: " & selectedID)
             Catch ex As Exception

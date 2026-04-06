@@ -280,6 +280,8 @@ Partial Class frmSalesHIstory
         ' 
         ' dgvsaleshistory
         ' 
+        dgvsaleshistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgvsaleshistory.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
         dgvsaleshistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvsaleshistory.Location = New Point(154, 161)
         dgvsaleshistory.Name = "dgvsaleshistory"

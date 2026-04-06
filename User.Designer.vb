@@ -22,21 +22,22 @@ Partial Class User
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         dgvActivity = New DataGridView()
         lblActivityHeader = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        btnRefresh = New Guna.UI2.WinForms.Guna2Button()
         dgvUsers = New DataGridView()
         btnToggleStatus = New Guna.UI2.WinForms.Guna2Button()
+        btnRefresh = New Guna.UI2.WinForms.Guna2Button()
         CType(dgvActivity, ComponentModel.ISupportInitialize).BeginInit()
         CType(dgvUsers, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' dgvActivity
         ' 
+        dgvActivity.BackgroundColor = Color.White
         dgvActivity.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvActivity.Location = New Point(21, 53)
         dgvActivity.Name = "dgvActivity"
@@ -54,25 +55,9 @@ Partial Class User
         lblActivityHeader.TabIndex = 1
         lblActivityHeader.Text = "Guna2HtmlLabel1"
         ' 
-        ' btnRefresh
-        ' 
-        btnRefresh.BorderRadius = 15
-        btnRefresh.CustomizableEdges = CustomizableEdges5
-        btnRefresh.DisabledState.BorderColor = Color.DarkGray
-        btnRefresh.DisabledState.CustomBorderColor = Color.DarkGray
-        btnRefresh.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        btnRefresh.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnRefresh.Font = New Font("Segoe UI", 9F)
-        btnRefresh.ForeColor = Color.White
-        btnRefresh.Location = New Point(648, 2)
-        btnRefresh.Name = "btnRefresh"
-        btnRefresh.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        btnRefresh.Size = New Size(140, 45)
-        btnRefresh.TabIndex = 2
-        btnRefresh.Text = "Guna2Button1"
-        ' 
         ' dgvUsers
         ' 
+        dgvUsers.BackgroundColor = Color.White
         dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvUsers.Location = New Point(21, 251)
         dgvUsers.Name = "dgvUsers"
@@ -82,19 +67,39 @@ Partial Class User
         ' btnToggleStatus
         ' 
         btnToggleStatus.BorderRadius = 15
-        btnToggleStatus.CustomizableEdges = CustomizableEdges7
+        btnToggleStatus.BorderThickness = 1
+        btnToggleStatus.CustomizableEdges = CustomizableEdges1
         btnToggleStatus.DisabledState.BorderColor = Color.DarkGray
         btnToggleStatus.DisabledState.CustomBorderColor = Color.DarkGray
         btnToggleStatus.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnToggleStatus.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnToggleStatus.Font = New Font("Segoe UI", 9F)
-        btnToggleStatus.ForeColor = Color.White
-        btnToggleStatus.Location = New Point(475, 2)
+        btnToggleStatus.ForeColor = Color.Black
+        btnToggleStatus.Location = New Point(548, 12)
         btnToggleStatus.Name = "btnToggleStatus"
-        btnToggleStatus.ShadowDecoration.CustomizableEdges = CustomizableEdges8
-        btnToggleStatus.Size = New Size(140, 45)
+        btnToggleStatus.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        btnToggleStatus.Size = New Size(117, 33)
         btnToggleStatus.TabIndex = 4
-        btnToggleStatus.Text = "Guna2Button1"
+        btnToggleStatus.Text = "TOGGLE STATUS"
+        ' 
+        ' btnRefresh
+        ' 
+        btnRefresh.BorderRadius = 15
+        btnRefresh.BorderThickness = 1
+        btnRefresh.CustomizableEdges = CustomizableEdges3
+        btnRefresh.DisabledState.BorderColor = Color.DarkGray
+        btnRefresh.DisabledState.CustomBorderColor = Color.DarkGray
+        btnRefresh.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnRefresh.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnRefresh.FillColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
+        btnRefresh.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnRefresh.ForeColor = Color.Black
+        btnRefresh.Location = New Point(671, 12)
+        btnRefresh.Name = "btnRefresh"
+        btnRefresh.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        btnRefresh.Size = New Size(113, 33)
+        btnRefresh.TabIndex = 2
+        btnRefresh.Text = "REFRESH 🔃"
         ' 
         ' User
         ' 
@@ -116,7 +121,7 @@ Partial Class User
 
     Friend WithEvents dgvActivity As DataGridView
     Friend WithEvents lblActivityHeader As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents btnRefresh As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents dgvUsers As DataGridView
     Friend WithEvents btnToggleStatus As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnRefresh As Guna.UI2.WinForms.Guna2Button
 End Class

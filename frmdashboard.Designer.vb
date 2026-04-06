@@ -438,7 +438,7 @@ Partial Class frmdashboard
         AutoScaleMode = AutoScaleMode.Dpi
         AutoScroll = True
         AutoSize = True
-        BackColor = Color.LightGray
+        BackColor = Color.White
         ClientSize = New Size(971, 599)
         Controls.Add(flpinventoryinsights)
         Controls.Add(Guna2CustomGradientPanel1)

@@ -36,11 +36,11 @@ Partial Class pos
         Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges11 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges12 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pos))
         Dim CustomizableEdges17 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges18 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges15 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pos))
         TextBox1 = New TextBox()
         flpProduct1 = New FlowLayoutPanel()
         flpCart = New FlowLayoutPanel()
@@ -51,16 +51,16 @@ Partial Class pos
         btnOpenInventory = New Guna.UI2.WinForms.Guna2Button()
         btnOpenPOS = New Guna.UI2.WinForms.Guna2Button()
         btnSALESHISTORY = New Guna.UI2.WinForms.Guna2Button()
+        PictureBox1 = New PictureBox()
         Guna2CustomGradientPanel3 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         Label2 = New Label()
         Label24 = New Label()
         lblTitle = New Label()
         lblTime = New Label()
         Guna2Button7 = New Guna.UI2.WinForms.Guna2Button()
-        PictureBox1 = New PictureBox()
         Guna2CustomGradientPanel2.SuspendLayout()
-        Guna2CustomGradientPanel3.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
+        Guna2CustomGradientPanel3.SuspendLayout()
         SuspendLayout()
         ' 
         ' TextBox1
@@ -241,6 +241,16 @@ Partial Class pos
         btnSALESHISTORY.TabIndex = 21
         btnSALESHISTORY.Text = "Sales History 📜"
         ' 
+        ' PictureBox1
+        ' 
+        PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
+        PictureBox1.Location = New Point(13, 27)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(113, 105)
+        PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
+        PictureBox1.TabIndex = 14
+        PictureBox1.TabStop = False
+        ' 
         ' Guna2CustomGradientPanel3
         ' 
         Guna2CustomGradientPanel3.BackColor = Color.Transparent
@@ -327,22 +337,12 @@ Partial Class pos
         Guna2Button7.TabIndex = 26
         Guna2Button7.Text = "Logout"
         ' 
-        ' PictureBox1
-        ' 
-        PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
-        PictureBox1.Location = New Point(13, 27)
-        PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(113, 105)
-        PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
-        PictureBox1.TabIndex = 14
-        PictureBox1.TabStop = False
-        ' 
         ' pos
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         AutoScroll = True
-        BackColor = Color.Gainsboro
+        BackColor = Color.White
         ClientSize = New Size(1199, 562)
         Controls.Add(Guna2CustomGradientPanel3)
         Controls.Add(Guna2CustomGradientPanel2)
@@ -354,9 +354,9 @@ Partial Class pos
         Text = "Products"
         WindowState = FormWindowState.Maximized
         Guna2CustomGradientPanel2.ResumeLayout(False)
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         Guna2CustomGradientPanel3.ResumeLayout(False)
         Guna2CustomGradientPanel3.PerformLayout()
-        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
