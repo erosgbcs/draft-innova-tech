@@ -77,13 +77,11 @@ Partial Class frmInventory
         Guna2CustomGradientPanel3 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         Label2 = New Label()
         Guna2Button7 = New Guna.UI2.WinForms.Guna2Button()
-        PictureBox1 = New PictureBox()
         CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         Guna2CustomGradientPanel1.SuspendLayout()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         Guna2CustomGradientPanel2.SuspendLayout()
         Guna2CustomGradientPanel3.SuspendLayout()
-        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' PrintInventoryDoc
@@ -554,17 +552,6 @@ Partial Class frmInventory
         Guna2Button7.TabIndex = 26
         Guna2Button7.Text = "Logout"
         ' 
-        ' PictureBox1
-        ' 
-        PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
-        PictureBox1.Location = New Point(2, 2)
-        PictureBox1.Margin = New Padding(3, 2, 3, 2)
-        PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(143, 81)
-        PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
-        PictureBox1.TabIndex = 27
-        PictureBox1.TabStop = False
-        ' 
         ' frmInventory
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -572,7 +559,6 @@ Partial Class frmInventory
         AutoScroll = True
         BackColor = Color.Gainsboro
         ClientSize = New Size(1102, 562)
-        Controls.Add(PictureBox1)
         Controls.Add(Guna2CustomGradientPanel3)
         Controls.Add(Guna2CustomGradientPanel2)
         Controls.Add(Label1)
@@ -591,7 +577,6 @@ Partial Class frmInventory
         Guna2CustomGradientPanel2.ResumeLayout(False)
         Guna2CustomGradientPanel3.ResumeLayout(False)
         Guna2CustomGradientPanel3.PerformLayout()
-        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -623,7 +608,6 @@ Partial Class frmInventory
     Friend WithEvents Guna2CustomGradientPanel2 As Guna.UI2.WinForms.Guna2CustomGradientPanel
     Friend WithEvents Guna2CustomGradientPanel3 As Guna.UI2.WinForms.Guna2CustomGradientPanel
     Friend WithEvents Guna2Button7 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Label2 As Label
     Friend WithEvents btnlogout As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnUploadPictures As Guna.UI2.WinForms.Guna2Button

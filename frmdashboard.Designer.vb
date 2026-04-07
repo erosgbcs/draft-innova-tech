@@ -299,11 +299,13 @@ Partial Class frmdashboard
         ' 
         ' PictureBox1
         ' 
+        PictureBox1.BackColor = Color.White
+        PictureBox1.BorderStyle = BorderStyle.Fixed3D
         PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
-        PictureBox1.Location = New Point(12, 29)
+        PictureBox1.Location = New Point(7, 22)
         PictureBox1.Margin = New Padding(2, 3, 2, 3)
         PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(103, 112)
+        PictureBox1.Size = New Size(117, 112)
         PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
         PictureBox1.TabIndex = 14
         PictureBox1.TabStop = False
@@ -407,7 +409,7 @@ Partial Class frmdashboard
         PictureBox2.Location = New Point(1, 4)
         PictureBox2.Margin = New Padding(2)
         PictureBox2.Name = "PictureBox2"
-        PictureBox2.Size = New Size(139, 119)
+        PictureBox2.Size = New Size(139, 127)
         PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage
         PictureBox2.TabIndex = 60
         PictureBox2.TabStop = False
