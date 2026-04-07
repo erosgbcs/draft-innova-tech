@@ -170,11 +170,101 @@ Public Class frmSalesHIstory
         End If
     End Sub
 
-    Private Sub printreport_Click(sender As Object, e As EventArgs) Handles printreport.Click
+    ' --- EXPORT TO CSV ---
+    Private Sub BtnExportcsv_Click(sender As Object, e As EventArgs) Handles BtnExportcsv.Click
+        Try
+            Dim sfd As New SaveFileDialog() With {
+                .Filter = "CSV File|*.csv",
+                .FileName = "SalesHistory_" & DateTime.Now.ToString("yyyyMMdd") & ".csv"
+            }
 
+            If sfd.ShowDialog() = DialogResult.OK Then
+                Dim sb As New System.Text.StringBuilder()
+
+                ' Column Headers
+                sb.AppendLine("ID,Customer Name,Date,Total Amount")
+
+                ' Data Rows
+                For Each row As DataGridViewRow In dgvsaleshistory.Rows
+                    If Not row.IsNewRow Then
+                        Dim id As String = row.Cells("SaleID").Value?.ToString()
+                        Dim name As String = row.Cells("BuyerName").Value?.ToString().Replace(",", " ") ' Remove commas to keep CSV clean
+                        Dim sDate As String = row.Cells("SaleDate").Value?.ToString()
+                        Dim total As String = row.Cells("Total").Value?.ToString()
+
+                        sb.AppendLine($"{id},{name},{sDate},{total}")
+                    End If
+                Next
+
+                System.IO.File.WriteAllText(sfd.FileName, sb.ToString())
+                MessageBox.Show("Sales History exported successfully!", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Export failed: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
-    Private Sub BtnExportcsv_Click(sender As Object, e As EventArgs) Handles BtnExportcsv.Click
+    ' --- PRINT REPORT BUTTON ---
+    Private Sub printreport_Click(sender As Object, e As EventArgs) Handles printreport.Click
+        Dim ppd As New PrintPreviewDialog()
+        ppd.Document = PrintSalesDoc
+        ppd.WindowState = FormWindowState.Maximized
+        ppd.ShowDialog()
+    End Sub
 
+    ' --- PRINT DOCUMENT CONTENT ---
+    Private Sub PrintSalesDoc_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintSalesDoc.PrintPage
+        Dim g As Graphics = e.Graphics
+        Dim fontHeader As New Font("Segoe UI", 18, FontStyle.Bold)
+        Dim fontSub As New Font("Segoe UI", 10, FontStyle.Italic)
+        Dim fontCol As New Font("Segoe UI", 10, FontStyle.Bold)
+        Dim fontRow As New Font("Segoe UI", 9, FontStyle.Regular)
+
+        Dim x As Integer = 50
+        Dim y As Integer = 50
+
+        ' Title & Date
+        g.DrawString("INNOVATECH SALES REPORT", fontHeader, Brushes.Black, x, y)
+        y += 35
+        g.DrawString("Generated on: " & DateTime.Now.ToString("f"), fontSub, Brushes.Gray, x, y)
+        y += 50
+
+        ' Table Headers
+        g.DrawString("ID", fontCol, Brushes.Black, x, y)
+        g.DrawString("CUSTOMER", fontCol, Brushes.Black, x + 50, y)
+        g.DrawString("DATE & TIME", fontCol, Brushes.Black, x + 300, y)
+        g.DrawString("AMOUNT", fontCol, Brushes.Black, x + 550, y)
+
+        y += 20
+        g.DrawLine(Pens.Black, x, y, x + 650, y)
+        y += 10
+
+        ' Loop Sales Data
+        Dim grandTotal As Decimal = 0
+        For Each row As DataGridViewRow In dgvsaleshistory.Rows
+            If Not row.IsNewRow Then
+                g.DrawString(row.Cells("SaleID").Value?.ToString(), fontRow, Brushes.Black, x, y)
+                g.DrawString(row.Cells("BuyerName").Value?.ToString(), fontRow, Brushes.Black, x + 50, y)
+                g.DrawString(row.Cells("SaleDate").Value?.ToString(), fontRow, Brushes.Black, x + 300, y)
+
+                Dim val As Decimal = If(IsNumeric(row.Cells("Total").Value), CDec(row.Cells("Total").Value), 0)
+                g.DrawString("₱" & val.ToString("N2"), fontRow, Brushes.Black, x + 550, y)
+
+                grandTotal += val
+                y += 25
+
+                ' Simple Page Overflow check
+                If y > e.MarginBounds.Bottom Then
+                    e.HasMorePages = True
+                    Return
+                End If
+            End If
+        Next
+
+        ' Grand Total at the bottom
+        y += 20
+        g.DrawLine(Pens.Black, x, y, x + 650, y)
+        y += 10
+        g.DrawString("GRAND TOTAL: ₱" & grandTotal.ToString("N2"), fontHeader, Brushes.DarkBlue, x + 350, y)
     End Sub
 End Class
