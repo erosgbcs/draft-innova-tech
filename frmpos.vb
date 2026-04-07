@@ -327,28 +327,41 @@ Public Class pos
         flpCart.Controls.Add(summaryPanel)
     End Sub
 
-    ' Open Sales History maximized
-    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
+    ' --- Dashboard Button ---
+    Private Sub Guna2Button1_Click_1(sender As Object, e As EventArgs) Handles Guna2Button1.Click
+        Dim dashForm As New frmdashboard
+        dashForm.WindowState = FormWindowState.Maximized
+        dashForm.Show()
+        Me.Hide() ' Optional: Hide the POS form when going to dashboard
+    End Sub
+
+    ' --- Inventory Button ---
+    Private Sub btnOpenInventory_Click_1(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
+        Dim invForm As New frmInventory
+        invForm.WindowState = FormWindowState.Maximized
+        invForm.Show()
+        ' If you want to close/hide POS, add Me.Close() or Me.Hide() here
+    End Sub
+
+    ' --- Sales History Button ---
+    Private Sub btnSALESHISTORY_Click_1(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
         Dim salesForm As New frmSalesHIstory
         salesForm.WindowState = FormWindowState.Maximized
         salesForm.Show()
     End Sub
+    ' --- Logout Button ---
+    Private Sub Guna2Button4_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
+        Dim result As DialogResult = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-    ' Open POS (this is the current form, so usually not needed)
-    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs)
-        WindowState = FormWindowState.Maximized
+        If result = DialogResult.Yes Then
+            ' Assuming you have a login form named FrmLogin
+            Dim login As New FrmLogin
+            login.Show()
+            Me.Close()
+        End If
     End Sub
 
-    ' Open Inventory maximized
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
-        Dim invForm As New frmInventory
-        invForm.WindowState = FormWindowState.Maximized
-        invForm.Show()
-    End Sub
-
-    Private Sub Guna2Button1_Click(sender As Object, e As EventArgs)
-        Dim invForm As New frmdashboard
-        invForm.WindowState = FormWindowState.Maximized
-        invForm.Show()
+    Private Sub btnUsers_Click(sender As Object, e As EventArgs) Handles btnUsers.Click
+        User.Show()
     End Sub
 End Class

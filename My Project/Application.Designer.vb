@@ -28,12 +28,12 @@ Namespace My
             Me.EnableVisualStyles = true
             Me.SaveMySettingsOnExit = true
             Me.ShutDownStyle = Global.Microsoft.VisualBasic.ApplicationServices.ShutdownMode.AfterAllFormsClose
-            Me.HighDpiMode = HighDpiMode.DpiUnaware
+            Me.HighDpiMode = HighDpiMode.PerMonitorV2
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.draft_innova_tech.FrmLoading
+            Me.MainForm = Global.draft_innova_tech.frmdashboard
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _

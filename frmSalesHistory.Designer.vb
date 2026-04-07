@@ -22,29 +22,29 @@ Partial Class frmSalesHIstory
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim CustomizableEdges13 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges14 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges9 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges11 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges12 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges31 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges32 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges19 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges20 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges21 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges22 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges23 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges24 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges25 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges26 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges27 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges28 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges29 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges30 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSalesHIstory))
-        Dim CustomizableEdges17 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges18 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges15 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges35 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges36 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges33 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges34 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Guna2CustomGradientPanel2 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
-        Guna2Button4 = New Guna.UI2.WinForms.Guna2Button()
+        btnlogout = New Guna.UI2.WinForms.Guna2Button()
         Guna2Button1 = New Guna.UI2.WinForms.Guna2Button()
-        Guna2Button2 = New Guna.UI2.WinForms.Guna2Button()
+        btnusers = New Guna.UI2.WinForms.Guna2Button()
         btnOpenInventory = New Guna.UI2.WinForms.Guna2Button()
         btnOpenPOS = New Guna.UI2.WinForms.Guna2Button()
         btnSALESHISTORY = New Guna.UI2.WinForms.Guna2Button()
@@ -68,14 +68,14 @@ Partial Class frmSalesHIstory
         Guna2CustomGradientPanel2.BorderColor = Color.Black
         Guna2CustomGradientPanel2.BorderRadius = 20
         Guna2CustomGradientPanel2.BorderThickness = 1
-        Guna2CustomGradientPanel2.Controls.Add(Guna2Button4)
+        Guna2CustomGradientPanel2.Controls.Add(btnlogout)
         Guna2CustomGradientPanel2.Controls.Add(Guna2Button1)
-        Guna2CustomGradientPanel2.Controls.Add(Guna2Button2)
+        Guna2CustomGradientPanel2.Controls.Add(btnusers)
         Guna2CustomGradientPanel2.Controls.Add(btnOpenInventory)
         Guna2CustomGradientPanel2.Controls.Add(btnOpenPOS)
         Guna2CustomGradientPanel2.Controls.Add(btnSALESHISTORY)
         Guna2CustomGradientPanel2.Controls.Add(PictureBox1)
-        Guna2CustomGradientPanel2.CustomizableEdges = CustomizableEdges13
+        Guna2CustomGradientPanel2.CustomizableEdges = CustomizableEdges31
         Guna2CustomGradientPanel2.Dock = DockStyle.Left
         Guna2CustomGradientPanel2.FillColor = Color.DodgerBlue
         Guna2CustomGradientPanel2.FillColor2 = Color.SteelBlue
@@ -83,36 +83,36 @@ Partial Class frmSalesHIstory
         Guna2CustomGradientPanel2.FillColor4 = Color.SkyBlue
         Guna2CustomGradientPanel2.Location = New Point(0, 0)
         Guna2CustomGradientPanel2.Name = "Guna2CustomGradientPanel2"
-        Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges14
-        Guna2CustomGradientPanel2.Size = New Size(143, 550)
+        Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges32
+        Guna2CustomGradientPanel2.Size = New Size(143, 737)
         Guna2CustomGradientPanel2.TabIndex = 56
         ' 
-        ' Guna2Button4
+        ' btnlogout
         ' 
-        Guna2Button4.BorderColor = Color.White
-        Guna2Button4.BorderRadius = 12
-        Guna2Button4.BorderThickness = 1
-        Guna2Button4.CustomizableEdges = CustomizableEdges1
-        Guna2Button4.DisabledState.BorderColor = Color.DarkGray
-        Guna2Button4.DisabledState.CustomBorderColor = Color.DarkGray
-        Guna2Button4.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        Guna2Button4.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        Guna2Button4.FillColor = Color.Blue
-        Guna2Button4.Font = New Font("Segoe UI", 9F)
-        Guna2Button4.ForeColor = Color.WhiteSmoke
-        Guna2Button4.Location = New Point(8, 711)
-        Guna2Button4.Name = "Guna2Button4"
-        Guna2Button4.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        Guna2Button4.Size = New Size(128, 34)
-        Guna2Button4.TabIndex = 27
-        Guna2Button4.Text = "Logout"
+        btnlogout.BorderColor = Color.White
+        btnlogout.BorderRadius = 12
+        btnlogout.BorderThickness = 1
+        btnlogout.CustomizableEdges = CustomizableEdges19
+        btnlogout.DisabledState.BorderColor = Color.DarkGray
+        btnlogout.DisabledState.CustomBorderColor = Color.DarkGray
+        btnlogout.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnlogout.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnlogout.FillColor = Color.Blue
+        btnlogout.Font = New Font("Segoe UI", 9F)
+        btnlogout.ForeColor = Color.WhiteSmoke
+        btnlogout.Location = New Point(8, 711)
+        btnlogout.Name = "btnlogout"
+        btnlogout.ShadowDecoration.CustomizableEdges = CustomizableEdges20
+        btnlogout.Size = New Size(128, 34)
+        btnlogout.TabIndex = 27
+        btnlogout.Text = "Logout"
         ' 
         ' Guna2Button1
         ' 
         Guna2Button1.BorderColor = Color.DarkBlue
         Guna2Button1.BorderRadius = 12
         Guna2Button1.BorderThickness = 1
-        Guna2Button1.CustomizableEdges = CustomizableEdges3
+        Guna2Button1.CustomizableEdges = CustomizableEdges21
         Guna2Button1.DisabledState.BorderColor = Color.DarkGray
         Guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button1.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -122,37 +122,37 @@ Partial Class frmSalesHIstory
         Guna2Button1.ForeColor = Color.White
         Guna2Button1.Location = New Point(8, 262)
         Guna2Button1.Name = "Guna2Button1"
-        Guna2Button1.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        Guna2Button1.ShadowDecoration.CustomizableEdges = CustomizableEdges22
         Guna2Button1.Size = New Size(128, 34)
         Guna2Button1.TabIndex = 24
         Guna2Button1.Text = "Dasboard"
         ' 
-        ' Guna2Button2
+        ' btnusers
         ' 
-        Guna2Button2.BorderColor = Color.White
-        Guna2Button2.BorderRadius = 12
-        Guna2Button2.BorderThickness = 1
-        Guna2Button2.CustomizableEdges = CustomizableEdges5
-        Guna2Button2.DisabledState.BorderColor = Color.DarkGray
-        Guna2Button2.DisabledState.CustomBorderColor = Color.DarkGray
-        Guna2Button2.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        Guna2Button2.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        Guna2Button2.FillColor = Color.Blue
-        Guna2Button2.Font = New Font("Segoe UI", 9F)
-        Guna2Button2.ForeColor = Color.WhiteSmoke
-        Guna2Button2.Location = New Point(8, 650)
-        Guna2Button2.Name = "Guna2Button2"
-        Guna2Button2.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        Guna2Button2.Size = New Size(128, 34)
-        Guna2Button2.TabIndex = 25
-        Guna2Button2.Text = "Users 👥"
+        btnusers.BorderColor = Color.White
+        btnusers.BorderRadius = 12
+        btnusers.BorderThickness = 1
+        btnusers.CustomizableEdges = CustomizableEdges23
+        btnusers.DisabledState.BorderColor = Color.DarkGray
+        btnusers.DisabledState.CustomBorderColor = Color.DarkGray
+        btnusers.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnusers.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnusers.FillColor = Color.Blue
+        btnusers.Font = New Font("Segoe UI", 9F)
+        btnusers.ForeColor = Color.WhiteSmoke
+        btnusers.Location = New Point(8, 650)
+        btnusers.Name = "btnusers"
+        btnusers.ShadowDecoration.CustomizableEdges = CustomizableEdges24
+        btnusers.Size = New Size(128, 34)
+        btnusers.TabIndex = 25
+        btnusers.Text = "Users 👥"
         ' 
         ' btnOpenInventory
         ' 
         btnOpenInventory.BorderColor = Color.DarkBlue
         btnOpenInventory.BorderRadius = 12
         btnOpenInventory.BorderThickness = 1
-        btnOpenInventory.CustomizableEdges = CustomizableEdges7
+        btnOpenInventory.CustomizableEdges = CustomizableEdges25
         btnOpenInventory.DisabledState.BorderColor = Color.DarkGray
         btnOpenInventory.DisabledState.CustomBorderColor = Color.DarkGray
         btnOpenInventory.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -163,7 +163,7 @@ Partial Class frmSalesHIstory
         btnOpenInventory.Location = New Point(8, 407)
         btnOpenInventory.Name = "btnOpenInventory"
         btnOpenInventory.PressedColor = Color.Transparent
-        btnOpenInventory.ShadowDecoration.CustomizableEdges = CustomizableEdges8
+        btnOpenInventory.ShadowDecoration.CustomizableEdges = CustomizableEdges26
         btnOpenInventory.Size = New Size(128, 34)
         btnOpenInventory.TabIndex = 23
         btnOpenInventory.Text = "Inventory  📦"
@@ -173,7 +173,7 @@ Partial Class frmSalesHIstory
         btnOpenPOS.BorderColor = Color.DarkBlue
         btnOpenPOS.BorderRadius = 12
         btnOpenPOS.BorderThickness = 1
-        btnOpenPOS.CustomizableEdges = CustomizableEdges9
+        btnOpenPOS.CustomizableEdges = CustomizableEdges27
         btnOpenPOS.DisabledState.BorderColor = Color.DarkGray
         btnOpenPOS.DisabledState.CustomBorderColor = Color.DarkGray
         btnOpenPOS.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -183,7 +183,7 @@ Partial Class frmSalesHIstory
         btnOpenPOS.ForeColor = Color.White
         btnOpenPOS.Location = New Point(8, 333)
         btnOpenPOS.Name = "btnOpenPOS"
-        btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges10
+        btnOpenPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges28
         btnOpenPOS.Size = New Size(128, 34)
         btnOpenPOS.TabIndex = 22
         btnOpenPOS.Text = "Point Of Sale " & ChrW(55357) & ChrW(57042)
@@ -193,7 +193,7 @@ Partial Class frmSalesHIstory
         btnSALESHISTORY.BorderColor = Color.White
         btnSALESHISTORY.BorderRadius = 12
         btnSALESHISTORY.BorderThickness = 1
-        btnSALESHISTORY.CustomizableEdges = CustomizableEdges11
+        btnSALESHISTORY.CustomizableEdges = CustomizableEdges29
         btnSALESHISTORY.DisabledState.BorderColor = Color.DarkGray
         btnSALESHISTORY.DisabledState.CustomBorderColor = Color.DarkGray
         btnSALESHISTORY.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -203,7 +203,7 @@ Partial Class frmSalesHIstory
         btnSALESHISTORY.ForeColor = Color.WhiteSmoke
         btnSALESHISTORY.Location = New Point(3, 482)
         btnSALESHISTORY.Name = "btnSALESHISTORY"
-        btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges12
+        btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges30
         btnSALESHISTORY.Size = New Size(128, 34)
         btnSALESHISTORY.TabIndex = 21
         btnSALESHISTORY.Text = "Sales History 📜"
@@ -226,34 +226,34 @@ Partial Class frmSalesHIstory
         Guna2CustomGradientPanel3.BorderThickness = 1
         Guna2CustomGradientPanel3.Controls.Add(Label1)
         Guna2CustomGradientPanel3.Controls.Add(Guna2Button7)
-        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges17
+        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges35
         Guna2CustomGradientPanel3.FillColor = Color.DodgerBlue
         Guna2CustomGradientPanel3.FillColor2 = Color.SteelBlue
         Guna2CustomGradientPanel3.FillColor3 = Color.Navy
         Guna2CustomGradientPanel3.FillColor4 = Color.SkyBlue
         Guna2CustomGradientPanel3.Location = New Point(148, 0)
         Guna2CustomGradientPanel3.Name = "Guna2CustomGradientPanel3"
-        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges18
+        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges36
         Guna2CustomGradientPanel3.Size = New Size(1525, 87)
         Guna2CustomGradientPanel3.TabIndex = 58
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.ForeColor = Color.White
-        Label1.Location = New Point(20, 27)
+        Label1.Location = New Point(8, 9)
         Label1.Name = "Label1"
-        Label1.Size = New Size(219, 47)
+        Label1.Size = New Size(322, 65)
         Label1.TabIndex = 27
-        Label1.Text = "Sales Hitory"
+        Label1.Text = "Sales History"
         ' 
         ' Guna2Button7
         ' 
         Guna2Button7.BorderColor = Color.White
         Guna2Button7.BorderRadius = 12
         Guna2Button7.BorderThickness = 1
-        Guna2Button7.CustomizableEdges = CustomizableEdges15
+        Guna2Button7.CustomizableEdges = CustomizableEdges33
         Guna2Button7.DisabledState.BorderColor = Color.DarkGray
         Guna2Button7.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button7.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -263,7 +263,7 @@ Partial Class frmSalesHIstory
         Guna2Button7.ForeColor = Color.WhiteSmoke
         Guna2Button7.Location = New Point(10, 610)
         Guna2Button7.Name = "Guna2Button7"
-        Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges16
+        Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges34
         Guna2Button7.Size = New Size(128, 34)
         Guna2Button7.TabIndex = 26
         Guna2Button7.Text = "Logout"
@@ -271,7 +271,7 @@ Partial Class frmSalesHIstory
         ' txtSearchSales
         ' 
         txtSearchSales.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtSearchSales.Location = New Point(154, 93)
+        txtSearchSales.Location = New Point(156, 130)
         txtSearchSales.Margin = New Padding(4, 3, 4, 3)
         txtSearchSales.Name = "txtSearchSales"
         txtSearchSales.PlaceholderText = "Product Sales History by code or name.."
@@ -285,7 +285,7 @@ Partial Class frmSalesHIstory
         dgvsaleshistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvsaleshistory.Location = New Point(154, 161)
         dgvsaleshistory.Name = "dgvsaleshistory"
-        dgvsaleshistory.Size = New Size(1519, 380)
+        dgvsaleshistory.Size = New Size(1519, 576)
         dgvsaleshistory.TabIndex = 61
         ' 
         ' printreport
@@ -293,7 +293,7 @@ Partial Class frmSalesHIstory
         printreport.BackColor = SystemColors.Highlight
         printreport.FlatStyle = FlatStyle.Flat
         printreport.ForeColor = Color.Black
-        printreport.Location = New Point(1309, 126)
+        printreport.Location = New Point(160, 93)
         printreport.Margin = New Padding(3, 2, 3, 2)
         printreport.Name = "printreport"
         printreport.Size = New Size(111, 30)
@@ -306,7 +306,7 @@ Partial Class frmSalesHIstory
         BtnExportcsv.BackColor = Color.Lime
         BtnExportcsv.FlatStyle = FlatStyle.Flat
         BtnExportcsv.Font = New Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        BtnExportcsv.Location = New Point(1427, 126)
+        BtnExportcsv.Location = New Point(287, 93)
         BtnExportcsv.Margin = New Padding(4, 3, 4, 3)
         BtnExportcsv.Name = "BtnExportcsv"
         BtnExportcsv.Size = New Size(94, 30)
@@ -316,18 +316,17 @@ Partial Class frmSalesHIstory
         ' 
         ' frmSalesHIstory
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
-        AutoScaleMode = AutoScaleMode.Font
+        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleMode = AutoScaleMode.Dpi
         AutoScroll = True
-        BackgroundImage = My.Resources.Resources.Gemini_Generated_Image_istucnistucnistu
         BackgroundImageLayout = ImageLayout.Zoom
         ClientSize = New Size(1199, 567)
         Controls.Add(printreport)
         Controls.Add(dgvsaleshistory)
-        Controls.Add(txtSearchSales)
         Controls.Add(BtnExportcsv)
         Controls.Add(Guna2CustomGradientPanel3)
         Controls.Add(Guna2CustomGradientPanel2)
+        Controls.Add(txtSearchSales)
         DoubleBuffered = True
         Margin = New Padding(3, 2, 3, 2)
         Name = "frmSalesHIstory"
@@ -344,9 +343,9 @@ Partial Class frmSalesHIstory
     End Sub
 
     Friend WithEvents Guna2CustomGradientPanel2 As Guna.UI2.WinForms.Guna2CustomGradientPanel
-    Friend WithEvents Guna2Button4 As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnlogout As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2Button1 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents Guna2Button2 As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnusers As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnOpenInventory As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnOpenPOS As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnSALESHISTORY As Guna.UI2.WinForms.Guna2Button

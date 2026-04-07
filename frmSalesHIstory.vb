@@ -116,4 +116,65 @@ Public Class frmSalesHIstory
         End If
     End Sub
 
+    ' --- Dashboard Button ---
+    Private Sub Guna2Button1_Click(sender As Object, e As EventArgs) Handles Guna2Button1.Click
+        Dim dashForm As New frmdashboard
+        dashForm.WindowState = FormWindowState.Maximized
+        dashForm.Show()
+        Me.Hide() ' Hide current form
+    End Sub
+
+    ' --- POS Button ---
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
+        Dim posForm As New pos
+        posForm.WindowState = FormWindowState.Maximized
+        posForm.Show()
+        Me.Hide()
+    End Sub
+
+    ' --- Inventory Button ---
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
+        Dim invForm As New frmInventory
+        invForm.WindowState = FormWindowState.Maximized
+        invForm.Show()
+        Me.Hide()
+    End Sub
+
+    ' --- Sales History Button (Acts as Refresh) ---
+    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
+        ' Since you are already in Sales History, we just refresh the data
+        RefreshSalesData()
+        txtSearchSales.Clear()
+        MessageBox.Show("Sales History Refreshed!", "System", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    ' --- Users / Management Button ---
+    Private Sub Guna2Button2_Click(sender As Object, e As EventArgs) Handles btnusers.Click
+        ' This opens your User management form
+        Dim userForm As New User
+        userForm.Show()
+        Me.Hide() ' Hides the Sales History form
+    End Sub
+
+    ' --- Logout Button ---
+    Private Sub Guna2Button4_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
+        Dim result As DialogResult = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        If result = DialogResult.Yes Then
+            ' Assuming your login form is named FrmLogin
+            Dim login As New FrmLogin
+            login.Show()
+
+            ' Closes the Sales History form
+            Me.Close()
+        End If
+    End Sub
+
+    Private Sub printreport_Click(sender As Object, e As EventArgs) Handles printreport.Click
+
+    End Sub
+
+    Private Sub BtnExportcsv_Click(sender As Object, e As EventArgs) Handles BtnExportcsv.Click
+
+    End Sub
 End Class

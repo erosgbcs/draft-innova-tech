@@ -5,6 +5,11 @@
     Private Sub Inventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' This ensures your tables exist before you try to load them
         db.InitializeDatabase()
+        '--- SECURITY & DATA INTEGRITY SETTINGS FOR DGV ---
+        dgvProducts.ReadOnly = True ' Prevents users from typing in cells
+        dgvProducts.AllowUserToAddRows = False ' Removes the empty bottom row
+        dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect ' Highlights the whole row
+        dgvProducts.MultiSelect = False ' Optional: only allow one item at a time
         RefreshData()
     End Sub
 
@@ -204,22 +209,45 @@
         g.DrawLine(Pens.Black, posX, posY, posX + 700, posY)
         posY += 10
 
-        ' 4. Loop Data
+        ' 4. Loop Data (Safely)
         For Each row As DataGridViewRow In dgvProducts.Rows
             If Not row.IsNewRow Then
-                ' Use index 0 to 4 to match your columns
-                g.DrawString(If(row.Cells(0).Value?.ToString(), ""), fontRow, Brushes.Black, posX, posY)
-                g.DrawString(If(row.Cells(1).Value?.ToString(), ""), fontRow, Brushes.Black, posX + 100, posY)
-                g.DrawString(If(row.Cells(2).Value?.ToString(), ""), fontRow, Brushes.Black, posX + 350, posY)
+                ' The ?.ToString() and If(..., "") prevents "Object reference not set" errors
+                Dim code As String = If(row.Cells(0).Value?.ToString(), "N/A")
+                Dim name As String = If(row.Cells(1).Value?.ToString(), "Unknown")
+                Dim cat As String = If(row.Cells(2).Value?.ToString(), "N/A")
 
-                ' Format as Currency
-                Dim priceVal As Decimal = If(IsNumeric(row.Cells(3).Value), CDec(row.Cells(3).Value), 0)
+                g.DrawString(code, fontRow, Brushes.Black, posX, posY)
+                g.DrawString(name, fontRow, Brushes.Black, posX + 100, posY)
+                g.DrawString(cat, fontRow, Brushes.Black, posX + 350, posY)
+
+                ' Format as Currency safely
+                Dim priceVal As Decimal = 0
+                If row.Cells(3).Value IsNot Nothing AndAlso IsNumeric(row.Cells(3).Value) Then
+                    priceVal = CDec(row.Cells(3).Value)
+                End If
                 g.DrawString(priceVal.ToString("N2"), fontRow, Brushes.Black, posX + 500, posY)
 
-                g.DrawString(If(row.Cells(4).Value?.ToString(), ""), fontRow, Brushes.Black, posX + 600, posY)
+                Dim stock As String = If(row.Cells(4).Value?.ToString(), "0")
+                g.DrawString(stock, fontRow, Brushes.Black, posX + 600, posY)
 
                 posY += 25
             End If
         Next
+    End Sub
+
+    Private Sub Guna2Button2_Click(sender As Object, e As EventArgs) Handles btnusers.Click
+        User.Show()
+    End Sub
+    ' --- Logout Button ---
+    Private Sub Guna2Button4_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
+        Dim result As DialogResult = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        If result = DialogResult.Yes Then
+            ' Assuming you have a login form named FrmLogin
+            Dim login As New FrmLogin
+            login.Show()
+            Me.Close()
+        End If
     End Sub
 End Class
