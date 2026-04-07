@@ -39,18 +39,61 @@ Public Class User
     End Sub
 
     Private Sub LoadStaffActivity(username As String)
-        Dim dt As DataTable = db.GetUserActivity(username)
-        dgvActivity.DataSource = dt
+        Try
+            Dim dt As DataTable = db.GetUserActivity(username)
+            dgvActivity.DataSource = dt
 
-        ' Format the activity list
-        If dgvActivity.Columns.Contains("Total") Then
-            dgvActivity.Columns("Total").DefaultCellStyle.Format = "₱N2"
-        End If
+            ' --- Advanced Grid Formatting ---
+            With dgvActivity
+                .BackgroundColor = Color.White
+                .RowHeadersVisible = False
+                .BorderStyle = BorderStyle.None
+                .EnableHeadersVisualStyles = False
 
-        ' If no activity found
-        If dt.Rows.Count = 0 Then
-            MessageBox.Show("No sales recorded for this staff member yet.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
+                ' Header Style (Slate Gray for secondary grid)
+                .ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(71, 85, 105)
+                .ColumnHeadersDefaultCellStyle.ForeColor = Color.White
+                .ColumnHeadersHeight = 35
+
+                ' 1. Format Sale ID
+                If .Columns.Contains("SaleID") Then
+                    .Columns("SaleID").HeaderText = "ID"
+                    .Columns("SaleID").Width = 50
+                End If
+
+                ' 2. NEW: Format Item Bought Column
+                If .Columns.Contains("ItemBought") Then
+                    .Columns("ItemBought").HeaderText = "Product(s) Sold"
+                    .Columns("ItemBought").MinimumWidth = 150 ' Give it more room
+                    .Columns("ItemBought").DefaultCellStyle.ForeColor = Color.FromArgb(51, 65, 85)
+                End If
+
+                ' 3. Format Total Column
+                If .Columns.Contains("Total") Then
+                    .Columns("Total").HeaderText = "Amount"
+                    .Columns("Total").DefaultCellStyle.Format = "N2"
+                    .Columns("Total").DefaultCellStyle.ForeColor = Color.FromArgb(22, 163, 74) ' Success Green
+                    .Columns("Total").DefaultCellStyle.Font = New Font("Segoe UI", 9, FontStyle.Bold)
+                    .Columns("Total").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                End If
+
+                ' 4. Format Date
+                If .Columns.Contains("SaleDate") Then
+                    .Columns("SaleDate").HeaderText = "Transaction Date"
+                End If
+
+                .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            End With
+
+            ' Update UI if no data
+            If dt.Rows.Count = 0 Then
+                lblActivityHeader.Text = "No sales recorded for this staff member."
+                lblActivityHeader.ForeColor = Color.Gray
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Error loading activity: " & ex.Message)
+        End Try
     End Sub
 
     ' 3. TOGGLE STATUS (Deactivate/Activate Staff)

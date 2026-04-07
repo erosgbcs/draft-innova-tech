@@ -69,20 +69,31 @@ Public Class DatabaseHelper
                 End Using
 
                 ' 4. --- Create Sales table ---
+
                 Dim createSales As String = "
-                CREATE TABLE IF NOT EXISTS Sales (
-                    SaleID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    BuyerName TEXT,
-                    BuyerAddress TEXT,
-                    BuyerContact TEXT,
-                    Subtotal REAL,
-                    Total REAL,
-                    ProcessedBy TEXT,
-                    SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP
-                )"
+CREATE TABLE IF NOT EXISTS Sales (
+    SaleID INTEGER PRIMARY KEY AUTOINCREMENT,
+    BuyerName TEXT,
+    BuyerAddress TEXT,
+    BuyerContact TEXT,
+    ItemBought TEXT,   -- <--- ADD THIS LINE
+    Subtotal REAL,
+    Total REAL,
+    ProcessedBy TEXT,
+    SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP
+)"
                 Using cmd As New SQLiteCommand(createSales, conn)
                     cmd.ExecuteNonQuery()
                 End Using
+                ' Add this inside InitializeDatabase, after creating the Sales table
+                Dim addColumnQuery As String = "ALTER TABLE Sales ADD COLUMN ItemBought TEXT;"
+                Try
+                    Using cmd As New SQLiteCommand(addColumnQuery, conn)
+                        cmd.ExecuteNonQuery()
+                    End Using
+                Catch
+                    ' Column likely already exists, ignore error
+                End Try
                 ' 5. --- Create SystemSettings table for images/logos ---
                 Dim createSettings As String = "
 CREATE TABLE IF NOT EXISTS SystemSettings (
@@ -246,38 +257,37 @@ CREATE TABLE IF NOT EXISTS SystemSettings (
         End Try
     End Function
 
-    Public Function UpdateStock(productCode As String, quantity As Integer) As Boolean
+    Public Function UpdateStock(productCode As String, newQuantity As Integer) As Boolean
         Try
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
-                Dim query As String = "UPDATE Products 
-                                   SET Stock = Stock - @Qty 
-                                   WHERE ProductCode = @Code AND Stock >= @Qty"
+                ' Changed from subtraction to SET for manual inventory updates
+                Dim query As String = "UPDATE Products SET Stock = @Qty WHERE ProductCode = @Code"
                 Using cmd As New SQLiteCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@Qty", quantity)
+                    cmd.Parameters.AddWithValue("@Qty", newQuantity)
                     cmd.Parameters.AddWithValue("@Code", productCode)
                     Return cmd.ExecuteNonQuery() > 0
                 End Using
             End Using
         Catch ex As Exception
-            MessageBox.Show($"Error updating stock: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
         End Try
     End Function
 
     ' --- SALES METHODS ---
-    Public Function SaveSale(buyerName As String, buyerAddress As String, buyerContact As String, subtotal As Decimal, total As Decimal) As Boolean
+    Public Function SaveSale(buyerName As String, buyerAddress As String, buyerContact As String, itemBought As String, subtotal As Decimal, total As Decimal) As Boolean
         Try
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
-                ' Added "ProcessedBy" to the column list so it matches the 6 values below
-                Dim query As String = "INSERT INTO Sales (BuyerName, BuyerAddress, BuyerContact, Subtotal, Total, ProcessedBy) " &
-                                  "VALUES (@Name, @Address, @Contact, @Subtotal, @Total, @ProcessedBy)"
+                ' Added ItemBought to the INSERT query
+                Dim query As String = "INSERT INTO Sales (BuyerName, BuyerAddress, BuyerContact, ItemBought, Subtotal, Total, ProcessedBy) " &
+                                  "VALUES (@Name, @Address, @Contact, @Item, @Subtotal, @Total, @ProcessedBy)"
 
                 Using cmd As New SQLiteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Name", buyerName)
                     cmd.Parameters.AddWithValue("@Address", buyerAddress)
                     cmd.Parameters.AddWithValue("@Contact", buyerContact)
+                    cmd.Parameters.AddWithValue("@Item", itemBought) ' <--- NEW PARAMETER
                     cmd.Parameters.AddWithValue("@Subtotal", subtotal)
                     cmd.Parameters.AddWithValue("@Total", total)
                     cmd.Parameters.AddWithValue("@ProcessedBy", GlobalData.CurrentUser)
@@ -296,8 +306,8 @@ CREATE TABLE IF NOT EXISTS SystemSettings (
         Try
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
-                Dim query As String = "SELECT SaleID, BuyerName, BuyerAddress, BuyerContact, Subtotal, Total, SaleDate 
-                                   FROM Sales ORDER BY SaleDate DESC"
+                ' Removed the WHERE clause here because this is for the initial load
+                Dim query As String = "SELECT SaleID, BuyerName, ItemBought, Total, SaleDate FROM Sales ORDER BY SaleDate DESC"
                 Using da As New SQLiteDataAdapter(query, conn)
                     da.Fill(dt)
                 End Using
@@ -394,10 +404,12 @@ CREATE TABLE IF NOT EXISTS SystemSettings (
         Try
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
-                ' Searches for matches in BuyerName or SaleID
-                Dim query As String = "SELECT SaleID, BuyerName, BuyerAddress, BuyerContact, Subtotal, Total, SaleDate " &
-                                     "FROM Sales WHERE BuyerName LIKE @Search OR SaleID LIKE @Search " &
-                                     "ORDER BY SaleDate DESC"
+                ' Added ItemBought to the selection so it matches LoadSales
+                Dim query As String = "SELECT SaleID, BuyerName, ItemBought, Total, SaleDate " &
+                                 "FROM Sales WHERE BuyerName LIKE @Search " &
+                                 "OR ItemBought LIKE @Search " &
+                                 "OR SaleID LIKE @Search " &
+                                 "ORDER BY SaleDate DESC"
                 Using cmd As New SQLiteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Search", "%" & searchTerm & "%")
                     Using da As New SQLiteDataAdapter(cmd)
@@ -427,20 +439,24 @@ CREATE TABLE IF NOT EXISTS SystemSettings (
     End Function
 
     ' Get activity for a specific staff member (Sales they processed)
-    ' NOTE: For this to work, ensure your "Sales" table has a "ProcessedBy" column
     Public Function GetUserActivity(username As String) As DataTable
         Dim dt As New DataTable()
-        Using conn As New SQLiteConnection(connectionString)
-            conn.Open()
-            ' This tracks what the staff is doing based on the sales they made
-            Dim query As String = "SELECT SaleID, BuyerName, Total, SaleDate FROM Sales WHERE ProcessedBy = @User ORDER BY SaleDate DESC"
-            Using cmd As New SQLiteCommand(query, conn)
-                cmd.Parameters.AddWithValue("@User", username)
-                Using da As New SQLiteDataAdapter(cmd)
-                    da.Fill(dt)
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                ' Added ItemBought to the SELECT statement
+                Dim query As String = "SELECT SaleID, ItemBought, Total, SaleDate FROM Sales WHERE ProcessedBy = @User ORDER BY SaleDate DESC"
+
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@User", username)
+                    Using da As New SQLiteDataAdapter(cmd)
+                        da.Fill(dt)
+                    End Using
                 End Using
             End Using
-        End Using
+        Catch ex As Exception
+            MessageBox.Show("Error fetching staff activity: " & ex.Message)
+        End Try
         Return dt
     End Function
 

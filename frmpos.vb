@@ -296,12 +296,22 @@ Public Class pos
                                              Return
                                          End If
 
-                                         If db.SaveSale(txtName.Text, txtAddress.Text, txtContact.Text, totalAmount, totalAmount) Then
+                                         ' 1. Create the string of items bought
+                                         ' This joins your cart items into a single readable line: "Item A (x2), Item B (x1)"
+                                         Dim itemsSummary As String = String.Join(", ", Cart.Select(Function(c) $"{c.ProductName} (x{c.Quantity})"))
+
+                                         ' 2. Pass all 6 arguments to the SaveSale function
+                                         ' Arguments: Name, Address, Contact, ItemsSummary, Subtotal, Total
+                                         If db.SaveSale(txtName.Text, txtAddress.Text, txtContact.Text, itemsSummary, totalAmount, totalAmount) Then
+
+                                             ' Update the actual database stock
                                              For Each item In Cart
                                                  db.UpdateStock(item.ProductCode, item.Quantity)
                                              Next
 
                                              ShowToast("Transaction Successful!")
+
+                                             ' Reset POS
                                              Cart.Clear()
                                              TempStock.Clear()
                                              LoadCartCards()
