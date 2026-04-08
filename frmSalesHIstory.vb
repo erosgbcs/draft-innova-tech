@@ -6,7 +6,6 @@ Public Class frmSalesHIstory
     Private Sub frmSalesHIstory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Setup Form Background
         Me.BackColor = Color.FromArgb(241, 245, 249) ' Ghost Blue
-        SyncFormLogo(Me.PictureBox1)
         ' Load Initial Data
         RefreshSalesData()
     End Sub
@@ -117,31 +116,31 @@ Public Class frmSalesHIstory
     End Sub
 
     ' --- Dashboard Button ---
-    Private Sub Guna2Button1_Click(sender As Object, e As EventArgs) Handles Guna2Button1.Click
+    Private Sub Guna2Button1_Click(sender As Object, e As EventArgs)
         Dim dashForm As New frmdashboard
         dashForm.WindowState = FormWindowState.Maximized
         dashForm.Show()
-        Me.Hide() ' Hide current form
+        Hide() ' Hide current form
     End Sub
 
     ' --- POS Button ---
-    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs)
         Dim posForm As New pos
         posForm.WindowState = FormWindowState.Maximized
         posForm.Show()
-        Me.Hide()
+        Hide()
     End Sub
 
     ' --- Inventory Button ---
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
         Dim invForm As New frmInventory
         invForm.WindowState = FormWindowState.Maximized
         invForm.Show()
-        Me.Hide()
+        Hide()
     End Sub
 
     ' --- Sales History Button (Acts as Refresh) ---
-    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
+    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
         ' Since you are already in Sales History, we just refresh the data
         RefreshSalesData()
         txtSearchSales.Clear()
@@ -149,16 +148,16 @@ Public Class frmSalesHIstory
     End Sub
 
     ' --- Users / Management Button ---
-    Private Sub Guna2Button2_Click(sender As Object, e As EventArgs) Handles btnusers.Click
+    Private Sub Guna2Button2_Click(sender As Object, e As EventArgs)
         ' This opens your User management form
         Dim userForm As New User
         userForm.Show()
-        Me.Hide() ' Hides the Sales History form
+        Hide() ' Hides the Sales History form
     End Sub
 
     ' --- Logout Button ---
-    Private Sub Guna2Button4_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
-        Dim result As DialogResult = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+    Private Sub Guna2Button4_Click(sender As Object, e As EventArgs)
+        Dim result = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If result = DialogResult.Yes Then
             ' Assuming your login form is named FrmLogin
@@ -166,7 +165,7 @@ Public Class frmSalesHIstory
             login.Show()
 
             ' Closes the Sales History form
-            Me.Close()
+            Close()
         End If
     End Sub
 

@@ -9,7 +9,7 @@ Public Class frmMain
     <DllImport("user32.DLL", EntryPoint:="SendMessage")>
     Private Shared Sub SendMessage(ByVal hWnd As IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
-
+    Private db As New DatabaseHelper()
     Private Sub pnlHeader_MouseDown(sender As Object, e As MouseEventArgs) ' If you have a top header panel
         ReleaseCapture()
         SendMessage(Me.Handle, &H112, &HF012, 0)
@@ -39,6 +39,16 @@ Public Class frmMain
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Automatically show the Dashboard when the app starts
         ShowChildForm(New frmdashboard())
+        ' Inside frmMain.vb Load Event
+        If GlobalData.UserRole <> "Admin" Then
+            btnUsers.Visible = False ' Hide User Management for Cashiers
+            btnSALESHISTORY.Visible = False ' Hide Sales History for Cashiers
+        End If
+        Dim savedLogo = db.LoadSystemImage("StoreLogo")
+        If savedLogo IsNot Nothing Then
+            PictureBox1.Image = savedLogo
+            PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
+        End If
     End Sub
 
     ' --- 4. Sidebar Button Click Events ---
@@ -74,5 +84,37 @@ Public Class frmMain
             Me.Close()
         End If
     End Sub
+    ' Logic for the Upload Pictures Button
+    Private Sub btnuploadpictures_Click(sender As Object, e As EventArgs) Handles btnuploadpictures.Click
+        Using ofd As New OpenFileDialog()
+            ofd.Filter = "Images|*.jpg;*.png;*.bmp"
+            If ofd.ShowDialog() = DialogResult.OK Then
+                Dim newImg = Image.FromFile(ofd.FileName)
+                PictureBox1.Image = newImg
 
+                ' 1. Save to DB
+                If db.SaveSystemImage("StoreLogo", newImg) Then
+                    ' 2. SYNC OPEN FORMS IMMEDIATELY
+                    ' This loops through all currently open windows and updates their PictureBox
+                    For Each f As Form In Application.OpenForms
+                        ' Look for a PictureBox named "PictureBox1" (or whatever yours is named)
+                        Dim targetPB = f.Controls.Find("PictureBox1", True).FirstOrDefault()
+                        If targetPB IsNot Nothing AndAlso TypeOf targetPB Is PictureBox Then
+                            DirectCast(targetPB, PictureBox).Image = newImg
+                        End If
+                    Next
+
+                    MessageBox.Show("Logo synced across all open forms!")
+                End If
+            End If
+        End Using
+    End Sub
+
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+
+    End Sub
+
+    Private Sub pnlContent_Paint(sender As Object, e As PaintEventArgs) Handles pnlContent.Paint
+
+    End Sub
 End Class

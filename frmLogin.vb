@@ -29,31 +29,24 @@ Public Class FrmLogin
             ' Login successful
             Dim userRow = userData.Rows(0)
 
-            ' --- ADDED: SAVE TO GLOBAL DATA ---
-            ' This is what the SecurityManager uses to hide buttons
+            ' SAVE TO GLOBAL DATA (Used for Role-Based Access Control)
             GlobalData.CurrentUser = userRow("Username").ToString()
             GlobalData.UserRole = userRow("Role").ToString()
-            ' ----------------------------------
-
-            ' Store user info in a local dictionary (as you had it)
-            Dim currentUser As New Dictionary(Of String, Object) From {
-            {"UserID", userRow("UserID")},
-            {"Username", userRow("Username")},
-            {"FullName", userRow("FullName")},
-            {"Role", userRow("Role")}
-        }
 
             MessageBox.Show($"Login Successful! Welcome {userRow("FullName")}!",
-                      "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                          "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            ' Show POS form and hide login
-            Dim posForm As New frmdashboard
-            posForm.Show()
-            Me.Hide() ' Use Me.Hide() to ensure the login form closes
+            ' --- UPDATED: OPEN THE MAIN CONTAINER INSTEAD OF DASHBOARD ---
+            ' This opens the form that contains your sidebar and panel
+            Dim mainApp As New frmMain()
+            mainApp.Show()
+
+            ' Hide the login form
+            Me.Hide()
         Else
             ' Login failed logic...
             MessageBox.Show("Invalid username or password", "Login Failed",
-                      MessageBoxButtons.OK, MessageBoxIcon.Error)
+                          MessageBoxButtons.OK, MessageBoxIcon.Error)
             txtPassword.Clear()
             txtUsername.Focus()
         End If

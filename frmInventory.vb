@@ -57,31 +57,31 @@
         txtStock.Clear()
     End Sub
     ' Open Sales History
-    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
+    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
         Dim salesForm As New frmSalesHIstory
         salesForm.WindowState = FormWindowState.Maximized
         salesForm.Show()
     End Sub
 
     ' Open POS
-    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs)
         Dim posForm As New pos
         posForm.WindowState = FormWindowState.Maximized
         posForm.Show()
     End Sub
 
     ' Open Inventory (current form) – usually not needed
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
         ' You’re already inside frmInventory, so this button doesn’t need to reopen itself.
         ' If you want to refresh, just call RefreshData()
         RefreshData()
     End Sub
 
-    Private Sub Guna2CustomGradientPanel2_Paint(sender As Object, e As PaintEventArgs) Handles Guna2CustomGradientPanel2.Paint
+    Private Sub Guna2CustomGradientPanel2_Paint(sender As Object, e As PaintEventArgs)
 
     End Sub
 
-    Private Sub Guna2Button1_Click(sender As Object, e As EventArgs) Handles Guna2Button1.Click
+    Private Sub Guna2Button1_Click(sender As Object, e As EventArgs)
         Dim posForm As New frmdashboard
         posForm.WindowState = FormWindowState.Maximized
         posForm.Show()
@@ -167,15 +167,7 @@
         End Try
     End Sub
 
-    Private Sub btnUploadPictures_Click(sender As Object, e As EventArgs) Handles btnUploadPictures.Click
-        Dim ofd As New OpenFileDialog() With {.Filter = "Images|*.jpg;*.png;*.bmp"}
-        If ofd.ShowDialog() = DialogResult.OK Then
-            PictureBox3.Image = Image.FromFile(ofd.FileName)
-            PictureBox3.SizeMode = PictureBoxSizeMode.Zoom
-        End If
-    End Sub
-
-    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
+    Private Sub PictureBox3_Click(sender As Object, e As EventArgs)
         'PICTUREBOX
     End Sub
     ' THIS IS THE MISSING LOGIC THAT DRAWS THE CONTENT
@@ -236,18 +228,18 @@
         Next
     End Sub
 
-    Private Sub Guna2Button2_Click(sender As Object, e As EventArgs) Handles btnusers.Click
+    Private Sub Guna2Button2_Click(sender As Object, e As EventArgs)
         User.Show()
     End Sub
     ' --- Logout Button ---
-    Private Sub Guna2Button4_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
-        Dim result As DialogResult = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+    Private Sub Guna2Button4_Click(sender As Object, e As EventArgs)
+        Dim result = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If result = DialogResult.Yes Then
             ' Assuming you have a login form named FrmLogin
             Dim login As New FrmLogin
             login.Show()
-            Me.Close()
+            Close()
         End If
     End Sub
 End Class

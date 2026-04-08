@@ -51,8 +51,10 @@ Partial Class frmMain
         btnSALESHISTORY = New Guna.UI2.WinForms.Guna2Button()
         PictureBox1 = New PictureBox()
         pnlContent = New Guna.UI2.WinForms.Guna2Panel()
+        PictureBox2 = New PictureBox()
         Guna2CustomGradientPanel2.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Guna2CustomGradientPanel2
@@ -74,11 +76,11 @@ Partial Class frmMain
         Guna2CustomGradientPanel2.FillColor2 = Color.SteelBlue
         Guna2CustomGradientPanel2.FillColor3 = Color.Navy
         Guna2CustomGradientPanel2.FillColor4 = Color.SkyBlue
-        Guna2CustomGradientPanel2.Location = New Point(3, 3)
+        Guna2CustomGradientPanel2.Location = New Point(3, 117)
         Guna2CustomGradientPanel2.Margin = New Padding(2, 3, 2, 3)
         Guna2CustomGradientPanel2.Name = "Guna2CustomGradientPanel2"
         Guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = CustomizableEdges16
-        Guna2CustomGradientPanel2.Size = New Size(139, 781)
+        Guna2CustomGradientPanel2.Size = New Size(139, 632)
         Guna2CustomGradientPanel2.TabIndex = 57
         ' 
         ' btnuploadpictures
@@ -91,20 +93,19 @@ Partial Class frmMain
         btnuploadpictures.DisabledState.CustomBorderColor = Color.DarkGray
         btnuploadpictures.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnuploadpictures.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnuploadpictures.FillColor = Color.Blue
+        btnuploadpictures.FillColor = Color.Navy
         btnuploadpictures.Font = New Font("Segoe UI", 9F)
         btnuploadpictures.ForeColor = Color.White
-        btnuploadpictures.Location = New Point(7, 153)
+        btnuploadpictures.Location = New Point(11, 149)
         btnuploadpictures.Margin = New Padding(2, 3, 2, 3)
         btnuploadpictures.Name = "btnuploadpictures"
         btnuploadpictures.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        btnuploadpictures.Size = New Size(117, 26)
+        btnuploadpictures.Size = New Size(117, 21)
         btnuploadpictures.TabIndex = 28
         btnuploadpictures.Text = "Upload Pictures"
         ' 
         ' btnlogout
         ' 
-        btnlogout.BorderColor = Color.White
         btnlogout.BorderRadius = 12
         btnlogout.BorderThickness = 1
         btnlogout.CustomizableEdges = CustomizableEdges3
@@ -115,7 +116,7 @@ Partial Class frmMain
         btnlogout.FillColor = Color.Blue
         btnlogout.Font = New Font("Segoe UI", 9F)
         btnlogout.ForeColor = Color.WhiteSmoke
-        btnlogout.Location = New Point(7, 724)
+        btnlogout.Location = New Point(11, 564)
         btnlogout.Margin = New Padding(2, 3, 2, 3)
         btnlogout.Name = "btnlogout"
         btnlogout.ShadowDecoration.CustomizableEdges = CustomizableEdges4
@@ -136,7 +137,7 @@ Partial Class frmMain
         btnDashboard.FillColor = Color.Blue
         btnDashboard.Font = New Font("Segoe UI", 9F)
         btnDashboard.ForeColor = Color.White
-        btnDashboard.Location = New Point(7, 272)
+        btnDashboard.Location = New Point(11, 209)
         btnDashboard.Margin = New Padding(2, 3, 2, 3)
         btnDashboard.Name = "btnDashboard"
         btnDashboard.ShadowDecoration.CustomizableEdges = CustomizableEdges6
@@ -146,7 +147,6 @@ Partial Class frmMain
         ' 
         ' btnUsers
         ' 
-        btnUsers.BorderColor = Color.White
         btnUsers.BorderRadius = 12
         btnUsers.BorderThickness = 1
         btnUsers.CustomizableEdges = CustomizableEdges7
@@ -157,11 +157,11 @@ Partial Class frmMain
         btnUsers.FillColor = Color.Blue
         btnUsers.Font = New Font("Segoe UI", 9F)
         btnUsers.ForeColor = Color.WhiteSmoke
-        btnUsers.Location = New Point(7, 662)
+        btnUsers.Location = New Point(11, 466)
         btnUsers.Margin = New Padding(2, 3, 2, 3)
         btnUsers.Name = "btnUsers"
         btnUsers.ShadowDecoration.CustomizableEdges = CustomizableEdges8
-        btnUsers.Size = New Size(117, 36)
+        btnUsers.Size = New Size(117, 37)
         btnUsers.TabIndex = 25
         btnUsers.Text = "Users 👥"
         ' 
@@ -178,7 +178,7 @@ Partial Class frmMain
         btnInventory.FillColor = Color.Blue
         btnInventory.Font = New Font("Segoe UI", 9F)
         btnInventory.ForeColor = Color.White
-        btnInventory.Location = New Point(7, 399)
+        btnInventory.Location = New Point(11, 336)
         btnInventory.Margin = New Padding(2, 3, 2, 3)
         btnInventory.Name = "btnInventory"
         btnInventory.PressedColor = Color.Transparent
@@ -200,7 +200,7 @@ Partial Class frmMain
         btnPOS.FillColor = Color.Blue
         btnPOS.Font = New Font("Segoe UI", 9F)
         btnPOS.ForeColor = Color.White
-        btnPOS.Location = New Point(7, 336)
+        btnPOS.Location = New Point(11, 273)
         btnPOS.Margin = New Padding(2, 3, 2, 3)
         btnPOS.Name = "btnPOS"
         btnPOS.ShadowDecoration.CustomizableEdges = CustomizableEdges12
@@ -220,7 +220,7 @@ Partial Class frmMain
         btnSALESHISTORY.FillColor = Color.Blue
         btnSALESHISTORY.Font = New Font("Segoe UI", 9F)
         btnSALESHISTORY.ForeColor = Color.WhiteSmoke
-        btnSALESHISTORY.Location = New Point(7, 465)
+        btnSALESHISTORY.Location = New Point(11, 402)
         btnSALESHISTORY.Margin = New Padding(2, 3, 2, 3)
         btnSALESHISTORY.Name = "btnSALESHISTORY"
         btnSALESHISTORY.ShadowDecoration.CustomizableEdges = CustomizableEdges14
@@ -233,7 +233,7 @@ Partial Class frmMain
         PictureBox1.BackColor = Color.White
         PictureBox1.BorderStyle = BorderStyle.Fixed3D
         PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
-        PictureBox1.Location = New Point(7, 22)
+        PictureBox1.Location = New Point(13, 22)
         PictureBox1.Margin = New Padding(2, 3, 2, 3)
         PictureBox1.Name = "PictureBox1"
         PictureBox1.Size = New Size(117, 112)
@@ -243,25 +243,39 @@ Partial Class frmMain
         ' 
         ' pnlContent
         ' 
+        pnlContent.BackColor = Color.Gainsboro
         pnlContent.CustomizableEdges = CustomizableEdges17
-        pnlContent.Location = New Point(147, 3)
+        pnlContent.Location = New Point(147, 4)
         pnlContent.Name = "pnlContent"
         pnlContent.ShadowDecoration.CustomizableEdges = CustomizableEdges18
-        pnlContent.Size = New Size(1092, 781)
+        pnlContent.Size = New Size(1223, 745)
         pnlContent.TabIndex = 58
+        ' 
+        ' PictureBox2
+        ' 
+        PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), Image)
+        PictureBox2.Location = New Point(3, 3)
+        PictureBox2.Margin = New Padding(2)
+        PictureBox2.Name = "PictureBox2"
+        PictureBox2.Size = New Size(139, 109)
+        PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage
+        PictureBox2.TabIndex = 61
+        PictureBox2.TabStop = False
         ' 
         ' frmMain
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
-        AutoScaleMode = AutoScaleMode.Font
-        AutoScroll = True
-        ClientSize = New Size(1259, 544)
+        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleMode = AutoScaleMode.Dpi
+        BackColor = SystemColors.Control
+        ClientSize = New Size(1259, 749)
         Controls.Add(Guna2CustomGradientPanel2)
+        Controls.Add(PictureBox2)
         Controls.Add(pnlContent)
         Name = "frmMain"
         Text = "frmMain"
         Guna2CustomGradientPanel2.ResumeLayout(False)
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -275,4 +289,5 @@ Partial Class frmMain
     Friend WithEvents btnSALESHISTORY As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents pnlContent As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PictureBox2 As PictureBox
 End Class

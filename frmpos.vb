@@ -12,7 +12,6 @@ Public Class pos
         SecurityManager.ApplyRestrictions(Me)
         RefreshProductDisplay()
         LoadCartCards()
-        SyncFormLogo(Me.PictureBox1)
     End Sub
 
     ' --- Hover styling for buttons ---
@@ -328,40 +327,40 @@ Public Class pos
     End Sub
 
     ' --- Dashboard Button ---
-    Private Sub Guna2Button1_Click_1(sender As Object, e As EventArgs) Handles Guna2Button1.Click
+    Private Sub Guna2Button1_Click_1(sender As Object, e As EventArgs)
         Dim dashForm As New frmdashboard
         dashForm.WindowState = FormWindowState.Maximized
-        dashForm.Show()
-        Me.Hide() ' Optional: Hide the POS form when going to dashboard
+        dashForm.Show
+        Hide ' Optional: Hide the POS form when going to dashboard
     End Sub
 
     ' --- Inventory Button ---
-    Private Sub btnOpenInventory_Click_1(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
+    Private Sub btnOpenInventory_Click_1(sender As Object, e As EventArgs)
         Dim invForm As New frmInventory
         invForm.WindowState = FormWindowState.Maximized
-        invForm.Show()
+        invForm.Show
         ' If you want to close/hide POS, add Me.Close() or Me.Hide() here
     End Sub
 
     ' --- Sales History Button ---
-    Private Sub btnSALESHISTORY_Click_1(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
+    Private Sub btnSALESHISTORY_Click_1(sender As Object, e As EventArgs)
         Dim salesForm As New frmSalesHIstory
         salesForm.WindowState = FormWindowState.Maximized
-        salesForm.Show()
+        salesForm.Show
     End Sub
     ' --- Logout Button ---
-    Private Sub Guna2Button4_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
-        Dim result As DialogResult = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+    Private Sub Guna2Button4_Click(sender As Object, e As EventArgs)
+        Dim result = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If result = DialogResult.Yes Then
             ' Assuming you have a login form named FrmLogin
             Dim login As New FrmLogin
-            login.Show()
-            Me.Close()
+            login.Show
+            Close
         End If
     End Sub
 
-    Private Sub btnUsers_Click(sender As Object, e As EventArgs) Handles btnUsers.Click
-        User.Show()
+    Private Sub btnUsers_Click(sender As Object, e As EventArgs)
+        User.Show
     End Sub
 End Class

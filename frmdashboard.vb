@@ -16,12 +16,6 @@ Public Class frmdashboard
         ' 2. Setup Refresh Timer (5 seconds)
         DashboardTimer.Interval = 5000
         DashboardTimer.Start()
-        Dim savedLogo = db.LoadSystemImage("StoreLogo")
-        If savedLogo IsNot Nothing Then
-            PictureBox1.Image = savedLogo
-            PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
-        End If
-
         ' 3. Initial Data Load
         LoadDashboardStats()
     End Sub
@@ -186,26 +180,26 @@ Public Class frmdashboard
 
     ' --- NAVIGATION BUTTONS ---
     ' Ensure these buttons (btnOpenPOS, etc) exist in your Designer!
-    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs) Handles btnOpenPOS.Click
+    Private Sub btnOpenPOS_Click(sender As Object, e As EventArgs)
         pos.Show()
     End Sub
 
-    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs) Handles btnOpenInventory.Click
+    Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
         frmInventory.Show()
     End Sub
 
-    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs) Handles btnSALESHISTORY.Click
+    Private Sub btnSALESHISTORY_Click(sender As Object, e As EventArgs)
         frmSalesHIstory.Show()
     End Sub
 
-    Private Sub Guna2Button7_Click(sender As Object, e As EventArgs) Handles btnUsers.Click
+    Private Sub Guna2Button7_Click(sender As Object, e As EventArgs)
         User.Show()
     End Sub
 
     ' --- LOGOUT LOGIC ---
-    Private Sub Guna2Button5_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
+    Private Sub Guna2Button5_Click(sender As Object, e As EventArgs)
         ' 1. Ask for confirmation
-        Dim result As DialogResult = MessageBox.Show("Are you sure you want to log out?", "Logout Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        Dim result = MessageBox.Show("Are you sure you want to log out?", "Logout Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If result = DialogResult.Yes Then
             ' 2. Stop the timers to prevent background errors while closing
@@ -213,8 +207,8 @@ Public Class frmdashboard
             DashboardTimer.Stop()
 
             ' 3. Clear Global Session Data for security
-            GlobalData.CurrentUser = ""
-            GlobalData.UserRole = ""
+            CurrentUser = ""
+            UserRole = ""
 
             ' 4. Show the Login Form (Ensure the name matches your login form, e.g., frmLogin)
             ' Using a new instance to ensure a fresh state
@@ -222,39 +216,11 @@ Public Class frmdashboard
             loginForm.Show()
 
             ' 5. Close this Dashboard
-            Me.Dispose()
+            Dispose()
         End If
     End Sub
 
-    ' Logic for the Upload Pictures Button
-    Private Sub btnuploadpictures_Click(sender As Object, e As EventArgs) Handles btnuploadpictures.Click
-        Using ofd As New OpenFileDialog()
-            ofd.Filter = "Images|*.jpg;*.png;*.bmp"
-            If ofd.ShowDialog() = DialogResult.OK Then
-                Dim newImg = Image.FromFile(ofd.FileName)
-                PictureBox1.Image = newImg
+    Private Sub flptotalproducts_Paint(sender As Object, e As PaintEventArgs) Handles flptotalproducts.Paint
 
-                ' 1. Save to DB
-                If db.SaveSystemImage("StoreLogo", newImg) Then
-                    ' 2. SYNC OPEN FORMS IMMEDIATELY
-                    ' This loops through all currently open windows and updates their PictureBox
-                    For Each f As Form In Application.OpenForms
-                        ' Look for a PictureBox named "PictureBox1" (or whatever yours is named)
-                        Dim targetPB = f.Controls.Find("PictureBox1", True).FirstOrDefault()
-                        If targetPB IsNot Nothing AndAlso TypeOf targetPB Is PictureBox Then
-                            DirectCast(targetPB, PictureBox).Image = newImg
-                        End If
-                    Next
-
-                    MessageBox.Show("Logo synced across all open forms!")
-                End If
-            End If
-        End Using
-    End Sub
-
-    ' Logic for clicking the PictureBox directly (often used as a shortcut)
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        ' We can simply call the upload button's logic to avoid repeating code
-        btnuploadpictures.PerformClick()
     End Sub
 End Class
