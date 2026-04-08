@@ -93,6 +93,13 @@ Public Class frmSalesHIstory
                     ' Keep Amount Center or MiddleRight
                     .Columns("Total").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
                 End If
+                ' Add this inside your FormatGrid() Sub
+                If .Columns.Contains("ItemBought") Then
+                    .Columns("ItemBought").HeaderText = "Items Sold"
+                    .Columns("ItemBought").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    ' Give this more weight so long item names don't get cut off
+                    .Columns("ItemBought").FillWeight = 150
+                End If
 
                 ' 6. Auto-size Columns to Fill Space
                 .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
@@ -180,18 +187,21 @@ Public Class frmSalesHIstory
             If sfd.ShowDialog() = DialogResult.OK Then
                 Dim sb As New System.Text.StringBuilder()
 
-                ' Column Headers
-                sb.AppendLine("ID,Customer Name,Date,Total Amount")
+                ' Column Header
+                sb.AppendLine("ID,Customer Name,Items Sold,Date,Total Amount")
 
-                ' Data Rows
+                ' Update your Data Rows Loop
                 For Each row As DataGridViewRow In dgvsaleshistory.Rows
                     If Not row.IsNewRow Then
                         Dim id As String = row.Cells("SaleID").Value?.ToString()
-                        Dim name As String = row.Cells("BuyerName").Value?.ToString().Replace(",", " ") ' Remove commas to keep CSV clean
+                        Dim name As String = row.Cells("BuyerName").Value?.ToString().Replace(",", " ")
+                        ' Add this line:
+                        Dim items As String = row.Cells("ItemBought").Value?.ToString().Replace(",", " ")
                         Dim sDate As String = row.Cells("SaleDate").Value?.ToString()
                         Dim total As String = row.Cells("Total").Value?.ToString()
 
-                        sb.AppendLine($"{id},{name},{sDate},{total}")
+                        ' Add {items} to the string line
+                        sb.AppendLine($"{id},{name},{items},{sDate},{total}")
                     End If
                 Next
 
@@ -219,6 +229,8 @@ Public Class frmSalesHIstory
         Dim fontCol As New Font("Segoe UI", 10, FontStyle.Bold)
         Dim fontRow As New Font("Segoe UI", 9, FontStyle.Regular)
 
+        ' --- DECLARE grandTotal HERE ---
+        Dim grandTotal As Decimal = 0
         Dim x As Integer = 50
         Dim y As Integer = 50
 
@@ -230,29 +242,42 @@ Public Class frmSalesHIstory
 
         ' Table Headers
         g.DrawString("ID", fontCol, Brushes.Black, x, y)
-        g.DrawString("CUSTOMER", fontCol, Brushes.Black, x + 50, y)
-        g.DrawString("DATE & TIME", fontCol, Brushes.Black, x + 300, y)
-        g.DrawString("AMOUNT", fontCol, Brushes.Black, x + 550, y)
+        g.DrawString("CUSTOMER", fontCol, Brushes.Black, x + 40, y)
+        g.DrawString("ITEMS SOLD", fontCol, Brushes.Black, x + 180, y)
+        g.DrawString("DATE & TIME", fontCol, Brushes.Black, x + 420, y)
+        g.DrawString("AMOUNT", fontCol, Brushes.Black, x + 620, y)
 
         y += 20
-        g.DrawLine(Pens.Black, x, y, x + 650, y)
+        g.DrawLine(Pens.Black, x, y, x + 720, y)
         y += 10
 
         ' Loop Sales Data
-        Dim grandTotal As Decimal = 0
         For Each row As DataGridViewRow In dgvsaleshistory.Rows
             If Not row.IsNewRow Then
                 g.DrawString(row.Cells("SaleID").Value?.ToString(), fontRow, Brushes.Black, x, y)
-                g.DrawString(row.Cells("BuyerName").Value?.ToString(), fontRow, Brushes.Black, x + 50, y)
-                g.DrawString(row.Cells("SaleDate").Value?.ToString(), fontRow, Brushes.Black, x + 300, y)
+                g.DrawString(row.Cells("BuyerName").Value?.ToString(), fontRow, Brushes.Black, x + 40, y)
 
-                Dim val As Decimal = If(IsNumeric(row.Cells("Total").Value), CDec(row.Cells("Total").Value), 0)
-                g.DrawString("₱" & val.ToString("N2"), fontRow, Brushes.Black, x + 550, y)
+                ' Draw Items Sold
+                Dim itemNames As String = row.Cells("ItemBought").Value?.ToString()
+                If itemNames IsNot Nothing AndAlso itemNames.Length > 30 Then
+                    itemNames = itemNames.Substring(0, 27) & "..."
+                End If
+                g.DrawString(If(itemNames, ""), fontRow, Brushes.Black, x + 180, y)
 
-                grandTotal += val
+                g.DrawString(row.Cells("SaleDate").Value?.ToString(), fontRow, Brushes.Black, x + 420, y)
+
+                ' Calculate and accumulate total
+                Dim val As Decimal = 0
+                If row.Cells("Total").Value IsNot Nothing AndAlso IsNumeric(row.Cells("Total").Value) Then
+                    val = CDec(row.Cells("Total").Value)
+                End If
+
+                g.DrawString("₱" & val.ToString("N2"), fontRow, Brushes.Black, x + 620, y)
+
+                grandTotal += val ' Now this works because it was declared above!
                 y += 25
 
-                ' Simple Page Overflow check
+                ' Page Overflow check
                 If y > e.MarginBounds.Bottom Then
                     e.HasMorePages = True
                     Return
@@ -262,7 +287,7 @@ Public Class frmSalesHIstory
 
         ' Grand Total at the bottom
         y += 20
-        g.DrawLine(Pens.Black, x, y, x + 650, y)
+        g.DrawLine(Pens.Black, x, y, x + 720, y)
         y += 10
         g.DrawString("GRAND TOTAL: ₱" & grandTotal.ToString("N2"), fontHeader, Brushes.DarkBlue, x + 350, y)
     End Sub
