@@ -37,11 +37,12 @@ Partial Class User
         ' 
         ' dgvActivity
         ' 
+        dgvActivity.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvActivity.BackgroundColor = Color.White
         dgvActivity.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvActivity.Location = New Point(21, 53)
+        dgvActivity.Location = New Point(8, 53)
         dgvActivity.Name = "dgvActivity"
-        dgvActivity.Size = New Size(763, 176)
+        dgvActivity.Size = New Size(1074, 283)
         dgvActivity.TabIndex = 0
         ' 
         ' lblActivityHeader
@@ -49,7 +50,7 @@ Partial Class User
         lblActivityHeader.BackColor = Color.Transparent
         lblActivityHeader.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblActivityHeader.ForeColor = Color.MediumBlue
-        lblActivityHeader.Location = New Point(25, 12)
+        lblActivityHeader.Location = New Point(9, 24)
         lblActivityHeader.Name = "lblActivityHeader"
         lblActivityHeader.Size = New Size(140, 23)
         lblActivityHeader.TabIndex = 1
@@ -57,11 +58,12 @@ Partial Class User
         ' 
         ' dgvUsers
         ' 
+        dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvUsers.BackgroundColor = Color.White
         dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvUsers.Location = New Point(21, 251)
+        dgvUsers.Location = New Point(5, 358)
         dgvUsers.Name = "dgvUsers"
-        dgvUsers.Size = New Size(763, 178)
+        dgvUsers.Size = New Size(1077, 329)
         dgvUsers.TabIndex = 3
         ' 
         ' btnToggleStatus
@@ -75,7 +77,7 @@ Partial Class User
         btnToggleStatus.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnToggleStatus.Font = New Font("Segoe UI", 9F)
         btnToggleStatus.ForeColor = Color.Black
-        btnToggleStatus.Location = New Point(548, 12)
+        btnToggleStatus.Location = New Point(820, 12)
         btnToggleStatus.Name = "btnToggleStatus"
         btnToggleStatus.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         btnToggleStatus.Size = New Size(117, 33)
@@ -94,7 +96,7 @@ Partial Class User
         btnRefresh.FillColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
         btnRefresh.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnRefresh.ForeColor = Color.Black
-        btnRefresh.Location = New Point(671, 12)
+        btnRefresh.Location = New Point(952, 12)
         btnRefresh.Name = "btnRefresh"
         btnRefresh.ShadowDecoration.CustomizableEdges = CustomizableEdges4
         btnRefresh.Size = New Size(113, 33)
@@ -105,7 +107,7 @@ Partial Class User
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(1094, 699)
         Controls.Add(btnToggleStatus)
         Controls.Add(dgvUsers)
         Controls.Add(btnRefresh)
