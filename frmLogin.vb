@@ -341,4 +341,7 @@ Public Class FrmLogin
         End If
     End Sub
 
+    Private Sub BtnShowHide_Click_1(sender As Object, e As EventArgs) Handles BtnShowHide.Click
+
+    End Sub
 End Class
