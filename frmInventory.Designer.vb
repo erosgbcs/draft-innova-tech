@@ -170,8 +170,8 @@ Partial Class frmInventory
         Guna2CustomGradientPanel1.Controls.Add(txtPrice)
         Guna2CustomGradientPanel1.Controls.Add(txtProductName)
         Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges1
-        Guna2CustomGradientPanel1.FillColor = Color.DodgerBlue
-        Guna2CustomGradientPanel1.FillColor2 = Color.SteelBlue
+        Guna2CustomGradientPanel1.FillColor = Color.DarkMagenta
+        Guna2CustomGradientPanel1.FillColor2 = Color.DarkTurquoise
         Guna2CustomGradientPanel1.FillColor3 = Color.Navy
         Guna2CustomGradientPanel1.FillColor4 = Color.SkyBlue
         Guna2CustomGradientPanel1.Location = New Point(6, 120)

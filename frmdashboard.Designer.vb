@@ -106,8 +106,8 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel3.Controls.Add(lblTime)
         Guna2CustomGradientPanel3.Controls.Add(Guna2Button1)
         Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges3
-        Guna2CustomGradientPanel3.FillColor = Color.DodgerBlue
-        Guna2CustomGradientPanel3.FillColor2 = Color.SteelBlue
+        Guna2CustomGradientPanel3.FillColor = Color.DarkMagenta
+        Guna2CustomGradientPanel3.FillColor2 = Color.DarkTurquoise
         Guna2CustomGradientPanel3.FillColor3 = Color.Navy
         Guna2CustomGradientPanel3.FillColor4 = Color.SkyBlue
         Guna2CustomGradientPanel3.Location = New Point(7, 4)
@@ -201,7 +201,7 @@ Partial Class frmdashboard
         ' flpinventoryinsights
         ' 
         flpinventoryinsights.BackColor = Color.Transparent
-        flpinventoryinsights.Location = New Point(163, 736)
+        flpinventoryinsights.Location = New Point(12, 719)
         flpinventoryinsights.Name = "flpinventoryinsights"
         flpinventoryinsights.Size = New Size(273, 160)
         flpinventoryinsights.TabIndex = 62

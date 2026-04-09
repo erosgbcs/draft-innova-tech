@@ -22,10 +22,10 @@ Partial Class frmSalesHIstory
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Guna2CustomGradientPanel3 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         Label1 = New Label()
         Guna2Button7 = New Guna.UI2.WinForms.Guna2Button()
@@ -46,15 +46,15 @@ Partial Class frmSalesHIstory
         Guna2CustomGradientPanel3.BorderThickness = 1
         Guna2CustomGradientPanel3.Controls.Add(Label1)
         Guna2CustomGradientPanel3.Controls.Add(Guna2Button7)
-        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges7
-        Guna2CustomGradientPanel3.FillColor = Color.DodgerBlue
-        Guna2CustomGradientPanel3.FillColor2 = Color.SteelBlue
+        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges3
+        Guna2CustomGradientPanel3.FillColor = Color.DarkMagenta
+        Guna2CustomGradientPanel3.FillColor2 = Color.DarkTurquoise
         Guna2CustomGradientPanel3.FillColor3 = Color.Navy
         Guna2CustomGradientPanel3.FillColor4 = Color.SkyBlue
         Guna2CustomGradientPanel3.Location = New Point(5, 5)
         Guna2CustomGradientPanel3.Name = "Guna2CustomGradientPanel3"
-        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges8
-        Guna2CustomGradientPanel3.Size = New Size(1525, 87)
+        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        Guna2CustomGradientPanel3.Size = New Size(1159, 87)
         Guna2CustomGradientPanel3.TabIndex = 58
         ' 
         ' Label1
@@ -73,7 +73,7 @@ Partial Class frmSalesHIstory
         Guna2Button7.BorderColor = Color.White
         Guna2Button7.BorderRadius = 12
         Guna2Button7.BorderThickness = 1
-        Guna2Button7.CustomizableEdges = CustomizableEdges5
+        Guna2Button7.CustomizableEdges = CustomizableEdges1
         Guna2Button7.DisabledState.BorderColor = Color.DarkGray
         Guna2Button7.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button7.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -83,7 +83,7 @@ Partial Class frmSalesHIstory
         Guna2Button7.ForeColor = Color.WhiteSmoke
         Guna2Button7.Location = New Point(-1, 611)
         Guna2Button7.Name = "Guna2Button7"
-        Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         Guna2Button7.Size = New Size(128, 34)
         Guna2Button7.TabIndex = 26
         Guna2Button7.Text = "Logout"
@@ -95,7 +95,7 @@ Partial Class frmSalesHIstory
         txtSearchSales.Margin = New Padding(4, 3, 4, 3)
         txtSearchSales.Name = "txtSearchSales"
         txtSearchSales.PlaceholderText = "Product Sales History by code or name.."
-        txtSearchSales.Size = New Size(1522, 27)
+        txtSearchSales.Size = New Size(1156, 27)
         txtSearchSales.TabIndex = 60
         ' 
         ' dgvsaleshistory
@@ -105,7 +105,7 @@ Partial Class frmSalesHIstory
         dgvsaleshistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvsaleshistory.Location = New Point(9, 173)
         dgvsaleshistory.Name = "dgvsaleshistory"
-        dgvsaleshistory.Size = New Size(1519, 576)
+        dgvsaleshistory.Size = New Size(1155, 576)
         dgvsaleshistory.TabIndex = 61
         ' 
         ' printreport
@@ -143,7 +143,7 @@ Partial Class frmSalesHIstory
         AutoScaleMode = AutoScaleMode.Dpi
         AutoScroll = True
         BackgroundImageLayout = ImageLayout.Zoom
-        ClientSize = New Size(1199, 567)
+        ClientSize = New Size(1179, 567)
         Controls.Add(printreport)
         Controls.Add(dgvsaleshistory)
         Controls.Add(BtnExportcsv)

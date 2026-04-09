@@ -42,7 +42,7 @@
         ' 
         cboRole.BackColor = Color.White
         cboRole.DropDownStyle = ComboBoxStyle.DropDownList
-        cboRole.Location = New Point(64, 259)
+        cboRole.Location = New Point(228, 257)
         cboRole.Name = "cboRole"
         cboRole.Size = New Size(272, 23)
         cboRole.TabIndex = 7
@@ -51,7 +51,7 @@
         ' 
         btnRegister.BackColor = Color.FromArgb(CByte(128), CByte(128), CByte(255))
         btnRegister.FlatStyle = FlatStyle.Flat
-        btnRegister.Location = New Point(63, 305)
+        btnRegister.Location = New Point(227, 317)
         btnRegister.Name = "btnRegister"
         btnRegister.Size = New Size(273, 24)
         btnRegister.TabIndex = 8
@@ -94,7 +94,7 @@
         txtUsername.CustomizableEdges = CustomizableEdges1
         txtUsername.DefaultText = ""
         txtUsername.Font = New Font("Segoe UI", 9F)
-        txtUsername.Location = New Point(55, 119)
+        txtUsername.Location = New Point(227, 114)
         txtUsername.Name = "txtUsername"
         txtUsername.PlaceholderText = "Enter New Username"
         txtUsername.SelectedText = ""
@@ -111,7 +111,7 @@
         txtPassword.CustomizableEdges = CustomizableEdges3
         txtPassword.DefaultText = ""
         txtPassword.Font = New Font("Segoe UI", 9F)
-        txtPassword.Location = New Point(55, 190)
+        txtPassword.Location = New Point(227, 185)
         txtPassword.Name = "txtPassword"
         txtPassword.PasswordChar = "*"c
         txtPassword.PlaceholderText = "Enter New Password"
@@ -129,7 +129,7 @@
         txtFullName.CustomizableEdges = CustomizableEdges5
         txtFullName.DefaultText = ""
         txtFullName.Font = New Font("Segoe UI", 9F)
-        txtFullName.Location = New Point(55, 47)
+        txtFullName.Location = New Point(227, 36)
         txtFullName.Name = "txtFullName"
         txtFullName.PlaceholderText = "Enter your fullname"
         txtFullName.SelectedText = ""
@@ -144,7 +144,7 @@
         Label1.BackColor = Color.Transparent
         Label1.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.ForeColor = Color.White
-        Label1.Location = New Point(63, 24)
+        Label1.Location = New Point(227, 13)
         Label1.Name = "Label1"
         Label1.Size = New Size(89, 20)
         Label1.TabIndex = 13
@@ -156,7 +156,7 @@
         Label2.BackColor = Color.Transparent
         Label2.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label2.ForeColor = Color.White
-        Label2.Location = New Point(63, 94)
+        Label2.Location = New Point(228, 91)
         Label2.Name = "Label2"
         Label2.Size = New Size(91, 20)
         Label2.TabIndex = 14
@@ -168,7 +168,7 @@
         Label3.BackColor = Color.Transparent
         Label3.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label3.ForeColor = Color.White
-        Label3.Location = New Point(67, 167)
+        Label3.Location = New Point(228, 162)
         Label3.Name = "Label3"
         Label3.Size = New Size(86, 20)
         Label3.TabIndex = 15
@@ -180,7 +180,7 @@
         Label4.BackColor = Color.Transparent
         Label4.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label4.ForeColor = Color.White
-        Label4.Location = New Point(67, 235)
+        Label4.Location = New Point(227, 234)
         Label4.Name = "Label4"
         Label4.Size = New Size(46, 20)
         Label4.TabIndex = 16
@@ -191,7 +191,7 @@
         BackColor = Color.WhiteSmoke
         BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(379, 353)
+        ClientSize = New Size(723, 412)
         Controls.Add(Label4)
         Controls.Add(Label3)
         Controls.Add(Label2)
