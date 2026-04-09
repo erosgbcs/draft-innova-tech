@@ -81,6 +81,11 @@ Public Class frmSalesHIstory
                     .Columns("BuyerName").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
                 End If
 
+                If .Columns.Contains("BuyerContact") Then
+                    .Columns("BuyerContact").HeaderText = "Contact No."
+                    .Columns("BuyerContact").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    .Columns("BuyerContact").Width = 110 ' Fixed width for phone numbers
+                End If
                 If .Columns.Contains("SaleDate") Then
                     .Columns("SaleDate").HeaderText = "Date & Time"
                 End If
@@ -188,20 +193,21 @@ Public Class frmSalesHIstory
                 Dim sb As New System.Text.StringBuilder()
 
                 ' Column Header
-                sb.AppendLine("ID,Customer Name,Items Sold,Date,Total Amount")
+                sb.AppendLine("ID,Customer Name,Contact,Items Sold,Date,Total Amount")
 
                 ' Update your Data Rows Loop
                 For Each row As DataGridViewRow In dgvsaleshistory.Rows
                     If Not row.IsNewRow Then
+                        ' Inside the For Each row loop:
                         Dim id As String = row.Cells("SaleID").Value?.ToString()
                         Dim name As String = row.Cells("BuyerName").Value?.ToString().Replace(",", " ")
-                        ' Add this line:
+                        Dim contact As String = row.Cells("BuyerContact").Value?.ToString()
                         Dim items As String = row.Cells("ItemBought").Value?.ToString().Replace(",", " ")
                         Dim sDate As String = row.Cells("SaleDate").Value?.ToString()
                         Dim total As String = row.Cells("Total").Value?.ToString()
 
-                        ' Add {items} to the string line
-                        sb.AppendLine($"{id},{name},{items},{sDate},{total}")
+                        ' string line
+                        sb.AppendLine($"{id},{name},{contact},{items},{sDate},{total}")
                     End If
                 Next
 
@@ -229,66 +235,77 @@ Public Class frmSalesHIstory
         Dim fontCol As New Font("Segoe UI", 10, FontStyle.Bold)
         Dim fontRow As New Font("Segoe UI", 9, FontStyle.Regular)
 
-        ' --- DECLARE grandTotal HERE ---
         Dim grandTotal As Decimal = 0
         Dim x As Integer = 50
         Dim y As Integer = 50
 
-        ' Title & Date
+        ' --- Title & Header ---
         g.DrawString("INNOVATECH SALES REPORT", fontHeader, Brushes.Black, x, y)
         y += 35
         g.DrawString("Generated on: " & DateTime.Now.ToString("f"), fontSub, Brushes.Gray, x, y)
         y += 50
 
-        ' Table Headers
+        ' --- Table Headers (Fixed Coordinates) ---
         g.DrawString("ID", fontCol, Brushes.Black, x, y)
         g.DrawString("CUSTOMER", fontCol, Brushes.Black, x + 40, y)
-        g.DrawString("ITEMS SOLD", fontCol, Brushes.Black, x + 180, y)
-        g.DrawString("DATE & TIME", fontCol, Brushes.Black, x + 420, y)
-        g.DrawString("AMOUNT", fontCol, Brushes.Black, x + 620, y)
+        g.DrawString("CONTACT", fontCol, Brushes.Black, x + 180, y)
+        g.DrawString("ITEMS SOLD", fontCol, Brushes.Black, x + 300, y)
+        g.DrawString("DATE & TIME", fontCol, Brushes.Black, x + 500, y)
+        g.DrawString("AMOUNT", fontCol, Brushes.Black, x + 660, y)
 
         y += 20
-        g.DrawLine(Pens.Black, x, y, x + 720, y)
+        g.DrawLine(Pens.Black, x, y, x + 750, y)
         y += 10
 
-        ' Loop Sales Data
+        ' --- Loop Sales Data ---
         For Each row As DataGridViewRow In dgvsaleshistory.Rows
             If Not row.IsNewRow Then
+                ' 1. ID & Name
                 g.DrawString(row.Cells("SaleID").Value?.ToString(), fontRow, Brushes.Black, x, y)
-                g.DrawString(row.Cells("BuyerName").Value?.ToString(), fontRow, Brushes.Black, x + 40, y)
 
-                ' Draw Items Sold
+                ' Limit Name length to avoid overlapping Contact
+                Dim custName As String = row.Cells("BuyerName").Value?.ToString()
+                If custName?.Length > 20 Then custName = custName.Substring(0, 17) & "..."
+                g.DrawString(If(custName, ""), fontRow, Brushes.Black, x + 40, y)
+
+                ' 2. Contact (Must match x + 180)
+                g.DrawString(row.Cells("BuyerContact").Value?.ToString(), fontRow, Brushes.Black, x + 180, y)
+
+                ' 3. Items Sold (Must match x + 300)
                 Dim itemNames As String = row.Cells("ItemBought").Value?.ToString()
-                If itemNames IsNot Nothing AndAlso itemNames.Length > 30 Then
-                    itemNames = itemNames.Substring(0, 27) & "..."
+                If itemNames IsNot Nothing AndAlso itemNames.Length > 25 Then
+                    itemNames = itemNames.Substring(0, 22) & "..."
                 End If
-                g.DrawString(If(itemNames, ""), fontRow, Brushes.Black, x + 180, y)
+                g.DrawString(If(itemNames, ""), fontRow, Brushes.Black, x + 300, y)
 
-                g.DrawString(row.Cells("SaleDate").Value?.ToString(), fontRow, Brushes.Black, x + 420, y)
+                ' 4. Date & Time (Must match x + 500)
+                g.DrawString(row.Cells("SaleDate").Value?.ToString(), fontRow, Brushes.Black, x + 500, y)
 
-                ' Calculate and accumulate total
+                ' 5. Calculate Amount (Must match x + 660)
                 Dim val As Decimal = 0
                 If row.Cells("Total").Value IsNot Nothing AndAlso IsNumeric(row.Cells("Total").Value) Then
                     val = CDec(row.Cells("Total").Value)
                 End If
+                g.DrawString("₱" & val.ToString("N2"), fontRow, Brushes.Black, x + 660, y)
 
-                g.DrawString("₱" & val.ToString("N2"), fontRow, Brushes.Black, x + 620, y)
-
-                grandTotal += val ' Now this works because it was declared above!
+                grandTotal += val
                 y += 25
 
                 ' Page Overflow check
                 If y > e.MarginBounds.Bottom Then
                     e.HasMorePages = True
                     Return
+                Else
+                    e.HasMorePages = False
                 End If
             End If
         Next
 
-        ' Grand Total at the bottom
+        ' --- Grand Total Section ---
         y += 20
-        g.DrawLine(Pens.Black, x, y, x + 720, y)
+        g.DrawLine(Pens.Black, x, y, x + 750, y)
         y += 10
-        g.DrawString("GRAND TOTAL: ₱" & grandTotal.ToString("N2"), fontHeader, Brushes.DarkBlue, x + 350, y)
+        ' Position Grand Total near the right side under the Amount column
+        g.DrawString("GRAND TOTAL: ₱" & grandTotal.ToString("N2"), fontHeader, Brushes.DarkBlue, x + 300, y)
     End Sub
 End Class

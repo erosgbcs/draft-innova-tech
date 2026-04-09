@@ -332,8 +332,8 @@ CREATE TABLE IF NOT EXISTS SystemSettings (
         Try
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
-                ' Removed the WHERE clause here because this is for the initial load
-                Dim query As String = "SELECT SaleID, BuyerName, ItemBought, Total, SaleDate FROM Sales ORDER BY SaleDate DESC"
+                ' Added BuyerContact to the selection
+                Dim query As String = "SELECT SaleID, BuyerName, BuyerContact, ItemBought, Total, SaleDate FROM Sales ORDER BY SaleDate DESC"
                 Using da As New SQLiteDataAdapter(query, conn)
                     da.Fill(dt)
                 End Using
@@ -424,15 +424,15 @@ CREATE TABLE IF NOT EXISTS SystemSettings (
     Public Function GetTopSellingPlaceholder() As String
         Return "No sales data for this week"
     End Function
-    ' Add this to DatabaseHelper.vb
     Public Function SearchSales(searchTerm As String) As DataTable
         Dim dt As New DataTable()
         Try
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
-                ' Added ItemBought to the selection so it matches LoadSales
-                Dim query As String = "SELECT SaleID, BuyerName, ItemBought, Total, SaleDate " &
+                ' Added BuyerContact to SELECT and added it to the WHERE clause for searching
+                Dim query As String = "SELECT SaleID, BuyerName, BuyerContact, ItemBought, Total, SaleDate " &
                                  "FROM Sales WHERE BuyerName LIKE @Search " &
+                                 "OR BuyerContact LIKE @Search " & ' <--- Now searchable by phone
                                  "OR ItemBought LIKE @Search " &
                                  "OR SaleID LIKE @Search " &
                                  "ORDER BY SaleDate DESC"
