@@ -1,4 +1,7 @@
 ﻿Imports System.Runtime.Versioning
+Imports System.Diagnostics
+Imports System.Drawing
+Imports System.Windows.Forms
 
 <SupportedOSPlatform("windows")>
 Public Class FrmForgotPassword
@@ -92,9 +95,12 @@ Public Class FrmForgotPassword
     ' Contact Support button click
     Private Sub BtnContact_Click(sender As Object, e As EventArgs)
         Try
-            ' Try to open email client
+            ' Use ProcessStartInfo with UseShellExecute = True to open default mail client
             Dim mailto As String = "mailto:support@innovatech.com?subject=Password%20Reset%20Request&body=Please%20help%20me%20reset%20my%20password.%0D%0A%0D%0AUsername:%20[Enter%20your%20username%20here]%0D%0A%0D%0AThank%20you!"
-            System.Diagnostics.Process.Start(mailto)
+            Dim psi As New ProcessStartInfo(mailto) With {
+                .UseShellExecute = True
+            }
+            Process.Start(psi)
         Catch ex As Exception
             ' If email client fails, show full contact information
             MessageBox.Show(

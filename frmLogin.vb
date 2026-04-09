@@ -1,5 +1,4 @@
 ﻿Imports System.Runtime.Versioning
-Imports System.Data.SQLite
 
 <SupportedOSPlatform("windows")>
 Public Class FrmLogin
@@ -20,8 +19,6 @@ Public Class FrmLogin
         Dim username = txtUsername.Text.Trim
         Dim password = txtPassword.Text
 
-        ' ... [Keep your validation logic here] ...
-
         ' Validate credentials against database
         Dim userData = dbHelper.ValidateUser(username, password)
 
@@ -36,8 +33,7 @@ Public Class FrmLogin
             MessageBox.Show($"Login Successful! Welcome {userRow("FullName")}!",
                           "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            ' --- UPDATED: OPEN THE MAIN CONTAINER INSTEAD OF DASHBOARD ---
-            ' This opens the form that contains your sidebar and panel
+            ' Open main window
             Dim mainApp As New frmMain()
             mainApp.Show()
 
@@ -59,7 +55,7 @@ Public Class FrmLogin
     Private Sub BtnForgotPassword_Click(sender As Object, e As EventArgs) Handles btnForgotPassword.Click
         ' Show forgot password dialog
         Using forgotForm As New FrmForgotPassword(dbHelper)
-            forgotForm.ShowDialog
+            forgotForm.ShowDialog()
         End Using
     End Sub
 
@@ -67,10 +63,7 @@ Public Class FrmLogin
     Private Sub BtnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
         ' Show registration form
         Using registerForm As New FrmRegister(dbHelper)
-            ' Show the registration form as a dialog
             If registerForm.ShowDialog() = DialogResult.OK Then
-                ' If registration was successful, you can optionally
-                ' auto-fill the username
                 txtUsername.Text = registerForm.RegisteredUsername
                 MessageBox.Show("Registration successful! Please login with your new account.",
                               "Registration Complete", MessageBoxButtons.OK, MessageBoxIcon.Information)

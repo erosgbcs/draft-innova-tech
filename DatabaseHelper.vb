@@ -1,4 +1,6 @@
-﻿Imports System.Data.SQLite
+﻿Imports Microsoft.Data.Sqlite
+Imports System.Data
+Imports System.Drawing
 Imports System.Security.Cryptography
 Imports System.Text
 Imports draft_innova_tech.frmdashboard
@@ -8,27 +10,27 @@ Public Class DatabaseHelper
 
     Public Sub New()
         Dim databasePath As String = IO.Path.Combine(Application.StartupPath, "Accounts.db")
-        connectionString = $"Data Source={databasePath};Version=3;"
+        connectionString = $"Data Source={databasePath};"
     End Sub
 
     ' --- Initialize Database ---
     Public Sub InitializeDatabase()
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
 
                 ' 1. Users Table
                 Dim createUsers As String = "
-                CREATE TABLE IF NOT EXISTS Users (
-                    UserID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Username TEXT UNIQUE NOT NULL,
-                    PasswordHash TEXT NOT NULL,
-                    FullName TEXT NOT NULL,
-                    Role TEXT DEFAULT 'Staff',
-                    IsActive BOOLEAN DEFAULT 1,
-                    LastLogin DATETIME,
-                    CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP
-                )"
+                    CREATE TABLE IF NOT EXISTS Users (
+                        UserID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Username TEXT UNIQUE NOT NULL,
+                        PasswordHash TEXT NOT NULL,
+                        FullName TEXT NOT NULL,
+                        Role TEXT DEFAULT 'Staff',
+                        IsActive BOOLEAN DEFAULT 1,
+                        LastLogin DATETIME,
+                        CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP
+                    )"
                 ExecuteSimpleQuery(createUsers, conn)
 
                 ' 2. Seed Admin
@@ -36,40 +38,40 @@ Public Class DatabaseHelper
 
                 ' 3. Products Table
                 Dim createProducts As String = "
-                CREATE TABLE IF NOT EXISTS Products (
-                    ProductID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    ProductCode TEXT UNIQUE NOT NULL,
-                    ProductName TEXT NOT NULL,
-                    Category TEXT,
-                    Price REAL NOT NULL,
-                    Stock INTEGER NOT NULL
-                )"
+                    CREATE TABLE IF NOT EXISTS Products (
+                        ProductID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        ProductCode TEXT UNIQUE NOT NULL,
+                        ProductName TEXT NOT NULL,
+                        Category TEXT,
+                        Price REAL NOT NULL,
+                        Stock INTEGER NOT NULL
+                    )"
                 ExecuteSimpleQuery(createProducts, conn)
 
                 ' 4. --- Create Sales table ---
                 Try
                     ' This creates the table with all columns including ItemBought
                     Dim createSales As String = "
-    CREATE TABLE IF NOT EXISTS Sales (
-        SaleID INTEGER PRIMARY KEY AUTOINCREMENT,
-        BuyerName TEXT,
-        BuyerAddress TEXT,
-        BuyerContact TEXT,
-        ItemBought TEXT,   
-        Subtotal REAL,
-        Total REAL,
-        ProcessedBy TEXT,
-        SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP
-    )"
+        CREATE TABLE IF NOT EXISTS Sales (
+            SaleID INTEGER PRIMARY KEY AUTOINCREMENT,
+            BuyerName TEXT,
+            BuyerAddress TEXT,
+            BuyerContact TEXT,
+            ItemBought TEXT,   
+            Subtotal REAL,
+            Total REAL,
+            ProcessedBy TEXT,
+            SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP
+        )"
 
-                    Using cmd As New SQLiteCommand(createSales, conn)
+                    Using cmd As New SqliteCommand(createSales, conn)
                         cmd.ExecuteNonQuery()
                     End Using
 
                     ' Migration check: adds ItemBought if it was missing from an older DB
                     Dim needsColumn As Boolean = True
-                    Using checkCmd As New SQLiteCommand("PRAGMA table_info(Sales)", conn)
-                        Using reader As SQLiteDataReader = checkCmd.ExecuteReader()
+                    Using checkCmd As New SqliteCommand("PRAGMA table_info(Sales)", conn)
+                        Using reader As SqliteDataReader = checkCmd.ExecuteReader()
                             While reader.Read()
                                 If reader("name").ToString().Equals("ItemBought", StringComparison.OrdinalIgnoreCase) Then
                                     needsColumn = False
@@ -80,32 +82,32 @@ Public Class DatabaseHelper
                     End Using
 
                     If needsColumn Then
-                        Using addCmd As New SQLiteCommand("ALTER TABLE Sales ADD COLUMN ItemBought TEXT;", conn)
+                        Using addCmd As New SqliteCommand("ALTER TABLE Sales ADD COLUMN ItemBought TEXT;", conn)
                             addCmd.ExecuteNonQuery()
                         End Using
                     End If
                 Catch ex As Exception
-                    ' Use Debug.WriteLine so it shows up in your Output window without crashing the app
                     Debug.WriteLine("Database Setup Error: " & ex.Message)
                 End Try
+
                 ' 5. System Settings (Logos)
                 Dim createSettings As String = "
-                CREATE TABLE IF NOT EXISTS SystemSettings (
-                    SettingID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    SettingName TEXT UNIQUE NOT NULL,
-                    SettingValue BLOB
-                )"
+                    CREATE TABLE IF NOT EXISTS SystemSettings (
+                        SettingID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        SettingName TEXT UNIQUE NOT NULL,
+                        SettingValue BLOB
+                    )"
                 ExecuteSimpleQuery(createSettings, conn)
 
                 ' 6. Inventory Logs
                 Dim createInventoryLogs As String = "
-                CREATE TABLE IF NOT EXISTS InventoryLogs (
-                    LogID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Username TEXT NOT NULL,
-                    Action TEXT NOT NULL,
-                    Details TEXT NOT NULL,
-                    LogDate DATETIME DEFAULT CURRENT_TIMESTAMP
-                )"
+                    CREATE TABLE IF NOT EXISTS InventoryLogs (
+                        LogID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Username TEXT NOT NULL,
+                        Action TEXT NOT NULL,
+                        Details TEXT NOT NULL,
+                        LogDate DATETIME DEFAULT CURRENT_TIMESTAMP
+                    )"
                 ExecuteSimpleQuery(createInventoryLogs, conn)
 
                 conn.Close()
@@ -116,8 +118,8 @@ Public Class DatabaseHelper
     End Sub
 
     ' Helper to reduce clutter
-    Private Sub ExecuteSimpleQuery(sql As String, conn As SQLiteConnection)
-        Using cmd As New SQLiteCommand(sql, conn)
+    Private Sub ExecuteSimpleQuery(sql As String, conn As SqliteConnection)
+        Using cmd As New SqliteCommand(sql, conn)
             cmd.ExecuteNonQuery()
         End Using
     End Sub
@@ -125,10 +127,10 @@ Public Class DatabaseHelper
     ' --- USER METHODS ---
     Public Function RegisterUser(username As String, password As String, fullName As String, role As String) As Boolean
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
                 Dim query As String = "INSERT INTO Users (Username, PasswordHash, FullName, Role) VALUES (@Username, @Hash, @Full, @Role)"
-                Using cmd As New SQLiteCommand(query, conn)
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Username", username)
                     cmd.Parameters.AddWithValue("@Hash", HashPassword(password))
                     cmd.Parameters.AddWithValue("@Full", fullName)
@@ -136,7 +138,7 @@ Public Class DatabaseHelper
                     Return cmd.ExecuteNonQuery() > 0
                 End Using
             End Using
-        Catch ex As SQLiteException When ex.ErrorCode = SQLiteErrorCode.Constraint
+        Catch ex As SqliteException When ex.SqliteErrorCode = 19 ' constraint violation
             MessageBox.Show("Username already exists. Please choose another.", "Registration Error")
             Return False
         Catch ex As Exception
@@ -148,15 +150,15 @@ Public Class DatabaseHelper
     Public Function ValidateUser(username As String, password As String) As DataTable
         Dim result As New DataTable()
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
                 Dim query As String = "SELECT UserID, Username, FullName, Role FROM Users 
-                                       WHERE Username = @Username AND PasswordHash = @PasswordHash AND IsActive = 1"
-                Using cmd As New SQLiteCommand(query, conn)
+                                           WHERE Username = @Username AND PasswordHash = @PasswordHash AND IsActive = 1"
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Username", username)
                     cmd.Parameters.AddWithValue("@PasswordHash", HashPassword(password))
-                    Using adapter As New SQLiteDataAdapter(cmd)
-                        adapter.Fill(result)
+                    Using reader = cmd.ExecuteReader()
+                        result.Load(reader)
                     End Using
                 End Using
                 If result.Rows.Count > 0 Then UpdateLastLogin(username)
@@ -169,10 +171,10 @@ Public Class DatabaseHelper
 
     Private Sub UpdateLastLogin(username As String)
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
                 Dim query As String = "UPDATE Users SET LastLogin = CURRENT_TIMESTAMP WHERE Username = @Username"
-                Using cmd As New SQLiteCommand(query, conn)
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Username", username)
                     cmd.ExecuteNonQuery()
                 End Using
@@ -191,11 +193,11 @@ Public Class DatabaseHelper
     ' --- PRODUCT METHODS ---
     Public Function SaveProduct(prod As Product) As Boolean
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
                 Dim query As String = "INSERT INTO Products (ProductCode, ProductName, Category, Price, Stock) 
-                                       VALUES (@Code, @Name, @Category, @Price, @Stock)"
-                Using cmd As New SQLiteCommand(query, conn)
+                                           VALUES (@Code, @Name, @Category, @Price, @Stock)"
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Code", prod.Code)
                     cmd.Parameters.AddWithValue("@Name", prod.Name)
                     cmd.Parameters.AddWithValue("@Category", prod.Category)
@@ -212,12 +214,12 @@ Public Class DatabaseHelper
 
     Public Function UpdateProduct(prod As Product) As Boolean
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
                 Dim query As String = "UPDATE Products 
-                                       SET ProductName=@Name, Category=@Category, Price=@Price, Stock=@Stock 
-                                       WHERE ProductCode=@Code"
-                Using cmd As New SQLiteCommand(query, conn)
+                                           SET ProductName=@Name, Category=@Category, Price=@Price, Stock=@Stock 
+                                           WHERE ProductCode=@Code"
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Code", prod.Code)
                     cmd.Parameters.AddWithValue("@Name", prod.Name)
                     cmd.Parameters.AddWithValue("@Category", prod.Category)
@@ -235,11 +237,13 @@ Public Class DatabaseHelper
     Public Function LoadProducts() As DataTable
         Dim dt As New DataTable()
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
                 Dim query As String = "SELECT ProductCode, ProductName, Category, Price, Stock FROM Products"
-                Using da As New SQLiteDataAdapter(query, conn)
-                    da.Fill(dt)
+                Using cmd As New SqliteCommand(query, conn)
+                    Using reader = cmd.ExecuteReader()
+                        dt.Load(reader)
+                    End Using
                 End Using
             End Using
         Catch ex As Exception
@@ -251,12 +255,12 @@ Public Class DatabaseHelper
     ' --- STOCK METHODS ---
     Public Function DecreaseStock(productCode As String, quantity As Integer) As Boolean
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
                 Dim query As String = "UPDATE Products 
-                                   SET Stock = Stock - @Qty 
-                                   WHERE ProductCode = @Code AND Stock >= @Qty"
-                Using cmd As New SQLiteCommand(query, conn)
+                                       SET Stock = Stock - @Qty 
+                                       WHERE ProductCode = @Code AND Stock >= @Qty"
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Qty", quantity)
                     cmd.Parameters.AddWithValue("@Code", productCode)
                     Return cmd.ExecuteNonQuery() > 0
@@ -270,19 +274,15 @@ Public Class DatabaseHelper
 
     Public Function UpdateStock(productCode As String, quantity As Integer) As Boolean
         Try
-            ' Stock = Stock - @Qty performs the subtraction in the database
             Dim query As String = "UPDATE Products SET Stock = Stock - @Qty WHERE ProductCode = @Code AND Stock >= @Qty"
 
-            Using conn As New SQLiteConnection(connectionString) ' Or MySqlConnection
-                Using cmd As New SQLiteCommand(query, conn)
+            Using conn As New SqliteConnection(connectionString)
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Qty", quantity)
                     cmd.Parameters.AddWithValue("@Code", productCode)
 
                     conn.Open()
                     Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
-
-                    ' If 0 rows affected, it means the ProductCode wasn't found 
-                    ' OR there wasn't enough stock to subtract (Stock >= @Qty failed)
                     Return rowsAffected > 0
                 End Using
             End Using
@@ -295,17 +295,16 @@ Public Class DatabaseHelper
     ' --- SALES METHODS ---
     Public Function SaveSale(buyerName As String, buyerAddress As String, buyerContact As String, itemBought As String, subtotal As Decimal, total As Decimal) As Boolean
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
-                ' Added ItemBought to the INSERT query
                 Dim query As String = "INSERT INTO Sales (BuyerName, BuyerAddress, BuyerContact, ItemBought, Subtotal, Total, ProcessedBy) " &
-                                  "VALUES (@Name, @Address, @Contact, @Item, @Subtotal, @Total, @ProcessedBy)"
+                                      "VALUES (@Name, @Address, @Contact, @Item, @Subtotal, @Total, @ProcessedBy)"
 
-                Using cmd As New SQLiteCommand(query, conn)
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Name", buyerName)
                     cmd.Parameters.AddWithValue("@Address", buyerAddress)
                     cmd.Parameters.AddWithValue("@Contact", buyerContact)
-                    cmd.Parameters.AddWithValue("@Item", itemBought) ' <--- NEW PARAMETER
+                    cmd.Parameters.AddWithValue("@Item", itemBought)
                     cmd.Parameters.AddWithValue("@Subtotal", subtotal)
                     cmd.Parameters.AddWithValue("@Total", total)
                     cmd.Parameters.AddWithValue("@ProcessedBy", GlobalData.CurrentUser)
@@ -322,12 +321,13 @@ Public Class DatabaseHelper
     Public Function LoadSales() As DataTable
         Dim dt As New DataTable()
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
-                ' Added BuyerContact to the selection
                 Dim query As String = "SELECT SaleID, BuyerName, BuyerContact, ItemBought, Total, SaleDate FROM Sales ORDER BY SaleDate DESC"
-                Using da As New SQLiteDataAdapter(query, conn)
-                    da.Fill(dt)
+                Using cmd As New SqliteCommand(query, conn)
+                    Using reader = cmd.ExecuteReader()
+                        dt.Load(reader)
+                    End Using
                 End Using
             End Using
         Catch ex As Exception
@@ -335,12 +335,13 @@ Public Class DatabaseHelper
         End Try
         Return dt
     End Function
+
     Public Function DeleteProduct(productCode As String) As Boolean
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
                 Dim query As String = "DELETE FROM Products WHERE ProductCode = @Code"
-                Using cmd As New SQLiteCommand(query, conn)
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Code", productCode)
                     Return cmd.ExecuteNonQuery() > 0
                 End Using
@@ -351,87 +352,84 @@ Public Class DatabaseHelper
     End Function
 
     ' --- DASHBOARD STATS METHODS ---
-
     Public Function GetTotalProductsCount() As Integer
-        Using conn As New SQLiteConnection(connectionString)
+        Using conn As New SqliteConnection(connectionString)
             conn.Open()
-            Dim cmd As New SQLiteCommand("SELECT COUNT(*) FROM Products", conn)
+            Dim cmd As New SqliteCommand("SELECT COUNT(*) FROM Products", conn)
             Return Convert.ToInt32(cmd.ExecuteScalar())
         End Using
     End Function
 
     Public Function GetTotalItemsInStock() As Integer
-        Using conn As New SQLiteConnection(connectionString)
+        Using conn As New SqliteConnection(connectionString)
             conn.Open()
-            Dim cmd As New SQLiteCommand("SELECT SUM(Stock) FROM Products", conn)
+            Dim cmd As New SqliteCommand("SELECT SUM(Stock) FROM Products", conn)
             Dim result = cmd.ExecuteScalar()
             Return If(IsDBNull(result), 0, Convert.ToInt32(result))
         End Using
     End Function
 
     Public Function GetTodaySales() As Decimal
-        Using conn As New SQLiteConnection(connectionString)
+        Using conn As New SqliteConnection(connectionString)
             conn.Open()
-            ' Matches sales where the Date is Today
-            Dim cmd As New SQLiteCommand("SELECT SUM(Total) FROM Sales WHERE date(SaleDate) = date('now')", conn)
+            Dim cmd As New SqliteCommand("SELECT SUM(Total) FROM Sales WHERE date(SaleDate) = date('now')", conn)
             Dim result = cmd.ExecuteScalar()
             Return If(IsDBNull(result), 0, Convert.ToDecimal(result))
         End Using
     End Function
 
     Public Function GetWeeklyRevenue() As Decimal
-        Using conn As New SQLiteConnection(connectionString)
+        Using conn As New SqliteConnection(connectionString)
             conn.Open()
-            ' Calculates sum of Total for the last 7 days
-            Dim cmd As New SQLiteCommand("SELECT SUM(Total) FROM Sales WHERE SaleDate >= date('now', '-7 days')", conn)
+            Dim cmd As New SqliteCommand("SELECT SUM(Total) FROM Sales WHERE SaleDate >= date('now', '-7 days')", conn)
             Dim result = cmd.ExecuteScalar()
             Return If(IsDBNull(result), 0, Convert.ToDecimal(result))
         End Using
     End Function
-    ' --- INVENTORY INSIGHTS DATA METHODS ---
 
+    ' --- INVENTORY INSIGHTS DATA METHODS ---
     Public Function GetLowStockItems(limit As Integer) As DataTable
         Dim dt As New DataTable()
-        Using conn As New SQLiteConnection(connectionString)
+        Using conn As New SqliteConnection(connectionString)
             conn.Open()
-            ' Get items that are low but not out of stock
             Dim query As String = "SELECT ProductName, Stock FROM Products WHERE Stock > 0 AND Stock <= @Limit ORDER BY Stock ASC"
-            Using da As New SQLiteDataAdapter(query, conn)
-                da.SelectCommand.Parameters.AddWithValue("@Limit", limit)
-                da.Fill(dt)
+            Using cmd As New SqliteCommand(query, conn)
+                cmd.Parameters.AddWithValue("@Limit", limit)
+                Using reader = cmd.ExecuteReader()
+                    dt.Load(reader)
+                End Using
             End Using
         End Using
         Return dt
     End Function
 
     Public Function GetOutOfStockCount() As Integer
-        Using conn As New SQLiteConnection(connectionString)
+        Using conn As New SqliteConnection(connectionString)
             conn.Open()
-            Dim cmd As New SQLiteCommand("SELECT COUNT(*) FROM Products WHERE Stock <= 0", conn)
+            Dim cmd As New SqliteCommand("SELECT COUNT(*) FROM Products WHERE Stock <= 0", conn)
             Return Convert.ToInt32(cmd.ExecuteScalar())
         End Using
     End Function
 
-    ' Placeholder: This would usually query a "SalesDetails" table linked to Products
     Public Function GetTopSellingPlaceholder() As String
         Return "No sales data for this week"
     End Function
+
     Public Function SearchSales(searchTerm As String) As DataTable
         Dim dt As New DataTable()
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
-                ' Added BuyerContact to SELECT and added it to the WHERE clause for searching
                 Dim query As String = "SELECT SaleID, BuyerName, BuyerContact, ItemBought, Total, SaleDate " &
-                                 "FROM Sales WHERE BuyerName LIKE @Search " &
-                                 "OR BuyerContact LIKE @Search " & ' <--- Now searchable by phone
-                                 "OR ItemBought LIKE @Search " &
-                                 "OR SaleID LIKE @Search " &
-                                 "ORDER BY SaleDate DESC"
-                Using cmd As New SQLiteCommand(query, conn)
+                                     "FROM Sales WHERE BuyerName LIKE @Search " &
+                                     "OR BuyerContact LIKE @Search " &
+                                     "OR ItemBought LIKE @Search " &
+                                     "OR SaleID LIKE @Search " &
+                                     "ORDER BY SaleDate DESC"
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Search", "%" & searchTerm & "%")
-                    Using da As New SQLiteDataAdapter(cmd)
-                        da.Fill(dt)
+                    Using reader = cmd.ExecuteReader()
+                        dt.Load(reader)
                     End Using
                 End Using
             End Using
@@ -440,35 +438,32 @@ Public Class DatabaseHelper
         End Try
         Return dt
     End Function
-    ' --- NEW USER MANAGEMENT METHODS ---
 
-    ' Get all users for the management grid
+    ' --- NEW USER MANAGEMENT METHODS ---
     Public Function GetAllUsers() As DataTable
         Dim dt As New DataTable()
-        Using conn As New SQLiteConnection(connectionString)
+        Using conn As New SqliteConnection(connectionString)
             conn.Open()
-            ' We don't select PasswordHash for security
             Dim query As String = "SELECT UserID, Username, FullName, Role, IsActive, LastLogin FROM Users"
-            Using da As New SQLiteDataAdapter(query, conn)
-                da.Fill(dt)
+            Using cmd As New SqliteCommand(query, conn)
+                Using reader = cmd.ExecuteReader()
+                    dt.Load(reader)
+                End Using
             End Using
         End Using
         Return dt
     End Function
 
-    ' Get activity for a specific staff member (Sales they processed)
     Public Function GetUserActivity(username As String) As DataTable
         Dim dt As New DataTable()
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
-                ' Added ItemBought to the SELECT statement
                 Dim query As String = "SELECT SaleID, ItemBought, Total, SaleDate FROM Sales WHERE ProcessedBy = @User ORDER BY SaleDate DESC"
-
-                Using cmd As New SQLiteCommand(query, conn)
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@User", username)
-                    Using da As New SQLiteDataAdapter(cmd)
-                        da.Fill(dt)
+                    Using reader = cmd.ExecuteReader()
+                        dt.Load(reader)
                     End Using
                 End Using
             End Using
@@ -478,33 +473,29 @@ Public Class DatabaseHelper
         Return dt
     End Function
 
-    ' Update User Status (Activate/Deactivate)
     Public Function UpdateUserStatus(userId As Integer, isActive As Boolean) As Boolean
-        Using conn As New SQLiteConnection(connectionString)
+        Using conn As New SqliteConnection(connectionString)
             conn.Open()
             Dim query As String = "UPDATE Users SET IsActive = @Active WHERE UserID = @ID"
-            Using cmd As New SQLiteCommand(query, conn)
+            Using cmd As New SqliteCommand(query, conn)
                 cmd.Parameters.AddWithValue("@Active", If(isActive, 1, 0))
                 cmd.Parameters.AddWithValue("@ID", userId)
                 Return cmd.ExecuteNonQuery() > 0
             End Using
         End Using
     End Function
-    ' --- IMAGE / LOGO METHODS ---
 
-    ' Save an Image to the database as a BLOB
+    ' --- IMAGE / LOGO METHODS ---
     Public Function SaveSystemImage(imageName As String, img As Image) As Boolean
         Try
             Using ms As New IO.MemoryStream()
-                ' Save image to stream in PNG format (best for logos)
                 img.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
                 Dim byteImage As Byte() = ms.ToArray()
 
-                Using conn As New SQLiteConnection(connectionString)
+                Using conn As New SqliteConnection(connectionString)
                     conn.Open()
-                    ' INSERT OR REPLACE handles updating the existing logo
                     Dim query As String = "INSERT OR REPLACE INTO SystemSettings (SettingName, SettingValue) VALUES (@Name, @Value)"
-                    Using cmd As New SQLiteCommand(query, conn)
+                    Using cmd As New SqliteCommand(query, conn)
                         cmd.Parameters.AddWithValue("@Name", imageName)
                         cmd.Parameters.AddWithValue("@Value", byteImage)
                         Return cmd.ExecuteNonQuery() > 0
@@ -517,21 +508,23 @@ Public Class DatabaseHelper
         End Try
     End Function
 
-    ' Load an Image from the database
     Public Function LoadSystemImage(imageName As String) As Image
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
                 Dim query As String = "SELECT SettingValue FROM SystemSettings WHERE SettingName = @Name"
-                Using cmd As New SQLiteCommand(query, conn)
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@Name", imageName)
                     Dim result = cmd.ExecuteScalar()
 
                     If result IsNot Nothing AndAlso Not IsDBNull(result) Then
                         Dim imgBytes As Byte() = DirectCast(result, Byte())
                         Using ms As New IO.MemoryStream(imgBytes)
-                            ' Return a copy of the image to avoid stream-locking errors
-                            Return Image.FromStream(ms)
+                            ' Create a detached copy so the MemoryStream can be disposed safely
+                            Using imgSrc As Image = Image.FromStream(ms)
+                                Dim copy As New Bitmap(imgSrc)
+                                Return copy
+                            End Using
                         End Using
                     End If
                 End Using
@@ -539,20 +532,18 @@ Public Class DatabaseHelper
         Catch ex As Exception
             Console.WriteLine("Error loading image: " & ex.Message)
         End Try
-        Return Nothing ' Return nothing if no image is found
+        Return Nothing
     End Function
-    ' --- 1. THE LOG WRITER (Use this in Inventory/POS forms) ---
+
     Public Function LogInventoryChange(user As String, action As String, details As String) As Boolean
         Try
             Dim query As String = "INSERT INTO InventoryLogs (Username, Action, Details, LogDate) VALUES (@User, @Act, @Det, @Date)"
-
-            Using conn As New SQLiteConnection(connectionString)
-                Using cmd As New SQLiteCommand(query, conn)
-                    ' Bind the values to the @parameters
+            Using conn As New SqliteConnection(connectionString)
+                Using cmd As New SqliteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@User", user)
                     cmd.Parameters.AddWithValue("@Act", action)
                     cmd.Parameters.AddWithValue("@Det", details)
-                    cmd.Parameters.AddWithValue("@Date", DateTime.Now) ' Records the current time
+                    cmd.Parameters.AddWithValue("@Date", DateTime.Now)
 
                     conn.Open()
                     Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
@@ -560,21 +551,21 @@ Public Class DatabaseHelper
                 End Using
             End Using
         Catch ex As Exception
-            ' You can log the error to the console for debugging
             Console.WriteLine("Logging Error: " & ex.Message)
             Return False
         End Try
     End Function
 
-    ' --- 2. THE LOG READER (Used in your User form to show the list) ---
     Public Function GetInventoryLogs() As DataTable
         Dim dt As New DataTable()
         Try
-            Using conn As New SQLiteConnection(connectionString)
-                ' DESC means newest logs appear at the top
+            Using conn As New SqliteConnection(connectionString)
                 Dim query As String = "SELECT * FROM InventoryLogs ORDER BY LogDate DESC LIMIT 100"
-                Using da As New SQLiteDataAdapter(query, conn)
-                    da.Fill(dt)
+                Using cmd As New SqliteCommand(query, conn)
+                    conn.Open()
+                    Using reader = cmd.ExecuteReader()
+                        dt.Load(reader)
+                    End Using
                 End Using
             End Using
         Catch ex As Exception
@@ -582,19 +573,21 @@ Public Class DatabaseHelper
         End Try
         Return dt
     End Function
+
     Public Function GetWeeklySalesData() As DataTable
         Dim dt As New DataTable()
-        ' strftime converts your stored date into a format SQLite can actually compare
         Dim query As String = "SELECT strftime('%Y-%m-%d', SaleDate) as SaleDay, SUM(Total) as DailyTotal " &
-                          "FROM Sales " &
-                          "WHERE SaleDate >= date('now', '-7 days') " &
-                          "GROUP BY SaleDay " &
-                          "ORDER BY SaleDay ASC"
+                              "FROM Sales " &
+                              "WHERE SaleDate >= date('now', '-7 days') " &
+                              "GROUP BY SaleDay " &
+                              "ORDER BY SaleDay ASC"
         Try
-            Using conn As New SQLiteConnection(connectionString)
+            Using conn As New SqliteConnection(connectionString)
                 conn.Open()
-                Using da As New SQLiteDataAdapter(query, conn)
-                    da.Fill(dt)
+                Using cmd As New SqliteCommand(query, conn)
+                    Using reader = cmd.ExecuteReader()
+                        dt.Load(reader)
+                    End Using
                 End Using
             End Using
         Catch ex As Exception
@@ -602,37 +595,38 @@ Public Class DatabaseHelper
         End Try
         Return dt
     End Function
+
     Public Function GetTopSellingProducts() As DataTable
         Dim dt As New DataTable()
         Dim query As String = "SELECT ItemBought, COUNT(*) as SalesCount " &
-                              "FROM Sales " &
-                              "GROUP BY ItemBought " &
-                              "ORDER BY SalesCount DESC LIMIT 5"
-        Using conn As New SQLiteConnection(connectionString)
+                                  "FROM Sales " &
+                                  "GROUP BY ItemBought " &
+                                  "ORDER BY SalesCount DESC LIMIT 5"
+        Using conn As New SqliteConnection(connectionString)
             conn.Open()
-            Using da As New SQLiteDataAdapter(query, conn)
-                da.Fill(dt)
+            Using cmd As New SqliteCommand(query, conn)
+                Using reader = cmd.ExecuteReader()
+                    dt.Load(reader)
+                End Using
             End Using
         End Using
         Return dt
     End Function
+
     ' --- Seed Admin User ---
-    Private Sub SeedAdmin(conn As SQLiteConnection)
+    Private Sub SeedAdmin(conn As SqliteConnection)
         Try
-            ' Check if any admin exists
             Dim checkQuery As String = "SELECT COUNT(*) FROM Users WHERE Role = 'Admin'"
             Dim count As Integer
-            Using cmd As New SQLiteCommand(checkQuery, conn)
+            Using cmd As New SqliteCommand(checkQuery, conn)
                 count = Convert.ToInt32(cmd.ExecuteScalar())
             End Using
 
-            ' If no admin, create the default one
             If count = 0 Then
                 Dim seedQuery As String = "INSERT INTO Users (Username, PasswordHash, FullName, Role) 
-                                       VALUES (@User, @Hash, @Full, 'Admin')"
-                Using cmd As New SQLiteCommand(seedQuery, conn)
+                                           VALUES (@User, @Hash, @Full, 'Admin')"
+                Using cmd As New SqliteCommand(seedQuery, conn)
                     cmd.Parameters.AddWithValue("@User", "admin")
-                    ' Default password is 'admin123' - change this after first login!
                     cmd.Parameters.AddWithValue("@Hash", HashPassword("admin123"))
                     cmd.Parameters.AddWithValue("@Full", "System Administrator")
                     cmd.ExecuteNonQuery()

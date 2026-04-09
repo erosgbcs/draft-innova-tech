@@ -3,7 +3,7 @@
 Public Class User
     Private db As New DatabaseHelper()
 
-    Private Sub frmUsers_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmUsers_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RefreshUserList()
 
         ' UI Styling
@@ -18,32 +18,75 @@ Public Class User
 
         ' Pretty Header Names
         If dgvUsers.Columns.Count > 0 Then
-            dgvUsers.Columns("FullName").HeaderText = "Staff Name"
-            dgvUsers.Columns("IsActive").HeaderText = "Account Status"
+            If dgvUsers.Columns.Contains("FullName") Then dgvUsers.Columns("FullName").HeaderText = "Staff Name"
+            If dgvUsers.Columns.Contains("IsActive") Then dgvUsers.Columns("IsActive").HeaderText = "Account Status"
         End If
+
+        ' Ensure IsActive column is a checkbox
+        Dim col As New DataGridViewCheckBoxColumn()
+        col.Name = "IsActive"
+        col.DataPropertyName = "IsActive"
+        col.TrueValue = 1
+        col.FalseValue = 0
+        col.ValueType = GetType(Boolean)
+
+        If dgvUsers.Columns.Contains("IsActive") Then
+            dgvUsers.Columns.Remove("IsActive") ' if auto-generated
+        End If
+
+        dgvUsers.Columns.Add(col)
     End Sub
 
     ' 2. THE "STAFF DOING" LOGIC
     ' When a user is clicked, show their specific activity
-    Private Sub dgvUsers_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUsers.CellClick
+    Private Sub DgvUsers_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUsers.CellClick
         If e.RowIndex >= 0 Then
             Dim row As DataGridViewRow = dgvUsers.Rows(e.RowIndex)
-            Dim selectedUser As String = row.Cells("Username").Value.ToString()
-            Dim staffDisplayName As String = row.Cells("FullName").Value.ToString()
+
+            Dim usernameObj = row.Cells("Username").Value
+            Dim selectedUser As String = If(usernameObj IsNot Nothing AndAlso Not IsDBNull(usernameObj), usernameObj.ToString(), String.Empty)
+
+            Dim staffNameObj = row.Cells("FullName").Value
+            Dim staffDisplayName As String = If(staffNameObj IsNot Nothing AndAlso Not IsDBNull(staffNameObj), staffNameObj.ToString(), String.Empty)
 
             lblActivityHeader.Text = "Recent Sales Processed by: " & staffDisplayName
 
             ' Fetch this specific staff's work from the database
-
-            LoadStaffActivity(selectedUser)
-
+            If Not String.IsNullOrEmpty(selectedUser) Then
+                LoadStaffActivity(selectedUser)
+            Else
+                ' Clear or indicate no selection
+                dgvActivity.DataSource = Nothing
+                lblActivityHeader.Text = "No staff selected."
+                lblActivityHeader.ForeColor = Color.Gray
+            End If
         End If
     End Sub
-    Private Sub dgvUsers_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvUsers.CellFormatting
-        ' If this is the Status column
+
+    Private Sub DgvUsers_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvUsers.CellFormatting
         If dgvUsers.Columns(e.ColumnIndex).Name = "IsActive" Then
-            If e.Value IsNot Nothing AndAlso DirectCast(e.Value, Boolean) = False Then
-                ' Highlight deactivated users in light red
+            Dim raw = e.Value
+
+            Dim isActive As Boolean
+
+            If raw Is Nothing OrElse IsDBNull(raw) Then
+                ' treat missing/null as False (deactivated) or change to desired default
+                isActive = False
+            Else
+                Try
+                    isActive = Convert.ToBoolean(raw)
+                Catch ex As Exception
+                    ' Fallback for numeric types (e.g., Int64 0/1)
+                    Try
+                        Dim n As Long = Convert.ToInt64(raw)
+                        isActive = (n <> 0)
+                    Catch
+                        isActive = False
+                    End Try
+                End Try
+            End If
+
+            If isActive = False Then
                 dgvUsers.Rows(e.RowIndex).DefaultCellStyle.ForeColor = Color.Red
             Else
                 dgvUsers.Rows(e.RowIndex).DefaultCellStyle.ForeColor = Color.Black
@@ -110,20 +153,41 @@ Public Class User
     End Sub
 
     ' 3. TOGGLE STATUS (Deactivate/Activate Staff)
-    Private Sub btnToggleStatus_Click(sender As Object, e As EventArgs) Handles btnToggleStatus.Click
+    Private Sub BtnToggleStatus_Click(sender As Object, e As EventArgs) Handles btnToggleStatus.Click
         If dgvUsers.SelectedRows.Count > 0 Then
-            Dim userId As Integer = Convert.ToInt32(dgvUsers.SelectedRows(0).Cells("UserID").Value)
-            Dim currentStatus As Boolean = Convert.ToBoolean(dgvUsers.SelectedRows(0).Cells("IsActive").Value)
+            Dim userIdObj = dgvUsers.SelectedRows(0).Cells("UserID").Value
+            Dim userId As Integer = If(userIdObj IsNot Nothing AndAlso Not IsDBNull(userIdObj), Convert.ToInt32(userIdObj), -1)
 
-            ' Switch status
-            Dim newStatus As Boolean = Not currentStatus
+            Dim statusObj = dgvUsers.SelectedRows(0).Cells("IsActive").Value
+            Dim currentStatus As Boolean
 
-            If db.UpdateUserStatus(userId, newStatus) Then
-                MessageBox.Show("Staff status updated successfully!")
-                RefreshUserList()
+            If statusObj Is Nothing OrElse IsDBNull(statusObj) Then
+                currentStatus = False
+            Else
+                Try
+                    currentStatus = Convert.ToBoolean(statusObj)
+                Catch
+                    Try
+                        currentStatus = (Convert.ToInt64(statusObj) <> 0)
+                    Catch
+                        currentStatus = False
+                    End Try
+                End Try
+            End If
+
+            If userId >= 0 Then
+                Dim newStatus As Boolean = Not currentStatus
+
+                If db.UpdateUserStatus(userId, newStatus) Then
+                    MessageBox.Show("Staff status updated successfully!")
+                    RefreshUserList()
+                End If
+            Else
+                MessageBox.Show("Invalid user selected.")
             End If
         End If
     End Sub
+
     ' 4. LOAD GENERAL INVENTORY LOGS
     Private Sub RefreshInventoryLogs()
         Try
@@ -158,10 +222,12 @@ Public Class User
             MessageBox.Show("Error loading inventory logs: " & ex.Message)
         End Try
     End Sub
-    Private Sub btnShowInventoryLogs_Click(sender As Object, e As EventArgs) Handles btnShowInventoryLogs.Click
+
+    Private Sub BtnShowInventoryLogs_Click(sender As Object, e As EventArgs) Handles btnShowInventoryLogs.Click
         RefreshInventoryLogs()
     End Sub
-    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
+
+    Private Sub BtnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         RefreshUserList()
     End Sub
 End Class
