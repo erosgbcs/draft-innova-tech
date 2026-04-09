@@ -23,12 +23,12 @@ Partial Class frmdashboard
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
-        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges15 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges13 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges14 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges17 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges18 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Label24 = New Label()
         Timer1 = New Timer(components)
         flptotalproducts = New FlowLayoutPanel()
@@ -105,7 +105,7 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel3.Controls.Add(Label4)
         Guna2CustomGradientPanel3.Controls.Add(lblTime)
         Guna2CustomGradientPanel3.Controls.Add(Guna2Button1)
-        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges3
+        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges15
         Guna2CustomGradientPanel3.FillColor = Color.DarkMagenta
         Guna2CustomGradientPanel3.FillColor2 = Color.DarkTurquoise
         Guna2CustomGradientPanel3.FillColor3 = Color.Navy
@@ -113,7 +113,7 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel3.Location = New Point(7, 4)
         Guna2CustomGradientPanel3.Margin = New Padding(2, 3, 2, 3)
         Guna2CustomGradientPanel3.Name = "Guna2CustomGradientPanel3"
-        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges16
         Guna2CustomGradientPanel3.Size = New Size(1299, 109)
         Guna2CustomGradientPanel3.TabIndex = 59
         ' 
@@ -170,7 +170,7 @@ Partial Class frmdashboard
         Guna2Button1.BorderColor = Color.White
         Guna2Button1.BorderRadius = 12
         Guna2Button1.BorderThickness = 1
-        Guna2Button1.CustomizableEdges = CustomizableEdges1
+        Guna2Button1.CustomizableEdges = CustomizableEdges13
         Guna2Button1.DisabledState.BorderColor = Color.DarkGray
         Guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button1.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -181,7 +181,7 @@ Partial Class frmdashboard
         Guna2Button1.Location = New Point(9, 650)
         Guna2Button1.Margin = New Padding(2, 3, 2, 3)
         Guna2Button1.Name = "Guna2Button1"
-        Guna2Button1.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        Guna2Button1.ShadowDecoration.CustomizableEdges = CustomizableEdges14
         Guna2Button1.Size = New Size(117, 36)
         Guna2Button1.TabIndex = 26
         Guna2Button1.Text = "Logout"
@@ -191,10 +191,10 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel1.AutoScroll = True
         Guna2CustomGradientPanel1.BackColor = Color.Transparent
         Guna2CustomGradientPanel1.BorderRadius = 37
-        Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges5
+        Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges17
         Guna2CustomGradientPanel1.Location = New Point(12, 321)
         Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
-        Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges18
         Guna2CustomGradientPanel1.Size = New Size(1294, 392)
         Guna2CustomGradientPanel1.TabIndex = 61
         ' 
@@ -212,8 +212,8 @@ Partial Class frmdashboard
         AutoScaleMode = AutoScaleMode.Dpi
         AutoScroll = True
         AutoSize = True
-        BackColor = Color.Gainsboro
-        ClientSize = New Size(971, 599)
+        BackColor = Color.WhiteSmoke
+        ClientSize = New Size(1199, 599)
         Controls.Add(flpinventoryinsights)
         Controls.Add(Guna2CustomGradientPanel1)
         Controls.Add(Guna2CustomGradientPanel3)
