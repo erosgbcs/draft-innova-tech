@@ -253,6 +253,7 @@ Partial Class frmMain
         ' 
         ' PictureBox2
         ' 
+        PictureBox2.BackColor = Color.Transparent
         PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), Image)
         PictureBox2.Location = New Point(3, 3)
         PictureBox2.Margin = New Padding(2)
@@ -266,7 +267,7 @@ Partial Class frmMain
         ' 
         AutoScaleDimensions = New SizeF(96F, 96F)
         AutoScaleMode = AutoScaleMode.Dpi
-        BackColor = SystemColors.Control
+        BackColor = Color.WhiteSmoke
         ClientSize = New Size(1259, 749)
         Controls.Add(Guna2CustomGradientPanel2)
         Controls.Add(PictureBox2)

@@ -50,6 +50,7 @@ Partial Class pos
         ' 
         ' flpProduct1
         ' 
+        flpProduct1.AutoScroll = True
         flpProduct1.BackColor = Color.White
         flpProduct1.BorderStyle = BorderStyle.FixedSingle
         flpProduct1.Location = New Point(11, 155)

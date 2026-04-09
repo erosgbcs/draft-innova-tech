@@ -276,19 +276,26 @@ CREATE TABLE IF NOT EXISTS SystemSettings (
         End Try
     End Function
 
-    Public Function UpdateStock(productCode As String, newQuantity As Integer) As Boolean
+    Public Function UpdateStock(productCode As String, quantity As Integer) As Boolean
         Try
-            Using conn As New SQLiteConnection(connectionString)
-                conn.Open()
-                ' Changed from subtraction to SET for manual inventory updates
-                Dim query As String = "UPDATE Products SET Stock = @Qty WHERE ProductCode = @Code"
+            ' Stock = Stock - @Qty performs the subtraction in the database
+            Dim query As String = "UPDATE Products SET Stock = Stock - @Qty WHERE ProductCode = @Code AND Stock >= @Qty"
+
+            Using conn As New SQLiteConnection(connectionString) ' Or MySqlConnection
                 Using cmd As New SQLiteCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@Qty", newQuantity)
+                    cmd.Parameters.AddWithValue("@Qty", quantity)
                     cmd.Parameters.AddWithValue("@Code", productCode)
-                    Return cmd.ExecuteNonQuery() > 0
+
+                    conn.Open()
+                    Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
+
+                    ' If 0 rows affected, it means the ProductCode wasn't found 
+                    ' OR there wasn't enough stock to subtract (Stock >= @Qty failed)
+                    Return rowsAffected > 0
                 End Using
             End Using
         Catch ex As Exception
+            MsgBox("Database Error: " & ex.Message)
             Return False
         End Try
     End Function
@@ -542,31 +549,45 @@ CREATE TABLE IF NOT EXISTS SystemSettings (
         End Try
         Return Nothing ' Return nothing if no image is found
     End Function
-    Public Sub LogInventoryChange(username As String, action As String, details As String)
+    ' --- 1. THE LOG WRITER (Use this in Inventory/POS forms) ---
+    Public Function LogInventoryChange(user As String, action As String, details As String) As Boolean
         Try
+            Dim query As String = "INSERT INTO InventoryLogs (Username, Action, Details, LogDate) VALUES (@User, @Act, @Det, @Date)"
+
             Using conn As New SQLiteConnection(connectionString)
-                conn.Open()
-                Dim query As String = "INSERT INTO InventoryLogs (Username, Action, Details) VALUES (@User, @Action, @Details)"
                 Using cmd As New SQLiteCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@User", username)
-                    cmd.Parameters.AddWithValue("@Action", action)
-                    cmd.Parameters.AddWithValue("@Details", details)
-                    cmd.ExecuteNonQuery()
+                    ' Bind the values to the @parameters
+                    cmd.Parameters.AddWithValue("@User", user)
+                    cmd.Parameters.AddWithValue("@Act", action)
+                    cmd.Parameters.AddWithValue("@Det", details)
+                    cmd.Parameters.AddWithValue("@Date", DateTime.Now) ' Records the current time
+
+                    conn.Open()
+                    Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
+                    Return rowsAffected > 0
                 End Using
             End Using
         Catch ex As Exception
-            ' Log error to console or file
+            ' You can log the error to the console for debugging
+            Console.WriteLine("Logging Error: " & ex.Message)
+            Return False
         End Try
-    End Sub
+    End Function
+
+    ' --- 2. THE LOG READER (Used in your User form to show the list) ---
     Public Function GetInventoryLogs() As DataTable
         Dim dt As New DataTable()
-        Using conn As New SQLiteConnection(connectionString)
-            conn.Open()
-            Dim query As String = "SELECT * FROM InventoryLogs ORDER BY LogDate DESC LIMIT 100"
-            Using da As New SQLiteDataAdapter(query, conn)
-                da.Fill(dt)
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                ' DESC means newest logs appear at the top
+                Dim query As String = "SELECT * FROM InventoryLogs ORDER BY LogDate DESC LIMIT 100"
+                Using da As New SQLiteDataAdapter(query, conn)
+                    da.Fill(dt)
+                End Using
             End Using
-        End Using
+        Catch ex As Exception
+            Console.WriteLine("Fetch Error: " & ex.Message)
+        End Try
         Return dt
     End Function
 End Class

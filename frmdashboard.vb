@@ -33,31 +33,22 @@ Public Class frmdashboard
 
     ' MAIN LOADING LOGIC
     Private Sub LoadDashboardStats()
-        ' Clear panels (using the generic Control helper below to avoid type errors)
-        ClearPanelControls(flptotalproducts)
-        ClearPanelControls(flpitemsinstock)
-        ClearPanelControls(flptodaysales)
-        ClearPanelControls(flpweeklyrevenue)
-        ClearPanelControls(flpinventoryinsights)
+        ' Prevents visual lag during the refresh
+        MainStatsContainer.SuspendLayout()
+        ClearPanelControls(MainStatsContainer)
 
         Try
-            ' 1. Fetch Main Stats
-            Dim totalProducts As Integer = db.GetTotalProductsCount()
-            Dim itemsInStock As Integer = db.GetTotalItemsInStock()
-            Dim todaysSales As Decimal = db.GetTodaySales()
-            Dim weeklyRevenue As Decimal = db.GetWeeklyRevenue()
+            ' Add all cards to the same container with icons
+            MainStatsContainer.Controls.Add(CreateSummaryCard("Total Products", db.GetTotalProductsCount().ToString(), "📦"))
+            MainStatsContainer.Controls.Add(CreateSummaryCard("Items in Stock", db.GetTotalItemsInStock().ToString(), "📉"))
+            MainStatsContainer.Controls.Add(CreateSummaryCard("Today's Sales", "₱" & db.GetTodaySales().ToString("N2"), "💰"))
+            MainStatsContainer.Controls.Add(CreateSummaryCard("Weekly Revenue", "₱" & db.GetWeeklyRevenue().ToString("N2"), "📈"))
 
-            ' 2. Create Big Summary Cards
-            flptotalproducts.Controls.Add(CreateSummaryCard("Total Products", totalProducts.ToString()))
-            flpitemsinstock.Controls.Add(CreateSummaryCard("Items in Stock", itemsInStock.ToString()))
-            flptodaysales.Controls.Add(CreateSummaryCard("Today's Sales", "₱" & todaysSales.ToString("N2")))
-            flpweeklyrevenue.Controls.Add(CreateSummaryCard("Weekly Revenue", "₱" & weeklyRevenue.ToString("N2")))
-
-            ' 3. Load the side insights
             LoadInventoryInsights()
-
         Catch ex As Exception
             Console.WriteLine("Data Load Error: " & ex.Message)
+        Finally
+            MainStatsContainer.ResumeLayout()
         End Try
     End Sub
 
@@ -106,25 +97,48 @@ Public Class frmdashboard
         End If
     End Sub
 
-    Private Function CreateSummaryCard(title As String, value As String) As Panel
+    Private Function CreateSummaryCard(title As String, value As String, icon As String) As Panel
         Dim card As New Panel With {
-            .Width = 250,
-            .Height = 130,
-            .BackColor = Color.White,
-            .Margin = New Padding(10),
-            .Cursor = Cursors.Hand
-        }
+        .Width = 280,
+        .Height = 140,
+        .BackColor = Color.White,
+        .Margin = New Padding(15),
+        .Cursor = Cursors.Hand
+    }
 
-        Dim lblT As New Label With {.Text = title.ToUpper(), .Font = New Font("Segoe UI", 12, FontStyle.Bold), .ForeColor = Color.DimGray, .Location = New Point(15, 15), .AutoSize = True, .BackColor = Color.Transparent}
-        Dim lblV As New Label With {.Text = value, .Font = New Font("Segoe UI", 32, FontStyle.Bold), .ForeColor = Color.MidnightBlue, .Location = New Point(15, 55), .AutoSize = True, .BackColor = Color.Transparent}
+        ' Subtitle - Using Gray for a modern look
+        Dim lblT As New Label With {
+        .Text = title.ToUpper(),
+        .Font = New Font("Segoe UI Semibold", 11),
+        .ForeColor = Color.Navy,
+        .Location = New Point(20, 20),
+        .AutoSize = True
+    }
 
-        ' Add Hover & Style Events
+        ' Value - Large, bold Slate Blue color
+        Dim lblV As New Label With {
+        .Text = value,
+        .Font = New Font("Segoe UI Variable Display", 28, FontStyle.Bold),
+        .ForeColor = Color.FromArgb(30, 41, 59),
+        .Location = New Point(15, 50),
+        .AutoSize = True
+    }
+
+        ' Background Icon - Faint large emoji or symbol
+        Dim lblIcon As New Label With {
+        .Text = icon,
+        .Font = New Font("Segoe UI", 24),
+        .ForeColor = Color.Navy,
+        .Location = New Point(210, 80),
+        .AutoSize = True
+    }
+
+        ' Reuse your existing Card_Paint for the rounded corners and shadows
         AddHandler card.Paint, AddressOf Card_Paint
-        AddHandler card.MouseEnter, AddressOf Card_MouseEnter
-        AddHandler card.MouseLeave, AddressOf Card_MouseLeave
 
         card.Controls.Add(lblT)
         card.Controls.Add(lblV)
+        card.Controls.Add(lblIcon)
         Return card
     End Function
 
@@ -220,7 +234,7 @@ Public Class frmdashboard
         End If
     End Sub
 
-    Private Sub flptotalproducts_Paint(sender As Object, e As PaintEventArgs) Handles flptotalproducts.Paint
+    Private Sub flptotalproducts_Paint(sender As Object, e As PaintEventArgs) Handles MainStatsContainer.Paint
 
     End Sub
 

@@ -128,6 +128,7 @@ Partial Class User
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        AutoScroll = True
         ClientSize = New Size(1249, 699)
         Controls.Add(btnShowInventoryLogs)
         Controls.Add(btnToggleStatus)

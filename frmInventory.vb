@@ -12,27 +12,42 @@
         dgvProducts.MultiSelect = False ' Optional: only allow one item at a time
         RefreshData()
     End Sub
-
     ' Add Product Button logic
     Private Sub btnAddProduct_Click(sender As Object, e As EventArgs) Handles btnAddProduct.Click
         Try
-            ' Validation
+            ' 1. Validation
             If String.IsNullOrWhiteSpace(txtProductName.Text) OrElse String.IsNullOrWhiteSpace(txtPrice.Text) Then
                 MessageBox.Show("Please fill in the Product Name and Price.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
 
-            ' Create the Product object from TextBoxes
-            Dim prod As New Product With {
-                .Code = txtProductCode.Text,
-                .Name = txtProductName.Text,
-                .Category = txtCategory.Text,
-                .Price = Decimal.Parse(txtPrice.Text),
-                .Stock = Integer.Parse(txtStock.Text)
-            }
+            Dim price As Decimal
+            Dim stock As Integer
 
-            ' Save to SQLite via your Helper
+            If Not Decimal.TryParse(txtPrice.Text, price) OrElse Not Integer.TryParse(txtStock.Text, stock) Then
+                MessageBox.Show("Please enter valid numbers for Price and Stock.", "Input Error")
+                Return
+            End If
+
+            Dim prod As New Product With {
+    .Code = txtProductCode.Text,
+    .Name = txtProductName.Text,
+    .Category = txtCategory.Text,
+    .Price = price,
+    .Stock = stock
+}
+
+            ' 3. Save to SQLite via your Helper
             If db.SaveProduct(prod) Then
+
+                ' --- START OF LOGGING LOGIC ---
+                ' This sends the information to the InventoryLogs table
+                Dim logDetails As String = $"Added new product: {prod.Name} (Qty: {prod.Stock})"
+
+                ' Replace "Admin" with GlobalData.Username or whoever is logged in
+                db.LogInventoryChange("Admin", "ADD PRODUCT", logDetails)
+                ' --- END OF LOGGING LOGIC ---
+
                 RefreshData()
                 ClearInputs()
                 MessageBox.Show("Product saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -115,9 +130,14 @@
             }
 
             If db.UpdateProduct(prod) Then
+                ' --- LOGGING LOGIC ---
+                Dim logDetails As String = $"Updated {prod.Name}: Stock is now {prod.Stock}, Price is ₱{prod.Price:N2}"
+                db.LogInventoryChange("Admin", "UPDATE PRODUCT", logDetails)
+                ' ---------------------
+
                 RefreshData()
                 ClearInputs()
-                MessageBox.Show("Inventory updated successfully.")
+                MessageBox.Show("Inventory updated and change logged.")
             End If
         Catch ex As Exception
             MessageBox.Show("Update Error: " & ex.Message)
@@ -128,12 +148,19 @@
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         If String.IsNullOrWhiteSpace(txtProductCode.Text) Then Return
 
+        ' Capture the name before deleting so we can use it in the log
+        Dim productName As String = txtProductName.Text
+
         Dim result = MessageBox.Show("Are you sure you want to delete this item?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
         If result = DialogResult.Yes Then
-            ' You'll need to add DeleteProduct to your DatabaseHelper (see below)
             If db.DeleteProduct(txtProductCode.Text) Then
+                ' --- LOGGING LOGIC ---
+                db.LogInventoryChange("Admin", "DELETE PRODUCT", $"Removed product: {productName} (Code: {txtProductCode.Text})")
+                ' ---------------------
+
                 RefreshData()
                 ClearInputs()
+                MessageBox.Show("Product deleted and action logged.")
             End If
         End If
     End Sub
@@ -241,5 +268,9 @@
             login.Show()
             Close()
         End If
+    End Sub
+
+    Private Sub dgvProducts_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellContentClick
+
     End Sub
 End Class
