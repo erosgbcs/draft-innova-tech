@@ -17,7 +17,7 @@ Public Class DatabaseHelper
             Using conn As New SQLiteConnection(connectionString)
                 conn.Open()
 
-                ' 1. --- Create Users table ---
+                ' 1. Users Table
                 Dim createUsers As String = "
                 CREATE TABLE IF NOT EXISTS Users (
                     UserID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -29,32 +29,12 @@ Public Class DatabaseHelper
                     LastLogin DATETIME,
                     CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP
                 )"
-                Using cmd As New SQLiteCommand(createUsers, conn)
-                    cmd.ExecuteNonQuery()
-                End Using
+                ExecuteSimpleQuery(createUsers, conn)
 
-                ' 2. --- SEED DEFAULT ADMIN ACCOUNT ---
-                ' Check if any user exists. If not, create the default admin.
-                Dim checkUserQuery As String = "SELECT COUNT(*) FROM Users"
-                Using checkCmd As New SQLiteCommand(checkUserQuery, conn)
-                    Dim userCount As Integer = Convert.ToInt32(checkCmd.ExecuteScalar())
+                ' 2. Seed Admin
+                SeedAdmin(conn)
 
-                    If userCount = 0 Then
-                        Dim insertAdmin As String = "
-                        INSERT INTO Users (Username, PasswordHash, FullName, Role, IsActive) 
-                        VALUES (@Username, @Hash, @Full, 'Admin', 1)"
-
-                        Using insertCmd As New SQLiteCommand(insertAdmin, conn)
-                            insertCmd.Parameters.AddWithValue("@Username", "admin")
-                            ' Standard password is 'admin123' - change this after first login!
-                            insertCmd.Parameters.AddWithValue("@Hash", HashPassword("admin123"))
-                            insertCmd.Parameters.AddWithValue("@Full", "System Administrator")
-                            insertCmd.ExecuteNonQuery()
-                        End Using
-                    End If
-                End Using
-
-                ' 3. --- Create Products table ---
+                ' 3. Products Table
                 Dim createProducts As String = "
                 CREATE TABLE IF NOT EXISTS Products (
                     ProductID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -64,70 +44,82 @@ Public Class DatabaseHelper
                     Price REAL NOT NULL,
                     Stock INTEGER NOT NULL
                 )"
-                Using cmd As New SQLiteCommand(createProducts, conn)
-                    cmd.ExecuteNonQuery()
-                End Using
+                ExecuteSimpleQuery(createProducts, conn)
 
                 ' 4. --- Create Sales table ---
-
-                Dim createSales As String = "
-CREATE TABLE IF NOT EXISTS Sales (
-    SaleID INTEGER PRIMARY KEY AUTOINCREMENT,
-    BuyerName TEXT,
-    BuyerAddress TEXT,
-    BuyerContact TEXT,
-    ItemBought TEXT,   -- <--- ADD THIS LINE
-    Subtotal REAL,
-    Total REAL,
-    ProcessedBy TEXT,
-    SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP
-)"
-                Using cmd As New SQLiteCommand(createSales, conn)
-                    cmd.ExecuteNonQuery()
-                End Using
-                ' Add this inside InitializeDatabase, after creating the Sales table
-                Dim addColumnQuery As String = "ALTER TABLE Sales ADD COLUMN ItemBought TEXT;"
                 Try
-                    Using cmd As New SQLiteCommand(addColumnQuery, conn)
+                    ' This creates the table with all columns including ItemBought
+                    Dim createSales As String = "
+    CREATE TABLE IF NOT EXISTS Sales (
+        SaleID INTEGER PRIMARY KEY AUTOINCREMENT,
+        BuyerName TEXT,
+        BuyerAddress TEXT,
+        BuyerContact TEXT,
+        ItemBought TEXT,   
+        Subtotal REAL,
+        Total REAL,
+        ProcessedBy TEXT,
+        SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP
+    )"
+
+                    Using cmd As New SQLiteCommand(createSales, conn)
                         cmd.ExecuteNonQuery()
                     End Using
-                Catch
-                    ' Column likely already exists, ignore error
-                End Try
-                ' 5. --- Create SystemSettings table for images/logos ---
-                Dim createSettings As String = "
-CREATE TABLE IF NOT EXISTS SystemSettings (
-    SettingID INTEGER PRIMARY KEY AUTOINCREMENT,
-    SettingName TEXT UNIQUE NOT NULL,
-    SettingValue BLOB
-)"
-                Using cmd As New SQLiteCommand(createSettings, conn)
-                    cmd.ExecuteNonQuery()
-                End Using
-            End Using
 
+                    ' Migration check: adds ItemBought if it was missing from an older DB
+                    Dim needsColumn As Boolean = True
+                    Using checkCmd As New SQLiteCommand("PRAGMA table_info(Sales)", conn)
+                        Using reader As SQLiteDataReader = checkCmd.ExecuteReader()
+                            While reader.Read()
+                                If reader("name").ToString().Equals("ItemBought", StringComparison.OrdinalIgnoreCase) Then
+                                    needsColumn = False
+                                    Exit While
+                                End If
+                            End While
+                        End Using
+                    End Using
+
+                    If needsColumn Then
+                        Using addCmd As New SQLiteCommand("ALTER TABLE Sales ADD COLUMN ItemBought TEXT;", conn)
+                            addCmd.ExecuteNonQuery()
+                        End Using
+                    End If
+                Catch ex As Exception
+                    ' Use Debug.WriteLine so it shows up in your Output window without crashing the app
+                    Debug.WriteLine("Database Setup Error: " & ex.Message)
+                End Try
+                ' 5. System Settings (Logos)
+                Dim createSettings As String = "
+                CREATE TABLE IF NOT EXISTS SystemSettings (
+                    SettingID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    SettingName TEXT UNIQUE NOT NULL,
+                    SettingValue BLOB
+                )"
+                ExecuteSimpleQuery(createSettings, conn)
+
+                ' 6. Inventory Logs
+                Dim createInventoryLogs As String = "
+                CREATE TABLE IF NOT EXISTS InventoryLogs (
+                    LogID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Username TEXT NOT NULL,
+                    Action TEXT NOT NULL,
+                    Details TEXT NOT NULL,
+                    LogDate DATETIME DEFAULT CURRENT_TIMESTAMP
+                )"
+                ExecuteSimpleQuery(createInventoryLogs, conn)
+
+                conn.Close()
+            End Using
         Catch ex As Exception
             MessageBox.Show($"Database initialization error: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
-        ' Inside InitializeDatabase(), right before the final End Sub
-        Try
-            Using conn As New SQLiteConnection(connectionString)
-                conn.Open()
-                Dim createInventoryLogs As String = "
-        CREATE TABLE IF NOT EXISTS InventoryLogs (
-            LogID INTEGER PRIMARY KEY AUTOINCREMENT,
-            Username TEXT NOT NULL,
-            Action TEXT NOT NULL,
-            Details TEXT NOT NULL,
-            LogDate DATETIME DEFAULT CURRENT_TIMESTAMP
-        )"
-                Using cmd As New SQLiteCommand(createInventoryLogs, conn)
-                    cmd.ExecuteNonQuery()
-                End Using
-            End Using
-        Catch ex As Exception
-            ' Handle log table creation error
-        End Try
+    End Sub
+
+    ' Helper to reduce clutter
+    Private Sub ExecuteSimpleQuery(sql As String, conn As SQLiteConnection)
+        Using cmd As New SQLiteCommand(sql, conn)
+            cmd.ExecuteNonQuery()
+        End Using
     End Sub
 
     ' --- USER METHODS ---
@@ -590,4 +582,65 @@ CREATE TABLE IF NOT EXISTS SystemSettings (
         End Try
         Return dt
     End Function
+    Public Function GetWeeklySalesData() As DataTable
+        Dim dt As New DataTable()
+        ' strftime converts your stored date into a format SQLite can actually compare
+        Dim query As String = "SELECT strftime('%Y-%m-%d', SaleDate) as SaleDay, SUM(Total) as DailyTotal " &
+                          "FROM Sales " &
+                          "WHERE SaleDate >= date('now', '-7 days') " &
+                          "GROUP BY SaleDay " &
+                          "ORDER BY SaleDay ASC"
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Using da As New SQLiteDataAdapter(query, conn)
+                    da.Fill(dt)
+                End Using
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("Chart Query Error: " & ex.Message)
+        End Try
+        Return dt
+    End Function
+    Public Function GetTopSellingProducts() As DataTable
+        Dim dt As New DataTable()
+        Dim query As String = "SELECT ItemBought, COUNT(*) as SalesCount " &
+                              "FROM Sales " &
+                              "GROUP BY ItemBought " &
+                              "ORDER BY SalesCount DESC LIMIT 5"
+        Using conn As New SQLiteConnection(connectionString)
+            conn.Open()
+            Using da As New SQLiteDataAdapter(query, conn)
+                da.Fill(dt)
+            End Using
+        End Using
+        Return dt
+    End Function
+    ' --- Seed Admin User ---
+    Private Sub SeedAdmin(conn As SQLiteConnection)
+        Try
+            ' Check if any admin exists
+            Dim checkQuery As String = "SELECT COUNT(*) FROM Users WHERE Role = 'Admin'"
+            Dim count As Integer
+            Using cmd As New SQLiteCommand(checkQuery, conn)
+                count = Convert.ToInt32(cmd.ExecuteScalar())
+            End Using
+
+            ' If no admin, create the default one
+            If count = 0 Then
+                Dim seedQuery As String = "INSERT INTO Users (Username, PasswordHash, FullName, Role) 
+                                       VALUES (@User, @Hash, @Full, 'Admin')"
+                Using cmd As New SQLiteCommand(seedQuery, conn)
+                    cmd.Parameters.AddWithValue("@User", "admin")
+                    ' Default password is 'admin123' - change this after first login!
+                    cmd.Parameters.AddWithValue("@Hash", HashPassword("admin123"))
+                    cmd.Parameters.AddWithValue("@Full", "System Administrator")
+                    cmd.ExecuteNonQuery()
+                End Using
+                Debug.WriteLine("Default admin account created: admin / admin123")
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("Error seeding admin: " & ex.Message)
+        End Try
+    End Sub
 End Class

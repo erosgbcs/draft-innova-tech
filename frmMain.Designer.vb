@@ -72,7 +72,7 @@ Partial Class frmMain
         Guna2CustomGradientPanel2.Controls.Add(btnSALESHISTORY)
         Guna2CustomGradientPanel2.Controls.Add(PictureBox1)
         Guna2CustomGradientPanel2.CustomizableEdges = CustomizableEdges15
-        Guna2CustomGradientPanel2.FillColor = Color.DodgerBlue
+        Guna2CustomGradientPanel2.FillColor = Color.DarkMagenta
         Guna2CustomGradientPanel2.FillColor2 = Color.SteelBlue
         Guna2CustomGradientPanel2.FillColor3 = Color.Navy
         Guna2CustomGradientPanel2.FillColor4 = Color.SkyBlue
