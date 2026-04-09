@@ -109,6 +109,25 @@ CREATE TABLE IF NOT EXISTS SystemSettings (
         Catch ex As Exception
             MessageBox.Show($"Database initialization error: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+        ' Inside InitializeDatabase(), right before the final End Sub
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Dim createInventoryLogs As String = "
+        CREATE TABLE IF NOT EXISTS InventoryLogs (
+            LogID INTEGER PRIMARY KEY AUTOINCREMENT,
+            Username TEXT NOT NULL,
+            Action TEXT NOT NULL,
+            Details TEXT NOT NULL,
+            LogDate DATETIME DEFAULT CURRENT_TIMESTAMP
+        )"
+                Using cmd As New SQLiteCommand(createInventoryLogs, conn)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+        Catch ex As Exception
+            ' Handle log table creation error
+        End Try
     End Sub
 
     ' --- USER METHODS ---
@@ -522,5 +541,32 @@ CREATE TABLE IF NOT EXISTS SystemSettings (
             Console.WriteLine("Error loading image: " & ex.Message)
         End Try
         Return Nothing ' Return nothing if no image is found
+    End Function
+    Public Sub LogInventoryChange(username As String, action As String, details As String)
+        Try
+            Using conn As New SQLiteConnection(connectionString)
+                conn.Open()
+                Dim query As String = "INSERT INTO InventoryLogs (Username, Action, Details) VALUES (@User, @Action, @Details)"
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@User", username)
+                    cmd.Parameters.AddWithValue("@Action", action)
+                    cmd.Parameters.AddWithValue("@Details", details)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+        Catch ex As Exception
+            ' Log error to console or file
+        End Try
+    End Sub
+    Public Function GetInventoryLogs() As DataTable
+        Dim dt As New DataTable()
+        Using conn As New SQLiteConnection(connectionString)
+            conn.Open()
+            Dim query As String = "SELECT * FROM InventoryLogs ORDER BY LogDate DESC LIMIT 100"
+            Using da As New SQLiteDataAdapter(query, conn)
+                da.Fill(dt)
+            End Using
+        End Using
+        Return dt
     End Function
 End Class

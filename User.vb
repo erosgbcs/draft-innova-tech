@@ -34,7 +34,20 @@ Public Class User
             lblActivityHeader.Text = "Recent Sales Processed by: " & staffDisplayName
 
             ' Fetch this specific staff's work from the database
+
             LoadStaffActivity(selectedUser)
+
+        End If
+    End Sub
+    Private Sub dgvUsers_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvUsers.CellFormatting
+        ' If this is the Status column
+        If dgvUsers.Columns(e.ColumnIndex).Name = "IsActive" Then
+            If e.Value IsNot Nothing AndAlso DirectCast(e.Value, Boolean) = False Then
+                ' Highlight deactivated users in light red
+                dgvUsers.Rows(e.RowIndex).DefaultCellStyle.ForeColor = Color.Red
+            Else
+                dgvUsers.Rows(e.RowIndex).DefaultCellStyle.ForeColor = Color.Black
+            End If
         End If
     End Sub
 
@@ -111,7 +124,43 @@ Public Class User
             End If
         End If
     End Sub
+    ' 4. LOAD GENERAL INVENTORY LOGS
+    Private Sub RefreshInventoryLogs()
+        Try
+            Dim dtLogs As DataTable = db.GetInventoryLogs()
 
+            ' If you want to use the same dgvActivity grid to show these:
+            dgvActivity.DataSource = dtLogs
+
+            With dgvActivity
+                If .Columns.Contains("LogID") Then .Columns("LogID").Visible = False
+
+                If .Columns.Contains("Username") Then
+                    .Columns("Username").HeaderText = "Performed By"
+                End If
+
+                If .Columns.Contains("Action") Then
+                    .Columns("Action").DefaultCellStyle.ForeColor = Color.FromArgb(37, 99, 235) ' Blue for actions
+                    .Columns("Action").DefaultCellStyle.Font = New Font("Segoe UI", 9, FontStyle.Bold)
+                End If
+
+                If .Columns.Contains("LogDate") Then
+                    .Columns("LogDate").HeaderText = "Timestamp"
+                End If
+
+                .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            End With
+
+            lblActivityHeader.Text = "System-Wide Inventory Logs"
+            lblActivityHeader.ForeColor = Color.Black
+
+        Catch ex As Exception
+            MessageBox.Show("Error loading inventory logs: " & ex.Message)
+        End Try
+    End Sub
+    Private Sub btnShowInventoryLogs_Click(sender As Object, e As EventArgs) Handles btnShowInventoryLogs.Click
+        RefreshInventoryLogs()
+    End Sub
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         RefreshUserList()
     End Sub
