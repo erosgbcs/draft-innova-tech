@@ -629,4 +629,8 @@ Public Class frmdashboard
     Private Sub lblTime_Click(sender As Object, e As EventArgs) Handles lblTime.Click
 
     End Sub
+
+    Private Sub flpinventoryinsights_Paint(sender As Object, e As PaintEventArgs) Handles flpinventoryinsights.Paint
+
+    End Sub
 End Class
