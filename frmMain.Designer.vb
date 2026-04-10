@@ -253,7 +253,7 @@ Partial Class frmMain
         ' 
         ' PictureBox2
         ' 
-        PictureBox2.BackColor = Color.Transparent
+        PictureBox2.BackColor = Color.White
         PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), Image)
         PictureBox2.Location = New Point(3, 3)
         PictureBox2.Margin = New Padding(2)

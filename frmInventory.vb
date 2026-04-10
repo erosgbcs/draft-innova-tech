@@ -10,9 +10,31 @@
         dgvProducts.AllowUserToAddRows = False ' Removes the empty bottom row
         dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect ' Highlights the whole row
         dgvProducts.MultiSelect = False ' Optional: only allow one item at a time
+
+        ApplyHoverEffect(btnUpdate, Color.FromArgb(34, 197, 94))   ' Green
+        ApplyHoverEffect(btnDelete, Color.FromArgb(239, 68, 68))   ' Red
+        ApplyHoverEffect(btnAddProduct, Color.FromArgb(59, 130, 246)) ' Blue
+        ApplyHoverEffect(BtnExportcsv, Color.FromArgb(20, 184, 166))  ' Teal
+        ApplyHoverEffect(printreport, Color.FromArgb(107, 114, 128))  ' Gray
+
+
+        btnUpdate.Enabled = False
+        btnDelete.Enabled = False
+
         RefreshData()
+        ' Button colors
+        btnUpdate.BackColor = Color.FromArgb(34, 197, 94)   ' Green
+        btnDelete.BackColor = Color.FromArgb(239, 68, 68)   ' Red
+        btnAddProduct.BackColor = Color.FromArgb(59, 130, 246) ' Blue
+        BtnExportcsv.BackColor = Color.FromArgb(20, 184, 166)  ' Teal
+        printreport.BackColor = Color.FromArgb(107, 114, 128)  ' Gray
+
     End Sub
-    ' Add Product Button logic
+    Private Sub dgvProducts_SelectionChanged(sender As Object, e As EventArgs) Handles dgvProducts.SelectionChanged
+        btnUpdate.Enabled = dgvProducts.SelectedRows.Count > 0
+        btnDelete.Enabled = dgvProducts.SelectedRows.Count > 0
+    End Sub
+
     Private Sub btnAddProduct_Click(sender As Object, e As EventArgs) Handles btnAddProduct.Click
         Try
             ' 1. Validation
@@ -272,5 +294,51 @@
 
     Private Sub dgvProducts_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellContentClick
 
+    End Sub
+    Private Sub ApplyHoverEffect(btn As Button, normalColor As Color)
+        btn.FlatStyle = FlatStyle.Flat
+        btn.FlatAppearance.BorderSize = 0
+        btn.BackColor = normalColor
+        btn.ForeColor = Color.White
+
+        AddHandler btn.MouseEnter,
+            Sub(sender, e)
+                Dim b = DirectCast(sender, Button)
+                b.BackColor = ControlPaint.Dark(normalColor, 0.1)
+                ' Shadow glow effect
+                b.FlatAppearance.BorderColor = Color.FromArgb(120, 0, 0, 0)
+                b.FlatAppearance.BorderSize = 3
+            End Sub
+
+        AddHandler btn.MouseLeave,
+            Sub(sender, e)
+                Dim b = DirectCast(sender, Button)
+                b.BackColor = normalColor
+                b.FlatAppearance.BorderSize = 0
+            End Sub
+    End Sub
+
+
+    Private Sub MakeRounded(btn As Button, radius As Integer)
+        Dim path As New Drawing2D.GraphicsPath()
+        path.StartFigure()
+        path.AddArc(New Rectangle(0, 0, radius, radius), 180, 90)
+        path.AddArc(New Rectangle(btn.Width - radius, 0, radius, radius), 270, 90)
+        path.AddArc(New Rectangle(btn.Width - radius, btn.Height - radius, radius, radius), 0, 90)
+        path.AddArc(New Rectangle(0, btn.Height - radius, radius, radius), 90, 90)
+        path.CloseFigure()
+
+        ' Apply rounded region
+        btn.Region = New Region(path)
+
+        ' Draw outline by handling Paint event
+        AddHandler btn.Paint,
+            Sub(sender, e)
+                Dim g = e.Graphics
+                g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+                Using outlinePen As New Pen(Color.FromArgb(180, 0, 0, 0), 2) ' semi-dark outline
+                    g.DrawPath(outlinePen, path)
+                End Using
+            End Sub
     End Sub
 End Class
