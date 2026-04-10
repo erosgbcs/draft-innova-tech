@@ -1,7 +1,7 @@
 ﻿Public Class frmInventory
     ' Declare the helper at the class level
     Private db As New DatabaseHelper()
-
+    Private productsTable As DataTable
     Private Sub Inventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' This ensures your tables exist before you try to load them
         db.InitializeDatabase()
@@ -82,7 +82,8 @@
 
     ' Helper to refresh the DataGridView
     Private Sub RefreshData()
-        dgvProducts.DataSource = db.LoadProducts()
+        productsTable = db.LoadProducts()
+        dgvProducts.DataSource = productsTable
     End Sub
 
     ' Helper to clear TextBoxes
@@ -340,5 +341,23 @@
                     g.DrawPath(outlinePen, path)
                 End Using
             End Sub
+    End Sub
+
+    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        Try
+            If productsTable IsNot Nothing Then
+                Dim dv As New DataView(productsTable)
+
+                ' Apply filter on ProductName, ProductCode, or Category
+                dv.RowFilter = String.Format(
+                "ProductName LIKE '%{0}%' OR ProductCode LIKE '%{0}%' OR Category LIKE '%{0}%'",
+                txtSearch.Text.Replace("'", "''")
+            )
+
+                dgvProducts.DataSource = dv
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error while searching inventory: " & ex.Message, "Search Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 End Class

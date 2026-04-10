@@ -88,12 +88,19 @@ Public Class pos
                 }
 
             Dim lblName As New Label With {
+                    .Name = "lblProductName",
                     .Text = row("ProductName").ToString(),
                     .Font = New Font("Segoe UI", 11, FontStyle.Bold),
                     .Location = New Point(15, 15),
                     .AutoSize = True
                 }
-
+            Dim lblCode As New Label With {
+    .Name = "lblProductCode",   ' <-- Add this
+    .Text = row("ProductCode").ToString(),
+    .Font = New Font("Segoe UI", 9),
+    .Location = New Point(15, 110),
+    .AutoSize = True
+}
             Dim lblPrice As New Label With {
                     .Text = "₱" & Convert.ToDecimal(row("Price")).ToString("N2"),
                     .Font = New Font("Segoe UI", 10),
@@ -146,6 +153,7 @@ Public Class pos
             card.Controls.Add(lblPrice)
             card.Controls.Add(lblCategory)
             card.Controls.Add(lblStock)
+            card.Controls.Add(lblCode)
             card.Controls.Add(btnAdd)
 
             flpProduct1.Controls.Add(card)
@@ -367,4 +375,35 @@ Public Class pos
     Private Sub lblTitle_Click(sender As Object, e As EventArgs) Handles lblTitle.Click
 
     End Sub
+
+    Private Sub txtsearchproducts_TextChanged(sender As Object, e As EventArgs) Handles txtsearchproducts.TextChanged
+        Try
+            Dim searchText As String = txtsearchproducts.Text.Trim().ToLower()
+
+            ' Loop through all controls inside the FlowLayoutPanel
+            For Each ctrl As Control In flpProduct1.Controls
+                ' Assuming each product card is a Panel or UserControl
+                ' and has a Label for ProductName and ProductCode
+                Dim productNameLabel As Label = ctrl.Controls.OfType(Of Label)().FirstOrDefault(Function(l) l.Name = "lblProductName")
+                Dim productCodeLabel As Label = ctrl.Controls.OfType(Of Label)().FirstOrDefault(Function(l) l.Name = "lblProductCode")
+
+                If productNameLabel IsNot Nothing AndAlso productCodeLabel IsNot Nothing Then
+                    Dim productName As String = productNameLabel.Text.ToLower()
+                    Dim productCode As String = productCodeLabel.Text.ToLower()
+
+                    ' Show or hide card depending on match
+                    If productName.Contains(searchText) OrElse productCode.Contains(searchText) Then
+                        ctrl.Visible = True
+                    Else
+                        ctrl.Visible = False
+                    End If
+                End If
+            Next
+
+        Catch ex As Exception
+            MessageBox.Show("Error while searching products: " & ex.Message, "Search Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
 End Class

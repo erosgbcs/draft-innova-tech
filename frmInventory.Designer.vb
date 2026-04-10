@@ -49,8 +49,8 @@ Partial Class frmInventory
         txtProductName = New TextBox()
         Guna2CustomGradientPanel3 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         Label2 = New Label()
-        Guna2Button7 = New Guna.UI2.WinForms.Guna2Button()
         lblTitle = New Label()
+        Guna2Button7 = New Guna.UI2.WinForms.Guna2Button()
         CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         Guna2CustomGradientPanel1.SuspendLayout()
         Guna2CustomGradientPanel3.SuspendLayout()
@@ -320,6 +320,17 @@ Partial Class frmInventory
         Label2.TabIndex = 1
         Label2.Text = "Manage sales, track inventory, and view weekly reports"
         ' 
+        ' lblTitle
+        ' 
+        lblTitle.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTitle.ForeColor = Color.White
+        lblTitle.Location = New Point(-40, 4)
+        lblTitle.Name = "lblTitle"
+        lblTitle.Size = New Size(929, 75)
+        lblTitle.TabIndex = 27
+        lblTitle.Text = "Kirby's Hardware Trading Inventory"
+        lblTitle.TextAlign = ContentAlignment.MiddleCenter
+        ' 
         ' Guna2Button7
         ' 
         Guna2Button7.BorderColor = Color.White
@@ -339,17 +350,6 @@ Partial Class frmInventory
         Guna2Button7.Size = New Size(128, 34)
         Guna2Button7.TabIndex = 26
         Guna2Button7.Text = "Logout"
-        ' 
-        ' lblTitle
-        ' 
-        lblTitle.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblTitle.ForeColor = Color.White
-        lblTitle.Location = New Point(-40, 4)
-        lblTitle.Name = "lblTitle"
-        lblTitle.Size = New Size(929, 75)
-        lblTitle.TabIndex = 27
-        lblTitle.Text = "Kirby's Hardware Trading Inventory"
-        lblTitle.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' frmInventory
         ' 

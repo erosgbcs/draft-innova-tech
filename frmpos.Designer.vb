@@ -22,11 +22,11 @@ Partial Class pos
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        TextBox1 = New TextBox()
+        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        txtsearchproducts = New TextBox()
         flpProduct1 = New FlowLayoutPanel()
         flpCart = New FlowLayoutPanel()
         Guna2CustomGradientPanel3 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
@@ -36,15 +36,15 @@ Partial Class pos
         Guna2CustomGradientPanel3.SuspendLayout()
         SuspendLayout()
         ' 
-        ' TextBox1
+        ' txtsearchproducts
         ' 
-        TextBox1.BorderStyle = BorderStyle.FixedSingle
-        TextBox1.Location = New Point(7, 117)
-        TextBox1.Margin = New Padding(4, 3, 4, 3)
-        TextBox1.Name = "TextBox1"
-        TextBox1.PlaceholderText = "Search products by one code or name..."
-        TextBox1.Size = New Size(1143, 23)
-        TextBox1.TabIndex = 4
+        txtsearchproducts.BorderStyle = BorderStyle.FixedSingle
+        txtsearchproducts.Location = New Point(7, 120)
+        txtsearchproducts.Margin = New Padding(4, 3, 4, 3)
+        txtsearchproducts.Name = "txtsearchproducts"
+        txtsearchproducts.PlaceholderText = "Search products by one code or name..."
+        txtsearchproducts.Size = New Size(1143, 23)
+        txtsearchproducts.TabIndex = 4
         ' 
         ' flpProduct1
         ' 
@@ -78,14 +78,14 @@ Partial Class pos
         Guna2CustomGradientPanel3.Controls.Add(Label2)
         Guna2CustomGradientPanel3.Controls.Add(lblTitle)
         Guna2CustomGradientPanel3.Controls.Add(Guna2Button7)
-        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges3
+        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges7
         Guna2CustomGradientPanel3.FillColor = Color.DarkMagenta
         Guna2CustomGradientPanel3.FillColor2 = Color.DarkTurquoise
         Guna2CustomGradientPanel3.FillColor3 = Color.Navy
         Guna2CustomGradientPanel3.FillColor4 = Color.SkyBlue
         Guna2CustomGradientPanel3.Location = New Point(2, 9)
         Guna2CustomGradientPanel3.Name = "Guna2CustomGradientPanel3"
-        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges8
         Guna2CustomGradientPanel3.Size = New Size(1148, 102)
         Guna2CustomGradientPanel3.TabIndex = 58
         ' 
@@ -116,7 +116,7 @@ Partial Class pos
         Guna2Button7.BorderColor = Color.White
         Guna2Button7.BorderRadius = 12
         Guna2Button7.BorderThickness = 1
-        Guna2Button7.CustomizableEdges = CustomizableEdges1
+        Guna2Button7.CustomizableEdges = CustomizableEdges5
         Guna2Button7.DisabledState.BorderColor = Color.DarkGray
         Guna2Button7.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button7.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -126,7 +126,7 @@ Partial Class pos
         Guna2Button7.ForeColor = Color.WhiteSmoke
         Guna2Button7.Location = New Point(10, 610)
         Guna2Button7.Name = "Guna2Button7"
-        Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges6
         Guna2Button7.Size = New Size(128, 34)
         Guna2Button7.TabIndex = 26
         Guna2Button7.Text = "Logout"
@@ -141,7 +141,7 @@ Partial Class pos
         Controls.Add(Guna2CustomGradientPanel3)
         Controls.Add(flpCart)
         Controls.Add(flpProduct1)
-        Controls.Add(TextBox1)
+        Controls.Add(txtsearchproducts)
         Margin = New Padding(3, 2, 3, 2)
         Name = "pos"
         Text = "Products"
@@ -152,7 +152,7 @@ Partial Class pos
         PerformLayout()
     End Sub
 
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txtsearchproducts As TextBox
     Friend WithEvents flpProduct1 As FlowLayoutPanel
     Friend WithEvents flpCart As FlowLayoutPanel
     Friend WithEvents Guna2CustomGradientPanel3 As Guna.UI2.WinForms.Guna2CustomGradientPanel

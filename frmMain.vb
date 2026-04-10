@@ -42,7 +42,7 @@ Public Class frmMain
         ' Inside frmMain.vb Load Event
         If GlobalData.UserRole <> "Admin" Then
             btnUsers.Visible = False ' Hide User Management for Cashiers
-            btnSALESHISTORY.Visible = False ' Hide Sales History for Cashiers
+
         End If
         Dim savedLogo = db.LoadSystemImage("StoreLogo")
         If savedLogo IsNot Nothing Then
