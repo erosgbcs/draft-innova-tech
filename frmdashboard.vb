@@ -16,7 +16,7 @@ Public Class frmdashboard
 
         SecurityManager.ApplyRestrictions(Me)
 
-        DashboardTimer.Interval = 5000
+        DashboardTimer.Interval = 30000
         DashboardTimer.Start()
 
         LoadDashboardStats()
@@ -176,6 +176,7 @@ Public Class frmdashboard
         chartsContainer.Controls.Add(CreateManualPieChart("Revenue Share", dtSales, chartWidth))
         chartsContainer.Controls.Add(CreateManualLineGraph("Growth Trend", dtSales, chartWidth))
         chartsContainer.Controls.Add(CreateDailyRevenueTrend("Daily Revenue Trend", dtSales, chartWidth))
+        chartsContainer.Controls.Add(CreateGaugeChart("Sales Target Progress", db.GetTodaySales(), 50000, chartWidth))
 
         chartsContainer.PerformLayout()
         chartsContainer.Refresh()
@@ -330,17 +331,22 @@ Public Class frmdashboard
                                         Using br As New SolidBrush(colors(i Mod colors.Length))
                                             g.FillPie(br, rect, angle, sweep)
                                             g.FillRectangle(br, rect.Right + 10, rect.Top + (i * 20), 12, 12)
-                                            g.DrawString($"{slices(i).Key}: {If(title.Contains("Top", StringComparison.OrdinalIgnoreCase), $"{part:N0}", $"₱{part:N0}")}", New Font("Segoe UI", 8), Brushes.DimGray, rect.Right + 30, rect.Top + (i * 20))
+                                            Dim percentage As Double = Math.Round((part / total) * 100, 1)
+                                            g.DrawString($"{slices(i).Key}: {If(title.Contains("Top", StringComparison.OrdinalIgnoreCase), $"{part:N0}", $"₱{part:N0}")} ({percentage}%)",
+             New Font("Segoe UI", 8), Brushes.DimGray, rect.Right + 30, rect.Top + (i * 20))
+
                                         End Using
                                         angle += sweep
                                     Next
                                     If slices.Count > display Then
                                         Dim others = slices.Skip(display).Sum(Function(s) s.Value)
                                         Dim sweep = CSng((others / total) * 360.0)
+                                        Dim othersPct As Double = Math.Round((others / total) * 100, 1)
                                         Using br As New SolidBrush(colors(display Mod colors.Length))
                                             g.FillPie(br, rect, angle, sweep)
                                             g.FillRectangle(br, rect.Right + 10, rect.Top + (display * 20), 12, 12)
-                                            g.DrawString($"Others: {If(title.Contains("Top", StringComparison.OrdinalIgnoreCase), $"{others:N0}", $"₱{others:N0}")}", New Font("Segoe UI", 8), Brushes.DimGray, rect.Right + 30, rect.Top + (display * 20))
+                                            g.DrawString($"Others: {If(title.Contains("Top", StringComparison.OrdinalIgnoreCase), $"{others:N0}", $"₱{others:N0}")} ({othersPct}%)",
+                                                         New Font("Segoe UI", 8), Brushes.DimGray, rect.Right + 30, rect.Top + (display * 20))
                                         End Using
                                     End If
                                 End Sub
@@ -458,16 +464,29 @@ Public Class frmdashboard
     End Sub
 
     Private Function CreateSummaryCard(title As String, value As String, icon As String) As Panel
-        Dim card As New Panel With {.Width = 280, .Height = 140, .BackColor = Color.White, .Margin = New Padding(15), .Cursor = Cursors.Hand}
+        Dim card As New Panel With {
+        .Width = 280,
+        .Height = 140,
+        .BackColor = Color.White,
+        .Margin = New Padding(15),
+        .Cursor = Cursors.Hand
+    }
+
         Dim lblT As New Label With {.Text = title.ToUpper(), .Font = New Font("Segoe UI Semibold", 11), .ForeColor = Color.Navy, .Location = New Point(20, 20), .AutoSize = True}
         Dim lblV As New Label With {.Text = value, .Font = New Font("Segoe UI Variable Display", 28, FontStyle.Bold), .ForeColor = Color.FromArgb(30, 41, 59), .Location = New Point(15, 50), .AutoSize = True}
         Dim lblIcon As New Label With {.Text = icon, .Font = New Font("Segoe UI", 24), .ForeColor = Color.Navy, .Location = New Point(210, 80), .AutoSize = True}
+
         AddHandler card.Paint, AddressOf Card_Paint
         card.Controls.Add(lblT)
         card.Controls.Add(lblV)
         card.Controls.Add(lblIcon)
+
+        ' Apply hover effect
+        ApplyHoverEffect(card)
+
         Return card
     End Function
+
 
     Private Function CreateInsightSection(title As String, content As String, titleColor As Color) As Panel
         Dim pnl As New Panel With {.Width = flpinventoryinsights.Width - 25, .AutoSize = True, .Margin = New Padding(10, 0, 0, 15)}
@@ -484,11 +503,19 @@ Public Class frmdashboard
         g.SmoothingMode = SmoothingMode.AntiAlias
         Dim radius As Integer = 20
         Dim rect As New Rectangle(0, 0, pnl.Width - 5, pnl.Height - 5)
+
+        ' Shadow effect
+        Using shadowBrush As New SolidBrush(Color.FromArgb(50, 0, 0, 0))
+            g.FillRectangle(shadowBrush, rect.X + 4, rect.Y + 4, rect.Width, rect.Height)
+        End Using
+
+        ' Rounded card
         Using path As GraphicsPath = GetRoundedRectPath(rect, radius)
             g.FillPath(New SolidBrush(pnl.BackColor), path)
-            g.DrawPath(New Pen(Color.FromArgb(230, 230, 230)), path)
+            g.DrawPath(New Pen(Color.FromArgb(200, 200, 200)), path)
         End Using
     End Sub
+
 
     Private Function GetRoundedRectPath(rect As Rectangle, radius As Integer) As GraphicsPath
         Dim path As New GraphicsPath()
@@ -522,4 +549,75 @@ Public Class frmdashboard
         End If
         Return 0
     End Function
+    ' Enhanced hover effect for summary cards
+    Private Sub ApplyHoverEffect(card As Panel)
+        AddHandler card.MouseEnter,
+        Sub(sender, e)
+            Dim pnl = DirectCast(sender, Panel)
+            pnl.BackColor = Color.FromArgb(230, 240, 255) ' stronger highlight
+            pnl.BorderStyle = BorderStyle.FixedSingle
+            pnl.Padding = New Padding(2)
+
+            ' Add shadow effect by redrawing
+            pnl.Invalidate()
+        End Sub
+
+        AddHandler card.MouseLeave,
+        Sub(sender, e)
+            Dim pnl = DirectCast(sender, Panel)
+            pnl.BackColor = Color.White ' reset
+            pnl.BorderStyle = BorderStyle.None
+            pnl.Padding = New Padding(0)
+
+            pnl.Invalidate()
+        End Sub
+    End Sub
+    Private Function CreateGaugeChart(title As String, value As Double, maxValue As Double, panelWidth As Integer) As Panel
+        Dim panel As New Panel With {
+        .Width = panelWidth,
+        .Height = 200,
+        .BackColor = Color.White,
+        .Margin = New Padding(10),
+        .BorderStyle = BorderStyle.FixedSingle,
+        .Name = "gauge_" & title.Replace(" ", "_")
+    }
+
+        Dim lbl As New Label With {
+        .Text = title,
+        .Font = New Font("Segoe UI Semibold", 12),
+        .ForeColor = Color.Navy,
+        .Location = New Point(15, 10),
+        .AutoSize = True
+    }
+        panel.Controls.Add(lbl)
+
+        AddHandler panel.Paint, Sub(sender, e)
+                                    Dim g = e.Graphics
+                                    g.SmoothingMode = SmoothingMode.AntiAlias
+
+                                    ' Semi-circle gauge
+                                    Dim rect As New Rectangle(20, 40, panel.Width - 40, panel.Height - 60)
+                                    Dim sweepAngle As Single = CSng((value / maxValue) * 180)
+
+                                    ' Background arc
+                                    Using bgPen As New Pen(Color.LightGray, 20)
+                                        g.DrawArc(bgPen, rect, 180, 180)
+                                    End Using
+
+                                    ' Progress arc
+                                    Using fgPen As New Pen(Color.FromArgb(79, 70, 229), 20)
+                                        g.DrawArc(fgPen, rect, 180, sweepAngle)
+                                    End Using
+
+                                    ' Value text
+                                    Dim txt As String = $"{value:N0}/{maxValue:N0}"
+                                    Dim txtSize = g.MeasureString(txt, New Font("Segoe UI", 10, FontStyle.Bold))
+                                    g.DrawString(txt, New Font("Segoe UI", 10, FontStyle.Bold), Brushes.Black,
+                                             rect.Left + rect.Width \ 2 - txtSize.Width \ 2,
+                                             rect.Bottom - 20)
+                                End Sub
+
+        Return panel
+    End Function
+
 End Class
