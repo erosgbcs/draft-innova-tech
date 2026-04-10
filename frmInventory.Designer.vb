@@ -344,11 +344,11 @@ Partial Class frmInventory
         ' 
         lblTitle.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblTitle.ForeColor = Color.White
-        lblTitle.Location = New Point(-7, 4)
+        lblTitle.Location = New Point(-40, 4)
         lblTitle.Name = "lblTitle"
         lblTitle.Size = New Size(929, 75)
         lblTitle.TabIndex = 27
-        lblTitle.Text = "Kirby's Hardware Trading Point Of Sale"
+        lblTitle.Text = "Kirby's Hardware Trading Inventory"
         lblTitle.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' frmInventory
