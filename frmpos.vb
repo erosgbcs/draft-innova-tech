@@ -339,7 +339,7 @@ Public Class pos
         Dim dashForm As New frmdashboard
         dashForm.WindowState = FormWindowState.Maximized
         dashForm.Show
-        Hide ' Optional: Hide the POS form when going to dashboard
+        Hide() ' Hide the POS form when going to dashboard
     End Sub
 
     ' --- Inventory Button ---
@@ -347,7 +347,7 @@ Public Class pos
         Dim invForm As New frmInventory
         invForm.WindowState = FormWindowState.Maximized
         invForm.Show
-        ' If you want to close/hide POS, add Me.Close() or Me.Hide() here
+        ' If you want to close/hide POS, add Me.Close() or Me.Hide()
     End Sub
 
     ' --- Sales History Button ---
@@ -361,7 +361,7 @@ Public Class pos
         Dim result = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If result = DialogResult.Yes Then
-            ' Assuming you have a login form named FrmLogin
+
             Dim login As New FrmLogin
             login.Show
             Close

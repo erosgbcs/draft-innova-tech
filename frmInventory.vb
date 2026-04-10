@@ -108,10 +108,9 @@
         posForm.Show()
     End Sub
 
-    ' Open Inventory (current form) – usually not needed
+    ' Open Inventory (current form
     Private Sub btnOpenInventory_Click(sender As Object, e As EventArgs)
-        ' You’re already inside frmInventory, so this button doesn’t need to reopen itself.
-        ' If you want to refresh, just call RefreshData()
+
         RefreshData()
     End Sub
 
@@ -220,7 +219,7 @@
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs)
         'PICTUREBOX
     End Sub
-    ' THIS IS THE MISSING LOGIC THAT DRAWS THE CONTENT
+
     Private Sub PrintInventoryDoc_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintInventoryDoc.PrintPage
         Dim g As Graphics = e.Graphics
         Dim fontHeader As New Font("Segoe UI", 18, FontStyle.Bold)

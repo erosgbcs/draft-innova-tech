@@ -173,7 +173,7 @@ Public Class frmdashboard
         End Try
 
         chartsContainer.Controls.Add(CreateManualBarGraph("Weekly Revenue", dtSales, chartWidth))
-        chartsContainer.Controls.Add(CreateManualPieChart("Revenue Share", dtSales, chartWidth))
+        chartsContainer.Controls.Add(CreateManualPieChart("Top-Selling Products", dtSales, chartWidth))
         chartsContainer.Controls.Add(CreateManualLineGraph("Growth Trend", dtSales, chartWidth))
         chartsContainer.Controls.Add(CreateDailyRevenueTrend("Daily Revenue Trend", dtSales, chartWidth))
         chartsContainer.Controls.Add(CreateGaugeChart("Sales Target Progress", db.GetTodaySales(), 100000, chartWidth))

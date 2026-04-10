@@ -637,4 +637,67 @@ Public Class DatabaseHelper
             Debug.WriteLine("Error seeding admin: " & ex.Message)
         End Try
     End Sub
+    ' --- AUTO-BACKUP LOGIC ---
+    Public Sub AutoBackup()
+        Try
+            Dim dbFolder As String = Application.StartupPath
+            Dim backupFolder As String = IO.Path.Combine(dbFolder, "Backups")
+
+            ' Create Backups directory if it doesn't exist
+            If Not IO.Directory.Exists(backupFolder) Then
+                IO.Directory.CreateDirectory(backupFolder)
+            End If
+
+            Dim sourcePath As String = IO.Path.Combine(dbFolder, "Accounts.db")
+            ' Format: Backup_2026_04_11.db
+            Dim fileName As String = $"Backup_{DateTime.Now:yyyy_MM_dd}.db"
+            Dim destPath As String = IO.Path.Combine(backupFolder, fileName)
+
+            ' Only copy if today's backup doesn't exist yet
+            If IO.File.Exists(sourcePath) AndAlso Not IO.File.Exists(destPath) Then
+                IO.File.Copy(sourcePath, destPath, True)
+                Debug.WriteLine("Auto-backup successful: " & fileName)
+            End If
+
+            ' Run cleanup to remove old files
+            CleanupOldBackups(backupFolder)
+        Catch ex As Exception
+            ' We use Debug.WriteLine so the user isn't interrupted by backup errors
+            Debug.WriteLine("Auto-backup failed: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub CleanupOldBackups(backupFolder As String)
+        Try
+            Dim files = IO.Directory.GetFiles(backupFolder, "Backup_*.db")
+            For Each file In files
+                Dim fi As New IO.FileInfo(file)
+                ' Keep only the last 7 days of backups
+                If fi.CreationTime < DateTime.Now.AddDays(-7) Then
+                    fi.Delete()
+                End If
+            Next
+        Catch ex As Exception
+            Debug.WriteLine("Cleanup failed: " & ex.Message)
+        End Try
+    End Sub
+    Public Function RestoreDatabase(backupFilePath As String) As Boolean
+        Try
+            Dim dbFolder As String = Application.StartupPath
+            Dim destPath As String = IO.Path.Combine(dbFolder, "Accounts.db")
+
+            ' 1. Check if the backup file actually exists
+            If Not IO.File.Exists(backupFilePath) Then Return False
+
+            SqliteConnection.ClearAllPools()
+
+            ' 3. Overwrite the current database with the backup
+            IO.File.Copy(backupFilePath, destPath, True)
+
+            Return True
+        Catch ex As Exception
+            MessageBox.Show("Restore failed: " & ex.Message)
+            Return False
+        End Try
+    End Function
 End Class

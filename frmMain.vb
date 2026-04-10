@@ -75,13 +75,13 @@ Public Class frmMain
 
     ' --- 5. Logout Logic ---
     Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
-        Dim result As DialogResult = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        Dim result = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If result = DialogResult.Yes Then
             ' Show the login form and close this main frame
             Dim login As New FrmLogin
             login.Show()
-            Me.Close()
+            Close()
         End If
     End Sub
     ' Logic for the Upload Pictures Button
@@ -97,7 +97,7 @@ Public Class frmMain
                     ' 2. SYNC OPEN FORMS IMMEDIATELY
                     ' This loops through all currently open windows and updates their PictureBox
                     For Each f As Form In Application.OpenForms
-                        ' Look for a PictureBox named "PictureBox1" (or whatever yours is named)
+                        ' Look for a PictureBox named "PictureBox1" 
                         Dim targetPB = f.Controls.Find("PictureBox1", True).FirstOrDefault()
                         If targetPB IsNot Nothing AndAlso TypeOf targetPB Is PictureBox Then
                             DirectCast(targetPB, PictureBox).Image = newImg
@@ -109,12 +109,22 @@ Public Class frmMain
             End If
         End Using
     End Sub
+    Private Sub btnRestore_Click(sender As Object, e As EventArgs) Handles btnRestore.Click
+        Dim ofd As New OpenFileDialog()
+        ofd.InitialDirectory = IO.Path.Combine(Application.StartupPath, "Backups")
+        ofd.Filter = "SQLite Database (*.db)|*.db"
+        ofd.Title = "Select a Backup to Restore"
 
-    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+        If ofd.ShowDialog() = DialogResult.OK Then
+            Dim result = MessageBox.Show("Are you sure? This will overwrite all current data!",
+                                       "Confirm Restore", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
-    End Sub
-
-    Private Sub pnlContent_Paint(sender As Object, e As PaintEventArgs) Handles pnlContent.Paint
-
+            If result = DialogResult.Yes Then
+                If db.RestoreDatabase(ofd.FileName) Then
+                    MessageBox.Show("System restored successfully! The app will now restart.")
+                    Application.Restart() ' Restart to reload the new data
+                End If
+            End If
+        End If
     End Sub
 End Class

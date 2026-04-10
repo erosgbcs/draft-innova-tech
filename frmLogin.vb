@@ -19,25 +19,23 @@ Public Class FrmLogin
         Dim username = txtUsername.Text.Trim
         Dim password = txtPassword.Text
 
-        ' Validate credentials against database
         Dim userData = dbHelper.ValidateUser(username, password)
 
         If userData.Rows.Count > 0 Then
-            ' Login successful
+            ' --- LOGIN SUCCESSFUL ---
             Dim userRow = userData.Rows(0)
-
-            ' SAVE TO GLOBAL DATA (Used for Role-Based Access Control)
             GlobalData.CurrentUser = userRow("Username").ToString()
             GlobalData.UserRole = userRow("Role").ToString()
+
+            ' TRIGGER AUTO-BACKUP HERE
+            ' Using Task.Run ensures the login doesn't "freeze" while copying the file
+            Task.Run(Sub() dbHelper.AutoBackup())
 
             MessageBox.Show($"Login Successful! Welcome {userRow("FullName")}!",
                           "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            ' Open main window
             Dim mainApp As New frmMain()
             mainApp.Show()
-
-            ' Hide the login form
             Me.Hide()
         Else
             ' Login failed logic...
