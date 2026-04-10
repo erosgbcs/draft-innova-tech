@@ -363,4 +363,8 @@ Public Class pos
     Private Sub btnUsers_Click(sender As Object, e As EventArgs)
         User.Show
     End Sub
+
+    Private Sub lblTitle_Click(sender As Object, e As EventArgs) Handles lblTitle.Click
+
+    End Sub
 End Class

@@ -31,9 +31,7 @@ Partial Class pos
         flpCart = New FlowLayoutPanel()
         Guna2CustomGradientPanel3 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         Label2 = New Label()
-        Label24 = New Label()
         lblTitle = New Label()
-        lblTime = New Label()
         Guna2Button7 = New Guna.UI2.WinForms.Guna2Button()
         Guna2CustomGradientPanel3.SuspendLayout()
         SuspendLayout()
@@ -78,9 +76,7 @@ Partial Class pos
         Guna2CustomGradientPanel3.BorderRadius = 20
         Guna2CustomGradientPanel3.BorderThickness = 1
         Guna2CustomGradientPanel3.Controls.Add(Label2)
-        Guna2CustomGradientPanel3.Controls.Add(Label24)
         Guna2CustomGradientPanel3.Controls.Add(lblTitle)
-        Guna2CustomGradientPanel3.Controls.Add(lblTime)
         Guna2CustomGradientPanel3.Controls.Add(Guna2Button7)
         Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges3
         Guna2CustomGradientPanel3.FillColor = Color.DarkMagenta
@@ -96,46 +92,24 @@ Partial Class pos
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label2.Font = New Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label2.ForeColor = Color.White
         Label2.Location = New Point(20, 64)
         Label2.Name = "Label2"
-        Label2.Size = New Size(472, 25)
+        Label2.Size = New Size(485, 25)
         Label2.TabIndex = 1
         Label2.Text = "Manage sales, track inventory, and view weekly reports"
-        ' 
-        ' Label24
-        ' 
-        Label24.AutoSize = True
-        Label24.Font = New Font("Segoe UI", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label24.ForeColor = Color.White
-        Label24.Location = New Point(531, 30)
-        Label24.Name = "Label24"
-        Label24.Size = New Size(235, 47)
-        Label24.TabIndex = 9
-        Label24.Text = "Point Of Sale"
         ' 
         ' lblTitle
         ' 
         lblTitle.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblTitle.ForeColor = Color.White
-        lblTitle.Location = New Point(5, 0)
+        lblTitle.Location = New Point(-4, 2)
         lblTitle.Name = "lblTitle"
-        lblTitle.Size = New Size(430, 54)
+        lblTitle.Size = New Size(929, 75)
         lblTitle.TabIndex = 0
-        lblTitle.Text = "Kirby's Hardware Trading"
+        lblTitle.Text = "Kirby's Hardware Trading Point Of Sale"
         lblTitle.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' lblTime
-        ' 
-        lblTime.AutoSize = True
-        lblTime.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblTime.ForeColor = Color.White
-        lblTime.Location = New Point(597, 72)
-        lblTime.Name = "lblTime"
-        lblTime.Size = New Size(97, 30)
-        lblTime.TabIndex = 6
-        lblTime.Text = "00:00:00"
         ' 
         ' Guna2Button7
         ' 
@@ -183,8 +157,6 @@ Partial Class pos
     Friend WithEvents flpCart As FlowLayoutPanel
     Friend WithEvents Guna2CustomGradientPanel3 As Guna.UI2.WinForms.Guna2CustomGradientPanel
     Friend WithEvents Label2 As Label
-    Friend WithEvents Label24 As Label
     Friend WithEvents lblTitle As Label
-    Friend WithEvents lblTime As Label
     Friend WithEvents Guna2Button7 As Guna.UI2.WinForms.Guna2Button
 End Class

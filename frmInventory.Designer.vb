@@ -22,12 +22,12 @@ Partial Class frmInventory
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges11 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges12 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges9 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         PrintInventoryDoc = New Printing.PrintDocument()
         txtSearch = New TextBox()
         dgvProducts = New DataGridView()
@@ -49,10 +49,8 @@ Partial Class frmInventory
         txtProductName = New TextBox()
         Guna2CustomGradientPanel3 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
         Label2 = New Label()
-        Label24 = New Label()
-        lblTitle = New Label()
-        lblTime = New Label()
         Guna2Button7 = New Guna.UI2.WinForms.Guna2Button()
+        lblTitle = New Label()
         CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         Guna2CustomGradientPanel1.SuspendLayout()
         Guna2CustomGradientPanel3.SuspendLayout()
@@ -169,7 +167,7 @@ Partial Class frmInventory
         Guna2CustomGradientPanel1.Controls.Add(Label6)
         Guna2CustomGradientPanel1.Controls.Add(txtPrice)
         Guna2CustomGradientPanel1.Controls.Add(txtProductName)
-        Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges7
+        Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges1
         Guna2CustomGradientPanel1.FillColor = Color.DarkMagenta
         Guna2CustomGradientPanel1.FillColor2 = Color.DarkTurquoise
         Guna2CustomGradientPanel1.FillColor3 = Color.Navy
@@ -178,7 +176,7 @@ Partial Class frmInventory
         Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
         Guna2CustomGradientPanel1.ShadowDecoration.BorderRadius = 25
         Guna2CustomGradientPanel1.ShadowDecoration.Color = Color.FromArgb(CByte(191), CByte(219), CByte(254))
-        Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges8
+        Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         Guna2CustomGradientPanel1.ShadowDecoration.Enabled = True
         Guna2CustomGradientPanel1.Size = New Size(1148, 138)
         Guna2CustomGradientPanel1.TabIndex = 45
@@ -298,71 +296,36 @@ Partial Class frmInventory
         Guna2CustomGradientPanel3.BorderRadius = 20
         Guna2CustomGradientPanel3.BorderThickness = 1
         Guna2CustomGradientPanel3.Controls.Add(Label2)
-        Guna2CustomGradientPanel3.Controls.Add(Label24)
         Guna2CustomGradientPanel3.Controls.Add(lblTitle)
-        Guna2CustomGradientPanel3.Controls.Add(lblTime)
         Guna2CustomGradientPanel3.Controls.Add(Guna2Button7)
-        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges11
+        Guna2CustomGradientPanel3.CustomizableEdges = CustomizableEdges5
         Guna2CustomGradientPanel3.FillColor = Color.DarkMagenta
         Guna2CustomGradientPanel3.FillColor2 = Color.DarkTurquoise
         Guna2CustomGradientPanel3.FillColor3 = Color.Navy
         Guna2CustomGradientPanel3.FillColor4 = Color.SkyBlue
         Guna2CustomGradientPanel3.Location = New Point(6, 3)
         Guna2CustomGradientPanel3.Name = "Guna2CustomGradientPanel3"
-        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges12
+        Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges6
         Guna2CustomGradientPanel3.Size = New Size(1148, 102)
         Guna2CustomGradientPanel3.TabIndex = 59
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label2.Font = New Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label2.ForeColor = Color.White
         Label2.Location = New Point(20, 64)
         Label2.Name = "Label2"
-        Label2.Size = New Size(472, 25)
+        Label2.Size = New Size(485, 25)
         Label2.TabIndex = 1
         Label2.Text = "Manage sales, track inventory, and view weekly reports"
-        ' 
-        ' Label24
-        ' 
-        Label24.AutoSize = True
-        Label24.Font = New Font("Segoe UI", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label24.ForeColor = Color.White
-        Label24.Location = New Point(531, 30)
-        Label24.Name = "Label24"
-        Label24.Size = New Size(235, 47)
-        Label24.TabIndex = 9
-        Label24.Text = "Point Of Sale"
-        ' 
-        ' lblTitle
-        ' 
-        lblTitle.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblTitle.ForeColor = Color.White
-        lblTitle.Location = New Point(5, 0)
-        lblTitle.Name = "lblTitle"
-        lblTitle.Size = New Size(430, 54)
-        lblTitle.TabIndex = 0
-        lblTitle.Text = "Kirby's Hardware Trading"
-        lblTitle.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' lblTime
-        ' 
-        lblTime.AutoSize = True
-        lblTime.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblTime.ForeColor = Color.White
-        lblTime.Location = New Point(597, 72)
-        lblTime.Name = "lblTime"
-        lblTime.Size = New Size(97, 30)
-        lblTime.TabIndex = 6
-        lblTime.Text = "00:00:00"
         ' 
         ' Guna2Button7
         ' 
         Guna2Button7.BorderColor = Color.White
         Guna2Button7.BorderRadius = 12
         Guna2Button7.BorderThickness = 1
-        Guna2Button7.CustomizableEdges = CustomizableEdges9
+        Guna2Button7.CustomizableEdges = CustomizableEdges3
         Guna2Button7.DisabledState.BorderColor = Color.DarkGray
         Guna2Button7.DisabledState.CustomBorderColor = Color.DarkGray
         Guna2Button7.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -372,10 +335,21 @@ Partial Class frmInventory
         Guna2Button7.ForeColor = Color.WhiteSmoke
         Guna2Button7.Location = New Point(10, 610)
         Guna2Button7.Name = "Guna2Button7"
-        Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges10
+        Guna2Button7.ShadowDecoration.CustomizableEdges = CustomizableEdges4
         Guna2Button7.Size = New Size(128, 34)
         Guna2Button7.TabIndex = 26
         Guna2Button7.Text = "Logout"
+        ' 
+        ' lblTitle
+        ' 
+        lblTitle.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTitle.ForeColor = Color.White
+        lblTitle.Location = New Point(-7, 4)
+        lblTitle.Name = "lblTitle"
+        lblTitle.Size = New Size(929, 75)
+        lblTitle.TabIndex = 27
+        lblTitle.Text = "Kirby's Hardware Trading Point Of Sale"
+        lblTitle.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' frmInventory
         ' 
@@ -422,8 +396,6 @@ Partial Class frmInventory
     Friend WithEvents PrintInventoryDoc As System.Drawing.Printing.PrintDocument
     Friend WithEvents Guna2CustomGradientPanel3 As Guna.UI2.WinForms.Guna2CustomGradientPanel
     Friend WithEvents Label2 As Label
-    Friend WithEvents Label24 As Label
-    Friend WithEvents lblTitle As Label
-    Friend WithEvents lblTime As Label
     Friend WithEvents Guna2Button7 As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents lblTitle As Label
 End Class

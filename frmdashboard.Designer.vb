@@ -32,7 +32,6 @@ Partial Class frmdashboard
         Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Label24 = New Label()
         Timer1 = New Timer(components)
         MainStatsContainer = New FlowLayoutPanel()
         Guna2DataGridView1 = New Guna.UI2.WinForms.Guna2DataGridView()
@@ -49,17 +48,6 @@ Partial Class frmdashboard
         CType(Guna2DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         Guna2CustomGradientPanel3.SuspendLayout()
         SuspendLayout()
-        ' 
-        ' Label24
-        ' 
-        Label24.AutoSize = True
-        Label24.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label24.ForeColor = Color.White
-        Label24.Location = New Point(579, 3)
-        Label24.Name = "Label24"
-        Label24.Size = New Size(273, 65)
-        Label24.TabIndex = 9
-        Label24.Text = "Dashboard"
         ' 
         ' Timer1
         ' 
@@ -132,7 +120,6 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel3.BorderThickness = 1
         Guna2CustomGradientPanel3.Controls.Add(Label2)
         Guna2CustomGradientPanel3.Controls.Add(Label1)
-        Guna2CustomGradientPanel3.Controls.Add(Label24)
         Guna2CustomGradientPanel3.Controls.Add(Label4)
         Guna2CustomGradientPanel3.Controls.Add(lblTime)
         Guna2CustomGradientPanel3.Controls.Add(Guna2Button1)
@@ -175,12 +162,12 @@ Partial Class frmdashboard
         ' 
         Label4.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label4.ForeColor = Color.White
-        Label4.Location = New Point(-12, 0)
+        Label4.Location = New Point(5, 0)
         Label4.Margin = New Padding(2, 0, 2, 0)
         Label4.Name = "Label4"
-        Label4.Size = New Size(616, 58)
+        Label4.Size = New Size(885, 58)
         Label4.TabIndex = 0
-        Label4.Text = "Kirby's Hardware Trading"
+        Label4.Text = "Kirby's Hardware Trading Dashboard"
         Label4.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' lblTime
@@ -259,7 +246,6 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel3.PerformLayout()
         ResumeLayout(False)
     End Sub
-    Friend WithEvents Label24 As Label
     Friend WithEvents Timer1 As Timer
     Friend WithEvents MainStatsContainer As FlowLayoutPanel
     Friend WithEvents Guna2CustomGradientPanel3 As Guna.UI2.WinForms.Guna2CustomGradientPanel
