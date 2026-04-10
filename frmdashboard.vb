@@ -504,9 +504,14 @@ Public Class frmdashboard
         Dim radius As Integer = 20
         Dim rect As New Rectangle(0, 0, pnl.Width - 5, pnl.Height - 5)
 
-        ' Shadow effect
-        Using shadowBrush As New SolidBrush(Color.FromArgb(50, 0, 0, 0))
-            g.FillRectangle(shadowBrush, rect.X + 4, rect.Y + 4, rect.Width, rect.Height)
+        ' Rounded shadow (offset path)
+        Dim shadowOffset As Integer = 4
+        Dim shadowRect As New Rectangle(rect.X + shadowOffset, rect.Y + shadowOffset, rect.Width, rect.Height)
+
+        Using shadowPath As GraphicsPath = GetRoundedRectPath(shadowRect, radius)
+            Using shadowBrush As New SolidBrush(Color.FromArgb(50, 0, 0, 0))
+                g.FillPath(shadowBrush, shadowPath)
+            End Using
         End Using
 
         ' Rounded card
@@ -515,6 +520,7 @@ Public Class frmdashboard
             g.DrawPath(New Pen(Color.FromArgb(200, 200, 200)), path)
         End Using
     End Sub
+
 
 
     Private Function GetRoundedRectPath(rect As Rectangle, radius As Integer) As GraphicsPath
@@ -620,4 +626,7 @@ Public Class frmdashboard
         Return panel
     End Function
 
+    Private Sub lblTime_Click(sender As Object, e As EventArgs) Handles lblTime.Click
+
+    End Sub
 End Class

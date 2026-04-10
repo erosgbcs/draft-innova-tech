@@ -55,7 +55,7 @@ Partial Class frmdashboard
         Label24.AutoSize = True
         Label24.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label24.ForeColor = Color.White
-        Label24.Location = New Point(584, 21)
+        Label24.Location = New Point(579, 3)
         Label24.Name = "Label24"
         Label24.Size = New Size(273, 65)
         Label24.TabIndex = 9
@@ -156,9 +156,8 @@ Partial Class frmdashboard
         Label2.Location = New Point(430, 8)
         Label2.Margin = New Padding(2, 0, 2, 0)
         Label2.Name = "Label2"
-        Label2.Size = New Size(158, 51)
+        Label2.Size = New Size(0, 51)
         Label2.TabIndex = 27
-        Label2.Text = "Trading"
         ' 
         ' Label1
         ' 
@@ -176,10 +175,10 @@ Partial Class frmdashboard
         ' 
         Label4.Font = New Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label4.ForeColor = Color.White
-        Label4.Location = New Point(5, 0)
+        Label4.Location = New Point(-12, 0)
         Label4.Margin = New Padding(2, 0, 2, 0)
         Label4.Name = "Label4"
-        Label4.Size = New Size(446, 58)
+        Label4.Size = New Size(616, 58)
         Label4.TabIndex = 0
         Label4.Text = "Kirby's Hardware Trading"
         Label4.TextAlign = ContentAlignment.MiddleCenter
@@ -189,7 +188,7 @@ Partial Class frmdashboard
         lblTime.AutoSize = True
         lblTime.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblTime.ForeColor = Color.White
-        lblTime.Location = New Point(911, 73)
+        lblTime.Location = New Point(542, 62)
         lblTime.Margin = New Padding(2, 0, 2, 0)
         lblTime.Name = "lblTime"
         lblTime.Size = New Size(97, 30)
@@ -243,7 +242,7 @@ Partial Class frmdashboard
         AutoScaleMode = AutoScaleMode.Dpi
         AutoScroll = True
         AutoSize = True
-        BackColor = Color.WhiteSmoke
+        BackColor = Color.White
         ClientSize = New Size(1199, 599)
         Controls.Add(flpinventoryinsights)
         Controls.Add(flpchart)
