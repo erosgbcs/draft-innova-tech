@@ -633,4 +633,8 @@ Public Class frmdashboard
     Private Sub flpinventoryinsights_Paint(sender As Object, e As PaintEventArgs) Handles flpinventoryinsights.Paint
 
     End Sub
+
+    Private Sub Guna2CustomGradientPanel3_Paint(sender As Object, e As PaintEventArgs) Handles Guna2CustomGradientPanel3.Paint
+
+    End Sub
 End Class

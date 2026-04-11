@@ -638,6 +638,7 @@ Public Class DatabaseHelper
         End Try
     End Sub
     ' --- AUTO-BACKUP LOGIC ---
+    ' --- UPDATED AUTO-BACKUP LOGIC ---
     Public Sub AutoBackup()
         Try
             Dim dbFolder As String = Application.StartupPath
@@ -649,20 +650,21 @@ Public Class DatabaseHelper
             End If
 
             Dim sourcePath As String = IO.Path.Combine(dbFolder, "Accounts.db")
-            ' Format: Backup_2026_04_11.db
-            Dim fileName As String = $"Backup_{DateTime.Now:yyyy_MM_dd}.db"
+
+            ' NEW FILENAME FORMAT: Backup_2026_04_11_143005.db (Year_Month_Day_HourMinSec)
+            ' This ensures every backup has a unique name and stays in order
+            Dim fileName As String = $"Backup_{DateTime.Now:yyyy_MM_dd_HHmmss}.db"
             Dim destPath As String = IO.Path.Combine(backupFolder, fileName)
 
-            ' Only copy if today's backup doesn't exist yet
-            If IO.File.Exists(sourcePath) AndAlso Not IO.File.Exists(destPath) Then
+            ' Copy the file (removed the "If Not Exists" check to allow multiple backups)
+            If IO.File.Exists(sourcePath) Then
                 IO.File.Copy(sourcePath, destPath, True)
-                Debug.WriteLine("Auto-backup successful: " & fileName)
+                Debug.WriteLine("Sequential backup successful: " & fileName)
             End If
 
-            ' Run cleanup to remove old files
+            ' Run cleanup to remove old files (Keeping the last 7 days of history)
             CleanupOldBackups(backupFolder)
         Catch ex As Exception
-            ' We use Debug.WriteLine so the user isn't interrupted by backup errors
             Debug.WriteLine("Auto-backup failed: " & ex.Message)
         End Try
     End Sub

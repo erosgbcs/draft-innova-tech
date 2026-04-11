@@ -120,9 +120,9 @@ Partial Class User
         lblActivityHeader.ForeColor = Color.MediumBlue
         lblActivityHeader.Location = New Point(8, 15)
         lblActivityHeader.Name = "lblActivityHeader"
-        lblActivityHeader.Size = New Size(180, 32)
+        lblActivityHeader.Size = New Size(179, 32)
         lblActivityHeader.TabIndex = 1
-        lblActivityHeader.Text = "Guna2HtmlLabel1"
+        lblActivityHeader.Text = "Recent Processed:"
         ' 
         ' User
         ' 
