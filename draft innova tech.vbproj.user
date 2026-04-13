@@ -20,6 +20,9 @@
     <Compile Update="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="frmPayment.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="frmpos.vb">
       <SubType>Form</SubType>
     </Compile>

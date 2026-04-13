@@ -288,7 +288,7 @@ Public Class pos
             }
 
         Dim btnConfirm As New RoundedButton With {
-                .Text = "CONFIRM CHECKOUT",
+                .Text = "CHECKOUT",
                 .BackColor = Color.FromArgb(0, 120, 215),
                 .ForeColor = Color.White,
                 .Location = New Point(20, 180),
@@ -297,32 +297,39 @@ Public Class pos
             }
         StyleButton(btnConfirm)
 
+        ' Inside AddCheckoutPanel...
         AddHandler btnConfirm.Click, Sub()
                                          If String.IsNullOrWhiteSpace(txtName.Text) Then
                                              ShowToast("Please enter buyer name.", False)
                                              Return
                                          End If
 
-                                         ' 1. Create the string of items bought
-                                         ' This joins your cart items into a single readable line: "Item A (x2), Item B (x1)"
-                                         Dim itemsSummary As String = String.Join(", ", Cart.Select(Function(c) $"{c.ProductName} (x{c.Quantity})"))
+                                         ' Show Payment Dialog
+                                         Dim payDialog As New frmPayment()
+                                         payDialog.TotalAmount = totalAmount
 
-                                         ' 2. Pass all 6 arguments to the SaveSale function
-                                         ' Arguments: Name, Address, Contact, ItemsSummary, Subtotal, Total
-                                         If db.SaveSale(txtName.Text, txtAddress.Text, txtContact.Text, itemsSummary, totalAmount, totalAmount) Then
+                                         If payDialog.ShowDialog() = DialogResult.OK AndAlso payDialog.IsConfirmed Then
+                                             Dim itemsSummary As String = String.Join(", ", Cart.Select(Function(c) $"{c.ProductName} (x{c.Quantity})"))
 
-                                             ' Update the actual database stock
-                                             For Each item In Cart
-                                                 db.UpdateStock(item.ProductCode, item.Quantity)
-                                             Next
+                                             ' Save to Database (Including payment details if your DB supports it)
+                                             If db.SaveSale(txtName.Text, txtAddress.Text, txtContact.Text, itemsSummary, totalAmount, totalAmount) Then
 
-                                             ShowToast("Transaction Successful!")
+                                                 ' Update the actual database stock
+                                                 For Each item In Cart
+                                                     db.UpdateStock(item.ProductCode, item.Quantity)
+                                                 Next
 
-                                             ' Reset POS
-                                             Cart.Clear()
-                                             TempStock.Clear()
-                                             LoadCartCards()
-                                             RefreshProductDisplay()
+                                                 ' GENERATE RECEIPT
+                                                 GenerateReceipt(txtName.Text, payDialog.PaymentMethod, payDialog.AmountPaid, payDialog.Change)
+
+                                                 ShowToast("Transaction Successful!")
+
+                                                 ' Reset POS
+                                                 Cart.Clear()
+                                                 TempStock.Clear()
+                                                 LoadCartCards()
+                                                 RefreshProductDisplay()
+                                             End If
                                          End If
                                      End Sub
 
@@ -404,6 +411,49 @@ Public Class pos
             MessageBox.Show("Error while searching products: " & ex.Message, "Search Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+    Private Sub GenerateReceipt(buyer As String, method As String, paid As Decimal, change As Decimal)
+        Dim pd As New Printing.PrintDocument()
+        AddHandler pd.PrintPage, Sub(sender, e)
+                                     Dim fontHeader As New Font("Courier New", 14, FontStyle.Bold)
+                                     Dim fontBody As New Font("Courier New", 10)
+                                     Dim startX As Integer = 10
+                                     Dim startY As Integer = 10
+                                     Dim offset As Integer = 40
 
+                                     e.Graphics.DrawString("OFFICIAL RECEIPT", fontHeader, Brushes.Black, startX, startY)
+                                     e.Graphics.DrawString("Date: " & DateTime.Now.ToString(), fontBody, Brushes.Black, startX, startY + offset)
+                                     offset += 20
+                                     e.Graphics.DrawString("Customer: " & buyer, fontBody, Brushes.Black, startX, startY + offset)
+                                     offset += 30
+                                     e.Graphics.DrawString("----------------------------", fontBody, Brushes.Black, startX, startY + offset)
+                                     offset += 20
+
+                                     For Each item In Cart
+                                         Dim itemLine As String = $"{item.ProductName} x{item.Quantity}"
+                                         Dim priceLine As String = $"₱{item.Subtotal:N2}"
+                                         e.Graphics.DrawString(itemLine, fontBody, Brushes.Black, startX, startY + offset)
+                                         e.Graphics.DrawString(priceLine, fontBody, Brushes.Black, startX + 180, startY + offset)
+                                         offset += 20
+                                     Next
+
+                                     offset += 10
+                                     e.Graphics.DrawString("----------------------------", fontBody, Brushes.Black, startX, startY + offset)
+                                     offset += 20
+                                     e.Graphics.DrawString($"TOTAL:    ₱{Cart.Sum(Function(c) c.Subtotal):N2}", fontHeader, Brushes.Black, startX, startY + offset)
+                                     offset += 30
+                                     e.Graphics.DrawString($"Method:   {method}", fontBody, Brushes.Black, startX, startY + offset)
+                                     offset += 20
+                                     e.Graphics.DrawString($"Paid:     ₱{paid:N2}", fontBody, Brushes.Black, startX, startY + offset)
+                                     offset += 20
+                                     e.Graphics.DrawString($"Change:   ₱{change:N2}", fontBody, Brushes.Black, startX, startY + offset)
+                                     offset += 40
+                                     e.Graphics.DrawString("THANK YOU FOR SHOPPING!", fontBody, Brushes.Black, startX, startY + offset)
+                                 End Sub
+
+        ' Show print preview so you don't waste paper testing
+        Dim ppd As New PrintPreviewDialog()
+        ppd.Document = pd
+        ppd.ShowDialog()
+    End Sub
 
 End Class
