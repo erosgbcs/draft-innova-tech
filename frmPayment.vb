@@ -1,52 +1,74 @@
-﻿Imports Guna.UI2.WinForms
-Imports TheArtOfDevHtmlRenderer.Adapters
-
-Public Class frmPayment
-    ' Data properties to pass back to the POS form
+﻿Public Class frmPayment
+    Public Property CartItems As List(Of CartItem) ' Receive the list from POS
     Public Property TotalAmount As Decimal
     Public Property AmountPaid As Decimal
     Public Property Change As Decimal
     Public Property PaymentMethod As String
     Public Property IsConfirmed As Boolean = False
 
-    ' When the form opens
     Private Sub frmPayment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lblTotalAmount.Text = "₱" & TotalAmount.ToString("N2")
+        ' Setup Columns
+        dgvItems.Columns.Clear()
+        dgvItems.Columns.Add("Code", "Code")
+        dgvItems.Columns.Add("Name", "Product")
+        dgvItems.Columns.Add("Qty", "Qty")
+        dgvItems.Columns.Add("Price", "Price")
+
+        dgvItems.Columns("Code").Visible = False ' Hide the code
+        dgvItems.Columns("Name").ReadOnly = True
+        dgvItems.Columns("Price").ReadOnly = True
+
+        ' Load items into grid
+        RefreshGrid()
+        UpdateTotals()
+
         rbcash.Checked = True
         txtAmountPaid.Focus()
     End Sub
 
-    ' Real-time Change Calculation
-    Private Sub txtAmountPaid_TextChanged(sender As Object, e As EventArgs) Handles txtAmountPaid.TextChanged
-        Dim paid As Decimal = 0
-        ' Cleaning the input of symbols and commas
-        Dim cleanInput As String = txtAmountPaid.Text.Replace("₱", "").Replace(",", "").Trim()
+    Private Sub RefreshGrid()
+        dgvItems.Rows.Clear()
+        For Each item In CartItems
+            dgvItems.Rows.Add(item.ProductCode, item.ProductName, item.Quantity, item.Price)
+        Next
+    End Sub
 
-        If Decimal.TryParse(cleanInput, paid) Then
-            AmountPaid = paid
-            Change = AmountPaid - TotalAmount
-
-            If Change >= 0 Then
-                lblChange.Text = "₱" & Change.ToString("N2")
-                lblChange.ForeColor = Color.ForestGreen
-            Else
-                lblChange.Text = "₱0.00"
-                lblChange.ForeColor = Color.DimGray
+    ' Update Total when quantity is edited in the grid
+    Private Sub dgvItems_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvItems.CellValueChanged
+        If e.RowIndex >= 0 AndAlso e.ColumnIndex = 2 Then ' If Qty column is changed
+            Dim newQty As Integer = 0
+            If Integer.TryParse(dgvItems.Rows(e.RowIndex).Cells(2).Value.ToString(), newQty) Then
+                ' Update the linked list
+                CartItems(e.RowIndex).Quantity = newQty
+                UpdateTotals()
             End If
-        Else
-            lblChange.Text = "₱0.00"
         End If
     End Sub
 
-    ' The Confirm Button Logic
+    Private Sub UpdateTotals()
+        TotalAmount = CartItems.Sum(Function(c) c.Price * c.Quantity)
+        lblTotalAmount.Text = "₱" & TotalAmount.ToString("N2")
+        CalculateChange()
+    End Sub
+
+    Private Sub CalculateChange()
+        Dim paid As Decimal = 0
+        If Decimal.TryParse(txtAmountPaid.Text, paid) Then
+            AmountPaid = paid
+            Change = AmountPaid - TotalAmount
+            lblChange.Text = "₱" & Math.Max(0, Change).ToString("N2")
+        End If
+    End Sub
+
+    Private Sub txtAmountPaid_TextChanged(sender As Object, e As EventArgs) Handles txtAmountPaid.TextChanged
+        CalculateChange()
+    End Sub
+
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
-        ' Check if amount is enough for cash payments
         If AmountPaid < TotalAmount AndAlso rbcash.Checked Then
-            MessageBox.Show("Amount provided is less than the Total Amount.", "Payment Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Insufficient amount.")
             Return
         End If
-
-        PaymentMethod = If(rbcash.Checked, "Cash", "GCash")
         IsConfirmed = True
         Me.DialogResult = DialogResult.OK
         Me.Close()

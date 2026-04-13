@@ -121,6 +121,23 @@ Partial Class frmPayment
         Me.Text = "Payment Processing"
         Me.ResumeLayout(False)
         Me.PerformLayout()
+        ' Add this section after your other control initializations
+        Me.dgvItems = New System.Windows.Forms.DataGridView()
+        CType(Me.dgvItems, System.ComponentModel.ISupportInitialize).BeginInit()
+
+        ' dgvItems Setup
+        Me.dgvItems.BackgroundColor = Color.White
+        Me.dgvItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvItems.Location = New Point(40, 400) ' Adjust Y-axis to fit below your previous controls
+        Me.dgvItems.Size = New Size(300, 150)
+        Me.dgvItems.Name = "dgvItems"
+        Me.dgvItems.AllowUserToAddRows = False
+        Me.dgvItems.RowHeadersVisible = False
+
+        ' Add to Controls
+        Me.Controls.Add(Me.dgvItems)
+        Me.ClientSize = New Size(380, 650) ' Increased height to fit the list
+        CType(Me.dgvItems, System.ComponentModel.ISupportInitialize).EndInit()
     End Sub
 
     ' DECLARATIONS: This is what connects the UI to the Logic
@@ -130,4 +147,5 @@ Partial Class frmPayment
     Friend WithEvents lblChange As System.Windows.Forms.Label
     Friend WithEvents btnConfirm As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents txtAmountPaid As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents dgvItems As System.Windows.Forms.DataGridView
 End Class

@@ -51,7 +51,7 @@ Public Class pos
     ' --- Product Display (Search Bar Removed) ---
     Private Sub RefreshProductDisplay(Optional filter As String = "")
         flpProduct1.Controls.Clear()
-
+        flpProduct1.SuspendLayout() ' Stop redrawing
         Dim lblProductHeader As New Label With {
                 .Text = "PRODUCT SELECTION",
                 .Font = New Font("Segoe UI", 14, FontStyle.Bold),
@@ -157,6 +157,7 @@ Public Class pos
             card.Controls.Add(btnAdd)
 
             flpProduct1.Controls.Add(card)
+            flpProduct1.ResumeLayout()
         Next
     End Sub
 
@@ -167,19 +168,32 @@ Public Class pos
 
         If TempStock(code) > 0 Then
             TempStock(code) -= 1
+
+            ' Update the Cart List
             Dim existing = Cart.FirstOrDefault(Function(c) c.ProductCode = code)
             If existing IsNot Nothing Then
                 existing.Quantity += 1
             Else
                 Cart.Add(New CartItem With {
-                        .ProductCode = code,
-                        .ProductName = name,
-                        .Price = price,
-                        .Quantity = 1
-                    })
+                .ProductCode = code,
+                .ProductName = name,
+                .Price = price,
+                .Quantity = 1
+            })
             End If
-            LoadCartCards()
-            RefreshProductDisplay()
+
+            ' --- OPTIMIZATION START ---
+            ' Update only the specific card's UI instead of RefreshProductDisplay()
+            For Each ctrl As Control In flpProduct1.Controls
+                Dim lblCode = ctrl.Controls.OfType(Of Label)().FirstOrDefault(Function(l) l.Name = "lblProductCode")
+                If lblCode IsNot Nothing AndAlso lblCode.Text = code Then
+                    UpdateSingleCardUI(ctrl, TempStock(code))
+                    Exit For
+                End If
+            Next
+            ' --- OPTIMIZATION END ---
+
+            LoadCartCards() ' Keep this, as the cart is small
         Else
             ShowToast("Item is out of stock!", False)
         End If
@@ -267,13 +281,13 @@ Public Class pos
 
     Private Sub AddCheckoutPanel()
         Dim summaryPanel As New RoundedShadowPanel With {
-                .Width = 260,
-                .Height = 300,
-                .BackColor = Color.White,
-                .Margin = New Padding(5, 20, 5, 5),
-                .CornerRadius = 12,
-                .ShadowSize = 4
-            }
+            .Width = 260,
+            .Height = 300,
+            .BackColor = Color.White,
+            .Margin = New Padding(5, 20, 5, 5),
+            .CornerRadius = 12,
+            .ShadowSize = 4
+        }
 
         Dim txtName As New TextBox With {.PlaceholderText = "Buyer Name", .Width = 220, .Location = New Point(20, 20)}
         Dim txtContact As New TextBox With {.PlaceholderText = "Contact No", .Width = 220, .Location = New Point(20, 60)}
@@ -281,53 +295,54 @@ Public Class pos
 
         Dim totalAmount As Decimal = Cart.Sum(Function(c) c.Subtotal)
         Dim lblTotal As New Label With {
-                .Text = "TOTAL: ₱" & totalAmount.ToString("N2"),
-                .Font = New Font("Segoe UI", 12, FontStyle.Bold),
-                .Location = New Point(20, 140),
-                .AutoSize = True
-            }
+            .Text = "TOTAL: ₱" & totalAmount.ToString("N2"),
+            .Font = New Font("Segoe UI", 12, FontStyle.Bold),
+            .Location = New Point(20, 140),
+            .AutoSize = True
+        }
 
         Dim btnConfirm As New RoundedButton With {
-                .Text = "CHECKOUT",
-                .BackColor = Color.FromArgb(0, 120, 215),
-                .ForeColor = Color.White,
-                .Location = New Point(20, 180),
-                .Width = 220,
-                .Height = 40
-            }
+            .Text = "CHECKOUT",
+            .BackColor = Color.FromArgb(0, 120, 215),
+            .ForeColor = Color.White,
+            .Location = New Point(20, 180),
+            .Width = 220,
+            .Height = 40
+        }
         StyleButton(btnConfirm)
 
-        ' Inside AddCheckoutPanel...
         AddHandler btnConfirm.Click, Sub()
-                                         If String.IsNullOrWhiteSpace(txtName.Text) Then
-                                             ShowToast("Please enter buyer name.", False)
+                                         ' 1. Basic Cart Check
+                                         If Cart.Count = 0 Then
+                                             ShowToast("Cart is empty!", False)
                                              Return
                                          End If
 
-                                         ' Show Payment Dialog
+                                         ' 2. VALIDATION: Check if fields are empty
+                                         If String.IsNullOrWhiteSpace(txtName.Text) OrElse
+                                        String.IsNullOrWhiteSpace(txtContact.Text) OrElse
+                                        String.IsNullOrWhiteSpace(txtAddress.Text) Then
+
+                                             MessageBox.Show("Please fill in all buyer information fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                                             Return ' Stop execution here
+                                         End If
+
+                                         ' 3. Proceed to Payment if validation passes
                                          Dim payDialog As New frmPayment()
-                                         payDialog.TotalAmount = totalAmount
+                                         payDialog.CartItems = Me.Cart
 
-                                         If payDialog.ShowDialog() = DialogResult.OK AndAlso payDialog.IsConfirmed Then
-                                             Dim itemsSummary As String = String.Join(", ", Cart.Select(Function(c) $"{c.ProductName} (x{c.Quantity})"))
+                                         If payDialog.ShowDialog() = DialogResult.OK Then
+                                             Dim itemsSummary As String = String.Join(", ", payDialog.CartItems.Select(Function(c) $"{c.ProductName} (x{c.Quantity})"))
 
-                                             ' Save to Database (Including payment details if your DB supports it)
-                                             If db.SaveSale(txtName.Text, txtAddress.Text, txtContact.Text, itemsSummary, totalAmount, totalAmount) Then
-
-                                                 ' Update the actual database stock
-                                                 For Each item In Cart
+                                             If db.SaveSale(txtName.Text, txtAddress.Text, txtContact.Text, itemsSummary, payDialog.TotalAmount, payDialog.AmountPaid) Then
+                                                 For Each item In payDialog.CartItems
                                                      db.UpdateStock(item.ProductCode, item.Quantity)
                                                  Next
 
-                                                 ' GENERATE RECEIPT
-                                                 GenerateReceipt(txtName.Text, payDialog.PaymentMethod, payDialog.AmountPaid, payDialog.Change)
-
-                                                 ShowToast("Transaction Successful!")
-
-                                                 ' Reset POS
+                                                 ShowToast("Sale Successful!")
                                                  Cart.Clear()
-                                                 TempStock.Clear()
                                                  LoadCartCards()
+                                                 ' Update product display to show final stock numbers
                                                  RefreshProductDisplay()
                                              End If
                                          End If
@@ -455,5 +470,24 @@ Public Class pos
         ppd.Document = pd
         ppd.ShowDialog()
     End Sub
+    Private Sub UpdateSingleCardUI(card As Control, currentStock As Integer)
+        Dim lblStock = card.Controls.OfType(Of Label)().FirstOrDefault(Function(l) l.Text.Contains("Stock"))
+        Dim btnAdd = card.Controls.OfType(Of Button)().FirstOrDefault()
 
+        If lblStock IsNot Nothing Then
+            If currentStock <= 0 Then
+                lblStock.Text = "❌ Out of Stock"
+                lblStock.ForeColor = Color.Red
+                If btnAdd IsNot Nothing Then btnAdd.Enabled = False
+            ElseIf currentStock <= 5 Then
+                lblStock.Text = "⚠️ Low Stock (" & currentStock & ")"
+                lblStock.ForeColor = Color.Orange
+                If btnAdd IsNot Nothing Then btnAdd.Enabled = True
+            Else
+                lblStock.Text = "✅ In Stock (" & currentStock & ")"
+                lblStock.ForeColor = Color.ForestGreen
+                If btnAdd IsNot Nothing Then btnAdd.Enabled = True
+            End If
+        End If
+    End Sub
 End Class
