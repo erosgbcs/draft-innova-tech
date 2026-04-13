@@ -174,7 +174,7 @@ Public Class frmdashboard
 
         chartsContainer.Controls.Add(CreateManualBarGraph("Weekly Revenue", dtSales, chartWidth))
         chartsContainer.Controls.Add(CreateManualPieChart("Top-Selling Products", dtSales, chartWidth))
-        chartsContainer.Controls.Add(CreateManualLineGraph("Growth Trend", dtSales, chartWidth))
+
         chartsContainer.Controls.Add(CreateDailyRevenueTrend("Daily Revenue Trend", dtSales, chartWidth))
         chartsContainer.Controls.Add(CreateGaugeChart("Sales Target Progress", db.GetTodaySales(), 100000, chartWidth))
 
@@ -354,13 +354,13 @@ Public Class frmdashboard
 
     Private Function CreateManualLineGraph(title As String, dt As DataTable, panelWidth As Integer) As Panel
         Dim panel As New Panel With {
-            .Width = panelWidth,
-            .Height = 280,
-            .BackColor = Color.White,
-            .Margin = New Padding(10),
-            .BorderStyle = BorderStyle.FixedSingle,
-            .Name = "line_" & title.Replace(" ", "_")
-        }
+                .Width = panelWidth,
+                .Height = 280,
+                .BackColor = Color.White,
+                .Margin = New Padding(10),
+                .BorderStyle = BorderStyle.FixedSingle,
+                .Name = "line_" & title.Replace(" ", "_")
+            }
         Dim lbl As New Label With {.Text = title, .Font = New Font("Segoe UI Semibold", 12), .ForeColor = Color.Navy, .Location = New Point(15, 10), .AutoSize = True}
         panel.Controls.Add(lbl)
 
@@ -633,6 +633,10 @@ Public Class frmdashboard
     End Sub
 
     Private Sub Guna2CustomGradientPanel3_Paint(sender As Object, e As PaintEventArgs) Handles Guna2CustomGradientPanel3.Paint
+
+    End Sub
+
+    Private Sub flpchart_Paint(sender As Object, e As PaintEventArgs) Handles flpchart.Paint
 
     End Sub
 End Class
