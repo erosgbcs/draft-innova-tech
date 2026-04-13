@@ -59,7 +59,7 @@ Partial Class frmdashboard
         MainStatsContainer.Controls.Add(Guna2DataGridView1)
         MainStatsContainer.Location = New Point(9, 129)
         MainStatsContainer.Name = "MainStatsContainer"
-        MainStatsContainer.Size = New Size(1297, 160)
+        MainStatsContainer.Size = New Size(1214, 186)
         MainStatsContainer.TabIndex = 46
         ' 
         ' Guna2DataGridView1
@@ -132,7 +132,7 @@ Partial Class frmdashboard
         Guna2CustomGradientPanel3.Margin = New Padding(2, 3, 2, 3)
         Guna2CustomGradientPanel3.Name = "Guna2CustomGradientPanel3"
         Guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = CustomizableEdges4
-        Guna2CustomGradientPanel3.Size = New Size(1299, 109)
+        Guna2CustomGradientPanel3.Size = New Size(1216, 109)
         Guna2CustomGradientPanel3.TabIndex = 59
         ' 
         ' Label2
@@ -212,7 +212,7 @@ Partial Class frmdashboard
         flpchart.Location = New Point(12, 321)
         flpchart.Name = "flpchart"
         flpchart.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        flpchart.Size = New Size(1294, 392)
+        flpchart.Size = New Size(1211, 392)
         flpchart.TabIndex = 61
         ' 
         ' flpinventoryinsights
@@ -221,7 +221,7 @@ Partial Class frmdashboard
         flpinventoryinsights.BackColor = Color.White
         flpinventoryinsights.Location = New Point(12, 719)
         flpinventoryinsights.Name = "flpinventoryinsights"
-        flpinventoryinsights.Size = New Size(1294, 160)
+        flpinventoryinsights.Size = New Size(1211, 160)
         flpinventoryinsights.TabIndex = 62
         ' 
         ' frmdashboard

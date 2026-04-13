@@ -16,7 +16,7 @@ Public Class frmdashboard
 
         SecurityManager.ApplyRestrictions(Me)
 
-        DashboardTimer.Interval = 30000
+        DashboardTimer.Interval = 100000
         DashboardTimer.Start()
 
         LoadDashboardStats()
@@ -465,8 +465,8 @@ Public Class frmdashboard
 
     Private Function CreateSummaryCard(title As String, value As String, icon As String) As Panel
         Dim card As New Panel With {
-        .Width = 280,
-        .Height = 140,
+        .Width = 265,
+        .Height = 145,
         .BackColor = Color.White,
         .Margin = New Padding(15),
         .Cursor = Cursors.Hand
@@ -474,7 +474,7 @@ Public Class frmdashboard
 
         Dim lblT As New Label With {.Text = title.ToUpper(), .Font = New Font("Segoe UI Semibold", 11), .ForeColor = Color.Navy, .Location = New Point(20, 20), .AutoSize = True}
         Dim lblV As New Label With {.Text = value, .Font = New Font("Segoe UI Variable Display", 28, FontStyle.Bold), .ForeColor = Color.FromArgb(30, 41, 59), .Location = New Point(15, 50), .AutoSize = True}
-        Dim lblIcon As New Label With {.Text = icon, .Font = New Font("Segoe UI", 24), .ForeColor = Color.Navy, .Location = New Point(210, 80), .AutoSize = True}
+        Dim lblIcon As New Label With {.Text = icon, .Font = New Font("Segoe UI", 24), .ForeColor = Color.Navy, .Location = New Point(195, 90), .AutoSize = True}
 
         AddHandler card.Paint, AddressOf Card_Paint
         card.Controls.Add(lblT)
