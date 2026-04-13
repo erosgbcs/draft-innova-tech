@@ -442,48 +442,17 @@ Public Class pos
         End Try
     End Sub
     Private Sub GenerateReceipt(buyer As String, method As String, paid As Decimal, change As Decimal)
-        Dim pd As New Printing.PrintDocument()
-        AddHandler pd.PrintPage, Sub(sender, e)
-                                     Dim fontHeader As New Font("Courier New", 14, FontStyle.Bold)
-                                     Dim fontBody As New Font("Courier New", 10)
-                                     Dim startX As Integer = 10
-                                     Dim startY As Integer = 10
-                                     Dim offset As Integer = 40
+        ' Create the instance of your new receipt form
+        Dim receiptForm As New frmReceipt()
 
-                                     e.Graphics.DrawString("OFFICIAL RECEIPT", fontHeader, Brushes.Black, startX, startY)
-                                     e.Graphics.DrawString("Date: " & DateTime.Now.ToString(), fontBody, Brushes.Black, startX, startY + offset)
-                                     offset += 20
-                                     e.Graphics.DrawString("Customer: " & buyer, fontBody, Brushes.Black, startX, startY + offset)
-                                     offset += 30
-                                     e.Graphics.DrawString("----------------------------", fontBody, Brushes.Black, startX, startY + offset)
-                                     offset += 20
+        ' Calculate the total again or pass it from the payment dialog
+        Dim totalAmount As Decimal = Cart.Sum(Function(c) c.Subtotal)
 
-                                     For Each item In Cart
-                                         Dim itemLine As String = $"{item.ProductName} x{item.Quantity}"
-                                         Dim priceLine As String = $"₱{item.Subtotal:N2}"
-                                         e.Graphics.DrawString(itemLine, fontBody, Brushes.Black, startX, startY + offset)
-                                         e.Graphics.DrawString(priceLine, fontBody, Brushes.Black, startX + 180, startY + offset)
-                                         offset += 20
-                                     Next
+        ' Call the display method we created in Step 2
+        receiptForm.DisplayReceipt(buyer, Me.Cart, totalAmount, paid, change)
 
-                                     offset += 10
-                                     e.Graphics.DrawString("----------------------------", fontBody, Brushes.Black, startX, startY + offset)
-                                     offset += 20
-                                     e.Graphics.DrawString($"TOTAL:    ₱{Cart.Sum(Function(c) c.Subtotal):N2}", fontHeader, Brushes.Black, startX, startY + offset)
-                                     offset += 30
-                                     e.Graphics.DrawString($"Method:   {method}", fontBody, Brushes.Black, startX, startY + offset)
-                                     offset += 20
-                                     e.Graphics.DrawString($"Paid:     ₱{paid:N2}", fontBody, Brushes.Black, startX, startY + offset)
-                                     offset += 20
-                                     e.Graphics.DrawString($"Change:   ₱{change:N2}", fontBody, Brushes.Black, startX, startY + offset)
-                                     offset += 40
-                                     e.Graphics.DrawString("THANK YOU FOR SHOPPING!", fontBody, Brushes.Black, startX, startY + offset)
-                                 End Sub
-
-        ' Show print preview so you don't waste paper testing
-        Dim ppd As New PrintPreviewDialog()
-        ppd.Document = pd
-        ppd.ShowDialog()
+        ' Show it as a pop-up window
+        receiptForm.ShowDialog()
     End Sub
     Private Sub UpdateSingleCardUI(card As Control, currentStock As Integer)
         Dim lblStock = card.Controls.OfType(Of Label)().FirstOrDefault(Function(l) l.Text.Contains("Stock"))
