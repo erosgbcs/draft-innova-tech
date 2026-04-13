@@ -88,12 +88,15 @@ Public Class pos
                 }
 
             Dim lblName As New Label With {
-                    .Name = "lblProductName",
-                    .Text = row("ProductName").ToString(),
-                    .Font = New Font("Segoe UI", 11, FontStyle.Bold),
-                    .Location = New Point(15, 15),
-                    .AutoSize = True
-                }
+    .Name = "lblProductName",
+    .Text = row("ProductName").ToString(),
+    .Font = New Font("Segoe UI", 11, FontStyle.Bold),
+    .Location = New Point(15, 15),
+    .AutoSize = False, ' Must be False for wrapping to work
+    .Width = 170,      ' Set this to fit inside your 200px card (accounting for margins)
+    .Height = 50,     ' Increase height to allow for 2 or more lines
+    .AutoEllipsis = True ' Optional: adds "..." if the name is still too long
+}
             Dim lblCode As New Label With {
     .Name = "lblProductCode",   ' <-- Add this
     .Text = row("ProductCode").ToString(),
@@ -245,7 +248,7 @@ Public Class pos
                     .Value = item.Quantity,
                     .Minimum = 1,
                     .Maximum = TempStock(item.ProductCode) + item.Quantity,
-                    .Location = New Point(150, 10),
+                    .Location = New Point(180, 60),
                     .Width = 60
                 }
             AddHandler nudQty.ValueChanged, Sub()
@@ -258,7 +261,7 @@ Public Class pos
 
             Dim btnRemove As New Button With {
                     .Text = "Remove",
-                    .Location = New Point(150, 40),
+                    .Location = New Point(100, 60),
                     .Width = 70
                 }
             AddHandler btnRemove.Click, Sub()
@@ -320,39 +323,51 @@ Public Class pos
 
                                          ' 2. VALIDATION: Check if fields are empty
                                          If String.IsNullOrWhiteSpace(txtName.Text) OrElse
-                                        String.IsNullOrWhiteSpace(txtContact.Text) OrElse
-                                        String.IsNullOrWhiteSpace(txtAddress.Text) Then
+                                            String.IsNullOrWhiteSpace(txtContact.Text) OrElse
+                                            String.IsNullOrWhiteSpace(txtAddress.Text) Then
 
                                              MessageBox.Show("Please fill in all buyer information fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                                             Return ' Stop execution here
+                                             Return
                                          End If
 
-                                         ' 3. Proceed to Payment if validation passes
+                                         ' 3. Proceed to Payment
                                          Dim payDialog As New frmPayment()
                                          payDialog.CartItems = Me.Cart
 
                                          If payDialog.ShowDialog() = DialogResult.OK Then
                                              Dim itemsSummary As String = String.Join(", ", payDialog.CartItems.Select(Function(c) $"{c.ProductName} (x{c.Quantity})"))
 
+                                             ' 4. Save to Database
                                              If db.SaveSale(txtName.Text, txtAddress.Text, txtContact.Text, itemsSummary, payDialog.TotalAmount, payDialog.AmountPaid) Then
+
+                                                 ' --- PRINT RECEIPT TRIGGER ---
+                                                 ' We do this BEFORE clearing the cart so the receipt has data to print
+                                                 Dim changeAmount As Decimal = payDialog.AmountPaid - payDialog.TotalAmount
+                                                 GenerateReceipt(txtName.Text, "Cash", payDialog.AmountPaid, changeAmount)
+                                                 ' -----------------------------
+
+                                                 ' 5. Update Stock
                                                  For Each item In payDialog.CartItems
                                                      db.UpdateStock(item.ProductCode, item.Quantity)
                                                  Next
 
                                                  ShowToast("Sale Successful!")
+
+                                                 ' 6. Reset UI
                                                  Cart.Clear()
                                                  LoadCartCards()
-                                                 ' Update product display to show final stock numbers
                                                  RefreshProductDisplay()
                                              End If
                                          End If
                                      End Sub
 
+        ' Add controls to the summary panel and add the panel to the cart flow panel
         summaryPanel.Controls.Add(txtName)
         summaryPanel.Controls.Add(txtContact)
         summaryPanel.Controls.Add(txtAddress)
         summaryPanel.Controls.Add(lblTotal)
         summaryPanel.Controls.Add(btnConfirm)
+
         flpCart.Controls.Add(summaryPanel)
     End Sub
 

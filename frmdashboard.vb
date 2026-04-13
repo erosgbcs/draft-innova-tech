@@ -242,24 +242,32 @@ Public Class frmdashboard
     End Function
 
     Private Function CreateManualPieChart(title As String, dt As DataTable, panelWidth As Integer) As Panel
-        ' Reworked: show Top Selling Products (from DatabaseHelper if available) otherwise fallback to previous revenue/category behavior
         Dim panel As New Panel With {
-            .Width = panelWidth,
-            .Height = 280,
-            .BackColor = Color.White,
-            .Margin = New Padding(10),
-            .BorderStyle = BorderStyle.FixedSingle,
-            .Name = "pie_" & title.Replace(" ", "_")
-        }
-        Dim lbl As New Label With {.Text = title, .Font = New Font("Segoe UI Semibold", 12), .ForeColor = Color.Navy, .Location = New Point(15, 10), .AutoSize = True}
+        .Width = panelWidth,
+        .Height = 320, ' Slightly increased height to accommodate wrapped text
+        .BackColor = Color.White,
+        .Margin = New Padding(10),
+        .BorderStyle = BorderStyle.FixedSingle,
+        .Name = "pie_" & title.Replace(" ", "_")
+    }
+
+        Dim lbl As New Label With {
+        .Text = title,
+        .Font = New Font("Segoe UI Semibold", 12),
+        .ForeColor = Color.Navy,
+        .Location = New Point(15, 10),
+        .AutoSize = True
+    }
         panel.Controls.Add(lbl)
 
-        ' Build slices: prefer a top-selling DataTable from DatabaseHelper
         Dim slices As New List(Of KeyValuePair(Of String, Double))
 
         Try
+            ' --- Data Extraction Logic ---
             Dim dbType = db.GetType()
             Dim topDt As DataTable = Nothing
+            Dim TopSellerCandidates As String() = {"GetTopSellingProducts", "GetTopProducts", "LoadTopSellers"}
+
             For Each candidate In TopSellerCandidates
                 Dim mi = dbType.GetMethod(candidate)
                 If mi IsNot Nothing Then
@@ -272,81 +280,71 @@ Public Class frmdashboard
             Next
 
             If topDt IsNot Nothing AndAlso topDt.Rows.Count > 0 Then
-                ' prefer ProductName and Quantity/TotalSold/Total
                 Dim qtyCol = If(topDt.Columns.Contains("Quantity"), "Quantity", If(topDt.Columns.Contains("TotalSold"), "TotalSold", If(topDt.Columns.Contains("Total"), "Total", Nothing)))
                 For Each r As DataRow In topDt.Rows
                     Dim name = If(topDt.Columns.Contains("ProductName") AndAlso Not IsDBNull(r("ProductName")), r("ProductName").ToString(), If(topDt.Columns.Count > 0, r(0).ToString(), "Item"))
-                    Dim value As Double = If(qtyCol IsNot Nothing AndAlso Not IsDBNull(r(qtyCol)), SafeToDouble(r(qtyCol)), 1)
+                    Dim value As Double = If(qtyCol IsNot Nothing AndAlso Not IsDBNull(r(qtyCol)), Convert.ToDouble(r(qtyCol)), 1)
                     slices.Add(New KeyValuePair(Of String, Double)(name, value))
                 Next
-                ' sort descending
                 slices = slices.OrderByDescending(Function(s) s.Value).ToList()
             End If
         Catch
-            ' ignore, fallback to revenue/category below
+            ' Fallback logic if reflection fails
         End Try
 
-        ' Fallback: if no top-selling table found, aggregate by category or date from passed dt
-        If slices.Count = 0 AndAlso dt IsNot Nothing Then
-            Dim categoryCol = dt.Columns.Cast(Of DataColumn)().FirstOrDefault(Function(c) {"Category", "SaleCategory", "ProductCategory", "CategoryName"}.Contains(c.ColumnName))?.ColumnName
-            Dim valueCol = dt.Columns.Cast(Of DataColumn)().FirstOrDefault(Function(c) {"DailyTotal", "Amount", "Revenue", "Total"}.Contains(c.ColumnName))?.ColumnName
-            If valueCol Is Nothing AndAlso dt.Columns.Count > 0 Then valueCol = dt.Columns(0).ColumnName
-
-            If categoryCol IsNot Nothing Then
-                Dim agg As New Dictionary(Of String, Double)(StringComparer.OrdinalIgnoreCase)
-                For Each r As DataRow In dt.Rows
-                    Dim k = If(Not r.IsNull(categoryCol), r(categoryCol).ToString(), "Unknown")
-                    Dim v = SafeToDouble(If(valueCol IsNot Nothing AndAlso dt.Columns.Contains(valueCol), r(valueCol), 0))
-                    If Not agg.TryAdd(k, v) Then agg(k) += v
-                Next
-                slices.AddRange(agg.OrderByDescending(Function(k) k.Value).Select(Function(k) New KeyValuePair(Of String, Double)(k.Key, k.Value)))
-            Else
-                For i = 0 To dt.Rows.Count - 1
-                    Dim label = If(dt.Columns.Contains("SaleDay") AndAlso Not IsDBNull(dt.Rows(i)("SaleDay")), DateTime.Parse(dt.Rows(i)("SaleDay").ToString()).ToString("MM/dd"), $"Row{i}")
-                    Dim val = If(dt.Columns.Contains("DailyTotal"), SafeToDouble(dt.Rows(i)("DailyTotal")), 0)
-                    slices.Add(New KeyValuePair(Of String, Double)(label, val))
-                Next
-                slices = slices.OrderByDescending(Function(s) s.Value).ToList()
-            End If
-        End If
-
+        ' Legend and Chart Painting
         AddHandler panel.Paint, Sub(sender, e)
                                     Dim g = e.Graphics
-                                    g.SmoothingMode = SmoothingMode.AntiAlias
+                                    g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+
                                     If slices Is Nothing OrElse slices.Count = 0 OrElse slices.Sum(Function(s) s.Value) <= 0 Then
-                                        g.DrawString("No data", New Font("Segoe UI", 9), Brushes.Gray, 40, 120)
+                                        g.DrawString("No data available", New Font("Segoe UI", 9), Brushes.Gray, 40, 120)
                                         Return
                                     End If
 
                                     Dim total = slices.Sum(Function(s) s.Value)
-                                    Dim pieSize = Math.Min(140, panel.ClientSize.Height - 120)
-                                    If pieSize <= 0 Then pieSize = 140
-                                    Dim rect = New Rectangle(30, 60, pieSize, pieSize)
-                                    Dim colors = New Color() {Color.FromArgb(79, 70, 229), Color.FromArgb(129, 140, 248), Color.FromArgb(199, 210, 254), Color.FromArgb(67, 56, 202), Color.FromArgb(99, 102, 241)}
-                                    Dim display = Math.Min(4, slices.Count)
-                                    Dim angle As Single = 0
-                                    For i = 0 To display - 1
-                                        Dim part = slices(i).Value
-                                        Dim sweep = CSng((part / total) * 360.0)
-                                        Using br As New SolidBrush(colors(i Mod colors.Length))
-                                            g.FillPie(br, rect, angle, sweep)
-                                            g.FillRectangle(br, rect.Right + 10, rect.Top + (i * 20), 12, 12)
-                                            Dim percentage As Double = Math.Round((part / total) * 100, 1)
-                                            g.DrawString($"{slices(i).Key}: {If(title.Contains("Top", StringComparison.OrdinalIgnoreCase), $"{part:N0}", $"₱{part:N0}")} ({percentage}%)",
-             New Font("Segoe UI", 8), Brushes.DimGray, rect.Right + 30, rect.Top + (i * 20))
+                                    Dim pieSize = 130
+                                    Dim rect = New Rectangle(20, 60, pieSize, pieSize)
+                                    Dim colors = {Color.FromArgb(79, 70, 229), Color.FromArgb(129, 140, 248), Color.FromArgb(199, 210, 254), Color.FromArgb(67, 56, 202), Color.FromArgb(99, 102, 241)}
 
+                                    Dim displayCount = Math.Min(4, slices.Count)
+                                    Dim currentAngle As Single = 0
+                                    Dim legendYOffset = 60
+                                    Dim itemHeight = 45 ' Height allocated for each legend item (allows for 2 lines)
+
+                                    For i = 0 To displayCount - 1
+                                        Dim partValue = slices(i).Value
+                                        Dim sweep = CSng((partValue / total) * 360.0)
+                                        Dim percentage = Math.Round((partValue / total) * 100, 1)
+
+                                        Using br As New SolidBrush(colors(i Mod colors.Length))
+                                            ' Draw Pie Slice
+                                            g.FillPie(br, rect, currentAngle, sweep)
+
+                                            ' Draw Legend Color Box
+                                            g.FillRectangle(br, rect.Right + 15, legendYOffset + (i * itemHeight), 12, 12)
+
+                                            ' --- WRAPPING TEXT LOGIC ---
+                                            Dim labelText = $"{slices(i).Key}: {If(title.Contains("Top"), $"{partValue:N0}", $"₱{partValue:N0}")} ({percentage}%)"
+                                            Dim textRect As New RectangleF(rect.Right + 35, legendYOffset + (i * itemHeight) - 2, panel.Width - (rect.Right + 50), itemHeight - 5)
+
+                                            g.DrawString(labelText, New Font("Segoe UI", 8), Brushes.DimGray, textRect)
                                         End Using
-                                        angle += sweep
+                                        currentAngle += sweep
                                     Next
-                                    If slices.Count > display Then
-                                        Dim others = slices.Skip(display).Sum(Function(s) s.Value)
-                                        Dim sweep = CSng((others / total) * 360.0)
-                                        Dim othersPct As Double = Math.Round((others / total) * 100, 1)
-                                        Using br As New SolidBrush(colors(display Mod colors.Length))
-                                            g.FillPie(br, rect, angle, sweep)
-                                            g.FillRectangle(br, rect.Right + 10, rect.Top + (display * 20), 12, 12)
-                                            g.DrawString($"Others: {If(title.Contains("Top", StringComparison.OrdinalIgnoreCase), $"{others:N0}", $"₱{others:N0}")} ({othersPct}%)",
-                                                         New Font("Segoe UI", 8), Brushes.DimGray, rect.Right + 30, rect.Top + (display * 20))
+
+                                    ' Handle "Others" category if more than 4 items exist
+                                    If slices.Count > displayCount Then
+                                        Dim othersValue = slices.Skip(displayCount).Sum(Function(s) s.Value)
+                                        Dim sweep = CSng((othersValue / total) * 360.0)
+                                        Dim percentage = Math.Round((othersValue / total) * 100, 1)
+
+                                        Using br As New SolidBrush(colors(displayCount Mod colors.Length))
+                                            g.FillPie(br, rect, currentAngle, sweep)
+                                            g.FillRectangle(br, rect.Right + 15, legendYOffset + (displayCount * itemHeight), 12, 12)
+
+                                            Dim othersRect As New RectangleF(rect.Right + 35, legendYOffset + (displayCount * itemHeight) - 2, panel.Width - (rect.Right + 50), itemHeight)
+                                            g.DrawString($"Others: ({percentage}%)", New Font("Segoe UI", 8), Brushes.DimGray, othersRect)
                                         End Using
                                     End If
                                 End Sub
