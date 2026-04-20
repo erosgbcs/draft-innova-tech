@@ -24,30 +24,44 @@ Partial Class frmReceipt
     Private Sub InitializeComponent()
         rtbReceipt = New RichTextBox()
         btnDone = New Button()
+        btnPrintreceipt = New Button()
         SuspendLayout()
         ' 
         ' rtbReceipt
         ' 
         rtbReceipt.Location = New Point(1, 0)
         rtbReceipt.Name = "rtbReceipt"
-        rtbReceipt.Size = New Size(391, 347)
+        rtbReceipt.Size = New Size(397, 347)
         rtbReceipt.TabIndex = 0
         rtbReceipt.Text = ""
         ' 
         ' btnDone
         ' 
-        btnDone.Location = New Point(143, 353)
+        btnDone.BackColor = Color.Red
+        btnDone.ForeColor = Color.White
+        btnDone.Location = New Point(223, 357)
         btnDone.Name = "btnDone"
-        btnDone.Size = New Size(75, 23)
+        btnDone.Size = New Size(89, 26)
         btnDone.TabIndex = 1
-        btnDone.Text = "Button1"
-        btnDone.UseVisualStyleBackColor = True
+        btnDone.Text = "Exit"
+        btnDone.UseVisualStyleBackColor = False
+        ' 
+        ' btnPrintreceipt
+        ' 
+        btnPrintreceipt.BackColor = Color.DodgerBlue
+        btnPrintreceipt.Location = New Point(74, 355)
+        btnPrintreceipt.Name = "btnPrintreceipt"
+        btnPrintreceipt.Size = New Size(115, 28)
+        btnPrintreceipt.TabIndex = 2
+        btnPrintreceipt.Text = "Print Receipt"
+        btnPrintreceipt.UseVisualStyleBackColor = False
         ' 
         ' frmReceipt
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(393, 392)
+        ClientSize = New Size(402, 388)
+        Controls.Add(btnPrintreceipt)
         Controls.Add(btnDone)
         Controls.Add(rtbReceipt)
         Name = "frmReceipt"
@@ -57,4 +71,5 @@ Partial Class frmReceipt
 
     Public WithEvents rtbReceipt As RichTextBox
     Friend WithEvents btnDone As Button
+    Friend WithEvents btnPrintreceipt As Button
 End Class
