@@ -51,6 +51,8 @@ Partial Class frmInventory
         Label2 = New Label()
         lblTitle = New Label()
         Guna2Button7 = New Guna.UI2.WinForms.Guna2Button()
+        txtSize = New TextBox()
+        lblSize = New Label()
         CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         Guna2CustomGradientPanel1.SuspendLayout()
         Guna2CustomGradientPanel3.SuspendLayout()
@@ -86,7 +88,7 @@ Partial Class frmInventory
         btnAddProduct.BackColor = Color.FromArgb(CByte(45), CByte(84), CByte(150))
         btnAddProduct.FlatStyle = FlatStyle.Flat
         btnAddProduct.ForeColor = Color.White
-        btnAddProduct.Location = New Point(973, 94)
+        btnAddProduct.Location = New Point(1106, 97)
         btnAddProduct.Margin = New Padding(4, 3, 4, 3)
         btnAddProduct.Name = "btnAddProduct"
         btnAddProduct.Size = New Size(32, 25)
@@ -99,7 +101,7 @@ Partial Class frmInventory
         btnDelete.BackColor = Color.Red
         btnDelete.FlatStyle = FlatStyle.Flat
         btnDelete.ForeColor = Color.White
-        btnDelete.Location = New Point(918, 94)
+        btnDelete.Location = New Point(1062, 97)
         btnDelete.Margin = New Padding(4, 3, 4, 3)
         btnDelete.Name = "btnDelete"
         btnDelete.Size = New Size(36, 25)
@@ -112,7 +114,7 @@ Partial Class frmInventory
         btnUpdate.BackColor = Color.Green
         btnUpdate.FlatStyle = FlatStyle.Flat
         btnUpdate.ForeColor = Color.Wheat
-        btnUpdate.Location = New Point(541, 94)
+        btnUpdate.Location = New Point(918, 97)
         btnUpdate.Margin = New Padding(4, 3, 4, 3)
         btnUpdate.Name = "btnUpdate"
         btnUpdate.Size = New Size(127, 28)
@@ -125,7 +127,7 @@ Partial Class frmInventory
         BtnExportcsv.BackColor = Color.Lime
         BtnExportcsv.FlatStyle = FlatStyle.Flat
         BtnExportcsv.Font = New Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        BtnExportcsv.Location = New Point(805, 94)
+        BtnExportcsv.Location = New Point(1044, 11)
         BtnExportcsv.Margin = New Padding(4, 3, 4, 3)
         BtnExportcsv.Name = "BtnExportcsv"
         BtnExportcsv.Size = New Size(94, 25)
@@ -138,7 +140,7 @@ Partial Class frmInventory
         printreport.BackColor = SystemColors.Highlight
         printreport.FlatStyle = FlatStyle.Flat
         printreport.ForeColor = Color.Black
-        printreport.Location = New Point(687, 96)
+        printreport.Location = New Point(918, 12)
         printreport.Margin = New Padding(3, 2, 3, 2)
         printreport.Name = "printreport"
         printreport.Size = New Size(111, 25)
@@ -152,6 +154,8 @@ Partial Class frmInventory
         Guna2CustomGradientPanel1.BorderColor = Color.Black
         Guna2CustomGradientPanel1.BorderRadius = 20
         Guna2CustomGradientPanel1.BorderThickness = 1
+        Guna2CustomGradientPanel1.Controls.Add(lblSize)
+        Guna2CustomGradientPanel1.Controls.Add(txtSize)
         Guna2CustomGradientPanel1.Controls.Add(Label3)
         Guna2CustomGradientPanel1.Controls.Add(Label4)
         Guna2CustomGradientPanel1.Controls.Add(btnUpdate)
@@ -351,6 +355,26 @@ Partial Class frmInventory
         Guna2Button7.TabIndex = 26
         Guna2Button7.Text = "Logout"
         ' 
+        ' txtSize
+        ' 
+        txtSize.Location = New Point(537, 96)
+        txtSize.Margin = New Padding(4, 3, 4, 3)
+        txtSize.Name = "txtSize"
+        txtSize.PlaceholderText = "Size"
+        txtSize.Size = New Size(193, 23)
+        txtSize.TabIndex = 53
+        ' 
+        ' lblSize
+        ' 
+        lblSize.AutoSize = True
+        lblSize.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblSize.ForeColor = Color.White
+        lblSize.Location = New Point(536, 75)
+        lblSize.Name = "lblSize"
+        lblSize.Size = New Size(36, 20)
+        lblSize.TabIndex = 54
+        lblSize.Text = "Size"
+        ' 
         ' frmInventory
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -398,4 +422,6 @@ Partial Class frmInventory
     Friend WithEvents Label2 As Label
     Friend WithEvents Guna2Button7 As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents lblTitle As Label
+    Friend WithEvents lblSize As Label
+    Friend WithEvents txtSize As TextBox
 End Class

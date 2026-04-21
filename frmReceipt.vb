@@ -1,4 +1,28 @@
-﻿Public Class frmReceipt
+﻿Imports System.Drawing.Printing
+
+Public Class frmReceipt
+
+    Dim WithEvents pd As New PrintDocument
+
+    ' PRINT BUTTON
+    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrintreceipt.Click
+        Dim pdialog As New PrintDialog()
+        pdialog.Document = pd
+
+        If pdialog.ShowDialog() = DialogResult.OK Then
+            pd.Print()
+        End If
+    End Sub
+
+    ' ACTUAL PRINT CONTENT (KINUKUHA SA rtbReceipt)
+    Private Sub pd_PrintPage(sender As Object, e As PrintPageEventArgs) Handles pd.PrintPage
+        Dim font As New Font("Courier New", 10)
+        Dim leftMargin As Integer = 20
+        Dim topMargin As Integer = 20
+
+        e.Graphics.DrawString(rtbReceipt.Text, font, Brushes.Black, leftMargin, topMargin)
+    End Sub
+
 
     ' Allow the user to drag the form even without a border
     Private Sub frmReceipt_Load(sender As Object, e As EventArgs) Handles MyBase.Load
