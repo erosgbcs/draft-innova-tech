@@ -38,7 +38,6 @@ Public Class User
     End Sub
 
     ' 2. THE "STAFF DOING" LOGIC
-    ' When a user is clicked, show their specific activity
     Private Sub DgvUsers_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUsers.CellClick
         If e.RowIndex >= 0 Then
             Dim row As DataGridViewRow = dgvUsers.Rows(e.RowIndex)
@@ -51,11 +50,9 @@ Public Class User
 
             lblActivityHeader.Text = "Recent Sales Processed by: " & staffDisplayName
 
-            ' Fetch this specific staff's work from the database
             If Not String.IsNullOrEmpty(selectedUser) Then
                 LoadStaffActivity(selectedUser)
             Else
-                ' Clear or indicate no selection
                 dgvActivity.DataSource = Nothing
                 lblActivityHeader.Text = "No staff selected."
                 lblActivityHeader.ForeColor = Color.Gray
@@ -66,17 +63,14 @@ Public Class User
     Private Sub DgvUsers_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvUsers.CellFormatting
         If dgvUsers.Columns(e.ColumnIndex).Name = "IsActive" Then
             Dim raw = e.Value
-
             Dim isActive As Boolean
 
             If raw Is Nothing OrElse IsDBNull(raw) Then
-                ' treat missing/null as False (deactivated) or change to desired default
                 isActive = False
             Else
                 Try
                     isActive = Convert.ToBoolean(raw)
                 Catch ex As Exception
-                    ' Fallback for numeric types (e.g., Int64 0/1)
                     Try
                         Dim n As Long = Convert.ToInt64(raw)
                         isActive = (n <> 0)
@@ -99,14 +93,17 @@ Public Class User
             Dim dt As DataTable = db.GetUserActivity(username)
             dgvActivity.DataSource = dt
 
-            ' --- Advanced Grid Formatting ---
+            ' --- Advanced Grid Formatting with Text Wrap ---
             With dgvActivity
                 .BackgroundColor = Color.White
                 .RowHeadersVisible = False
                 .BorderStyle = BorderStyle.None
                 .EnableHeadersVisualStyles = False
 
-                ' Header Style (Slate Gray for secondary grid)
+                ' IMPORTANT: Allow rows to expand for wrapped text
+                .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+
+                ' Header Style
                 .ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(71, 85, 105)
                 .ColumnHeadersDefaultCellStyle.ForeColor = Color.White
                 .ColumnHeadersHeight = 35
@@ -117,10 +114,11 @@ Public Class User
                     .Columns("SaleID").Width = 50
                 End If
 
-                ' 2. NEW: Format Item Bought Column
+                ' 2. Format Item Bought Column (WRAP ENABLED)
                 If .Columns.Contains("ItemBought") Then
                     .Columns("ItemBought").HeaderText = "Product(s) Sold"
-                    .Columns("ItemBought").MinimumWidth = 150 ' Give it more room
+                    .Columns("ItemBought").MinimumWidth = 200
+                    .Columns("ItemBought").DefaultCellStyle.WrapMode = DataGridViewTriState.True
                     .Columns("ItemBought").DefaultCellStyle.ForeColor = Color.FromArgb(51, 65, 85)
                 End If
 
@@ -128,7 +126,7 @@ Public Class User
                 If .Columns.Contains("Total") Then
                     .Columns("Total").HeaderText = "Amount"
                     .Columns("Total").DefaultCellStyle.Format = "N2"
-                    .Columns("Total").DefaultCellStyle.ForeColor = Color.FromArgb(22, 163, 74) ' Success Green
+                    .Columns("Total").DefaultCellStyle.ForeColor = Color.FromArgb(22, 163, 74)
                     .Columns("Total").DefaultCellStyle.Font = New Font("Segoe UI", 9, FontStyle.Bold)
                     .Columns("Total").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                 End If
@@ -141,7 +139,6 @@ Public Class User
                 .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             End With
 
-            ' Update UI if no data
             If dt.Rows.Count = 0 Then
                 lblActivityHeader.Text = "No sales recorded for this staff member."
                 lblActivityHeader.ForeColor = Color.Gray
@@ -152,7 +149,7 @@ Public Class User
         End Try
     End Sub
 
-    ' 3. TOGGLE STATUS (Deactivate/Activate Staff)
+    ' 3. TOGGLE STATUS
     Private Sub BtnToggleStatus_Click(sender As Object, e As EventArgs) Handles btnToggleStatus.Click
         If dgvUsers.SelectedRows.Count > 0 Then
             Dim userIdObj = dgvUsers.SelectedRows(0).Cells("UserID").Value
@@ -177,7 +174,6 @@ Public Class User
 
             If userId >= 0 Then
                 Dim newStatus As Boolean = Not currentStatus
-
                 If db.UpdateUserStatus(userId, newStatus) Then
                     MessageBox.Show("Staff status updated successfully!")
                     RefreshUserList()
@@ -192,11 +188,12 @@ Public Class User
     Private Sub RefreshInventoryLogs()
         Try
             Dim dtLogs As DataTable = db.GetInventoryLogs()
-
-            ' If you want to use the same dgvActivity grid to show these:
             dgvActivity.DataSource = dtLogs
 
             With dgvActivity
+                ' IMPORTANT: Allow rows to expand for wrapped text
+                .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+
                 If .Columns.Contains("LogID") Then .Columns("LogID").Visible = False
 
                 If .Columns.Contains("Username") Then
@@ -204,14 +201,24 @@ Public Class User
                 End If
 
                 If .Columns.Contains("Action") Then
-                    .Columns("Action").DefaultCellStyle.ForeColor = Color.FromArgb(37, 99, 235) ' Blue for actions
+                    .Columns("Action").HeaderText = "Action Details"
+                    .Columns("Action").DefaultCellStyle.ForeColor = Color.FromArgb(37, 99, 235)
                     .Columns("Action").DefaultCellStyle.Font = New Font("Segoe UI", 9, FontStyle.Bold)
                 End If
+
+                ' --- ADD THIS BLOCK FOR THE DETAILS COLUMN ---
+                If .Columns.Contains("Details") Then
+                    .Columns("Details").HeaderText = "Details"
+                    .Columns("Details").DefaultCellStyle.WrapMode = DataGridViewTriState.True
+                    .Columns("Details").MinimumWidth = 250 ' Gives the text enough room to wrap
+                End If
+                ' ----------------------------------------------
 
                 If .Columns.Contains("LogDate") Then
                     .Columns("LogDate").HeaderText = "Timestamp"
                 End If
 
+                ' Change Fill mode to make sure "Details" takes up most of the space
                 .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             End With
 
