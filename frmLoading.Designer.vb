@@ -84,6 +84,7 @@ Partial Class frmLoading
         ClientSize = New Size(906, 535)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.FixedSingle
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "FrmLoading"
         StartPosition = FormStartPosition.CenterScreen
         Text = "frmLoading"
