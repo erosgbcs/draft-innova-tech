@@ -51,161 +51,156 @@ Public Class pos
     ' --- Product Display (Search Bar Removed) ---
     Private Sub RefreshProductDisplay(Optional filter As String = "")
         flpProduct1.Controls.Clear()
-        flpProduct1.SuspendLayout()
+        flpProduct1.SuspendLayout() ' Stop redrawing para mabilis
 
         Try
+            ' 1. Header ng Selection
+            Dim lblProductHeader As New Label With {
+            .Text = "PRODUCT SELECTION",
+            .Font = New Font("Segoe UI", 14, FontStyle.Bold),
+            .ForeColor = Color.FromArgb(64, 64, 64),
+            .Width = flpProduct1.Width - 30,
+            .Height = 40,
+            .TextAlign = ContentAlignment.MiddleLeft,
+            .Margin = New Padding(10, 20, 0, 10)
+        }
+            flpProduct1.Controls.Add(lblProductHeader)
+
+            Dim selectedSizeLabel As New Label With {.Text = "1", .Visible = False} ' Default size is 1
+
+            Dim btnSize1 As New Button With {
+    .Text = "1", .Size = New Point(40, 40), .Location = New Point(15, 130),
+    .BackColor = Color.FromArgb(0, 120, 215), .ForeColor = Color.White, .FlatStyle = FlatStyle.Flat
+}
+            Dim btnSize2 As New Button With {
+    .Text = "2", .Size = New Point(40, 40), .Location = New Point(60, 130),
+    .BackColor = Color.White, .ForeColor = Color.Black, .FlatStyle = FlatStyle.Flat
+}
+            AddHandler btnSize1.Click, Sub()
+                                           btnSize1.BackColor = Color.FromArgb(0, 120, 215) : btnSize1.ForeColor = Color.White
+                                           btnSize2.BackColor = Color.White : btnSize2.ForeColor = Color.Black
+                                           selectedSizeLabel.Text = "1"
+                                       End Sub
+            AddHandler btnSize2.Click, Sub()
+                                           btnSize2.BackColor = Color.FromArgb(0, 120, 215) : btnSize2.ForeColor = Color.White
+                                           btnSize1.BackColor = Color.White : btnSize1.ForeColor = Color.Black
+                                           selectedSizeLabel.Text = "2"
+                                       End Sub
+
+
+            ' 2. Load Data
             Dim dt As DataTable = db.LoadProducts()
 
-            Dim groupedProducts = dt.AsEnumerable().
-            GroupBy(Function(r) r("ProductName").ToString())
-
-            For Each productGroup In groupedProducts
-                Dim firstVariant = productGroup.First()
-
-                ' FILTER
+            For Each row As DataRow In dt.Rows
+                ' FILTERING
                 If Not String.IsNullOrEmpty(filter) AndAlso
-               Not firstVariant("ProductName").ToString().ToLower().Contains(filter.ToLower()) Then
+               Not row("ProductName").ToString().ToLower().Contains(filter.ToLower()) Then
                     Continue For
                 End If
 
-                ' ===== CARD =====
+                ' Get Stock for this specific product/row
+                Dim productCode As String = row("ProductCode").ToString()
+                If Not TempStock.ContainsKey(productCode) Then
+                    TempStock(productCode) = Convert.ToInt32(row("Stock"))
+                End If
+                Dim currentStock As Integer = TempStock(productCode)
+
+                ' ===== CARD LAYOUT =====
                 Dim card As New RoundedShadowPanel With {
                 .Width = 200,
-                .Height = 250,
+                .Height = 220,
                 .Margin = New Padding(10),
                 .BackColor = Color.White,
                 .CornerRadius = 15,
                 .ShadowSize = 5
             }
 
-                ' NAME
+                ' PRODUCT NAME
                 Dim lblName As New Label With {
-                .Text = firstVariant("ProductName").ToString().ToUpper(),
+                .Text = row("ProductName").ToString().ToUpper(),
                 .Font = New Font("Segoe UI", 10, FontStyle.Bold),
                 .Location = New Point(15, 15),
-                .Width = 170
+                .Width = 170,
+                .Height = 45,
+                .AutoEllipsis = True
+            }
+
+                ' CATEGORY
+                Dim lblCategory As New Label With {
+                .Text = row("Category").ToString(),
+                .Font = New Font("Segoe UI", 8, FontStyle.Italic),
+                .ForeColor = Color.DimGray,
+                .Location = New Point(15, 60),
+                .AutoSize = True
             }
 
                 ' PRICE
                 Dim lblPrice As New Label With {
-                .Text = "₱" & Convert.ToDecimal(firstVariant("Price")).ToString("N2"),
+                .Text = "₱" & Convert.ToDecimal(row("Price")).ToString("N2"),
                 .Font = New Font("Segoe UI", 11, FontStyle.Bold),
                 .ForeColor = Color.FromArgb(0, 120, 215),
-                .Location = New Point(15, 50),
+                .Location = New Point(15, 80),
                 .AutoSize = True
             }
 
-                ' STOCK
+                ' STOCK LOGIC
+                Dim stockText As String = ""
+                Dim stockColor As Color = Color.Black
+                If currentStock <= 0 Then
+                    stockText = "❌ OUT OF STOCK"
+                    stockColor = Color.Red
+                ElseIf currentStock <= 5 Then
+                    stockText = "⚠️ LOW STOCK (" & currentStock & ")"
+                    stockColor = Color.Orange
+                Else
+                    stockText = "✅ IN STOCK (" & currentStock & ")"
+                    stockColor = Color.ForestGreen
+                End If
+
                 Dim lblStock As New Label With {
+                .Text = stockText,
+                .ForeColor = stockColor,
                 .Font = New Font("Segoe UI", 8, FontStyle.Bold),
-                .Location = New Point(15, 75),
+                .Location = New Point(15, 110),
                 .AutoSize = True
             }
 
-                ' 🔥 DYNAMIC SIZE LABEL (ITO YUNG MAGBABAGO)
-                Dim lblSize As New Label With {
-                .Text = "Size: Small",
-                .Font = New Font("Segoe UI", 9, FontStyle.Bold),
-                .Location = New Point(15, 95),
+                ' PRODUCT CODE (Small text)
+                Dim lblCode As New Label With {
+                .Text = "Code: " & productCode,
+                .Font = New Font("Segoe UI", 7),
+                .ForeColor = Color.Gray,
+                .Location = New Point(15, 130),
                 .AutoSize = True
             }
 
-                ' VARIANT PANEL
-                Dim pnlVariants As New FlowLayoutPanel With {
-                .Location = New Point(15, 120),
-                .Size = New Size(170, 50)
-            }
-
-                ' ADD BUTTON
+                ' ADD TO CART BUTTON
                 Dim btnAdd As New RoundedButton With {
                 .Text = "Add to Cart",
-                .Location = New Point(15, 180),
+                .Location = New Point(15, 160),
                 .Width = 170,
                 .Height = 35,
                 .BackColor = Color.FromArgb(0, 120, 215),
-                .ForeColor = Color.White
+                .ForeColor = Color.White,
+                .Enabled = (currentStock > 0)
             }
 
-                card.Tag = firstVariant
-
-                ' ===== VARIANTS =====
-                Dim sizeList As New List(Of String)
-
-                Dim variantCount As Integer = 1
-
-                For Each variantRow In productGroup
-
-                    Dim sizeValue As String = variantRow("Size").ToString()
-                    sizeList.Add(sizeValue)
-
-                    Dim btnVar As New Button With {
-                    .Text = variantCount.ToString(),
-                    .Width = 35,
-                    .Height = 30,
-                    .FlatStyle = FlatStyle.Flat,
-                    .BackColor = Color.FromArgb(240, 240, 240),
-                    .Tag = variantRow
-                }
-
-                    btnVar.FlatAppearance.BorderSize = 1
-
-                    AddHandler btnVar.Click, Sub(s, ev)
-
-                                                 Dim selectedRow = CType(CType(s, Button).Tag, DataRow)
-                                                 card.Tag = selectedRow
-
-                                                 ' UPDATE PRICE
-                                                 lblPrice.Text = "₱" & Convert.ToDecimal(selectedRow("Price")).ToString("N2")
-
-                                                 ' UPDATE STOCK
-                                                 Dim stockVal As Integer = Convert.ToInt32(selectedRow("Stock"))
-                                                 If stockVal <= 0 Then
-                                                     lblStock.Text = "❌ OUT OF STOCK"
-                                                     lblStock.ForeColor = Color.Red
-                                                     btnAdd.Enabled = False
-                                                 Else
-                                                     lblStock.Text = "✅ STOCK: " & stockVal
-                                                     lblStock.ForeColor = Color.Green
-                                                     btnAdd.Enabled = True
-                                                 End If
-
-                                                 ' 🔥 UPDATE SIZE LABEL (ITO ANG MAIN)
-                                                 Dim index As Integer = pnlVariants.Controls.IndexOf(CType(s, Button))
-                                                 lblSize.Text = "Size: " & sizeList(index)
-
-                                                 ' highlight
-                                                 For Each b As Button In pnlVariants.Controls
-                                                     b.BackColor = Color.FromArgb(240, 240, 240)
-                                                 Next
-                                                 CType(s, Button).BackColor = Color.FromArgb(0, 120, 215)
-
-                                             End Sub
-
-                    pnlVariants.Controls.Add(btnVar)
-
-                    If variantCount = 1 Then btnVar.PerformClick()
-                    variantCount += 1
-                Next
-
-                ' ADD TO CART
-                AddHandler btnAdd.Click, Sub()
-                                             AddToCart(CType(card.Tag, DataRow))
-                                         End Sub
+                AddHandler btnAdd.Click, Sub() AddToCart(row)
                 StyleButton(btnAdd)
 
-                ' ASSEMBLE
+                ' ASSEMBLE CARD
                 card.Controls.Add(lblName)
+                card.Controls.Add(lblCategory)
                 card.Controls.Add(lblPrice)
                 card.Controls.Add(lblStock)
-                card.Controls.Add(lblSize)
-                card.Controls.Add(pnlVariants)
+                card.Controls.Add(lblCode)
                 card.Controls.Add(btnAdd)
 
                 flpProduct1.Controls.Add(card)
             Next
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
+            MessageBox.Show("Display Error: " & ex.Message)
         Finally
             flpProduct1.ResumeLayout()
         End Try

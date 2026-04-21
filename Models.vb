@@ -8,6 +8,7 @@ Public Class Product
     Public Property Category As String
     Public Property Price As Decimal
     Public Property Stock As Integer
+    Public Property Size As String
 End Class
 
 Public Class CartItem

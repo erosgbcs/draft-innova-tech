@@ -55,6 +55,7 @@
     .Code = txtProductCode.Text,
     .Name = txtProductName.Text,
     .Category = txtCategory.Text,
+    .Size = txtSize.Text,
     .Price = price,
     .Stock = stock
 }

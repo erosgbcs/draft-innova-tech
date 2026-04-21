@@ -37,6 +37,8 @@ Partial Class frmInventory
         BtnExportcsv = New Button()
         printreport = New Button()
         Guna2CustomGradientPanel1 = New Guna.UI2.WinForms.Guna2CustomGradientPanel()
+        lblSize = New Label()
+        txtSize = New TextBox()
         Label3 = New Label()
         Label4 = New Label()
         Label7 = New Label()
@@ -51,8 +53,6 @@ Partial Class frmInventory
         Label2 = New Label()
         lblTitle = New Label()
         Guna2Button7 = New Guna.UI2.WinForms.Guna2Button()
-        txtSize = New TextBox()
-        lblSize = New Label()
         CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         Guna2CustomGradientPanel1.SuspendLayout()
         Guna2CustomGradientPanel3.SuspendLayout()
@@ -184,6 +184,26 @@ Partial Class frmInventory
         Guna2CustomGradientPanel1.ShadowDecoration.Enabled = True
         Guna2CustomGradientPanel1.Size = New Size(1148, 138)
         Guna2CustomGradientPanel1.TabIndex = 45
+        ' 
+        ' lblSize
+        ' 
+        lblSize.AutoSize = True
+        lblSize.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblSize.ForeColor = Color.White
+        lblSize.Location = New Point(536, 75)
+        lblSize.Name = "lblSize"
+        lblSize.Size = New Size(36, 20)
+        lblSize.TabIndex = 54
+        lblSize.Text = "Size"
+        ' 
+        ' txtSize
+        ' 
+        txtSize.Location = New Point(537, 96)
+        txtSize.Margin = New Padding(4, 3, 4, 3)
+        txtSize.Name = "txtSize"
+        txtSize.PlaceholderText = "Size"
+        txtSize.Size = New Size(193, 23)
+        txtSize.TabIndex = 53
         ' 
         ' Label3
         ' 
@@ -354,26 +374,6 @@ Partial Class frmInventory
         Guna2Button7.Size = New Size(128, 34)
         Guna2Button7.TabIndex = 26
         Guna2Button7.Text = "Logout"
-        ' 
-        ' txtSize
-        ' 
-        txtSize.Location = New Point(537, 96)
-        txtSize.Margin = New Padding(4, 3, 4, 3)
-        txtSize.Name = "txtSize"
-        txtSize.PlaceholderText = "Size"
-        txtSize.Size = New Size(193, 23)
-        txtSize.TabIndex = 53
-        ' 
-        ' lblSize
-        ' 
-        lblSize.AutoSize = True
-        lblSize.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblSize.ForeColor = Color.White
-        lblSize.Location = New Point(536, 75)
-        lblSize.Name = "lblSize"
-        lblSize.Size = New Size(36, 20)
-        lblSize.TabIndex = 54
-        lblSize.Text = "Size"
         ' 
         ' frmInventory
         ' 
